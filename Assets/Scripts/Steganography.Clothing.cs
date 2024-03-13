@@ -191,7 +191,7 @@ namespace viva
 
             sourceTexture.LoadRawTextureData(destData);
             yield return new WaitForSeconds(0.03f);
-            sourceTexture.Compress(false);
+            //sourceTexture.Compress(false);
             sourceTexture.Apply();
             sourceTexture.wrapMode = TextureWrapMode.Clamp;
 

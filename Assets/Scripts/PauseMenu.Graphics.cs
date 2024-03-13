@@ -77,12 +77,6 @@ namespace viva
             ApplyResolution();
         }
 
-        public void clickShiftReflectionDistance(int amount)
-        {
-            GameSettings.main.AdjustReflectionDistance(amount);
-            UpdateReflectionDistanceText();
-        }
-
         public void clickShiftFpsLimit(int amount)
         {
             GameSettings.main.AdjustFpsLimit(amount);
@@ -142,11 +136,6 @@ namespace viva
             GameSettings.main.toggleClouds = !GameSettings.main.toggleClouds;
             text.text = GameSettings.main.toggleClouds ? "Turn Off Clouds" : "Turn On Clouds";
             GameDirector.instance.RebuildCloudRendering();
-        }
-
-        private void UpdateReflectionDistanceText()
-        {
-            reflectionDistanceText.text = "" + GameSettings.main.reflectionDistance / 2 + "%";
         }
 
         private void UpdateFpsLimitText()

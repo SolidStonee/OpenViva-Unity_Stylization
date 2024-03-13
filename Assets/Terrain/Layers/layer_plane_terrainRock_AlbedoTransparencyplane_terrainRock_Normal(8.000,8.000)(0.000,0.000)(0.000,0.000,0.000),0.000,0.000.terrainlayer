@@ -7,10 +7,10 @@ TerrainLayer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: layer_plane_terrainRock_AlbedoTransparencyplane_terrainRock_Normal(8.000,8.000)(0.000,0.000)(0.000,0.000,0.000),0.000,0.000
-  m_DiffuseTexture: {fileID: 2800000, guid: 00f379800e7b28c469ba996a71d5d368, type: 3}
-  m_NormalMapTexture: {fileID: 2800000, guid: 4b59c785c67cb0c4ca02c9aa1a99e5f8, type: 3}
+  m_DiffuseTexture: {fileID: 2800000, guid: 95985f44cf9b6a44fb639f6f60627d74, type: 3}
+  m_NormalMapTexture: {fileID: 2800000, guid: 3e2464322ea6b3441933b32db990aff2, type: 3}
   m_MaskMapTexture: {fileID: 0}
-  m_TileSize: {x: 8, y: 8}
+  m_TileSize: {x: 2, y: 2}
   m_TileOffset: {x: 0, y: 0}
   m_Specular: {r: 0, g: 0, b: 0, a: 0}
   m_Metallic: 0

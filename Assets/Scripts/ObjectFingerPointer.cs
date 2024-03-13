@@ -226,16 +226,7 @@ namespace viva
             }
         }
 
-        public enum Gesture
-        {
-            FOLLOW,
-            PRESENT_START,
-            PRESENT_END,
-            HELLO,
-            MECHANISM,
-            WAIT,
-            STOP
-        }
+        
 
         [Header("Gestures")]
         [SerializeField]
@@ -273,12 +264,9 @@ namespace viva
             {
                 FireGesture(sourceHand, Gesture.FOLLOW);
             }
-            else if (GameDirector.player.controls != Player.ControlType.KEYBOARD)
+            else if (sourceHand.AttemptStop(head))
             {
-                if (sourceHand.AttemptStop(head))
-                {
-                    FireGesture(sourceHand, Gesture.STOP);
-                }
+                FireGesture(sourceHand, Gesture.STOP);
             }
             bool? presenting = sourceHand.AttemptPresent(head);
             if (presenting.HasValue)

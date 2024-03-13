@@ -36,7 +36,7 @@ namespace viva
             frameSave.rawDataString = Tools.Base64ByteArrayToString(RGB, 0, RGB.Length);
             frameSave.transformSave = new GameDirector.TransformSave(transform);
 
-            // vivaFile.serializedAssets.Add( frameSave );
+            //vivaFile.serializedAssets.Add( frameSave );
         }
 
         private static void LoadAsset()
@@ -47,17 +47,17 @@ namespace viva
             //     return;
             // }
             // GameObject container = GameObject.Instantiate( gameObjects[0], frameAsset.transformSave.position, frameAsset.transformSave.rotation );
-
+            //
             // byte[] rawData = Tools.StringToBase64ByteArray( frameAsset.rawDataString );
             // Texture2D tex = new Texture2D( frameAsset.size, frameAsset.size, TextureFormat.DXT1, false, true );
             // tex.LoadRawTextureData( rawData );
             // tex.Apply();
             // MeshRenderer mr = container.GetComponent( typeof(MeshRenderer) ) as MeshRenderer;
             // mr.materials[1].mainTexture = tex;
-
+            //
             // PolaroidFrame frame = container.GetComponent<PolaroidFrame>();
             // frame.photoSummary = frameAsset.photoSummary;
-
+            //
             // Rigidbody rigidBody = container.GetComponent(typeof(Rigidbody)) as Rigidbody;
             // rigidBody.useGravity = false;
             // rigidBody.freezeRotation = true;

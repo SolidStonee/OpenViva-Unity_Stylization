@@ -1,3 +1,4 @@
+using Steamworks.Data;
 using UnityEngine;
 
 
@@ -28,13 +29,82 @@ namespace viva
                     {
                         AttemptPlaySmackSound(self.leftHandState);
                     }
-                    GameDirector.player.CompleteAchievement(Player.ObjectiveType.WATER_REED_SMACK);
+                    GameDirector.player.CompleteAchievement(Player.ObjectiveType.WATER_REED_SMACK, new Achievement("WATER_REED_SMACK"));
                     if (Random.value > 0.5f && self.happiness == Loli.Happiness.VERY_ANGRY)
                     {
                         self.ShiftHappiness(1);
                     }
                 }
             }
+        }
+
+        public void StartCattailBehavior()
+        {
+            if (self.GetCurrentLookAtItem() != null && self.GetCurrentLookAtItem().settings.itemType == Item.Type.CHARACTER)
+            {
+                self.active.SetTask(this);
+                DoCattailBehavior();
+            }
+        }
+
+        private void DoCattailBehavior()
+        {
+
+            var empty = new AutonomyEmpty(self.autonomy, "empty");
+            var moveto = new AutonomyMoveTo(self.autonomy, "move to player", delegate (TaskTarget target)
+            {
+                target.SetTargetPosition(GameDirector.player.floorPos + Vector3.up * 0.1f);
+            }, 0.5f, BodyState.STAND);
+            var face = new AutonomyFaceDirection(self.autonomy, "face player", delegate (TaskTarget target)
+            {
+                target.SetTargetItem(GameDirector.player.headItem);
+            }, 2.0f);
+            empty.AddRequirement(moveto);
+            empty.AddRequirement(face);
+
+            moveto.onSuccess += delegate
+            {
+                Debug.Log("WTF");
+            };
+
+            empty.onSuccess += delegate
+            {
+                Debug.Log("SUCESSSSSSSSS");
+                if (Mathf.Abs(Tools.Bearing(self.transform, GameDirector.player.floorPos)) < 35.0f &&
+                self.IsCurrentAnimationIdle())
+                {
+
+                    int availableAttackMove = 0;
+                    if (self.rightHandState.heldItem != null &&
+                        self.rightHandState.heldItem.settings.itemType == Item.Type.WATER_REED)
+                    {
+                        availableAttackMove++;
+                    }
+                    if (self.leftHandState.heldItem != null &&
+                        self.leftHandState.heldItem.settings.itemType == Item.Type.WATER_REED)
+                    {
+                        availableAttackMove += 2;
+                    }
+                    self.SetLookAtTarget(GameDirector.player.head);
+                    self.locomotion.StopMoveTo();
+                    switch (availableAttackMove)
+                    {
+                        case 1:
+                            self.SetTargetAnimation(Loli.Animation.STAND_CATTAIL_SWING_RIGHT);
+                            break;
+                        case 2:
+                            self.SetTargetAnimation(Loli.Animation.STAND_CATTAIL_SWING_LEFT);
+                            break;
+                        case 3:
+                            float baseAnim = (float)Loli.Animation.STAND_CATTAIL_SWING_RIGHT;
+                            //increment to next SWING_LEFT if random value > 0.5
+                            self.SetTargetAnimation((Loli.Animation)(baseAnim + 0.5f + Random.value));
+                            break;
+                    }
+                }
+            };
+            self.autonomy.SetAutonomy(empty);
+
         }
 
         public override void OnDeactivate()
@@ -69,41 +139,7 @@ namespace viva
                 //self.autonomy.Interrupt(new AutonomyFaceDirection(self.autonomy, "face direction cattail", delegate (TaskTarget target)
                 //{
                 //    target.SetTargetPosition(GameDirector.player.floorPos);
-                //}, 3.0f));
-
-                //if facing player under 35 degrees bearing
-                if (Mathf.Abs(Tools.Bearing(self.transform, GameDirector.player.floorPos)) < 35.0f &&
-                    self.IsCurrentAnimationIdle())
-                {
-
-                    int availableAttackMove = 0;
-                    if (self.rightHandState.heldItem != null &&
-                        self.rightHandState.heldItem.settings.itemType == Item.Type.WATER_REED)
-                    {
-                        availableAttackMove++;
-                    }
-                    if (self.leftHandState.heldItem != null &&
-                        self.leftHandState.heldItem.settings.itemType == Item.Type.WATER_REED)
-                    {
-                        availableAttackMove += 2;
-                    }
-                    self.SetLookAtTarget(GameDirector.player.head);
-                    self.locomotion.StopMoveTo();
-                    switch (availableAttackMove)
-                    {
-                        case 1:
-                            self.SetTargetAnimation(Loli.Animation.STAND_CATTAIL_SWING_RIGHT);
-                            break;
-                        case 2:
-                            self.SetTargetAnimation(Loli.Animation.STAND_CATTAIL_SWING_LEFT);
-                            break;
-                        case 3:
-                            float baseAnim = (float)Loli.Animation.STAND_CATTAIL_SWING_RIGHT;
-                            //increment to next SWING_LEFT if random value > 0.5
-                            self.SetTargetAnimation((Loli.Animation)(baseAnim + 0.5f + Random.value));
-                            break;
-                    }
-                }
+                //}, 3.0f));                
             }
         }
     }

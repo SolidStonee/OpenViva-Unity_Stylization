@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace viva
 {
@@ -54,6 +55,7 @@ namespace viva
         public bool physicsFrame { get; private set; } = false;
         public static InputManager input { get; private set; }
 
+        public List<GameObject> spawnablePrefabs;
 
         public void AddOnFinishLoadingCallback(OnVivaFileCallback callback)
         {

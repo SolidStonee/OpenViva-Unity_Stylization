@@ -1,4 +1,5 @@
 using System.Collections;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -89,6 +90,8 @@ namespace viva
                 onFinished?.Invoke();
                 yield break;
             }
+            byte[] pngShot = ImageConversion.EncodeToPNG(clothingCardRequest.result.texture);
+            //File.WriteAllBytes(screengrabfile_path, pngShot);
 
             request.clothingOverride = new Outfit.ClothingOverride(clothingCardRequest.result.texture, request.filename);
             onFinished?.Invoke();
@@ -148,6 +151,14 @@ namespace viva
             EndLoadClothingCard(null);
 
             GameDirector.instance.StartCoroutine(FlashCardUIElement(sourceButton.GetComponent<Image>()));
+            string Path = Application.dataPath.Replace("Assets", "") + "ExportedCards/";
+            Debug.Log(Path + clothingCardRequest.result.clothingTextureName.Replace(" ", "").Replace("shoe", "").Replace("spat", "").Replace("pant", "").Replace("-", "").Replace("shir", "").Trim() + ".png".Trim());
+            if (!Directory.Exists(Path))
+            {
+                Directory.CreateDirectory(Path);
+            }
+            byte[] pngShot = ImageConversion.EncodeToPNG(clothingCardRequest.result.texture);
+            File.WriteAllBytes(Path + clothingCardRequest.result.clothingTextureName.Replace(" ", "").Replace("shoe", "").Replace("spat", "").Replace("pant", "").Replace("-", "").Replace("shir", "").Trim() + ".png".Trim(), pngShot);
 
             ModelCustomizer.main.PlaySpawnSound();
         }

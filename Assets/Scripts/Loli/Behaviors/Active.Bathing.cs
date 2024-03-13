@@ -1,3 +1,4 @@
+using Steamworks.Data;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -771,13 +772,13 @@ namespace viva
             return true;
         }
 
-        public override bool OnGesture(Item source, ObjectFingerPointer.Gesture gesture)
+        public override bool OnGesture(Item source, Gesture gesture)
         {
             if (bathtub == null)
             {   //should be in NONE bathingPhase
                 return false;
             }
-            if (gesture == ObjectFingerPointer.Gesture.FOLLOW)
+            if (gesture == Gesture.FOLLOW)
             {
 
                 bool playerIsOnRightSide = bathtub.IsClosestEdgeRightSide(GameDirector.player.transform.position);
@@ -1050,7 +1051,7 @@ namespace viva
             if (percent >= 1.0f)
             {
                 self.IncreaseDirt(-1.0f);
-                GameDirector.player.CompleteAchievement(Player.ObjectiveType.WASH_HAIR);
+                GameDirector.player.CompleteAchievement(Player.ObjectiveType.WASH_HAIR, new Achievement("WASH_HAIR"));
                 bubbleMeterMR.material = self.active.settings.bubbleMeterLevel3;
                 TutorialManager.main.DisplayHint(
                     null,

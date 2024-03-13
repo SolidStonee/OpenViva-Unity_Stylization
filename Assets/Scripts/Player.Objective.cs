@@ -1,4 +1,6 @@
-﻿namespace viva
+﻿using Steamworks.Data;
+
+namespace viva
 {
 
 
@@ -71,8 +73,9 @@
         {
             return objectives[(int)type];
         }
-        public void CompleteAchievement(ObjectiveType objective)
+        public void CompleteAchievement(ObjectiveType objective, Achievement ach)
         {
+            ach.Trigger();
 
             if (IsAchievementComplete(objective))
             {

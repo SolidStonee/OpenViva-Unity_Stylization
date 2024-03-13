@@ -129,7 +129,7 @@ namespace viva
             activeBehaviors[(int)task.type] = task;
         }
 
-        public void OnGesture(Item source, ObjectFingerPointer.Gesture gesture)
+        public void OnGesture(Item source, Gesture gesture)
         {
             //Find accepted gesture in reverse order
             //prioritize the active behavior EXCEPT for idle (always lowest priority)

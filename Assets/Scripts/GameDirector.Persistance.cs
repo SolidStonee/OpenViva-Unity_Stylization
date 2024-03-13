@@ -25,7 +25,6 @@ namespace viva
         public int qualityLevel = 2;
         public int shadowLevel = 3;
         public int antiAliasing = 2;
-        public int reflectionDistance = 100;
         public float lodDistance = 1.0f;
         public int fpsLimit = 90;
         public bool fullScreen = false;
@@ -50,12 +49,7 @@ namespace viva
             float maxRefreshTimeout = currQuality >= 1 ? 0 : 8;
             int resolution = currQuality <= 1 ? 16 : 64;
 
-            Vector3 newSize = new Vector3(reflectionDistance, reflectionDistance, reflectionDistance);
-            GameDirector.player.realtimeReflectionController.enabled = enableRealtimeReflections;
-            GameDirector.player.realtimeReflectionController.reflectionProbe.resolution = resolution;
-            GameDirector.player.realtimeReflectionController.refreshTimeout = refreshTimeout;
-            GameDirector.player.realtimeReflectionController.maxRefreshTimeout = maxRefreshTimeout;
-            GameDirector.player.realtimeReflectionController.reflectionProbe.size = newSize;
+
             QualitySettings.antiAliasing = antiAliasing;
             QualitySettings.vSyncCount = vSync ? 1 : 0;     
             QualitySettings.lodBias = lodDistance;
@@ -78,7 +72,7 @@ namespace viva
             qualityLevel = copy.qualityLevel;
             shadowLevel = copy.shadowLevel;
             antiAliasing = copy.antiAliasing;
-            reflectionDistance = copy.reflectionDistance;
+
             lodDistance = copy.lodDistance;
             fpsLimit = copy.fpsLimit;
             vSync = copy.vSync;
@@ -134,15 +128,6 @@ namespace viva
         public void SetMusicVolume(float percent)
         {
             musicVolume = Mathf.Clamp01(percent);
-        }
-        public void AdjustReflectionDistance(int direction)
-        {
-            SetReflectionDistance(reflectionDistance + direction);
-            Apply();
-        }
-        public void SetReflectionDistance(int amount)
-        {           
-            reflectionDistance = Mathf.Clamp(amount, 0, 250);
         }
         public void AdjustFpsLimit(int direction)
         {

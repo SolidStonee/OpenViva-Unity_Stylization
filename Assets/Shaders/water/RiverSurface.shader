@@ -12,7 +12,7 @@ Shader "Water/RiverSurface"
         _FlowSpeed ("Flow Speed", Range(0.,4.)) = 2.
         _DirtScale ("Dirt Scale", Range(0.,0.2)) = 0.15
         _DirtAmount ("Dirt Choke", Range(0.,1.0)) = 0.05
-        _SpecStrength ("Spec Strength", Range(2.0,64.0)) = 0.9
+        _SpecStrength ("Spec Strength", Range(0.0,64.0)) = 0.9
         _DirtDistortion ("Dirt Distortion", Range(0.,0.1)) = 0.02
     }
 
@@ -155,7 +155,7 @@ Shader "Water/RiverSurface"
                 fixed3 color = lerp( water, foam, foamAlpha )+_LightColor0*spec;
                 color = lerp( color, moss.rgb, dirtAlpha );
 				UNITY_APPLY_FOG(i.fogCoord, color);
-                // return fixed4( color, 1. );
+                //return fixed4( color, 1. );
                 return fixed4( color, saturate( 0.5+i.depthDirtFoam.r*0.5+dirtAlpha ) );
 			}
 			ENDCG

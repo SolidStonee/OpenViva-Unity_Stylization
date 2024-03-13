@@ -49,7 +49,7 @@ namespace viva
             }
             else
             {
-                hintMessage = "Physically rub your hands together to make your hands soapy to wash the loli's hair";
+                hintMessage = "Physically rub your hands together to make your hands soapy to wash the characters hair";
             }
             TutorialManager.main.DisplayHint(
                 transform,

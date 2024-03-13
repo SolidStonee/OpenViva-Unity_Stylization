@@ -17,6 +17,7 @@ namespace viva
         public Vector2 mouseVelocity { get; private set; }
         public Vector2 mouseVelocitySum = Vector2.zero;
         public Vector3 mousePosition { get; private set; } = Vector2.zero;
+        public Vector2 handScrolling { get; private set; }
         public bool keyboardAlt { get; private set; } = false;
 
         [SerializeField]
@@ -39,9 +40,6 @@ namespace viva
         public Rigidbody headRigidBody;
         [SerializeField]
         private GameObject keyboardHelperItemDetector;
-        [SerializeField]
-        private RealtimeReflectionController m_realtimeReflectionController;
-        public RealtimeReflectionController realtimeReflectionController { get { return m_realtimeReflectionController; } }
         [SerializeField]
         private PlayerHeadState m_playerHeadState;
         public PlayerHeadState playerHeadState { get { return m_playerHeadState; } }
@@ -159,17 +157,15 @@ namespace viva
         {
             var vivaControls = GameDirector.input.actions;
             vivaControls.Enable();
-            rightPlayerHandState.InitializeUnityInputControls( vivaControls );
-            leftPlayerHandState.InitializeUnityInputControls( vivaControls );
-            // rightPlayerHandState.InitializeDeprecatedMKBInput(vivaControls);
-            // leftPlayerHandState.InitializeDeprecatedMKBInput(vivaControls);
-
+            rightPlayerHandState.InitializeInputControls( vivaControls );
+            leftPlayerHandState.InitializeInputControls( vivaControls );
             vivaControls.Keyboard.movement.performed += ctx => movement = ctx.ReadValue<Vector2>();
             vivaControls.Keyboard.keyboardAlt.performed += ctx => keyboardAlt = ctx.ReadValueAsButton();
             vivaControls.Keyboard.keyboardAlt.canceled += ctx => keyboardAlt = ctx.ReadValueAsButton();
             vivaControls.Keyboard.mouseVelocity.performed += ctx => mouseVelocity = ctx.ReadValue<Vector2>();
             vivaControls.Keyboard.mousePosition.performed += ctx => mousePosition = ctx.ReadValue<Vector2>();
-
+            vivaControls.Keyboard.handScrolling.performed += ctx => handScrolling = ctx.ReadValue<Vector2>();
+                
             vivaControls.Keyboard.wave.performed += ctx => OnInputWaveRightHand();
             vivaControls.Keyboard.follow.performed += ctx => OnInputFollowRightHand();
             vivaControls.Keyboard.stop.performed += ctx => OnInputStopHand();
@@ -185,16 +181,9 @@ namespace viva
 
         public void SetCrosshair(bool enabled)
         {
-            if (enabled)
+            if (enabled && controls != ControlType.VR)
             {
-                if (controls == ControlType.VR)
-                {
-                    return;
-                }
-                else
-                {
-                    crosshair.SetActive(true);
-                }
+                crosshair.SetActive(true);
             }
             else
             {
@@ -229,6 +218,8 @@ namespace viva
         public override void OnCharacterFixedUpdate()
         {
 
+            Debug.Log(handScrolling);
+            
             animator.Update(Time.fixedDeltaTime);
             FixedUpdateKeyboardHandAnimationEvents();
             FixedUpdateHandAnimationSystems();
@@ -277,7 +268,6 @@ namespace viva
             rightPlayerHandState.ApplyPhysicsTransform();
             leftPlayerHandState.ApplyPhysicsTransform();
 
-            //TODO: REMOVE
             if (transform.position.y < 0.0f)
             {
                 transform.position = new Vector3(62.34f, 144.57f, 325.11f);

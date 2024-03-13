@@ -12,9 +12,9 @@ namespace viva
         {
         }
 
-        public override bool OnGesture(Item source, ObjectFingerPointer.Gesture gesture)
+        public override bool OnGesture(Item source, Gesture gesture)
         {
-            if (gesture == ObjectFingerPointer.Gesture.FOLLOW)
+            if (gesture == Gesture.FOLLOW)
             {
                 return AttemptFollow(source);
             }

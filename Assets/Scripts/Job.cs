@@ -51,7 +51,7 @@
             public virtual void OnLateUpdate() { }
             public virtual void OnLateUpdatePreLookAt() { }
             public virtual void OnLateUpdatePostIK() { }
-            public virtual bool OnGesture(Item source, ObjectFingerPointer.Gesture gesture)
+            public virtual bool OnGesture(Item source, Gesture gesture)
             {
                 return false;
             }

@@ -132,9 +132,9 @@ namespace viva
             }
         }
 
-        public override bool OnGesture(Item source, ObjectFingerPointer.Gesture gesture)
+        public override bool OnGesture(Item source, Gesture gesture)
         {
-            if (gesture == ObjectFingerPointer.Gesture.HELLO)
+            if (gesture == Gesture.HELLO)
             {
                 if (self.IsCurrentAnimationIdle() &&
                     self.CanSeePoint(source.transform.position))

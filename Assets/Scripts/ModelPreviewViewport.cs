@@ -221,37 +221,19 @@ namespace viva
 
         private void UpdateCameraTransformKeyboardInputs()
         {
-            float speed;
-            if (GameDirector.player.keyboardAlt)
+            float speed = GameDirector.player.keyboardAlt ? 0.05f : 0.01f;
+            
+            float rotationDirection = GameDirector.player.movement.x != 0.0f ? (GameDirector.player.movement.x < 0.0f ? 1 : -1) : 0;
+            transform.rotation *= Quaternion.Euler(0.0f, rotationDirection * speed * Mathf.Rad2Deg, 0.0f);
+            
+            float heightAdjustment = 0.0f;
+            if (GameDirector.player.movement.y != 0.0f)
             {
-                speed = 0.05f;
-            }
-            else
-            {
-                speed = 0.01f;
-            }
-            // if( GameDirector.player.qButtonState.isHeldDown InputOLD.GetKey( KeyCode.Q ) ){
-            //     currentRadius = Mathf.Max( currentRadius-speed, 0.1f );
-            // }else if( InputOLD.GetKey( KeyCode.E) ){
-            //     currentRadius = Mathf.Min( currentRadius+speed, 4.0f );
-            // }
-            if (GameDirector.player.movement.x < 0.0f)
-            {
-                transform.rotation *= Quaternion.Euler(0.0f, speed * Mathf.Rad2Deg, 0.0f);
-            }
-            else if (GameDirector.player.movement.x > 0.0f)
-            {
-                transform.rotation *= Quaternion.Euler(0.0f, -speed * Mathf.Rad2Deg, 0.0f);
-            }
-            if (GameDirector.player.movement.y > 0.0f)
-            {
-                currentHeight = Mathf.Min(currentHeight + speed * 0.7f, 4.0f);
-            }
-            else if (GameDirector.player.movement.y < 0.0f)
-            {
-                currentHeight = Mathf.Max(currentHeight - speed * 0.7f, -4.0f);
+                heightAdjustment = GameDirector.player.movement.y > 0.0f ? speed * 0.7f : -speed * 0.7f;
+                currentHeight = Mathf.Clamp(currentHeight + heightAdjustment, -4.0f, 4.0f);
             }
         }
+
 
         private void UpdateCameraTransform()
         {

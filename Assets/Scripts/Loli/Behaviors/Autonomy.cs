@@ -174,7 +174,7 @@ namespace viva
                 }
                 autonomy = _autonomy;
             }
-            public virtual bool OnGesture(Item source, ObjectFingerPointer.Gesture gesture)
+            public virtual bool OnGesture(Item source, Gesture gesture)
             {
                 return false;
             }
@@ -346,6 +346,10 @@ namespace viva
         {
         }
 
+        /// <summary>
+        /// This allows you to set the active task (DO NOT USE IN A UPDATE METHOD)
+        /// </summary>
+        /// <param name="task"></param>
         public void SetAutonomy(Task task)
         {
             if (task == null)

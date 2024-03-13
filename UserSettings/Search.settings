@@ -1,4 +1,5 @@
 trackSelection = true
+refreshSearchWindowsInPlayMode = false
 fetchPreview = true
 defaultFlags = 0
 keepOpen = false
@@ -7,12 +8,26 @@ onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
-	"last_search.B655092D" = "st:Inform"
+	"last_search.B655092D" = "st:Back"
 	"OpenInspectorPreview.B655092D" = "0"
 	"currentGroup.B655092D" = "all"
 	"last_search.B655095F" = "at:"
 	"OpenInspectorPreview.B655095F" = "0"
 	"currentGroup.B655095F" = "all"
+	"last_search.77886669" = ""
+	"OpenInspectorPreview.77886669" = "0"
+	"currentGroup.77886669" = "asset"
+	"last_search.3BE404DF" = "probe"
+	"OpenInspectorPreview.3BE404DF" = "0"
+	"currentGroup.3BE404DF" = "scene"
+	"last_search.110DEAA3" = "probe"
+	"OpenInspectorPreview.110DEAA3" = "0"
+	"currentGroup.110DEAA3" = "scene"
+	"picker_window_position_offset.74AD8FDB" = "677;281;320;550"
+	"picker_search_text.74AD8FDB" = "splash"
+	"last_search.74AD8FDB" = "splash"
+	"OpenInspectorPreview.74AD8FDB" = "0"
+	"currentGroup.74AD8FDB" = "all"
 }
 providers = {
 	at = {
@@ -65,18 +80,27 @@ providers = {
 		priority = 50
 		defaultAction = null
 	}
+	profilermarkers = {
+		active = false
+		priority = 100
+		defaultAction = null
+	}
 }
 objectSelectors = {
 }
 recentSearches = [
+	"p"
 ]
 searchItemFavorites = [
 ]
 savedSearchesSortOrder = 0
 showSavedSearchPanel = false
+hideTabs = false
 expandedQueries = [
 ]
 queryBuilder = false
 ignoredProperties = "id;name;classname;imagecontentshash"
 helperWidgetCurrentArea = "all"
 disabledIndexers = ""
+minIndexVariations = 2
+findProviderIndexHelper = true

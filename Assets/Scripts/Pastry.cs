@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Steamworks.Data;
+using UnityEngine;
+using Color = UnityEngine.Color;
 
 namespace viva
 {
@@ -96,7 +98,7 @@ namespace viva
                 {
                     FinishBaking();
                     oven.playBakedReadySound();
-                    GameDirector.player.CompleteAchievement(Player.ObjectiveType.BAKE_A_PASTRY);
+                    GameDirector.player.CompleteAchievement(Player.ObjectiveType.BAKE_A_PASTRY, new Achievement("HOLD_HANDS_AND_WALK"));
                     return;
                 }
                 else if (timeBaked >= timeToBakeFully + 12.0f)

@@ -123,6 +123,14 @@ MonoBehaviour:
     m_Key: GrabToggleOff
     m_Metadata:
       m_Items: []
+  - m_Id: 52186063383289856
+    m_Key: PressTurn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52186933969805312
+    m_Key: TouchTurn
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -1,4 +1,4 @@
-﻿Shader "Effects/candleFlame"
+﻿Shader "Viva/Effects/candleFlame"
 {
 	Properties
 	{

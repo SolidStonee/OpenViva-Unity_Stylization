@@ -90,6 +90,22 @@ MonoBehaviour:
     m_Localized: hat
     m_Metadata:
       m_Items: []
+  - m_Id: 34636126970793984
+    m_Localized: Play Tutorial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34637501242888192
+    m_Localized: Problems?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34639683371487232
+    m_Localized: Manual
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34640038163468288
+    m_Localized: Topics
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

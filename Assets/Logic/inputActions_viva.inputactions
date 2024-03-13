@@ -60,6 +60,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "stop",
+                    "type": "Button",
+                    "id": "c219a71f-9664-48f7-85c4-cdd667ddffa4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "pauseButton",
                     "type": "Button",
                     "id": "129a5773-95ca-458a-9933-461d91e93a65",
@@ -159,13 +168,13 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "stop",
-                    "type": "Button",
-                    "id": "c219a71f-9664-48f7-85c4-cdd667ddffa4",
-                    "expectedControlType": "Button",
+                    "name": "handScrolling",
+                    "type": "Value",
+                    "id": "86e8c453-635b-4596-9021-35838dc22cb4",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -430,6 +439,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "stop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8678a7c4-3a2f-4a39-aa58-dda8271f4c43",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "handScrolling",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -125,7 +125,7 @@ namespace viva
 
         protected override void OnFootstep()
         {
-            bool isBathing = active.bathing.GetBathingPhase() != BathingBehavior.BathingPhase.NONE;
+            bool isBathing = active.bathing.GetBathingPhase() != BathingBehavior.BathingPhase.NONE || active.onsenSwimming.isSwimming;
             bool touchingDirtyWater = !isBathing && footstepInfo.currentType == FootstepInfo.Type.WATER;
             if (footstepInfo.currentType == FootstepInfo.Type.DIRT || touchingDirtyWater)
             {

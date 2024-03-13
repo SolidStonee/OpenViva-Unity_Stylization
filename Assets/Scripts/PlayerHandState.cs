@@ -78,7 +78,7 @@ namespace viva
         private Vector3? freezeKeyboardLocalPosition = null;
         private Quaternion freezeKeyboardLocalRotation = Quaternion.identity;
 
-        public void InitializeUnityInputControls( InputActions_viva vivaControls ){
+        public void InitializeInputControls( InputActions_viva vivaControls ){
             Player player = owner as Player;
 
             if (vivaControlsBinded)
@@ -510,8 +510,8 @@ namespace viva
 
             if (freezeKeyboardLocalPosition.HasValue)
             {
-                fingerAnimator.wrist.position = owner.head.TransformPoint(freezeKeyboardLocalPosition.Value);
-                fingerAnimator.wrist.rotation = owner.head.rotation * freezeKeyboardLocalRotation;
+                //fingerAnimator.wrist.position = owner.head.TransformPoint(freezeKeyboardLocalPosition.Value);
+                //fingerAnimator.wrist.rotation = owner.head.rotation * freezeKeyboardLocalRotation;
             }
 
             Vector3 targetRigidBodyPos = fingerAnimator.wrist.position;

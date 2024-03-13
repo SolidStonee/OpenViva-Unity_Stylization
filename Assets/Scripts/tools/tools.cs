@@ -274,6 +274,20 @@ namespace viva
             return reference.InverseTransformPoint(p).z > 0 ? 1 : -1;
         }
 
+        public static PlayerHandState GetPlayerHandStateFromString(string hand)
+        {
+            switch (hand)
+            {
+                case "right":
+                    return GameDirector.player.rightPlayerHandState;
+                case "left":
+                    return GameDirector.player.leftPlayerHandState;
+                default:
+                    Debug.LogError("HandState was null from string! Did you spell it incorrectly?");
+                    return null;
+            }            
+        }
+
         public static T NearestCharacter<T>(List<T> list, Vector3 target) where T : Character
         {
             float leastSqDist = Mathf.Infinity;

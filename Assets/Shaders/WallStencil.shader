@@ -1,48 +1,65 @@
-﻿Shader "Surface/WallStencil" {
-
-     Properties {
-         _MainTex ("Base (RGB) Trans (A)", 2D) = "white" {}
-         _Smoothness ("Smoothness", Range(0,1)) = 1.0
-         _Cutoff ("Alpha cutoff", Range(0,1)) = 0.5
-         _AlphaMult ("Alpha Multiply", Range(0,1)) = 1.0
-     }
-
-     SubShader {
-        
-        Tags {
-             "RenderType"="Transparent"
-             "Queue"="AlphaTest"
-             "PhotoData"="Opaque"
-        }
+﻿Shader "Viva/Surface/WallStencil"
+{
+    Properties
+    {
+        _MainTex ("Base (RGB) Trans (A)", 2D) = "white" {}
+        _Smoothness ("Smoothness", Range(0,1)) = 1.0
+        _Cutoff ("Alpha cutoff", Range(0,1)) = 0.5
+        _AlphaMult ("Alpha Multiply", Range(0,1)) = 1.0
+    }
+    SubShader
+    {
+        Tags { "RenderType"="Transparent" "Queue"="AlphaTest" }
 
         LOD 200
-		Blend One OneMinusDstAlpha 
+        Blend One OneMinusDstAlpha
 
-        CGPROGRAM
+        Pass
+        {
+            Name "ForwardBase"
+            
+            Tags { "LightMode"="UniversalForward" }
 
-        #pragma surface surf Standard alpha
+            HLSLPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
-        sampler2D _MainTex;
-        fixed _Smoothness;
-		fixed _Cutoff;
-		fixed _AlphaMult;
+            struct Attributes
+            {
+                float3 positionOS : POSITION;
+                float2 uv : TEXCOORD0;
+            };
 
-        struct Input {
-            float2 uv_MainTex;
-        };
-        
-        void surf (Input IN, inout SurfaceOutputStandard o) {            
-            fixed4 c = tex2D (_MainTex, IN.uv_MainTex);
-			if( c.a < _Cutoff ){
-				discard;
-			}
-            o.Albedo = c.rgb;
-			o.Alpha = c.a*_AlphaMult;
-            o.Smoothness = _Smoothness;
+            struct Varyings
+            {
+                float4 positionHCS : SV_POSITION;
+                float2 uv : TEXCOORD0;
+            };
+
+            TEXTURE2D(_MainTex);
+            SAMPLER(sampler_MainTex);
+            float _Smoothness;
+            float _Cutoff;
+            float _AlphaMult;
+
+            Varyings vert(Attributes IN)
+            {
+                Varyings OUT;
+                OUT.positionHCS = TransformObjectToHClip(IN.positionOS);
+                OUT.uv = IN.uv;
+                return OUT;
+            }
+
+            half4 frag(Varyings IN) : SV_Target
+            {
+                half4 c = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv);
+                clip(c.a - _Cutoff); // Discard the fragment if alpha is less than _Cutoff
+                c.a *= _AlphaMult; // Apply alpha multiplication
+                return half4(c.rgb, c.a * _Smoothness); // Return color with modified alpha
+            }
+            ENDHLSL
         }
-
-        ENDCG
-     }
-    //  FallBack "Transparent/Cutout/Diffuse"
-
- }
+    }
+    // FallBack "Universal Render Pipeline/Lit"
+}

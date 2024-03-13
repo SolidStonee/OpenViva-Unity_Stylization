@@ -68,7 +68,7 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 17408798121349120
     m_Localized: "WASD - Hareket\nVardi+T\u0131klamak - E\u015Fyay\u0131 b\u0131rak\nCrtl
-      - E\u011Fil\nR - El salla\nF - Buraya gel\nQE - Elini uzat"
+      - E\u011Fil\nR - El salla\nF - Buraya gel\nG - Durmak\nQE - Elini uzat"
     m_Metadata:
       m_Items: []
   - m_Id: 17412603294601216

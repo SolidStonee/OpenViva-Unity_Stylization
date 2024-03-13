@@ -231,9 +231,9 @@ namespace viva
             self.active.SetTask(self.active.idle, succeededTask);
         }
 
-        public override bool OnGesture(Item source, ObjectFingerPointer.Gesture gesture)
+        public override bool OnGesture(Item source, Gesture gesture)
         {
-            if (gesture == ObjectFingerPointer.Gesture.HELLO)
+            if (gesture == Gesture.HELLO)
             {
                 if (source.settings.itemType == Item.Type.CHARACTER)
                 {

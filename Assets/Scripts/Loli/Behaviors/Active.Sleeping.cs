@@ -96,9 +96,9 @@ namespace viva
             return true;
         }
 
-        public override bool OnGesture(Item source, ObjectFingerPointer.Gesture gesture)
+        public override bool OnGesture(Item source, Gesture gesture)
         {
-            if (gesture == ObjectFingerPointer.Gesture.FOLLOW)
+            if (gesture == Gesture.FOLLOW)
             {
                 if (phase == SleepingPhase.AWAKE_ON_BED)
                 {

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Steamworks.Data;
+using UnityEngine;
 
 
 namespace viva
@@ -103,7 +104,7 @@ namespace viva
             switch (newAnim)
             {
                 case Loli.Animation.STAND_REACT_PERV_FRONT_IN:
-                    GameDirector.player.CompleteAchievement(Player.ObjectiveType.LOOK_UP_SKIRT);
+                    GameDirector.player.CompleteAchievement(Player.ObjectiveType.LOOK_UP_SKIRT, new Achievement("LOOK_UP_SKIRT"));
                     self.rightHandState.AttemptDrop();
                     self.leftHandState.AttemptDrop();
                     self.ShiftHappiness(-2);

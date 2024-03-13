@@ -119,27 +119,27 @@ namespace viva
             m_animationInfos[Animation.IDLE] = new PlayerAnimationInfo(Animator.StringToHash("player_idle_loop"), 0.15f, Priority.LOW, Animation.IDLE, 0.0f);
             m_animationInfos[Animation.GESTURE_COME] = new PlayerAnimationInfo(Animator.StringToHash("player_gesture_come"), duration, Priority.LOW, Animation.IDLE, 1.0f,
                 new PlayerAnimationEvent[]{
-                new PlayerAnimationEvent( 0.5f ,(int)AnimationEventName.FIRE_GESTURE, new float[]{ 1, (int)ObjectFingerPointer.Gesture.FOLLOW } )
+                new PlayerAnimationEvent( 0.5f ,(int)AnimationEventName.FIRE_GESTURE, new float[]{ 1, (int)Gesture.FOLLOW } )
                 }
             );
             m_animationInfos[Animation.GESTURE_STOP] = new PlayerAnimationInfo(Animator.StringToHash("player_gesture_stop"), duration, Priority.LOW, Animation.IDLE, 1.0f,
                 new PlayerAnimationEvent[]{
-                new PlayerAnimationEvent( 0.5f ,(int)AnimationEventName.FIRE_GESTURE, new float[]{ 1, (int)ObjectFingerPointer.Gesture.STOP } )
+                new PlayerAnimationEvent( 0.5f ,(int)AnimationEventName.FIRE_GESTURE, new float[]{ 1, (int)Gesture.STOP } )
                 }
             );
             m_animationInfos[Animation.GESTURE_WAVE] = new PlayerAnimationInfo(Animator.StringToHash("player_gesture_wave"), duration, Priority.LOW, Animation.IDLE, 1.0f,
                 new PlayerAnimationEvent[]{
-                new PlayerAnimationEvent( 0.5f ,(int)AnimationEventName.FIRE_GESTURE, new float[]{ 1, (int)ObjectFingerPointer.Gesture.HELLO } )
+                new PlayerAnimationEvent( 0.5f ,(int)AnimationEventName.FIRE_GESTURE, new float[]{ 1, (int)Gesture.HELLO } )
                 }
             );
             m_animationInfos[Animation.GESTURE_PRESENT_RIGHT] = new PlayerAnimationInfo(Animator.StringToHash("player_gesture_present"), duration, Priority.LOW, Animation.GESTURE_PRESENT_RIGHT, 0.0f,
                 new PlayerAnimationEvent[]{
-                new PlayerAnimationEvent( 1.0f ,(int)AnimationEventName.FIRE_GESTURE, new float[]{ 1, (int)ObjectFingerPointer.Gesture.PRESENT_START } )
+                new PlayerAnimationEvent( 1.0f ,(int)AnimationEventName.FIRE_GESTURE, new float[]{ 1, (int)Gesture.PRESENT_START } )
                 }
             );
             m_animationInfos[Animation.GESTURE_PRESENT_LEFT] = new PlayerAnimationInfo(Animator.StringToHash("player_gesture_present"), duration, Priority.LOW, Animation.GESTURE_PRESENT_LEFT, 0.0f,
                 new PlayerAnimationEvent[]{
-                new PlayerAnimationEvent( 1.0f ,(int)AnimationEventName.FIRE_GESTURE, new float[]{ 0, (int)ObjectFingerPointer.Gesture.PRESENT_START } )
+                new PlayerAnimationEvent( 1.0f ,(int)AnimationEventName.FIRE_GESTURE, new float[]{ 0, (int)Gesture.PRESENT_START } )
                 }
             );
             m_animationInfos[Animation.CAMERA] = new PlayerAnimationInfo(Animator.StringToHash("player_camera"), duration, Priority.LOW, Animation.CAMERA, 0.0f);

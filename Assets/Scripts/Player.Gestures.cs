@@ -11,7 +11,7 @@
 
             if (controls == ControlType.KEYBOARD)
             {
-                return; //GESTURES NOT ALLOWED FOR KEYBOARD MODE DUE TO LOWER PRECISION FROM LOWER FRAMERATE
+                return;
             }
             CheckForGestures(rightPlayerHandState, objectFingerPointer.rightGestureHand);
             CheckForGestures(leftPlayerHandState, objectFingerPointer.leftGestureHand);

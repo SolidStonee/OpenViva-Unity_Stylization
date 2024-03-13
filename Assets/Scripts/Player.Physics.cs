@@ -45,7 +45,6 @@ namespace viva
             Item colliderItem = collision.collider.gameObject.GetComponent(typeof(Item)) as Item;
             if (colliderItem == null)
             {
-
                 switch (ccc.collisionPart)
                 {
                     case CharacterCollisionCallback.Type.HEAD:
@@ -58,7 +57,6 @@ namespace viva
                         CheckExitRegion(collision.collider);
                         break;
                 }
-                return;
             }
         }
 

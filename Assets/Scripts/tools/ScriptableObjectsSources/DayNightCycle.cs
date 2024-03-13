@@ -23,7 +23,6 @@ namespace viva
             public Color nightSky = Color.black;
             public Color cloudColorA = Color.grey;
             public Color cloudColorB = Color.white;
-            public Cubemap environmentMap;
             public Color fogColor;
         }
 

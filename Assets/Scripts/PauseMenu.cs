@@ -275,7 +275,6 @@ namespace viva
                     UpdateToggleQualityText();
                     UpdateAntiAliasingText();
                     UpdateShadowLevelText();
-                    UpdateReflectionDistanceText();
                     UpdateResolutionText();
                     UpdateVsyncText();
                     UpdateFpsLimitText();
@@ -402,6 +401,11 @@ namespace viva
             Application.OpenURL("https://discord.gg/NFXNZgwpjd");
         }
 
+        public void clickPatreon()
+        {
+            Application.OpenURL("https://patreon.com/OpenViva");
+        }
+
         public void clickSaveAndQuitGame(bool save)
         {
             if (save)
@@ -484,7 +488,7 @@ namespace viva
         private void UpdateVRMovementPrefText()
         {
             Text buttonText = GetRightPageUIByMenu(Menu.VR_CONTROLS).transform.Find("TrackpadPref").GetChild(0).GetComponent(typeof(Text)) as Text;
-            buttonText.text = GameSettings.main.trackpadMovementUseRight ? "Using Right Handed" : "Using Left Handed";
+            buttonText.text = GameSettings.main.trackpadMovementUseRight ? LocalizationManager.GetLocalizedStringFromTable("PauseMenu", "RightHandMode") : LocalizationManager.GetLocalizedStringFromTable("PauseMenu", "LeftHandMode");
         }
         public void clickSwitchControlScheme()
         {
@@ -556,13 +560,13 @@ namespace viva
         private void UpdateDisableGrabToggleText()
         {
             Text buttonText = GetRightPageUIByMenu(Menu.VR_CONTROLS).transform.Find("Disable Grab Toggle").GetChild(0).GetComponent(typeof(Text)) as Text;
-            buttonText.text = GameSettings.main.disableGrabToggle ? "Grab Toggle is off" : "Grab Toggle is on";
+            buttonText.text = GameSettings.main.disableGrabToggle ? LocalizationManager.GetLocalizedStringFromTable("PauseMenu", "GrabToggleOff") : LocalizationManager.GetLocalizedStringFromTable("PauseMenu", "GrabToggleOn");
         }
 
         private void UpdatePressToTurnText()
         {
             Text buttonText = GetRightPageUIByMenu(Menu.VR_CONTROLS).transform.Find("Turning requires press").GetChild(0).GetComponent(typeof(Text)) as Text;
-            buttonText.text = GameSettings.main.pressToTurn ? "Using Press to Turn" : "Using Touch to Turn";
+            buttonText.text = GameSettings.main.pressToTurn ? LocalizationManager.GetLocalizedStringFromTable("PauseMenu", "PressTurn") : LocalizationManager.GetLocalizedStringFromTable("PauseMenu", "TouchTurn");
         }
 
         public void clickTogglePressToTurn()

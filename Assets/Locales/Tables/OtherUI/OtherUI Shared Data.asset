@@ -87,6 +87,23 @@ MonoBehaviour:
     m_Key: Hat
     m_Metadata:
       m_Items: []
+  - m_Id: 34636126970793984
+    m_Key: pauseMenuBook/Prefab Mode in Context/pauseMenuBook/UI_Main/Manual/Root/Layout/Play
+      Tutorial/Text
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34637501242888192
+    m_Key: pauseMenuBook/Prefab Mode in Context/pauseMenuBook/UI_Main/Manual/Root/Layout/Problems?/Text
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34639683371487232
+    m_Key: pauseMenuBook/Prefab Mode in Context/pauseMenuBook/UI_Main/Manual/Root/Layout/Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34640038163468288
+    m_Key: pauseMenuBook/Prefab Mode in Context/pauseMenuBook/UI_Main/Manual/Root/Layout/Topics
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -131,6 +131,7 @@ namespace viva.console
             CommandSetPlayerSpeed.CreateCommand();
             CommandSelectCharacter.CreateCommand();
             CommandCreateCharacter.CreateCommand();
+            CommandSpawn.CreateCommand();
 
             var commandClearList = CommandClearConsole.CreateCommand();
             commandClearList.ConsoleTextRef = _consoleText;
@@ -322,7 +323,7 @@ namespace viva.console
             }
 
             // Force scroll
-            StartCoroutine(ScrollDown());
+            //StartCoroutine(ScrollDown());
         }
     }
 }

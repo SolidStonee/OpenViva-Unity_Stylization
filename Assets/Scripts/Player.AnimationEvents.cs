@@ -72,7 +72,7 @@ namespace viva
                     break;
                 case (int)AnimationEventName.FIRE_GESTURE:
                     DebugAssert(animEvent, 2);
-                    objectFingerPointer.FireGesture(parameter[0] == 1 ? objectFingerPointer.rightGestureHand : objectFingerPointer.leftGestureHand, (ObjectFingerPointer.Gesture)(parameter[1]));
+                    objectFingerPointer.FireGesture(parameter[0] == 1 ? objectFingerPointer.rightGestureHand : objectFingerPointer.leftGestureHand, (Gesture)(parameter[1]));
                     break;
                 case (int)AnimationEventName.ADD_CARD_TO_RIGHT_HAND:
                     DebugAssert(animEvent, 0);
@@ -159,10 +159,10 @@ namespace viva
                 case Animation.POINT:
                     break;
                 case Animation.GESTURE_PRESENT_RIGHT:
-                    objectFingerPointer.FireGesture(objectFingerPointer.rightGestureHand, ObjectFingerPointer.Gesture.PRESENT_END);
+                    objectFingerPointer.FireGesture(objectFingerPointer.rightGestureHand, Gesture.PRESENT_END);
                     break;
                 case Animation.GESTURE_PRESENT_LEFT:
-                    objectFingerPointer.FireGesture(objectFingerPointer.leftGestureHand, ObjectFingerPointer.Gesture.PRESENT_END);
+                    objectFingerPointer.FireGesture(objectFingerPointer.leftGestureHand, Gesture.PRESENT_END);
                     break;
             }
         }

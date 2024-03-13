@@ -7,7 +7,7 @@ TerrainLayer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: layer_plane_terrainDirtRock_AlbedoTransparencyplane_terrainDirtRock_Normal(8.000,8.000)(0.000,0.000)(0.000,0.000,0.000),0.000,0.000
-  m_DiffuseTexture: {fileID: 2800000, guid: d346d81f895417e4a992a6b331e0af7b, type: 3}
+  m_DiffuseTexture: {fileID: 2800000, guid: 7eb41251cefbeb34e9ac9cf40f4a45f0, type: 3}
   m_NormalMapTexture: {fileID: 0}
   m_MaskMapTexture: {fileID: 0}
   m_TileSize: {x: 6, y: 6}

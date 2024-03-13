@@ -192,7 +192,7 @@ namespace viva
             }
         }
 
-        public void OnGesture(Item source, ObjectFingerPointer.Gesture gesture)
+        public void OnGesture(Item source, Gesture gesture)
         {
 
             //stop at first accepted gesture

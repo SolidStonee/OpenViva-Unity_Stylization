@@ -1,3 +1,4 @@
+using Steamworks.Data;
 using UnityEngine;
 
 
@@ -248,7 +249,7 @@ namespace viva
                 cacheIKEaseBlend.value
             );
 
-            Debug.DrawLine(holdArmIK.HoldSpaceToWorld(handtarget), holdArmIK.HoldSpaceToWorld(handPole), Color.green, 0.1f);
+            Debug.DrawLine(holdArmIK.HoldSpaceToWorld(handtarget), holdArmIK.HoldSpaceToWorld(handPole), UnityEngine.Color.green, 0.1f);
 
             //if object maintains yaw, pick up in a way to not spill contents
             Quaternion baseRot;
@@ -300,12 +301,12 @@ namespace viva
                 if (loli.rightHandState.heldItem.settings.itemType == Item.Type.DONUT &&
                     loli.leftHandState.heldItem.settings.itemType == Item.Type.DONUT)
                 {
-                    GameDirector.player.CompleteAchievement(Player.ObjectiveType.GIVE_2_DONUTS);
+                    GameDirector.player.CompleteAchievement(Player.ObjectiveType.GIVE_2_DONUTS, new Achievement("GIVE_2_DONUTS"));
                 }
             }
             if (item.settings.itemType == Item.Type.WATER_REED)
             {
-                GameDirector.player.CompleteAchievement(Player.ObjectiveType.FIND_CHARACTER_A_WATER_REED);
+                GameDirector.player.CompleteAchievement(Player.ObjectiveType.FIND_CHARACTER_A_WATER_REED, new Achievement("FIND_CHARACTER_A_WATER_REED"));
             }
         }
     }

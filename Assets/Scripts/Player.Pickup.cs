@@ -69,9 +69,7 @@ namespace viva
                 }
                 if (drop)
                 {
-                    handState.gripState.Consume();
-                    handState.AttemptDrop();
-
+                    DoItemDrop(handState);
                     //store in a nearby bag if available
                     Bag bag = Tools.FindClosestToSphere<Bag>(handState.fingerAnimator.hand.position, 0.15f, WorldUtil.visionMask);
                     if (bag != null)
@@ -83,24 +81,7 @@ namespace viva
             }
             else if (handState.gripState.isDown)
             {
-                if (handState.AttemptGrabNearby())
-                {
-                    handState.actionState.Consume();
-                    handState.gripState.Consume();
-                    HideNearbyHandIndicators();
-                }
-                else
-                {
-                    //if player didn't grab anything
-                    if (handState.animSys.currentAnim == Player.Animation.IDLE)
-                    {
-                        if (handState.animSys.idleAnimation != Player.Animation.KEYBOARD_HANDS_DOWN)
-                        {     
-                            handState.animSys.SetTargetAndIdleAnimation(Player.Animation.POINT);                         
-                        }
-                    }
-                        
-                }
+                DoItemPickup(handState);
                 //if hand isn't busy and released grip
             }
             else if (handState.gripState.isUp)
@@ -117,6 +98,35 @@ namespace viva
             else if (GameDirector.instance.physicsFrame)
             {
                 handState.FixedUpdateNearestItemIndicatorTimer();
+            }
+        }
+
+        public void DoItemDrop(PlayerHandState handState)
+        {
+            handState.gripState.Consume();
+            handState.AttemptDrop();
+
+        }
+
+        public void DoItemPickup(PlayerHandState handState)
+        {
+            if (handState.AttemptGrabNearby())
+            {
+                handState.actionState.Consume();
+                handState.gripState.Consume();
+                HideNearbyHandIndicators();
+            }
+            else
+            {
+                //if player didn't grab anything
+                if (handState.animSys.currentAnim == Player.Animation.IDLE)
+                {
+                    if (handState.animSys.idleAnimation != Player.Animation.KEYBOARD_HANDS_DOWN)
+                    {
+                        handState.animSys.SetTargetAndIdleAnimation(Player.Animation.POINT);
+                    }
+                }
+
             }
         }
     }

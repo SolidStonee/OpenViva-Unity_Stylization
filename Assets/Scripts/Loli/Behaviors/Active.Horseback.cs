@@ -199,7 +199,7 @@ namespace viva
             stabilizeMount.StartBlend(1.0f, 1.0f);
         }
 
-        public override bool OnGesture(Item source, ObjectFingerPointer.Gesture gesture)
+        public override bool OnGesture(Item source, Gesture gesture)
         {
 
             bool sourceComesFromHorseRider = false;
@@ -211,7 +211,7 @@ namespace viva
                     sourceComesFromHorseRider = true;
                 }
             }
-            if (gesture == ObjectFingerPointer.Gesture.FOLLOW)
+            if (gesture == Gesture.FOLLOW)
             {
                 if (isOnHorse)
                 {

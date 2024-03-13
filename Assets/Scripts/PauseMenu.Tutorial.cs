@@ -92,7 +92,7 @@ namespace viva
             GameDirector.instance.SetMusic(GameDirector.instance.GetDefaultMusic(), 3.0f);
             GameDirector.instance.SetUserIsExploring(false);
         }
-        private void checkIfExitedTutorialCircle()
+        private void CheckIfExitedTutorialCircle()
         {
             if (Vector3.SqrMagnitude(transform.position - tutorialCircle.transform.position) > 90.0f)
             {
@@ -123,77 +123,77 @@ namespace viva
             Player player = GameDirector.player;
             yield return new WaitForSeconds(1.0f);
 
-            DisplayHUDMessage("        Welcome to the Tutorial        ", true, HintType.HINT_NO_IMAGE);
-            DisplayHUDMessage("Exit the tutorial by leaving the green circle.", true, HintType.HINT);
+            DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "Welcome"), true, HintType.HINT_NO_IMAGE);
+            DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "LeaveGreenCircle"), true, HintType.HINT);
 
             while (!m_finishedDisplayHint)
             {
-                checkIfExitedTutorialCircle();
+                CheckIfExitedTutorialCircle();
                 yield return null;
             }
             if (player.controls == Player.ControlType.KEYBOARD)
             {
-                DisplayHUDMessage("Open the pause book with ESC", true, HintType.HINT, MenuTutorial.WAIT_TO_OPEN_PAUSE_MENU);
+                DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "OpenPauseBook"), true, HintType.HINT, MenuTutorial.WAIT_TO_OPEN_PAUSE_MENU);
                 while (menuTutorialPhase <= MenuTutorial.NONE)
                 {
-                    checkIfExitedTutorialCircle();
+                    CheckIfExitedTutorialCircle();
                     yield return null;
                 }
             }
             else
             {
-                DisplayHUDMessage("Open the pause book with the MENU button", true, HintType.HINT, MenuTutorial.WAIT_TO_OPEN_PAUSE_MENU);
+                DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "OpenPauseBookVR"), true, HintType.HINT, MenuTutorial.WAIT_TO_OPEN_PAUSE_MENU);
                 while (menuTutorialPhase <= MenuTutorial.NONE)
                 {
-                    checkIfExitedTutorialCircle();
+                    CheckIfExitedTutorialCircle();
                     yield return null;
                 }
             }
-            DisplayHUDMessage("You may switch to VR in Controls.", true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_ENTER_CHECKLIST);
-            DisplayHUDMessage("It is recommended to calibrate VR hands.", true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_ENTER_CHECKLIST);
-            DisplayHUDMessage("When you are ready to continue, click Checklist.", true, HintType.HINT, MenuTutorial.WAIT_TO_ENTER_CHECKLIST);
+            DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "Welcome"), true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_ENTER_CHECKLIST);
+            DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "RecommendCalibrate"), true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_ENTER_CHECKLIST);
+            DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "WhenReady"), true, HintType.HINT, MenuTutorial.WAIT_TO_ENTER_CHECKLIST);
             while (menuTutorialPhase <= MenuTutorial.WAIT_TO_OPEN_PAUSE_MENU)
             {
-                checkIfExitedTutorialCircle();
+                CheckIfExitedTutorialCircle();
                 yield return null;
             }
-            DisplayHUDMessage("Complete all tasks below as an objective.", true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_EXIT_CHECKLIST);
-            DisplayHUDMessage("When you are ready to continue, exit all menus.", true, HintType.HINT, MenuTutorial.WAIT_TO_EXIT_CHECKLIST);
+            DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "CompleteTasks"), true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_EXIT_CHECKLIST);
+            DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "WhenReady2"), true, HintType.HINT, MenuTutorial.WAIT_TO_EXIT_CHECKLIST);
             while (menuTutorialPhase <= MenuTutorial.WAIT_TO_ENTER_CHECKLIST)
             {
-                checkIfExitedTutorialCircle();
+                CheckIfExitedTutorialCircle();
                 yield return null;
             }
 
             if (player.controls == Player.ControlType.KEYBOARD)
             {
-                DisplayHUDMessage("WASD to walk around. Left Shift to run.", true, HintType.HINT);
+                DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "WalkRun"), true, HintType.HINT);
             }
             else
             {
                 if (GameSettings.main.vrControls == Player.VRControlType.TRACKPAD)
                 {
-                    DisplayHUDMessage("Use trackpad/thumbstick to walk around.", true, HintType.HINT_NO_IMAGE);
-                    DisplayHUDMessage("Press and hold to run faster.", true, HintType.HINT);
+                    DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "WalkRun2"), true, HintType.HINT_NO_IMAGE);
+                    DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "RunFaster"), true, HintType.HINT);
                 }
                 else
                 {
-                    DisplayHUDMessage("Press trackpad/thumbstick to teleport.", true, HintType.HINT);
+                    DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "Teleport"), true, HintType.HINT);
                 }
             }
             while (!m_finishedDisplayHint)
             {
-                checkIfExitedTutorialCircle();
+                CheckIfExitedTutorialCircle();
                 yield return null;
             }
             if (player.controls == Player.ControlType.KEYBOARD)
             {
-                DisplayHUDMessage("If you sit down on the floor with the loli,", true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_CROUCH);
-                DisplayHUDMessage("you can play hand games with her.", true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_CROUCH);
-                DisplayHUDMessage("Try toggling crouch with Ctrl.", true, HintType.HINT, MenuTutorial.WAIT_CROUCH);
+                DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "SitDown"), true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_CROUCH);
+                DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "HandGames"), true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_CROUCH);
+                DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "Crouch"), true, HintType.HINT, MenuTutorial.WAIT_CROUCH);
                 while (menuTutorialPhase <= MenuTutorial.WAIT_TO_EXIT_CHECKLIST)
                 {
-                    checkIfExitedTutorialCircle();
+                    CheckIfExitedTutorialCircle();
                     if (player.GetKeyboardCurrentHeight() < 1.0f)
                     {
                         ContinueTutorial(MenuTutorial.WAIT_CROUCH);
@@ -203,73 +203,73 @@ namespace viva
             }
             else
             {
-                DisplayHUDMessage("If you sit down on the floor with the loli,", true, HintType.HINT_NO_IMAGE);
-                DisplayHUDMessage("You can play hand games with her.", true, HintType.HINT);
+                DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "SitDown"), true, HintType.HINT_NO_IMAGE);
+                DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "HandGames"), true, HintType.HINT);
                 float time = Time.time;
                 while (Time.time - time < 5.0f)
                 {
-                    checkIfExitedTutorialCircle();
+                    CheckIfExitedTutorialCircle();
                     yield return null;
                 }
                 menuTutorialPhase = MenuTutorial.WAIT_CROUCH;
             }
 
-            DisplayHUDMessage("You can make gestures to interact with the loli.", true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_WAVE);
+            DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "MakeGestures"), true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_WAVE);
             if (player.controls == Player.ControlType.KEYBOARD)
             {
-                DisplayHUDMessage("Say Hello with R", true, HintType.HINT, MenuTutorial.WAIT_TO_WAVE);
+                DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "SayHello"), true, HintType.HINT, MenuTutorial.WAIT_TO_WAVE);
             }
             else
             {
-                DisplayHUDMessage("Wave side to side with your hand", true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_WAVE);
-                DisplayHUDMessage("until you see the wave icon appear", true, HintType.HINT, MenuTutorial.WAIT_TO_WAVE);
+                DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "SayHelloVR"), true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_WAVE);
+                DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "UntilIcon"), true, HintType.HINT, MenuTutorial.WAIT_TO_WAVE);
             }
             while (menuTutorialPhase <= MenuTutorial.WAIT_CROUCH)
             {
-                checkIfExitedTutorialCircle();
+                CheckIfExitedTutorialCircle();
                 yield return null;
             }
-            DisplayHUDMessage("Good!", true, HintType.HINT);
+            DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "Good"), true, HintType.HINT);
             while (!m_finishedDisplayHint)
             {
-                checkIfExitedTutorialCircle();
+                CheckIfExitedTutorialCircle();
                 yield return null;
             }
-            DisplayHUDMessage("Now gesture someone to come here.", true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_COME_HERE);
+            DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "NowGesture"), true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_COME_HERE);
             if (player.controls == Player.ControlType.KEYBOARD)
             {
-                DisplayHUDMessage("Press F to Follow", true, HintType.HINT, MenuTutorial.WAIT_TO_COME_HERE);
+                DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "Follow"), true, HintType.HINT, MenuTutorial.WAIT_TO_COME_HERE);
             }
             else
             {
-                DisplayHUDMessage("Swing your hand back and forth, palm facing you.", true, HintType.HINT, MenuTutorial.WAIT_TO_COME_HERE);
+                DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "FollowVR"), true, HintType.HINT, MenuTutorial.WAIT_TO_COME_HERE);
             }
             while (menuTutorialPhase <= MenuTutorial.WAIT_TO_WAVE)
             {
-                checkIfExitedTutorialCircle();
+                CheckIfExitedTutorialCircle();
                 yield return null;
             }
-            DisplayHUDMessage("Good! This will make your loli follow you.", true, HintType.HINT);
+            DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "FollowYou"), true, HintType.HINT);
             while (!m_finishedDisplayHint)
             {
-                checkIfExitedTutorialCircle();
+                CheckIfExitedTutorialCircle();
                 yield return null;
             }
 
-            DisplayHUDMessage("Pick up the rubber ducky in the center.", true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_START_PICKUP);
+            DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "PickupDuck"), true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_START_PICKUP);
             duck = GameObject.Instantiate(tutorialDuckPrefab, tutorialCircle.transform.position + Vector3.up * 0.1f, Quaternion.identity);
             if (player.controls == Player.ControlType.KEYBOARD)
             {
-                DisplayHUDMessage("Left click left hand. Right click right hand.", true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_START_PICKUP);
-                DisplayHUDMessage("Drop objects by holding SHIFT and clicking.", true, HintType.HINT, MenuTutorial.WAIT_TO_START_PICKUP);
+                DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "Pickup"), true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_START_PICKUP);
+                DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "Drop"), true, HintType.HINT, MenuTutorial.WAIT_TO_START_PICKUP);
             }
             else
             {
-                DisplayHUDMessage("Drop/Pickup :Grip Button (VIVE), Trigger (Oculus)", true, HintType.HINT, MenuTutorial.WAIT_TO_START_PICKUP);
+                DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "PickupDropVR"), true, HintType.HINT, MenuTutorial.WAIT_TO_START_PICKUP);
             }
             while (menuTutorialPhase <= MenuTutorial.WAIT_TO_COME_HERE)
             {
-                checkIfExitedTutorialCircle();
+                CheckIfExitedTutorialCircle();
                 if (player.rightHandState.heldItem != null)
                 {
                     if (player.rightHandState.heldItem.gameObject == duck)
@@ -286,40 +286,40 @@ namespace viva
                 }
                 yield return null;
             }
-            DisplayHUDMessage("Now extend the ducky out like an offering", true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_PRESENT);
+            DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "ExtendDucky"), true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_PRESENT);
             if (player.controls == Player.ControlType.KEYBOARD)
             {
-                DisplayHUDMessage("Drop objects by holding SHIFT and clicking.", true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_PRESENT);
-                DisplayHUDMessage("Extend left hand with Q and right with E", true, HintType.HINT, MenuTutorial.WAIT_TO_PRESENT);
+                DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "Drop"), true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_PRESENT);
+                DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "ExtendOffering"), true, HintType.HINT, MenuTutorial.WAIT_TO_PRESENT);
             }
             while (menuTutorialPhase <= MenuTutorial.WAIT_TO_START_PICKUP)
             {
-                checkIfExitedTutorialCircle();
+                CheckIfExitedTutorialCircle();
                 yield return null;
             }
-            DisplayHUDMessage("You can give or request items from the loli like that.", true, HintType.HINT);
+            DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "LikeThat"), true, HintType.HINT);
             while (!m_finishedDisplayHint)
             {
-                checkIfExitedTutorialCircle();
+                CheckIfExitedTutorialCircle();
                 yield return null;
             }
 
             //polaroid frame tutorial section
             frame = GameObject.Instantiate(tutorialFramePrefab, tutorialCircle.transform.position + Vector3.up * 0.1f, Quaternion.identity).GetComponent(typeof(PolaroidFrame)) as PolaroidFrame;
-            DisplayHUDMessage("Pick up the Polaroid frame in the center", true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_PICKUP_FRAME);
-            DisplayHUDMessage("and drop the rest of the objects", true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_PICKUP_FRAME);
+            DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "PickupPolaroid"), true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_PICKUP_FRAME);
+            DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "DropRest"), true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_PICKUP_FRAME);
             if (player.controls == Player.ControlType.KEYBOARD)
             {
-                DisplayHUDMessage("Drop by holding SHIFT", true, HintType.HINT, MenuTutorial.WAIT_TO_PICKUP_FRAME);
+                DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "Drop"), true, HintType.HINT, MenuTutorial.WAIT_TO_PICKUP_FRAME);
             }
             else
             {
-                DisplayHUDMessage("Drop/Pickup :Grip Button", true, HintType.HINT, MenuTutorial.WAIT_TO_START_PICKUP);
+                DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "PickupDropVR"), true, HintType.HINT, MenuTutorial.WAIT_TO_START_PICKUP);
             }
 
             while (menuTutorialPhase <= MenuTutorial.WAIT_TO_PRESENT)
             {
-                checkIfExitedTutorialCircle();
+                CheckIfExitedTutorialCircle();
                 int held = System.Convert.ToInt32(player.rightHandState.heldItem != null);
                 held += System.Convert.ToInt32(player.leftHandState.heldItem != null);
                 if (held == 1)
@@ -335,18 +335,18 @@ namespace viva
 
             if (player.controls == Player.ControlType.KEYBOARD)
             {
-                DisplayHUDMessage("To Rip the frame, click with the hand holding it", true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_RIP_FRAME);
-                DisplayHUDMessage("then once it's held with both hands,", true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_RIP_FRAME);
-                DisplayHUDMessage("click with both mouse clicks simultaneously", true, HintType.HINT, MenuTutorial.WAIT_TO_RIP_FRAME);
+                DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "RipFrame"), true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_RIP_FRAME);
+                DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "OnceItsHeld"), true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_RIP_FRAME);
+                DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "ClickWithBoth"), true, HintType.HINT, MenuTutorial.WAIT_TO_RIP_FRAME);
             }
             else
             {
-                DisplayHUDMessage("To Rip the frame, move both hands close together", true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_RIP_FRAME);
-                DisplayHUDMessage("then press both triggers and pull away", true, HintType.HINT, MenuTutorial.WAIT_TO_RIP_FRAME);
+                DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "RipFrameVR"), true, HintType.HINT_NO_IMAGE, MenuTutorial.WAIT_TO_RIP_FRAME);
+                DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "ClickWithBothVR"), true, HintType.HINT, MenuTutorial.WAIT_TO_RIP_FRAME);
             }
             while (menuTutorialPhase <= MenuTutorial.WAIT_TO_PICKUP_FRAME)
             {
-                checkIfExitedTutorialCircle();
+                CheckIfExitedTutorialCircle();
                 if (frame == null)
                 {
                     ContinueTutorial(MenuTutorial.WAIT_TO_RIP_FRAME);
@@ -354,9 +354,9 @@ namespace viva
                 yield return null;
             }
 
-            DisplayHUDMessage("Tutorial Finished!", true, HintType.HINT);
-            DisplayHUDMessage("Game under development expect bugs!", true, HintType.HINT_NO_IMAGE);          
-            DisplayHUDMessage("You will now be sent back to your previous location.", true, HintType.HINT_NO_IMAGE);
+            DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "TutorialFinished"), true, HintType.HINT);
+            DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "UnderDevelopment"), true, HintType.HINT_NO_IMAGE);          
+            DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "PreviousLocation"), true, HintType.HINT_NO_IMAGE);
 
             ExitTutorial();
         }

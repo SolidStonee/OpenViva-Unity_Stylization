@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Steamworks.Data;
+using UnityEngine;
 
 
 namespace viva
@@ -312,10 +313,7 @@ namespace viva
             }
             else if (self.happiness == Loli.Happiness.VERY_ANGRY)
             {
-                if (self.GetCurrentLookAtItem() != null && self.GetCurrentLookAtItem().settings.itemType == Item.Type.CHARACTER)
-                {
-                    self.active.SetTask(self.active.cattail, null);
-                }
+                self.active.cattail.StartCattailBehavior();
             }
         }
 
@@ -354,7 +352,7 @@ namespace viva
             }
             self.headState.WearOnHead(item, self.headModel.hatLocalPosAndPitch, HoldType.OBJECT, 1.0f);
 
-            GameDirector.player.CompleteAchievement(Player.ObjectiveType.FIND_HAT);
+            GameDirector.player.CompleteAchievement(Player.ObjectiveType.FIND_HAT, new Achievement("FIND_HAT"));
         }
 
         public void ThrowHandObject(LoliHandState handState)
@@ -367,7 +365,7 @@ namespace viva
             Item item = handState.heldItem;
             if (item.settings.itemType == Item.Type.DUCKY)
             {
-                GameDirector.player.CompleteAchievement(Player.ObjectiveType.THROW_DUCK);
+                GameDirector.player.CompleteAchievement(Player.ObjectiveType.THROW_DUCK, new Achievement("THROW_DUCK"));
             }
 
             handState.AttemptDrop();
