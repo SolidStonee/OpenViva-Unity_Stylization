@@ -290,7 +290,7 @@ namespace viva
             {
                 return;
             }
-            if (handState.actionState.isDown)
+            if (handState.actionState.isDown && !handState.player.keyboardAlt)
             {
                 OnItemUsed();
             }

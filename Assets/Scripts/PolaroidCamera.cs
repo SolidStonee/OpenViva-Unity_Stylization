@@ -133,21 +133,9 @@ namespace viva
             return false;
         }
 
-        public override void OnItemLateUpdate()
+        public override void OnItemUsed()
         {
-            if (mainOwner == null)
-            {
-                return;
-            }
-            PlayerHandState handState = mainOwner.FindOccupyStateByHeldItem(this) as PlayerHandState;
-            if (handState == null)
-            {
-                return;
-            }
-            if (handState.actionState.isDown)
-            {
-                SnapPhoto();
-            }
+            SnapPhoto();
         }
 
         public void SnapPhoto(PhotoCallback onPhotoCreated = null, PhotoCallback onPhotoReleased = null)

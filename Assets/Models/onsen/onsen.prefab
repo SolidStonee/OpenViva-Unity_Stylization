@@ -20748,7 +20748,6 @@ MonoBehaviour:
     nightSky: {r: 0.291, g: 0.266265, b: 0.26851365, a: 1}
     cloudColorA: {r: 0.3773585, g: 0.36489853, b: 0.36489853, a: 1}
     cloudColorB: {r: 1, g: 1, b: 1, a: 1}
-    environmentMap: {fileID: 8900000, guid: 6de31b31516640e42a40000c06ab938e, type: 3}
     fogColor: {r: 0.17, g: 0.1326, b: 0.13939999, a: 0.21960784}
   skyboxMaterial: {fileID: 2100000, guid: d74546fc1c146ec4cb717120f24e62d0, type: 2}
   suspenseSong: {fileID: 8300000, guid: 20944f0b7105e054bb22daa1942cac4f, type: 3}
@@ -52080,6 +52079,12 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3255160391958128176, guid: e229a64d452c499619bba1bfbfffc58f,
+        type: 3}
+      propertyPath: skinShader
+      value: 
+      objectReference: {fileID: -6465566751694194690, guid: 1cdc50c50c7d70b4bbe2f57fd5f870d3,
+        type: 3}
     - target: {fileID: 3347900382792009454, guid: e229a64d452c499619bba1bfbfffc58f,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -54345,7 +54350,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 6723221388100010496}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea95fe6704cfed94185a7fdd7fa29be2, type: 3}
   m_Name: 

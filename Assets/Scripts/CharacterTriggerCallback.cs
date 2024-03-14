@@ -33,10 +33,10 @@ namespace viva
             owner.OnCharacterTriggerEnter(this, collider);
         }
 
-        private void OnTriggerStay(Collider collider)
-        {
-            owner.OnCharacterTriggerStay(this, collider);
-        }
+        // private void OnTriggerStay(Collider collider)
+        // {
+        //     owner.OnCharacterTriggerStay(this, collider);
+        // }
 
         private void OnTriggerExit(Collider collider)
         {

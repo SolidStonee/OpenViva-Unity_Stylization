@@ -192,7 +192,7 @@ namespace RootMotion.Dynamics
         /// <summary>
         /// The list of solvers that will be updated by this PuppetMaster. When you add a Final-IK component in runtime after PuppetMaster has initiated, add it to this list using solver.Add(SolverManager solverManager).
         /// </summary>
-        [HideInInspector] public List<SolverManager> solvers = new List<SolverManager>();
+        public List<SolverManager> solvers = new List<SolverManager>();
 
         /// <summary>
         /// If true, PuppetMaster will not handle angular limits and you can have full control over handling it (call SetAngularLimitsManual();).

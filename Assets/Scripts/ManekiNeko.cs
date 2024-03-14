@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -26,7 +27,7 @@ namespace viva
         private static int pupilShrinkID = Shader.PropertyToID("_PupilShrink");
         public bool lookMode = false;
 
-        private List<Item> visibleItems = new List<Item>();
+        public List<PlayerHeadState> visibleItems = new List<PlayerHeadState>();
         private float tickTock = 0.0f;
         private int tickTockSecond = 0;
         private Material eyeMaterial
@@ -47,8 +48,8 @@ namespace viva
 
         private void OnTriggerEnter(Collider collider)
         {
-            var item = collider.transform.GetComponent<Item>();
-            if (item)
+            var item = collider.transform.GetComponent<PlayerHeadState>();
+            if (item && !visibleItems.Contains(item))
             {
                 visibleItems.Add(item);
             }
@@ -56,10 +57,10 @@ namespace viva
 
         private void OnTriggerExit(Collider collider)
         {
-            var item = collider.transform.GetComponent<Item>();
-            if (item)
+            var item = collider.transform.GetComponent<PlayerHeadState>();
+            if (item && visibleItems.Contains(item))
             {
-                visibleItems.Add(item);
+                visibleItems.Remove(item);
             }
         }
 
@@ -79,12 +80,18 @@ namespace viva
             }
         }
 
+        private void Update()
+        {
+            UpdateLookAt();
+        }
+
         private void FixedUpdate()
         {
             if (lookMode)
             {
                 return;
             }
+
             tickTock += Time.deltaTime * clockSpeed;
             int newTickTockSecond = (int)tickTock;
             if (tickTockSecond != newTickTockSecond)
@@ -113,51 +120,69 @@ namespace viva
             {
                 return;
             }
-            float leastSqDist = Mathf.Infinity;
-            Item target = null;
-            for (int i = visibleItems.Count; i-- > 0;)
-            {
+            //float leastSqDist = Mathf.Infinity;
+            // for (int i = visibleItems.Count; i-- > 0;)
+            // {
+            //
+            //     var item = visibleItems[i];
+            //     if (item == null)
+            //     {
+            //         //visibleItems.RemoveAt(i);
+            //         continue;
+            //     }
+            //     Vector3 localPos = transform.InverseTransformPoint(item.transform.position);
+            //     if (localPos.z < 0.0f)
+            //     {
+            //         continue;
+            //     }
+            //     var sqDist = Vector3.Dot(localPos, localPos);
+            //     if (sqDist < leastSqDist)
+            //     {
+            //         leastSqDist = sqDist;
+            //         target = item;
+            //     }
+            // }
 
-                var item = visibleItems[i];
-                if (item == null)
-                {
-                    visibleItems.RemoveAt(i);
-                    continue;
-                }
-                Vector3 localPos = transform.InverseTransformPoint(item.transform.position);
-                if (localPos.z < 0.0f)
-                {
-                    continue;
-                }
-                var sqDist = Vector3.Dot(localPos, localPos);
-                if (sqDist < leastSqDist)
-                {
-                    leastSqDist = sqDist;
-                    target = item;
-                }
-            }
-
-            if (target == null)
+            if (visibleItems[0] == null)
             {
                 return;
             }
+            // float scalingFactor = 0.4f / 180.0f;
+            // Debug.Log(Tools.Bearing(transform, target.transform.position) * scalingFactor);
+            // float right = Mathf.Clamp(Tools.Bearing(transform, target.transform.position) * scalingFactor, -0.4f, 0.4f);
+            // Vector3 local = transform.InverseTransformPoint(target.transform.position);
+            // float up = Mathf.Clamp(local.y / local.z, -0.7f, 0.7f) * 0.5f;
+            //
+            // var targetMaterial = eyeMaterial;
+            // targetMaterial.SetFloat(pupilRightID, right);
+            // targetMaterial.SetFloat(pupilUpID, -up);
+            
+            float FOV = 90f;
+            
+            Vector3 directionToPlayer = (visibleItems[0].transform.position - transform.position).normalized;
+            float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer);
+            if (angleToPlayer <= FOV / 2) {
+                float bearing = Tools.Bearing(transform, visibleItems[0].transform.position);
 
-            float right = Mathf.Clamp(Tools.Bearing(transform, target.transform.position) * 2.0f / 90.0f, -0.4f, 0.4f);
-            Vector3 local = transform.InverseTransformPoint(target.transform.position);
-            float up = Mathf.Clamp(local.y / local.z, -0.7f, 0.7f) * 0.5f;
+                float scalingFactor = 0.4f / (FOV / 2);
+                float right = Mathf.Clamp(bearing * scalingFactor, -0.4f, 0.4f);
+                Vector3 local = transform.InverseTransformPoint(visibleItems[0].transform.position);
+                float up = Mathf.Clamp(local.y / local.z, -0.2f, 0.08f) * 0.5f;
+                
+                eyeMaterial.SetFloat(pupilRightID, right);
+                eyeMaterial.SetFloat(pupilUpID, -up);
+                eyeMaterial.SetFloat(pupilShrinkID, 1.3f);
+            }
 
-            var targetMaterial = eyeMaterial;
-            targetMaterial.SetFloat(pupilRightID, right);
-            targetMaterial.SetFloat(pupilUpID, -up);
-            if (Random.value > 0.5f)
-            {
-                targetMaterial.SetFloat(pupilShrinkID, 1.0f);
-            }
-            else
-            {
-                targetMaterial.SetFloat(pupilShrinkID, 3.0f);
-            }
-            TwitchHand();
+            // if (Random.value > 0.5f)
+            // {
+            //     targetMaterial.SetFloat(pupilShrinkID, 1.0f);
+            // }
+            // else
+            // {
+            //     targetMaterial.SetFloat(pupilShrinkID, 3.0f);
+            // }
+            //TwitchHand();
         }
 
         private void TwitchHand()
