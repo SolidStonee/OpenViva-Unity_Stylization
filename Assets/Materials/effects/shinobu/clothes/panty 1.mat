@@ -85,6 +85,18 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2DLOD_6c6e046d3db84fedadbda2eedcfb18e9_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: a8c4120ceb35eeb4aa745bcdd9bc7688, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2DLOD_7d4a30285cc145cab486e24fabe60a6e_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: a8c4120ceb35eeb4aa745bcdd9bc7688, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_42acc25c6a89493ca767b55c1d9c70d2_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: fb3e5ad6953b584428a49ecc64c58c6e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _ShadowTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}

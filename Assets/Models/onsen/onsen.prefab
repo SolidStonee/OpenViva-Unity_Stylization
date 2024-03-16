@@ -10632,6 +10632,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 317489862377131319, guid: 8cb304970b6c6ad40bb6db75f7ecf204, type: 3}
+--- !u!1 &131488044105948392
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3239130942222332057}
+  m_Layer: 0
+  m_Name: NavMesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3239130942222332057
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131488044105948392}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 696597624278404887}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &164659255905813768
 GameObject:
   m_ObjectHideFlags: 0
@@ -20749,6 +20780,7 @@ MonoBehaviour:
     cloudColorA: {r: 0.3773585, g: 0.36489853, b: 0.36489853, a: 1}
     cloudColorB: {r: 1, g: 1, b: 1, a: 1}
     fogColor: {r: 0.17, g: 0.1326, b: 0.13939999, a: 0.21960784}
+    environmentMap: {fileID: 0}
   skyboxMaterial: {fileID: 2100000, guid: d74546fc1c146ec4cb717120f24e62d0, type: 2}
   suspenseSong: {fileID: 8300000, guid: 20944f0b7105e054bb22daa1942cac4f, type: 3}
   doorPoundSounds: {fileID: 11400000, guid: 04154c7f1cd8d754889c98a43c17e498, type: 2}
@@ -24302,6 +24334,7 @@ Transform:
   - {fileID: 5193747525613030234}
   - {fileID: 2187742204989456807}
   - {fileID: 919428417174909213}
+  - {fileID: 3239130942222332057}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4661657213621079731

@@ -173,12 +173,16 @@ namespace viva
                 self.active.idle.PlayAvailableRefuseAnimation();
                 return false;
             }
-
+            Debug.Log("Bathing Debug 0");
             self.active.SetTask(this, null);
+            Debug.Log("Bathing Debug 1");
             bathtub = _bathtub;
             bathingPhase = BathingPhase.TEST_WATER_TEMPERATURE;
+            Debug.Log("Bathing Debug 2");
             self.locomotion.StopMoveTo();
 
+            Debug.Log("Bathing Debug 3");
+            
             if (commandSource != null)
             {
                 self.SetLookAtTarget(commandSource.head);
@@ -188,9 +192,12 @@ namespace viva
             self.leftLoliHandState.AttemptDrop();
             self.rightShoulderState.AttemptDrop();
             self.leftShoulderState.AttemptDrop();
+            Debug.Log("Bathing Debug 4");
 
-            //BeginActualBathing();	//DEBUG OVERRIDE
+            BeginActualBathing();	//DEBUG OVERRIDE
 
+            Debug.Log("Bathing Debug");
+            
             return true;
         }
 
@@ -452,22 +459,16 @@ namespace viva
                 {
                     return Loli.Animation.STAND_POINT_OUT_SOUND_2_3_RIGHT;
                 }
-                else
-                {
-                    return Loli.Animation.STAND_POINT_OUT_SOUND_2_3_LEFT;
-                }
+
+                return Loli.Animation.STAND_POINT_OUT_SOUND_2_3_LEFT;
             }
-            else
+
+            if (rightSide)
             {
-                if (rightSide)
-                {
-                    return Loli.Animation.STAND_POINT_OUT_ANTSY_RIGHT;
-                }
-                else
-                {
-                    return Loli.Animation.STAND_POINT_OUT_ANTSY_LEFT;
-                }
+                return Loli.Animation.STAND_POINT_OUT_ANTSY_RIGHT;
             }
+
+            return Loli.Animation.STAND_POINT_OUT_ANTSY_LEFT;
         }
 
         private void UpdateWaitForPlayerToGetOutAnimation(

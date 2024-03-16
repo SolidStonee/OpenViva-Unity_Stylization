@@ -28,13 +28,13 @@ namespace viva
         {
         }
 
-        // public override void OnActivate(){
-        // 	cameraPitchDir = 0.0f;
-        // 	currentPhase = Phase.NONE;
-        // 	takingPictureTimeout = 6.0f;
-        // 	stillTimerHasReset = true;
-        // 	cameraPrepared = 1.0f;
-        // }
+        public override void OnActivate(){
+        	cameraPitchDir = 0.0f;
+        	currentPhase = Phase.NONE;
+        	takingPictureTimeout = 6.0f;
+        	stillTimerHasReset = true;
+        	cameraPrepared = 1.0f;
+        }
 
         public override void OnDeactivate()
         {

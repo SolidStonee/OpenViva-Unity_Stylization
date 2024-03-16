@@ -454,10 +454,8 @@ namespace viva
             {
                 return Loli.Animation.STAND_PICKUP_LEFT;
             }
-            else
-            {
-                return Loli.Animation.STAND_PICKUP_RIGHT;
-            }
+
+            return Loli.Animation.STAND_PICKUP_RIGHT;
         }
 
         private float OnHitBellIKControl(BlendController blendController)

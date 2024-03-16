@@ -17,7 +17,7 @@ namespace viva
         private Vector3? hugDirSmoothFlatForward = null;
         private Tools.EaseBlend hugStartSmooth = new Tools.EaseBlend();
         private AutonomyEmpty hugLogic = null;
-
+        private bool isHugging;
 
         public HugListenerBehavior(Loli _self) : base(_self, Mathf.Infinity)
         {
@@ -38,7 +38,8 @@ namespace viva
             {
                 return;
             }
-            bool isHugging = IsAttemptingToHug(player);
+            isHugging = IsAttemptingToHug(player);
+            Debug.Log("isHugging: " + isHugging + "huglogic: " + hugLogic);
             if (hugLogic == null)
             {
 
@@ -70,6 +71,7 @@ namespace viva
             else if (!isHugging)
             {
                 hugLogic.FlagForFailure();
+                Debug.Log("flagging failure for hug");
             }
         }
 

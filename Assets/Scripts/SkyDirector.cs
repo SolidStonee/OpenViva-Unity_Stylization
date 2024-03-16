@@ -298,6 +298,18 @@ namespace viva
 
             float nightBlend = Tools.GetClampedRatio(5.0f, 6.0f, phaseIndex) - Tools.GetClampedRatio(9.0f, 10.0f, phaseIndex);
             sunMaterial.SetFloat(nightBlendID, nightBlend);
+            
+            if (environmentMapProbe)
+            {
+                if (blend < 0.5f)
+                {
+                    environmentMapProbe.customBakedTexture = prev.environmentMap;
+                }
+                else
+                {
+                    environmentMapProbe.customBakedTexture = curr.environmentMap;
+                }
+            }
 
             //update characters ambience
             for (int i = 0; i < GameDirector.characters.objects.Count; i++)

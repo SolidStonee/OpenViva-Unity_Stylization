@@ -24,6 +24,7 @@ namespace viva
             public Color cloudColorA = Color.grey;
             public Color cloudColorB = Color.white;
             public Color fogColor;
+            public Cubemap environmentMap;
         }
 
         [SerializeField]
