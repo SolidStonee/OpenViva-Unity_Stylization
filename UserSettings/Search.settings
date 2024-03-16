@@ -28,6 +28,9 @@ scopes = {
 	"last_search.74AD8FDB" = "splash"
 	"OpenInspectorPreview.74AD8FDB" = "0"
 	"currentGroup.74AD8FDB" = "all"
+	"last_search.C87CA1ED" = ""
+	"OpenInspectorPreview.C87CA1ED" = "0"
+	"currentGroup.C87CA1ED" = ""
 }
 providers = {
 	at = {
@@ -83,6 +86,16 @@ providers = {
 	profilermarkers = {
 		active = false
 		priority = 100
+		defaultAction = null
+	}
+	archetype = {
+		active = true
+		priority = 2500
+		defaultAction = null
+	}
+	journal = {
+		active = true
+		priority = 2500
 		defaultAction = null
 	}
 }
