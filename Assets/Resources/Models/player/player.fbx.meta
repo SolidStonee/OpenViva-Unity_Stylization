@@ -1,131 +1,371 @@
 fileFormatVersion: 2
 guid: eb6de128629902b44858d89285014902
 ModelImporter:
-  serializedVersion: 22
-  fileIDToRecycleName:
-    100000: hand_l
-    100002: hand_r
-    100004: index1_l
-    100006: index1_r
-    100008: index2_l
-    100010: index2_r
-    100012: index3_l
-    100014: index3_l_end
-    100016: index3_r
-    100018: index3_r_end
-    100020: masterPlayerMesh
-    100022: middle1_l
-    100024: middle1_r
-    100026: middle2_l
-    100028: middle2_r
-    100030: middle3_l
-    100032: middle3_l_end
-    100034: middle3_r
-    100036: middle3_r_end
-    100038: pinky1_l
-    100040: pinky1_r
-    100042: pinky2_l
-    100044: pinky2_r
-    100046: pinky3_l
-    100048: pinky3_l_end
-    100050: pinky3_r
-    100052: pinky3_r_end
-    100054: //RootNode
-    100056: PlayerArmature
-    100058: ring1_l
-    100060: ring1_r
-    100062: ring2_l
-    100064: ring2_r
-    100066: ring3_l
-    100068: ring3_l_end
-    100070: ring3_r
-    100072: ring3_r_end
-    100074: root
-    100076: thumb1_l
-    100078: thumb1_r
-    100080: thumb2_l
-    100082: thumb2_r
-    100084: thumb3_l
-    100086: thumb3_l_end
-    100088: thumb3_r
-    100090: thumb3_r_end
-    100092: wrist_l
-    100094: wrist_r
-    100096: handTarget_l
-    100098: handTarget_l_end
-    100100: handTarget_r
-    100102: handTarget_r_end
-    100104: playerHands
-    400000: hand_l
-    400002: hand_r
-    400004: index1_l
-    400006: index1_r
-    400008: index2_l
-    400010: index2_r
-    400012: index3_l
-    400014: index3_l_end
-    400016: index3_r
-    400018: index3_r_end
-    400020: masterPlayerMesh
-    400022: middle1_l
-    400024: middle1_r
-    400026: middle2_l
-    400028: middle2_r
-    400030: middle3_l
-    400032: middle3_l_end
-    400034: middle3_r
-    400036: middle3_r_end
-    400038: pinky1_l
-    400040: pinky1_r
-    400042: pinky2_l
-    400044: pinky2_r
-    400046: pinky3_l
-    400048: pinky3_l_end
-    400050: pinky3_r
-    400052: pinky3_r_end
-    400054: //RootNode
-    400056: PlayerArmature
-    400058: ring1_l
-    400060: ring1_r
-    400062: ring2_l
-    400064: ring2_r
-    400066: ring3_l
-    400068: ring3_l_end
-    400070: ring3_r
-    400072: ring3_r_end
-    400074: root
-    400076: thumb1_l
-    400078: thumb1_r
-    400080: thumb2_l
-    400082: thumb2_r
-    400084: thumb3_l
-    400086: thumb3_l_end
-    400088: thumb3_r
-    400090: thumb3_r_end
-    400092: wrist_l
-    400094: wrist_r
-    400096: handTarget_l
-    400098: handTarget_l_end
-    400100: handTarget_r
-    400102: handTarget_r_end
-    400104: playerHands
-    2100000: skin.042
-    2100002: cycles_hands
-    2100004: cycles_hands.001
-    2100006: cycles_hands.002
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: masterPlayerMesh
-    4300002: playerHands
-    7400000: PlayerArmature|player_fist
-    7400002: PlayerArmature|player_open
-    7400004: stand_angry_refuse
-    9500000: //RootNode
-    13700000: masterPlayerMesh
-    13700002: playerHands
+  serializedVersion: 22200
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: hand_l
+  - first:
+      1: 100002
+    second: hand_r
+  - first:
+      1: 100004
+    second: index1_l
+  - first:
+      1: 100006
+    second: index1_r
+  - first:
+      1: 100008
+    second: index2_l
+  - first:
+      1: 100010
+    second: index2_r
+  - first:
+      1: 100012
+    second: index3_l
+  - first:
+      1: 100014
+    second: index3_l_end
+  - first:
+      1: 100016
+    second: index3_r
+  - first:
+      1: 100018
+    second: index3_r_end
+  - first:
+      1: 100020
+    second: masterPlayerMesh
+  - first:
+      1: 100022
+    second: middle1_l
+  - first:
+      1: 100024
+    second: middle1_r
+  - first:
+      1: 100026
+    second: middle2_l
+  - first:
+      1: 100028
+    second: middle2_r
+  - first:
+      1: 100030
+    second: middle3_l
+  - first:
+      1: 100032
+    second: middle3_l_end
+  - first:
+      1: 100034
+    second: middle3_r
+  - first:
+      1: 100036
+    second: middle3_r_end
+  - first:
+      1: 100038
+    second: pinky1_l
+  - first:
+      1: 100040
+    second: pinky1_r
+  - first:
+      1: 100042
+    second: pinky2_l
+  - first:
+      1: 100044
+    second: pinky2_r
+  - first:
+      1: 100046
+    second: pinky3_l
+  - first:
+      1: 100048
+    second: pinky3_l_end
+  - first:
+      1: 100050
+    second: pinky3_r
+  - first:
+      1: 100052
+    second: pinky3_r_end
+  - first:
+      1: 100054
+    second: //RootNode
+  - first:
+      1: 100056
+    second: PlayerArmature
+  - first:
+      1: 100058
+    second: ring1_l
+  - first:
+      1: 100060
+    second: ring1_r
+  - first:
+      1: 100062
+    second: ring2_l
+  - first:
+      1: 100064
+    second: ring2_r
+  - first:
+      1: 100066
+    second: ring3_l
+  - first:
+      1: 100068
+    second: ring3_l_end
+  - first:
+      1: 100070
+    second: ring3_r
+  - first:
+      1: 100072
+    second: ring3_r_end
+  - first:
+      1: 100074
+    second: root
+  - first:
+      1: 100076
+    second: thumb1_l
+  - first:
+      1: 100078
+    second: thumb1_r
+  - first:
+      1: 100080
+    second: thumb2_l
+  - first:
+      1: 100082
+    second: thumb2_r
+  - first:
+      1: 100084
+    second: thumb3_l
+  - first:
+      1: 100086
+    second: thumb3_l_end
+  - first:
+      1: 100088
+    second: thumb3_r
+  - first:
+      1: 100090
+    second: thumb3_r_end
+  - first:
+      1: 100092
+    second: wrist_l
+  - first:
+      1: 100094
+    second: wrist_r
+  - first:
+      1: 100096
+    second: handTarget_l
+  - first:
+      1: 100098
+    second: handTarget_l_end
+  - first:
+      1: 100100
+    second: handTarget_r
+  - first:
+      1: 100102
+    second: handTarget_r_end
+  - first:
+      1: 100104
+    second: playerHands
+  - first:
+      4: 400000
+    second: hand_l
+  - first:
+      4: 400002
+    second: hand_r
+  - first:
+      4: 400004
+    second: index1_l
+  - first:
+      4: 400006
+    second: index1_r
+  - first:
+      4: 400008
+    second: index2_l
+  - first:
+      4: 400010
+    second: index2_r
+  - first:
+      4: 400012
+    second: index3_l
+  - first:
+      4: 400014
+    second: index3_l_end
+  - first:
+      4: 400016
+    second: index3_r
+  - first:
+      4: 400018
+    second: index3_r_end
+  - first:
+      4: 400020
+    second: masterPlayerMesh
+  - first:
+      4: 400022
+    second: middle1_l
+  - first:
+      4: 400024
+    second: middle1_r
+  - first:
+      4: 400026
+    second: middle2_l
+  - first:
+      4: 400028
+    second: middle2_r
+  - first:
+      4: 400030
+    second: middle3_l
+  - first:
+      4: 400032
+    second: middle3_l_end
+  - first:
+      4: 400034
+    second: middle3_r
+  - first:
+      4: 400036
+    second: middle3_r_end
+  - first:
+      4: 400038
+    second: pinky1_l
+  - first:
+      4: 400040
+    second: pinky1_r
+  - first:
+      4: 400042
+    second: pinky2_l
+  - first:
+      4: 400044
+    second: pinky2_r
+  - first:
+      4: 400046
+    second: pinky3_l
+  - first:
+      4: 400048
+    second: pinky3_l_end
+  - first:
+      4: 400050
+    second: pinky3_r
+  - first:
+      4: 400052
+    second: pinky3_r_end
+  - first:
+      4: 400054
+    second: //RootNode
+  - first:
+      4: 400056
+    second: PlayerArmature
+  - first:
+      4: 400058
+    second: ring1_l
+  - first:
+      4: 400060
+    second: ring1_r
+  - first:
+      4: 400062
+    second: ring2_l
+  - first:
+      4: 400064
+    second: ring2_r
+  - first:
+      4: 400066
+    second: ring3_l
+  - first:
+      4: 400068
+    second: ring3_l_end
+  - first:
+      4: 400070
+    second: ring3_r
+  - first:
+      4: 400072
+    second: ring3_r_end
+  - first:
+      4: 400074
+    second: root
+  - first:
+      4: 400076
+    second: thumb1_l
+  - first:
+      4: 400078
+    second: thumb1_r
+  - first:
+      4: 400080
+    second: thumb2_l
+  - first:
+      4: 400082
+    second: thumb2_r
+  - first:
+      4: 400084
+    second: thumb3_l
+  - first:
+      4: 400086
+    second: thumb3_l_end
+  - first:
+      4: 400088
+    second: thumb3_r
+  - first:
+      4: 400090
+    second: thumb3_r_end
+  - first:
+      4: 400092
+    second: wrist_l
+  - first:
+      4: 400094
+    second: wrist_r
+  - first:
+      4: 400096
+    second: handTarget_l
+  - first:
+      4: 400098
+    second: handTarget_l_end
+  - first:
+      4: 400100
+    second: handTarget_r
+  - first:
+      4: 400102
+    second: handTarget_r_end
+  - first:
+      4: 400104
+    second: playerHands
+  - first:
+      21: 2100000
+    second: skin.042
+  - first:
+      21: 2100002
+    second: cycles_hands
+  - first:
+      21: 2100004
+    second: cycles_hands.001
+  - first:
+      21: 2100006
+    second: cycles_hands.002
+  - first:
+      23: 2300000
+    second: //RootNode
+  - first:
+      33: 3300000
+    second: //RootNode
+  - first:
+      43: 4300000
+    second: masterPlayerMesh
+  - first:
+      43: 4300002
+    second: playerHands
+  - first:
+      74: 7400000
+    second: PlayerArmature|player_fist
+  - first:
+      74: 7400002
+    second: PlayerArmature|player_open
+  - first:
+      74: 7400004
+    second: stand_angry_refuse
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: masterPlayerMesh
+  - first:
+      137: 13700002
+    second: playerHands
   externalObjects: {}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -134,6 +374,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -157,32 +398,49 @@ ModelImporter:
     globalScale: 3.75
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 0
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 0
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -192,14 +450,19 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 3.75
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
