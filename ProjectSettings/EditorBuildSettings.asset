@@ -21,6 +21,10 @@ EditorBuildSettings:
       type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 4e930fb898abd6547b59ae4c9c2716fc,
       type: 2}
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: a2e13b64ff64e0546a8ea1f8e6e59c45,
+      type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
+      guid: fdf9c8b38a8f73c44b34615ba64b4dc8, type: 2}
     com.unity.addressableassets: {fileID: 11400000, guid: 8999a42ad14417344ba87a36f455366d,
       type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 8b0be70a9ccfd19469b5e80d3aa62282,

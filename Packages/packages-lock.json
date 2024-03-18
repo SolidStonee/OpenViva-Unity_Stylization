@@ -22,6 +22,15 @@
         "com.unity.modules.uielements": "1.0.0"
       }
     },
+    "com.unity.adaptiveperformance": {
+      "version": "5.0.2",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.profiling.core": "1.0.2"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.addressables": {
       "version": "1.21.15",
       "depth": 1,
