@@ -142,11 +142,7 @@ namespace viva
             //         target = item;
             //     }
             // }
-
-            if (visibleItems[0] == null)
-            {
-                return;
-            }
+            
             // float scalingFactor = 0.4f / 180.0f;
             // Debug.Log(Tools.Bearing(transform, target.transform.position) * scalingFactor);
             // float right = Mathf.Clamp(Tools.Bearing(transform, target.transform.position) * scalingFactor, -0.4f, 0.4f);
@@ -159,7 +155,7 @@ namespace viva
             
             float FOV = 90f;
             
-            Vector3 directionToPlayer = (visibleItems[0].transform.position - transform.position).normalized;
+            Vector3 directionToPlayer = (GameDirector.player.head.position - transform.position).normalized;
             float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer);
             if (angleToPlayer <= FOV / 2) {
                 float bearing = Tools.Bearing(transform, visibleItems[0].transform.position);

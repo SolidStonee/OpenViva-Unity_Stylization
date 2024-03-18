@@ -122,7 +122,7 @@ namespace viva
                 configJoint.targetPosition = Quaternion.Inverse(targetLocalRot) * -targetLocalPos;
                 configJoint.SetTargetRotationLocal(jointOffset * targetLocalRot, startLocalRotation);
             }
-            // joint.connectedMassScale = blendValue;
+            joint.connectedMassScale = blendValue;
             joint.massScale = 1.0f + blendValue * additionalConnectedMassScale;
             // const float safetyForce = 1000000.0f;
             // float force = safetyForce-(safetyForce-2500.0f)*blendValue;

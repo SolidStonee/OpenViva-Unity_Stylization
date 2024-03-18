@@ -158,7 +158,7 @@ Material:
     - _Smooth1: 0
     - _Smooth2: 0
     - _Smooth3: 0
-    - _Smoothness: 1
+    - _Smoothness: 0
     - _Smoothness0: 0.007
     - _Smoothness1: 0.213
     - _Smoothness2: 0.068

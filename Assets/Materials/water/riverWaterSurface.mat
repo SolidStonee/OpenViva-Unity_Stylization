@@ -123,7 +123,7 @@ Material:
     - _DirtMax: 0.212
     - _DirtMin: 0
     - _DirtScale: 0.15
-    - _Distance: 4.9
+    - _Distance: 3
     - _DstBlend: 0
     - _FlowSpeed: 0.12
     - _FoamAmount: 0.3
@@ -177,6 +177,6 @@ Material:
     - _SubsurfaceColor: {r: 0.6179246, g: 0.9597815, b: 1, a: 1}
     - _SurfColor: {r: 0, g: 0.7725491, b: 0.6627451, a: 0.2627451}
     - _UV: {r: 0, g: 0, b: 0, a: 0}
-    - _UnderColor: {r: 0.01960784, g: 0.27843133, b: 0.49411762, a: 0.8}
+    - _UnderColor: {r: 0.01960784, g: 0.2784313, b: 0.49411762, a: 0.6431373}
     - _UnderwaterColor: {r: 0.338928, g: 0.52082795, b: 0.614, a: 0}
   m_BuildTextureStacks: []
