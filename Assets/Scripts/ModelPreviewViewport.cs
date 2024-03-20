@@ -34,7 +34,7 @@ namespace viva
         private Vector3 currentPivot = Vector3.zero;
         private float currentHeight = 0.0f;
         private float currentRadius = 1.0f;
-        public Loli modelDefault { get; private set; }
+        public Companion modelDefault { get; private set; }
         private float panCameraEase = 1.0f;
         private Vector3 targetPivot = Vector3.zero;
         private Vector3 cachedPivot = Vector3.zero;
@@ -47,7 +47,7 @@ namespace viva
         private PreviewMode previewMode = PreviewMode.NONE;
         private LineRenderer lineRenderer;
         private Coroutine highlightBoneChainCoroutine = null;
-        public Loli.Animation modelDefaultPoseAnim = Loli.Animation.PHOTOSHOOT_2;
+        public Companion.Animation modelDefaultPoseAnim = Companion.Animation.PHOTOSHOOT_2;
 
         private void Awake()
         {
@@ -205,14 +205,14 @@ namespace viva
                 case PreviewMode.POSE:
                     if (posedropdown.value == 0)
                     {
-                        modelDefaultPoseAnim = Loli.Animation.PHOTOSHOOT_2;
+                        modelDefaultPoseAnim = Companion.Animation.PHOTOSHOOT_2;
                     }
                     if (posedropdown.value == 1)
                     {
-                        modelDefaultPoseAnim = Loli.Animation.PHOTOSHOOT_1;
+                        modelDefaultPoseAnim = Companion.Animation.PHOTOSHOOT_1;
                     }
                     // if(posedropdown.value == 2){
-                    //     modelDefaultPoseAnim = Loli.Animation.PHOTOSHOOT_3;
+                    //     modelDefaultPoseAnim = Companion.Animation.PHOTOSHOOT_3;
                     // }
                     modelDefault.ForceImmediatePose(modelDefaultPoseAnim);
                     break;
@@ -259,9 +259,9 @@ namespace viva
             gameObject.SetActive(false);
         }
 
-        public void SetPreviewLoli(Loli newLoli)
+        public void SetPreviewLoli(Companion newCompanion)
         {
-            if (newLoli == null)
+            if (newCompanion == null)
             {
                 gameObject.SetActive(false);
                 playButton.gameObject.SetActive(false);
@@ -271,21 +271,21 @@ namespace viva
             gameObject.SetActive(true);
             playButton.gameObject.SetActive(true);
 
-            //delete old loli if present
+            //delete old companion if present
             if (modelDefault != null)
             {
                 //hotswap if possible
-                if (newLoli != null)
+                if (newCompanion != null)
                 {
-                    newLoli.Hotswap(modelDefault.headModel);
+                    newCompanion.Hotswap(modelDefault.headModel);
                 }
             }
 
-            modelDefault = newLoli;
+            modelDefault = newCompanion;
             if (modelDefault != null)
             {
                 //prepare for preview
-                newLoli.SetTargetAnimation(Loli.Animation.STAND_STRETCH);
+                newCompanion.SetTargetAnimation(Companion.Animation.STAND_STRETCH);
                 modelDefault.active.idle.enableFaceTargetTimer = false;
                 modelDefault.SetPreviewMode(true);
 

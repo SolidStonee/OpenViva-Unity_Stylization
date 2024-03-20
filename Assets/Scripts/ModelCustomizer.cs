@@ -175,7 +175,7 @@ namespace viva
 
         public void clickDeselectAll()
         {
-            foreach (Loli loli in GameDirector.player.objectFingerPointer.selectedLolis.ToList())
+            foreach (Companion loli in GameDirector.player.objectFingerPointer.selectedLolis.ToList())
             {
                 loli.characterSelectionTarget.OnUnselected();
                 GameDirector.player.objectFingerPointer.selectedLolis.Remove(loli);

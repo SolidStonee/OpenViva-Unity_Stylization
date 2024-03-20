@@ -15,7 +15,7 @@ namespace viva
 
             public readonly string name;
             public readonly Autonomy autonomy;
-            public Loli self { get { return autonomy.self; } }
+            public Companion self { get { return autonomy.self; } }
             public OnGenericCallback onFail;
             public OnGenericCallback onSuccess;
             public OnGenericCallback onRemovedFromQueue;
@@ -185,9 +185,9 @@ namespace viva
             public OnGenericCallback onLateUpdatePreLookAt;
             public OnGenericCallback onLateUpdatePostIK;
             public OnGenericCallback onModifyAnimation;
-            public Loli.OnAnimationChangeCallback onAnimationChange;
-            public Loli.OnCharacterCollisionCallback onCharacterCollisionEnter;
-            public Loli.OnCharacterTriggerCallback onCharacterTriggerEnter;
+            public Companion.OnAnimationChangeCallback onAnimationChange;
+            public Companion.OnCharacterCollisionCallback onCharacterCollisionEnter;
+            public Companion.OnCharacterTriggerCallback onCharacterTriggerEnter;
             public OnGenericCallback onRegistered;
             public OnGenericCallback onUnregistered;
             public OnGenericCallback onFlagForSuccess;
@@ -199,7 +199,7 @@ namespace viva
             public void LateUpdatePreLookAt() { onLateUpdatePreLookAt?.Invoke(); }
             public void LateUpdatePostIK() { onLateUpdatePostIK?.Invoke(); }
             public void ModifyAnimation() { onModifyAnimation?.Invoke(); }
-            public void AnimationChange(Loli.Animation oldAnim, Loli.Animation newAnim) { onAnimationChange?.Invoke(oldAnim, newAnim); }
+            public void AnimationChange(Companion.Animation oldAnim, Companion.Animation newAnim) { onAnimationChange?.Invoke(oldAnim, newAnim); }
             public void CharacterCollisionEnter(CharacterCollisionCallback ccc, Collision collision) { onCharacterCollisionEnter?.Invoke(ccc, collision); }
             public void CharacterTriggerEnter(CharacterTriggerCallback ccc, Collider collider) { onCharacterTriggerEnter?.Invoke(ccc, collider); }
             public void RemovedFromQueue()
@@ -342,7 +342,7 @@ namespace viva
         private bool hintBreakValidation = false;
 
 
-        public Autonomy(Loli _self) : base(_self, Job.JobType.AUTONOMY)
+        public Autonomy(Companion _self) : base(_self, Job.JobType.AUTONOMY)
         {
         }
 

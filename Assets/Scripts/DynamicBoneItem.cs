@@ -33,13 +33,13 @@ namespace viva
                     lastTargetIndex = grabber.GetCurrentTargetIndex();
                     timeWashed += targetIndexChange;
 
-                    Loli loli = mainOwner as Loli;
-                    if (loli)
+                    Companion companion = mainOwner as Companion;
+                    if (companion)
                     {
-                        loli.IncreaseDirt(-targetIndexChange * Time.deltaTime);
+                        companion.IncreaseDirt(-targetIndexChange * Time.deltaTime);
                         if (timeWashed > 10.0f)
                         {
-                            loli.active.bathing.OnCompleteHairBoneWash(grabber);
+                            companion.active.bathing.OnCompleteHairBoneWash(grabber);
                         }
                     }
                 }

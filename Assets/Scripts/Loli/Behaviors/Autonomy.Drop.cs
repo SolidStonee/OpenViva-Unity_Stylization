@@ -29,7 +29,7 @@ namespace viva
             {
                 if (targetItem != null)
                 {
-                    new BlendController(targetItem.mainOccupyState as LoliHandState, playTargetAnim.entryAnimation, OnAnimationIKControl, 0.5f);
+                    new BlendController(targetItem.mainOccupyState as CompanionHandState, playTargetAnim.entryAnimation, OnAnimationIKControl, 0.5f);
                 }
             };
         }
@@ -85,7 +85,7 @@ namespace viva
             {
                 return 0.0f;
             }
-            LoliHandState targetHandState = targetItem.mainOccupyState as LoliHandState;
+            CompanionHandState targetHandState = targetItem.mainOccupyState as CompanionHandState;
             if (targetHandState == null)
             {
                 return 0.0f;
@@ -128,39 +128,39 @@ namespace viva
             return null;
         }
 
-        protected override Loli.Animation GetTargetAnimation()
+        protected override Companion.Animation GetTargetAnimation()
         {
             if (targetItem == null)
             {
-                return Loli.Animation.NONE;
+                return Companion.Animation.NONE;
             }
-            LoliHandState targetHandState = targetItem.mainOccupyState as LoliHandState;
+            CompanionHandState targetHandState = targetItem.mainOccupyState as CompanionHandState;
             if (targetHandState == null)
             {
-                return Loli.Animation.NONE;
+                return Companion.Animation.NONE;
             }
             switch (self.bodyState)
             {
                 case BodyState.STAND:
                     if (targetHandState.rightSide)
                     {
-                        return Loli.Animation.STAND_PICKUP_RIGHT;
+                        return Companion.Animation.STAND_PICKUP_RIGHT;
                     }
                     else
                     {
-                        return Loli.Animation.STAND_PICKUP_LEFT;
+                        return Companion.Animation.STAND_PICKUP_LEFT;
                     }
                 case BodyState.FLOOR_SIT:
                     if (targetHandState.rightSide)
                     {
-                        return Loli.Animation.FLOOR_SIT_REACH_RIGHT;
+                        return Companion.Animation.FLOOR_SIT_REACH_RIGHT;
                     }
                     else
                     {
-                        return Loli.Animation.FLOOR_SIT_REACH_LEFT;
+                        return Companion.Animation.FLOOR_SIT_REACH_LEFT;
                     }
             }
-            return Loli.Animation.NONE;
+            return Companion.Animation.NONE;
         }
     }
 

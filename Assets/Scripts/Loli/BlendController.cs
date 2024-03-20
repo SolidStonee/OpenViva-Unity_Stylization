@@ -13,29 +13,29 @@ namespace viva
         public delegate float OnIKControl(BlendController blendController);
 
         private float easeDuration;
-        public readonly LoliHandState targetHandState;
-        public readonly Loli.ArmIK armIK;
-        public readonly Loli.ArmIK.RetargetingInfo retargetingInfo = new Loli.ArmIK.RetargetingInfo();
-        public Loli.Animation targetAnimation;
+        public readonly CompanionHandState targetHandState;
+        public readonly Companion.ArmIK armIK;
+        public readonly Companion.ArmIK.RetargetingInfo retargetingInfo = new Companion.ArmIK.RetargetingInfo();
+        public Companion.Animation targetAnimation;
         private readonly Tools.EaseBlend boundaryEase = new Tools.EaseBlend();
         private readonly OnIKControl controlCallback;
-        private LoliHandState.HoldBlendMax holdBlendMax = new LoliHandState.HoldBlendMax();
+        private CompanionHandState.HoldBlendMax holdBlendMax = new CompanionHandState.HoldBlendMax();
         private bool registered = false;
         private bool listening = false;
 
 
-        public BlendController(LoliHandState _targetHandState, Loli.Animation _targetAnim, OnIKControl _controlCallback, float _easeDuration = 0.4f)
+        public BlendController(CompanionHandState _targetHandState, Companion.Animation _targetAnim, OnIKControl _controlCallback, float _easeDuration = 0.4f)
         {
             targetHandState = _targetHandState;
             if (targetHandState != null)
             {
-                armIK = new Loli.ArmIK(targetHandState.holdArmIK);
+                armIK = new Companion.ArmIK(targetHandState.holdArmIK);
                 targetAnimation = _targetAnim;
                 controlCallback = _controlCallback;
                 Restore();
 
                 //fire current animation state in case already in targetAnim
-                Loli self = targetHandState.owner as Loli;
+                Companion self = targetHandState.owner as Companion;
                 ListenForAnimation(self.lastAnim, self.currentAnim);
             }
 
@@ -49,11 +49,11 @@ namespace viva
                 return;
             }
             listening = true;
-            Loli self = targetHandState.owner as Loli;
+            Companion self = targetHandState.owner as Companion;
             self.onAnimationChange += ListenForAnimation;
         }
 
-        private void ListenForAnimation(Loli.Animation oldAnim, Loli.Animation newAnim)
+        private void ListenForAnimation(Companion.Animation oldAnim, Companion.Animation newAnim)
         {
 
             if (newAnim == targetAnimation)
@@ -76,7 +76,7 @@ namespace viva
             }
             registered = true;
 
-            Loli self = targetHandState.owner as Loli;
+            Companion self = targetHandState.owner as Companion;
             self.AddModifyAnimationCallback(OnModifyAnimation);
             if (boundaryEase.getTarget() != 1.0f)
             {
@@ -95,7 +95,7 @@ namespace viva
             if (boundaryEase.getTarget() != 0.0f)
             {
                 boundaryEase.StartBlend(0.0f, easeDuration);
-                Loli self = targetHandState.owner as Loli;
+                Companion self = targetHandState.owner as Companion;
                 self.onAnimationChange -= ListenForAnimation;
                 listening = false;
             }
@@ -106,7 +106,7 @@ namespace viva
             boundaryEase.Update(Time.fixedDeltaTime);
             if (boundaryEase.value == 0.0f)
             {
-                Loli self = targetHandState.owner as Loli;
+                Companion self = targetHandState.owner as Companion;
                 self.RemoveModifyAnimationCallback(OnModifyAnimation);
                 targetHandState.RequestUnsetHoldBlendMax(holdBlendMax);
             }

@@ -11,7 +11,7 @@ namespace viva
     {
 
         [SerializeField]
-        private Loli target;
+        private Companion target;
         [SerializeField]
         private MeshRenderer meshRenderer;
 

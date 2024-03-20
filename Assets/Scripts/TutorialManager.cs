@@ -64,7 +64,7 @@ namespace viva
             {
                 return;
             }
-            //skip if player is not nearby or triggered by a loli
+            //skip if player is not nearby or triggered by a companion
             if (source.mainOwner == null)
             {
                 if (Vector3.SqrMagnitude(source.transform.position - GameDirector.player.floorPos) > 4.0f)
@@ -72,7 +72,7 @@ namespace viva
                     return;
                 }
             }
-            else if (source.mainOwner.characterType == Character.Type.LOLI)
+            else if (source.mainOwner.characterType == Character.Type.COMPANION)
             {
                 return;
             }

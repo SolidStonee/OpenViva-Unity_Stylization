@@ -12,7 +12,7 @@ namespace viva
         private bool wantsMoreHeadpats = false;
 
         private TwoBoneIK spineIK;
-        private Loli.ArmIK.RetargetingInfo spineInfo = new Loli.ArmIK.RetargetingInfo();
+        private Companion.ArmIK.RetargetingInfo spineInfo = new Companion.ArmIK.RetargetingInfo();
         private Tools.EaseBlend headpatBlend = new Tools.EaseBlend();
         private Vector3 headpatStartOffset;
         private float headpatRoughnessTolerance = 0.0f;
@@ -42,7 +42,7 @@ namespace viva
             spineIK = new TwoBoneIK(spine3, Quaternion.Euler(0, 0, 0), neck, Quaternion.Euler(0, 0, 0), self.head);
         }
 
-        public HeadpatBehavior(Loli _self) : base(_self, 0.0f)
+        public HeadpatBehavior(Companion _self) : base(_self, 0.0f)
         {
 
             //call as an init
@@ -56,7 +56,7 @@ namespace viva
 
             if (headpatProperCooldownMult < 0.4 && headpatRoughnessCooldownMult == 1.0f)
             {
-                self.Speak(Loli.VoiceLine.HEADPAT_HAPPY);
+                self.Speak(Companion.VoiceLine.HEADPAT_HAPPY);
             }
         }
 
@@ -87,8 +87,8 @@ namespace viva
                 return false;
             }
             //only headpat if start animation is available
-            Loli.Animation headpatStartAnimation = GetHeadpatStartAnimation();
-            if (headpatStartAnimation == Loli.Animation.NONE)
+            Companion.Animation headpatStartAnimation = GetHeadpatStartAnimation();
+            if (headpatStartAnimation == Companion.Animation.NONE)
             {
                 return false;
             }
@@ -140,7 +140,7 @@ namespace viva
             return true;
         }
 
-        private void InitializeHeadpat(Loli.Animation headpatStartAnimation, PlayerHandState newHeadpatSourceHoldState)
+        private void InitializeHeadpat(Companion.Animation headpatStartAnimation, PlayerHandState newHeadpatSourceHoldState)
         {
             headpatSourceHoldState = newHeadpatSourceHoldState;
             headpatSourceHoldState.owner.AddModifyAnimationCallback(AnimateHeadpatSourceHand);
@@ -201,8 +201,8 @@ namespace viva
                 }
                 else
                 {
-                    Loli.Animation successAnimation = GetHeadpatSucceededAnimation();
-                    if (successAnimation == Loli.Animation.NONE)
+                    Companion.Animation successAnimation = GetHeadpatSucceededAnimation();
+                    if (successAnimation == Companion.Animation.NONE)
                     {
                         self.SetTargetAnimation(self.GetLastReturnableIdleAnimation());
                     }
@@ -218,7 +218,7 @@ namespace viva
         }
 
         //end with optional forceHeadpatEndAnim
-        private void StopHeadpat(Loli.Animation forceHeadpatEndAnim, float headpatAcceptTimeout)
+        private void StopHeadpat(Companion.Animation forceHeadpatEndAnim, float headpatAcceptTimeout)
         {
             if (headpatSourceHoldState == null)
             {
@@ -229,7 +229,7 @@ namespace viva
             headpatBlend.StartBlend(0.0f, 0.4f);
 
             self.OverrideClearAnimationPriority();
-            if (forceHeadpatEndAnim == Loli.Animation.NONE)
+            if (forceHeadpatEndAnim == Companion.Animation.NONE)
             {
                 self.SetTargetAnimation(self.GetLastReturnableIdleAnimation());
             }
@@ -288,11 +288,11 @@ namespace viva
                         {
                             if (self.rightHandState.holdType == HoldType.NULL)
                             {
-                                self.SetTargetAnimation(Loli.Animation.STAND_HEADPAT_HAPPY_IDLE_SAD_RIGHT);
+                                self.SetTargetAnimation(Companion.Animation.STAND_HEADPAT_HAPPY_IDLE_SAD_RIGHT);
                             }
                             else if (self.leftHandState.holdType == HoldType.NULL)
                             {
-                                self.SetTargetAnimation(Loli.Animation.STAND_HEADPAT_HAPPY_IDLE_SAD_LEFT);
+                                self.SetTargetAnimation(Companion.Animation.STAND_HEADPAT_HAPPY_IDLE_SAD_LEFT);
                             }
                         }
                         self.SetLookAtTarget(headpatSourceHoldState.fingerAnimator.hand);
@@ -368,14 +368,14 @@ namespace viva
             //if fully in a headpat
             if (IsHeadpatActive())
             {
-                Loli.Animation headpatIdleAnim = GetHeadpatIdleAnimation(); //should contain rough headpat animation blend
-                if (headpatIdleAnim != Loli.Animation.NONE)
+                Companion.Animation headpatIdleAnim = GetHeadpatIdleAnimation(); //should contain rough headpat animation blend
+                if (headpatIdleAnim != Companion.Animation.NONE)
                 {
                     if (headpatRoughness > 0.5f)
                     {
                         AttemptRoughHeadpatAnimation(headpatIdleAnim);
                     }
-                    else if (self.IsSpeaking(Loli.VoiceLine.SCREAMING))
+                    else if (self.IsSpeaking(Companion.VoiceLine.SCREAMING))
                     {
                         self.StopSpeaking();
                     }
@@ -392,7 +392,7 @@ namespace viva
             }
         }
 
-        private void AttemptRoughHeadpatAnimation(Loli.Animation idleHeadpatAnim)
+        private void AttemptRoughHeadpatAnimation(Companion.Animation idleHeadpatAnim)
         {
 
             switch (self.bodyState)
@@ -404,11 +404,11 @@ namespace viva
                 // 	StopHeadpat( self.active.sleeping.GetSleepPillowUpPostFacePokeAnimation(), 1.0f );
                 // 	break;
                 default:
-                    if (idleHeadpatAnim != Loli.Animation.NONE)
+                    if (idleHeadpatAnim != Companion.Animation.NONE)
                     {
-                        if (!self.IsSpeaking(Loli.VoiceLine.SCREAMING))
+                        if (!self.IsSpeaking(Companion.VoiceLine.SCREAMING))
                         {
-                            self.Speak(Loli.VoiceLine.SCREAMING, true);
+                            self.Speak(Companion.VoiceLine.SCREAMING, true);
                         }
                     }
                     //override to idle loop immediately if rough headpat
@@ -439,7 +439,7 @@ namespace viva
             //project source hand position to head
             Transform sourceWrist = headpatSourceHoldState.fingerAnimator.hand.parent;
             Transform sourceTargetBone = headpatSourceHoldState.fingerAnimator.targetBone;
-            SphereCollider headSC = self.GetColliderBodyPart(Loli.BodyPart.HEAD_SC) as SphereCollider;
+            SphereCollider headSC = self.GetColliderBodyPart(Companion.BodyPart.HEAD_SC) as SphereCollider;
             Vector3 headCenter = headSC.transform.TransformPoint(headSC.center);
             float headWorldRadius = headSC.transform.lossyScale.x * headSC.radius + 0.01f;
 
@@ -558,12 +558,12 @@ namespace viva
             );
         }
 
-        public override void OnAnimationChange(Loli.Animation oldAnim, Loli.Animation newAnim)
+        public override void OnAnimationChange(Companion.Animation oldAnim, Companion.Animation newAnim)
         {
             switch (newAnim)
             {
-                case Loli.Animation.STAND_HEADPAT_HAPPY_WANTED_MORE:
-                case Loli.Animation.STAND_HEADPAT_ANGRY_LOOP:
+                case Companion.Animation.STAND_HEADPAT_HAPPY_WANTED_MORE:
+                case Companion.Animation.STAND_HEADPAT_ANGRY_LOOP:
                     if (headpatSourceHoldState != null)
                     {
                         self.SetLookAtTarget(headpatSourceHoldState.fingerAnimator.targetBone);
@@ -573,8 +573,8 @@ namespace viva
             }
             switch (oldAnim)
             {
-                case Loli.Animation.STAND_HEADPAT_HAPPY_WANTED_MORE:
-                case Loli.Animation.STAND_HEADPAT_ANGRY_LOOP:
+                case Companion.Animation.STAND_HEADPAT_HAPPY_WANTED_MORE:
+                case Companion.Animation.STAND_HEADPAT_ANGRY_LOOP:
                     self.SetViewAwarenessTimeout(0.0f);
                     return;
             }

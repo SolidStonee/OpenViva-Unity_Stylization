@@ -66,7 +66,7 @@ namespace viva
             }
 
             //present camera for posing
-            List<Character> lolis = GameDirector.instance.FindCharactersInSphere((int)Character.Type.LOLI, player.head.position, 5.0f);
+            List<Character> lolis = GameDirector.instance.FindCharactersInSphere((int)Character.Type.COMPANION, player.head.position, 5.0f);
             if (lolis.Count == 0)
             {
                 return;
@@ -74,10 +74,10 @@ namespace viva
             Transform camera = gameObject.transform;
             for (int i = 0; i < lolis.Count; i++)
             {
-                Loli loli = lolis[i] as Loli;
+                Companion companion = lolis[i] as Companion;
                 //if camera is visible for Shinobu and bearing is small
-                if (!loli.CanSeePoint(camera.position) ||
-                    Mathf.Abs(Tools.Bearing(player.head, loli.head.position)) > 50.0f)
+                if (!companion.CanSeePoint(camera.position) ||
+                    Mathf.Abs(Tools.Bearing(player.head, companion.head.position)) > 50.0f)
                 {
                     return;
                 }
@@ -88,14 +88,14 @@ namespace viva
                 }
 
                 //cancel if too close to her head
-                if (Vector3.SqrMagnitude(camera.position - loli.head.position) < 0.36f)
+                if (Vector3.SqrMagnitude(camera.position - companion.head.position) < 0.36f)
                 {
                     return;
                 }
-                float rayDist = Tools.PointToSegmentDistance(camera.position, camera.position - camera.up * 20.0f, loli.head.position);
+                float rayDist = Tools.PointToSegmentDistance(camera.position, camera.position - camera.up * 20.0f, companion.head.position);
                 if (rayDist < 0.35f)
                 {
-                    loli.active.cameraPose.AttemptPoseForCamera(transform);
+                    companion.active.cameraPose.AttemptPoseForCamera(transform);
                 }
             }
         }
@@ -106,18 +106,18 @@ namespace viva
             Collider[] results = Physics.OverlapSphere(transform.position - transform.up, 1.0f, WorldUtil.characterMovementMask);
             for (int i = 0; i < results.Length; i++)
             {
-                Loli loli = results[i].gameObject.GetComponent(typeof(Loli)) as Loli;
-                if (loli != null)
+                Companion companion = results[i].gameObject.GetComponent(typeof(Companion)) as Companion;
+                if (companion != null)
                 {
                     //aim at pelvic bone
-                    Transform spine1 = loli.spine2.parent;
+                    Transform spine1 = companion.spine2.parent;
                     Vector3 screenPoint = camera.WorldToScreenPoint(spine1.position);
                     if (screenPoint.x < 0.0f || screenPoint.x > camera.pixelWidth ||
                         screenPoint.y < 0.0f || screenPoint.y > camera.pixelHeight)
                     {
                         continue;
                     }
-                    float localY = loli.spine2.InverseTransformPoint(transform.position).y;
+                    float localY = companion.spine2.InverseTransformPoint(transform.position).y;
                     float dist = Vector3.Distance(spine1.position, transform.position);
 
                     //precomputed linear equation for near panty requirements

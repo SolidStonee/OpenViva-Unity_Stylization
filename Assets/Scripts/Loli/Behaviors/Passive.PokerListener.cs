@@ -8,7 +8,7 @@ namespace viva
         private Character target = null;
         private PokerCard targetPokerDeck = null;
 
-        public PokerListenerBehavior(Loli _self) : base(_self, 0.3f)
+        public PokerListenerBehavior(Companion _self) : base(_self, 0.3f)
         {
             self.onGiftItemCallstack.AddCallback(OnItemBeg);
         }
@@ -45,7 +45,7 @@ namespace viva
             }
             else
             {
-                var playAnim = new AutonomyPlayAnimation(self.autonomy, "disagree poker", Loli.Animation.FLOOR_SIT_REFUSE);
+                var playAnim = new AutonomyPlayAnimation(self.autonomy, "disagree poker", Companion.Animation.FLOOR_SIT_REFUSE);
                 self.autonomy.Interrupt(playAnim);
             }
             return true;

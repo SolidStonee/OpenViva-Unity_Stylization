@@ -28,7 +28,7 @@
             faceTarget = new AutonomyFaceDirection(_autonomy, _name + " item face dir", ReadTargetLocation);
             AddRequirement(faceTarget);
 
-            playTargetAnim = new AutonomyPlayAnimation(self.autonomy, _name + " play anim", Loli.Animation.NONE);
+            playTargetAnim = new AutonomyPlayAnimation(self.autonomy, _name + " play anim", Companion.Animation.NONE);
             playTargetAnim.onRegistered += CheckIfShouldPlayAgain;
             AddRequirement(playTargetAnim);
 
@@ -44,7 +44,7 @@
         }
 
         protected abstract void ReadTargetLocation(TaskTarget target);
-        protected abstract Loli.Animation GetTargetAnimation();
+        protected abstract Companion.Animation GetTargetAnimation();
 
         protected void CheckIfShouldPlayAgain()
         {

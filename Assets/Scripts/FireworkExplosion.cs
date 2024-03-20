@@ -90,8 +90,8 @@ namespace viva
 
             foreach (Character character in GameDirector.characters.objects)
             {
-                Loli loli = character as Loli;
-                if (loli == null)
+                Companion companion = character as Companion;
+                if (companion == null)
                 {
                     continue;
                 }
@@ -100,45 +100,45 @@ namespace viva
                 float sqDist = diff.x * diff.x + diff.z * diff.z;
                 if (sqDist < 50)
                 { //10
-                    loli.passive.scared.Scare(4.0f);
+                    companion.passive.scared.Scare(4.0f);
                     //Debug.LogError(sqDist);
                 }
                 else if (sqDist < 62500)
                 { //250
-                    var impressedAnim = Loli.Animation.NONE;
-                    switch (loli.bodyState)
+                    var impressedAnim = Companion.Animation.NONE;
+                    switch (companion.bodyState)
                     {
                         case BodyState.STAND:
-                            impressedAnim = Loli.Animation.STAND_IMPRESSED1;
+                            impressedAnim = Companion.Animation.STAND_IMPRESSED1;
                             break;
                         case BodyState.FLOOR_SIT:
-                            impressedAnim = Loli.Animation.FLOOR_SIT_IMPRESSED1;
+                            impressedAnim = Companion.Animation.FLOOR_SIT_IMPRESSED1;
                             break;
                         case BodyState.SQUAT:
                         case BodyState.RELAX:
-                            impressedAnim = Loli.Animation.SQUAT_IMPRESSED1;
+                            impressedAnim = Companion.Animation.SQUAT_IMPRESSED1;
                             break;
                     }
-                    if (impressedAnim != Loli.Animation.NONE)
+                    if (impressedAnim != Companion.Animation.NONE)
                     {
 
-                        Vector3 toFirework = transform.position - loli.head.position;
-                        if (Physics.Raycast(loli.head.position, toFirework.normalized, 8.0f, WorldUtil.wallsMask, QueryTriggerInteraction.Ignore))
+                        Vector3 toFirework = transform.position - companion.head.position;
+                        if (Physics.Raycast(companion.head.position, toFirework.normalized, 8.0f, WorldUtil.wallsMask, QueryTriggerInteraction.Ignore))
                         {
                             continue;
                         }
-                        var playImpressed = new AutonomyPlayAnimation(loli.autonomy, "fireworks impressed", impressedAnim);
+                        var playImpressed = new AutonomyPlayAnimation(companion.autonomy, "fireworks impressed", impressedAnim);
 
-                        playImpressed.AddRequirement(new AutonomyFaceDirection(loli.autonomy, "face firework", delegate (TaskTarget target)
+                        playImpressed.AddRequirement(new AutonomyFaceDirection(companion.autonomy, "face firework", delegate (TaskTarget target)
                         {
                             target.SetTargetPosition(transform.position);
                         }));
-                        playImpressed.AddRequirement(new AutonomyWait(loli.autonomy, "random wait", Random.value));
+                        playImpressed.AddRequirement(new AutonomyWait(companion.autonomy, "random wait", Random.value));
 
-                        loli.autonomy.Interrupt(playImpressed);
+                        companion.autonomy.Interrupt(playImpressed);
 
-                        loli.SetLookAtTarget(transform);
-                        loli.SetViewAwarenessTimeout(4.0f);
+                        companion.SetLookAtTarget(transform);
+                        companion.SetViewAwarenessTimeout(4.0f);
                     }
                 }
             }

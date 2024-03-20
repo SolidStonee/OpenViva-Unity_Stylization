@@ -10,9 +10,9 @@ namespace viva
 
         private RootAnimationOffset wearOffset;
         private IKAnimationTarget iKAnimation;
-        private Loli.ArmIK armOverrideIK;
+        private Companion.ArmIK armOverrideIK;
         private float ikBusyBlendPenalty = 0.0f;
-        private Loli.ArmIK.RetargetingInfo bagRetargeting = new Loli.ArmIK.RetargetingInfo();
+        private Companion.ArmIK.RetargetingInfo bagRetargeting = new Companion.ArmIK.RetargetingInfo();
 
         public void Pickup(
                     Item item,
@@ -81,19 +81,19 @@ namespace viva
         // Quaternion restRotation = Quaternion.LookRotation( Vector3.down, transform.up )*Quaternion.Euler( currShoulderRestRotation );
         // itemTransformBlend.Blend( restPosition, restRotation );	
 
-        // 	AnimateArmOverride( owner as Loli );	
+        // 	AnimateArmOverride( owner as Companion );	
         // }
 
-        private void AnimateArmOverride(Loli loli)
+        private void AnimateArmOverride(Companion companion)
         {
-            LoliHandState handState;
+            CompanionHandState handState;
             if (rightSide)
             {
-                handState = loli.rightLoliHandState;
+                handState = companion.rightCompanionHandState;
             }
             else
             {
-                handState = loli.leftLoliHandState;
+                handState = companion.leftCompanionHandState;
             }
 
             // if( handState.holdType != HoldType.FREE ){
@@ -109,7 +109,7 @@ namespace viva
             // ///TODO: Apply animation override using new system
 
             // if( armOverrideIK == null ){
-            // 	armOverrideIK = new Loli.ArmIK( handState.armIK );
+            // 	armOverrideIK = new Companion.ArmIK( handState.armIK );
             // }
             // bagRetargeting.blend.reset( shoulderArmBlend );
             // bagRetargeting.target = heldItem.transform.TransformPoint( FlipXIfRight( iKAnimation.target, rightSide ) );

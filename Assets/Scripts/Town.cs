@@ -6,7 +6,7 @@ using UnityEngine;
 namespace viva
 {
 
-    using LoliInit = Tuple<Loli, GameDirector.VivaFile.SerializedLoli>;
+    using LoliInit = Tuple<Companion, GameDirector.VivaFile.SerializedLoli>;
 
     public class Town : VivaSessionAsset
     {
@@ -44,7 +44,7 @@ namespace viva
                 return;
             }
             List<LoliInit> startingTownLolis = new List<LoliInit>();
-            Debug.Log("[Town] Generating " + count + " loli residents...");
+            Debug.Log("[Town] Generating " + count + " companion residents...");
             for (int i = 0; i < count; i++)
             {
                 var cardFilename = cards[i % cards.Length] + ".png";                                                          
@@ -55,7 +55,7 @@ namespace viva
                 {
                     return;
                 }   
-                GameDirector.instance.StartCoroutine(Loli.LoadLoliFromSerializedLoli(serializedLoli.sourceCardFilename, targetLoli, delegate ()
+                GameDirector.instance.StartCoroutine(Companion.LoadLoliFromSerializedLoli(serializedLoli.sourceCardFilename, targetLoli, delegate ()
                 {
                     startingTownLolis.Add(new LoliInit(targetLoli, serializedLoli));
                     if (startingTownLolis.Count == count)

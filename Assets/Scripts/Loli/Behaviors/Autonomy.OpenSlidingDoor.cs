@@ -12,7 +12,7 @@ namespace viva
         private AutonomyPlayAnimation openDoor;
         private AutonomyMoveTo goToAndOpenDoor;
         private CharacterCollisionCallback.Type targetType;
-        private LoliHandState targetHandState;
+        private CompanionHandState targetHandState;
         private ContactPoint[] contactPoints = new ContactPoint[1];
         private float targetEndDoorUnit;
         private float targetDoorUnit;
@@ -33,7 +33,7 @@ namespace viva
                 targetDoorUnit = CalculateTargetDoorUnit();
                 targetDoorSide = Tools.GetSide(targetSidePos, slidingDoor.transform);
 
-                openDoor = new AutonomyPlayAnimation(autonomy, _name + " play anim ", Loli.Animation.NONE);
+                openDoor = new AutonomyPlayAnimation(autonomy, _name + " play anim ", Companion.Animation.NONE);
                 openDoor.onRegistered += SetupSlidingDoorAnimation;
 
                 goToAndOpenDoor = new AutonomyMoveTo(autonomy, _name + " move to", delegate (TaskTarget target)
@@ -140,11 +140,11 @@ namespace viva
             }
             if (targetHandState.rightSide)
             {
-                openDoor.OverrideAnimations(Loli.Animation.STAND_SLIDINGDOOR_RIGHT, Loli.Animation.STAND_SLIDINGDOOR_IDLE_LOOP_RIGHT);
+                openDoor.OverrideAnimations(Companion.Animation.STAND_SLIDINGDOOR_RIGHT, Companion.Animation.STAND_SLIDINGDOOR_IDLE_LOOP_RIGHT);
             }
             else
             {
-                openDoor.OverrideAnimations(Loli.Animation.STAND_SLIDINGDOOR_LEFT, Loli.Animation.STAND_SLIDINGDOOR_IDLE_LOOP_LEFT);
+                openDoor.OverrideAnimations(Companion.Animation.STAND_SLIDINGDOOR_LEFT, Companion.Animation.STAND_SLIDINGDOOR_IDLE_LOOP_LEFT);
             }
 
             int targetHandSign = System.Convert.ToInt32(!targetHandState.rightSide) * 2 - 1;    //-1 or 1  left/right

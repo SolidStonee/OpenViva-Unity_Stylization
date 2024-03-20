@@ -28,7 +28,7 @@ public class SteamSetup : MonoBehaviour
         }
         catch ( System.Exception e)
         {
-            Debug.LogError("Steam is fucked lmao ERROR: " + e.Message);
+            Debug.LogError("Failed to Initialize Steam: " + e.Message);
         }
         
     }

@@ -16,27 +16,27 @@ namespace viva
         public class CreateLoliRequest
         {
             public readonly string sourceCardFilename;
-            public readonly Loli targetLoli = null;
+            public readonly Companion targetCompanion = null;
             public readonly byte[] data = null;
             public readonly ModelBuildSettings modelImportSettings = null;
             public readonly bool dataIncludesModelSettings;
             public readonly string loliName;
             public string error = null;
-            public Loli result = null;
+            public Companion result = null;
             public ModelBuildSettings mbs = null;
 
-            public CreateLoliRequest(string _sourceCardFilename, Loli _targetLoli, byte[] _buildData, ModelBuildSettings _modelImportSettings)
+            public CreateLoliRequest(string _sourceCardFilename, Companion targetCompanion, byte[] _buildData, ModelBuildSettings _modelImportSettings)
             {
                 sourceCardFilename = _sourceCardFilename;
-                targetLoli = _targetLoli;
+                this.targetCompanion = targetCompanion;
                 data = _buildData;
                 dataIncludesModelSettings = true;
                 modelImportSettings = _modelImportSettings;
             }
 
-            public CreateLoliRequest(Loli _targetLoli, string filePath, ModelBuildSettings _modelImportSettings)
+            public CreateLoliRequest(Companion targetCompanion, string filePath, ModelBuildSettings _modelImportSettings)
             {
-                targetLoli = _targetLoli;
+                this.targetCompanion = targetCompanion;
                 string[] words = filePath.Split('\\').Last().Split('/').Last().Split('.');
                 loliName = "";
                 for (int i = 0; i < words.Length - 1; i++)
@@ -193,8 +193,8 @@ namespace viva
             decodeVivaModel.vertexDeltaIndicesTable.Dispose();
             decodeVivaModel.vertexDeltaOffsetTable.Dispose();
 
-            request.result = request.targetLoli;
-            request.targetLoli.SetHeadModel(model, mbs);
+            request.result = request.targetCompanion;
+            request.targetCompanion.SetHeadModel(model, mbs);
         }
 
         private static bool[] NativeArrayToBoolArray(NativeArray<bool> array)
@@ -435,7 +435,7 @@ namespace viva
             return -1;
         }
 
-        private void GenerateBonesShared(Loli targetLoli, Transform[] baseBones, ModelBuildSettings mbs)
+        private void GenerateBonesShared(Companion targetCompanion, Transform[] baseBones, ModelBuildSettings mbs)
         {
 
             bonesShared = new Transform[mbs.boneCount];
@@ -453,11 +453,11 @@ namespace viva
                 {
                     if (name.EndsWith("r"))
                     {
-                        bone = targetLoli.pupil_r;
+                        bone = targetCompanion.pupil_r;
                     }
                     else
                     {
-                        bone = targetLoli.pupil_l;
+                        bone = targetCompanion.pupil_l;
                     }
                     //Pupil bones must always face the same direction
                     bone.position = head;
@@ -466,7 +466,7 @@ namespace viva
                 else if (boneIndex == -1)
                 {
                     bone = new GameObject(name).transform;
-                    targetLoli.outfitInstance.createdBones.Add(bone.gameObject);
+                    targetCompanion.outfitInstance.createdBones.Add(bone.gameObject);
 
                     bone.position = head;
                     bone.rotation = Quaternion.AngleAxis(roll * Mathf.Rad2Deg, (tail - head).normalized);
@@ -716,12 +716,12 @@ namespace viva
             }
         }
 
-        public void Build(Loli targetLoli, ModelBuildSettings mbs)
+        public void Build(Companion targetCompanion, ModelBuildSettings mbs)
         {
             error = null;
-            if (targetLoli == null)
+            if (targetCompanion == null)
             {
-                Debug.LogError("[VivaModel] Target Loli cannot be null!");
+                Debug.LogError("[VivaModel] Target Companion cannot be null!");
                 return;
             }
 
@@ -731,16 +731,16 @@ namespace viva
                 return;
             }
 
-            if (targetLoli.sessionReferenceName != null)
+            if (targetCompanion.sessionReferenceName != null)
             {
-                var words = targetLoli.sessionReferenceName.Split('_');
-                targetLoli.gameObject.name = name + "_" + words[words.Length - 1];
+                var words = targetCompanion.sessionReferenceName.Split('_');
+                targetCompanion.gameObject.name = name + "_" + words[words.Length - 1];
             }
-            targetLoli.outfitInstance.DestroyAllCreatedBones();
+            targetCompanion.outfitInstance.DestroyAllCreatedBones();
 
-            Transform bodyArmature = targetLoli.bodyArmature;
-            Transform[] baseBones = targetLoli.bodySMRs[0].bones;
-            SkinnedMeshRenderer destSMR = targetLoli.headSMR;
+            Transform bodyArmature = targetCompanion.bodyArmature;
+            Transform[] baseBones = targetCompanion.bodySMRs[0].bones;
+            SkinnedMeshRenderer destSMR = targetCompanion.headSMR;
 
             //zero out variables
             Vector3 cachedArmaturePos = bodyArmature.position;
@@ -758,7 +758,7 @@ namespace viva
 
             //try to load the textures automatically
             //model textures can be manually set later if they fail now
-            GenerateBonesShared(targetLoli, baseBones, mbs);
+            GenerateBonesShared(targetCompanion, baseBones, mbs);
             GenerateBoneHierarchy(mbs);
             Material[] materials = GenerateMaterials(mbs);
             destSMR.materials = materials;

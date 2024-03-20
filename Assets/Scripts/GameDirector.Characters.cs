@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace viva
 {
@@ -30,9 +31,9 @@ namespace viva
         [SerializeField]
         private PoseCache m_loliBasePose;
         public PoseCache loliBasePose { get { return m_loliBasePose; } }
-        [SerializeField]
-        private LoliSettings m_allLoliSettings;
-        public LoliSettings loliSettings { get { return m_allLoliSettings; } }
+        [FormerlySerializedAs("m_allLoliSettings")] [SerializeField]
+        private CompanionSettings mAllCompanionSettings;
+        public CompanionSettings companionSettings { get { return mAllCompanionSettings; } }
         [SerializeField]
         private Texture2D[] speechBubbleTextures = new Texture2D[System.Enum.GetValues(typeof(SpeechBubble)).Length];
 
@@ -50,17 +51,17 @@ namespace viva
         }
 
 
-        public Loli GetLoliFromPool()
+        public Companion GetLoliFromPool()
         {
             if (loliPool.childCount == 0)
             {
                 var container = GameObject.Instantiate(loliPrefab, Vector3.zero, Quaternion.identity);
-                var newLoli = container.GetComponent<Loli>();
+                var newLoli = container.GetComponent<Companion>();
                 return newLoli;
             }
             var result = loliPool.GetChild(0);
             result.transform.SetParent(null, true);
-            return result.GetComponent<Loli>(); ;
+            return result.GetComponent<Companion>(); ;
         }
 
 
@@ -99,32 +100,32 @@ namespace viva
             return nearby as Player;
         }
 
-        public Loli FindNearbyLoli(Vector3 position, float distance)
+        public Companion FindNearbyLoli(Vector3 position, float distance)
         {
 
-            Character nearby = GameDirector.instance.FindClosestCharacter<Loli>(
+            Character nearby = GameDirector.instance.FindClosestCharacter<Companion>(
                 position,
                 distance
             );
-            return nearby as Loli;
+            return nearby as Companion;
         }
 
-        public Loli FindClosestGeneralDirectionLoli(Transform source, float maxBearing = 45.0f)
+        public Companion FindClosestGeneralDirectionLoli(Transform source, float maxBearing = 45.0f)
         {
             float least = Mathf.Infinity;
-            Loli result = null;
+            Companion result = null;
             for (int i = 0; i < characters.objects.Count; i++)
             {
-                Loli loli = characters.objects[i] as Loli;
-                if (loli == null)
+                Companion companion = characters.objects[i] as Companion;
+                if (companion == null)
                 {
                     continue;
                 }
-                if (!loli.CanSeePoint(source.position))
+                if (!companion.CanSeePoint(source.position))
                 {
                     continue;
                 }
-                Vector3 headPos = loli.head.position;
+                Vector3 headPos = companion.head.position;
                 float bearing = Tools.Bearing(source, headPos);
                 if (bearing > maxBearing)
                 {
@@ -134,28 +135,28 @@ namespace viva
                 if (sqDist < least)
                 {
                     least = sqDist;
-                    result = loli;
+                    result = companion;
                 }
             }
             return result;
         }
 
-        public List<Loli> FindGeneralDirectionLolis(Transform source, float maxBearing = 45.0f, float maxDist = 15.0f)
+        public List<Companion> FindGeneralDirectionLolis(Transform source, float maxBearing = 45.0f, float maxDist = 15.0f)
         {
             maxDist *= maxDist;
-            List<Loli> result = new List<Loli>();
+            List<Companion> result = new List<Companion>();
             for (int i = 0; i < characters.objects.Count; i++)
             {
-                Loli loli = characters.objects[i] as Loli;
-                if (loli == null)
+                Companion companion = characters.objects[i] as Companion;
+                if (companion == null)
                 {
                     continue;
                 }
-                if (!loli.CanSeePoint(source.position))
+                if (!companion.CanSeePoint(source.position))
                 {
                     continue;
                 }
-                Vector3 headPos = loli.head.position;
+                Vector3 headPos = companion.head.position;
                 float bearing = Tools.Bearing(source, headPos);
                 if (bearing > maxBearing)
                 {
@@ -164,7 +165,7 @@ namespace viva
                 float sqDist = Vector3.SqrMagnitude(headPos - source.position);
                 if (sqDist < maxDist)
                 {
-                    result.Add(loli);
+                    result.Add(companion);
                 }
             }
             return result;

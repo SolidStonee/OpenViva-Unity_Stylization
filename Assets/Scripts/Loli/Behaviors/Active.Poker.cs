@@ -16,7 +16,7 @@ namespace viva
         private bool selectedFromRightCard = false;
         public bool isInGame { get { return activeGame != null; } }
 
-        public PokerBehavior(Loli loli) : base(loli, ActiveBehaviors.Behavior.POKER, null)
+        public PokerBehavior(Companion companion) : base(companion, ActiveBehaviors.Behavior.POKER, null)
         {
         }
 
@@ -209,14 +209,14 @@ namespace viva
                     break;
                 case PokerGame.Action.WIN:
                     self.ShiftHappiness(1);
-                    var winAnim = new AutonomyPlayAnimation(self.autonomy, "win anim", Loli.Animation.FLOOR_SIT_CHOPSTICKS_WIN);
+                    var winAnim = new AutonomyPlayAnimation(self.autonomy, "win anim", Companion.Animation.FLOOR_SIT_CHOPSTICKS_WIN);
                     self.autonomy.SetAutonomy(winAnim);
                     winAnim.onSuccess += QuitPokerGame;
                     break;
 
                 case PokerGame.Action.LOSE:
                     self.ShiftHappiness(-1);
-                    var loseAnim = new AutonomyPlayAnimation(self.autonomy, "lose anim", Loli.Animation.FLOOR_SIT_CHOPSTICKS_LOSE);
+                    var loseAnim = new AutonomyPlayAnimation(self.autonomy, "lose anim", Companion.Animation.FLOOR_SIT_CHOPSTICKS_LOSE);
                     self.autonomy.SetAutonomy(loseAnim);
                     loseAnim.onSuccess += QuitPokerGame;
                     break;
@@ -284,11 +284,11 @@ namespace viva
         {
 
 
-            var combineHandsTask = new AutonomyPlayAnimation(self.autonomy, "combine hands", Loli.Animation.NONE);
+            var combineHandsTask = new AutonomyPlayAnimation(self.autonomy, "combine hands", Companion.Animation.NONE);
 
             var waitForIdle = new AutonomyWaitForIdle(self.autonomy, "wait for combine hands idle");
 
-            var drawCards = new AutonomyPickup(self.autonomy, "draw card", activeGame.masterDeck, self.rightLoliHandState);
+            var drawCards = new AutonomyPickup(self.autonomy, "draw card", activeGame.masterDeck, self.rightCompanionHandState);
             drawCards.moveTo.preferredBodyState = BodyState.FLOOR_SIT;
             drawCards.PrependRequirement(combineHandsTask);
             drawCards.PrependRequirement(waitForIdle);
@@ -297,28 +297,28 @@ namespace viva
             {
                 PokerCard rightCard = self.rightHandState.GetItemIfHeld<PokerCard>();
                 PokerCard leftCard = self.leftHandState.GetItemIfHeld<PokerCard>();
-                LoliHandState pickupHandState = null;
+                CompanionHandState pickupHandState = null;
                 if (!rightCard)
                 {
-                    pickupHandState = self.rightLoliHandState;
+                    pickupHandState = self.rightCompanionHandState;
                 }
                 else if (!leftCard)
                 {
-                    pickupHandState = self.leftLoliHandState;
+                    pickupHandState = self.leftCompanionHandState;
                 }
 
                 if (pickupHandState == null)
                 {
-                    Loli.Animation combineAnim;
+                    Companion.Animation combineAnim;
                     if (rightCard.cardGroupSize < leftCard.cardGroupSize)
                     {
-                        combineAnim = Loli.Animation.FLOOR_SIT_PICK_CARD_LEFT;
-                        pickupHandState = self.rightLoliHandState;
+                        combineAnim = Companion.Animation.FLOOR_SIT_PICK_CARD_LEFT;
+                        pickupHandState = self.rightCompanionHandState;
                     }
                     else
                     {
-                        combineAnim = Loli.Animation.FLOOR_SIT_PICK_CARD_RIGHT;
-                        pickupHandState = self.leftLoliHandState;
+                        combineAnim = Companion.Animation.FLOOR_SIT_PICK_CARD_RIGHT;
+                        pickupHandState = self.leftCompanionHandState;
                     }
                     selectedCardValue = null;
 
@@ -389,11 +389,11 @@ namespace viva
                 targetPlayCard = holdingInRight ? rightCard : leftCard;
                 return true;
             });
-            var playEnsureHeldAnim = new AutonomyPlayAnimation(self.autonomy, "play ensure held anim", Loli.Animation.NONE);
+            var playEnsureHeldAnim = new AutonomyPlayAnimation(self.autonomy, "play ensure held anim", Companion.Animation.NONE);
             ensureHeldIn1Hand.AddPassive(playEnsureHeldAnim);
             playEnsureHeldAnim.onRegistered += delegate
             {
-                Loli.Animation animation = selectedFromRightCard ? Loli.Animation.FLOOR_SIT_PICK_CARD_RIGHT : Loli.Animation.FLOOR_SIT_PICK_CARD_LEFT;
+                Companion.Animation animation = selectedFromRightCard ? Companion.Animation.FLOOR_SIT_PICK_CARD_RIGHT : Companion.Animation.FLOOR_SIT_PICK_CARD_LEFT;
                 playEnsureHeldAnim.OverrideAnimations(animation);
             };
 

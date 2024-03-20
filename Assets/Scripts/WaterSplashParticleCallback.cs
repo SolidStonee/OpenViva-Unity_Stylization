@@ -23,10 +23,10 @@ namespace viva
                     return;
                 }
             }
-            Loli loli = gameObject.GetComponent<Loli>();
-            if (loli)
+            Companion companion = gameObject.GetComponent<Companion>();
+            if (companion)
             {
-                loli.passive.environment.AttemptReactToSubstanceSpill(SubstanceSpill.Substance.WATER, sourcePos);
+                companion.passive.environment.AttemptReactToSubstanceSpill(SubstanceSpill.Substance.WATER, sourcePos);
             }
         }
     }

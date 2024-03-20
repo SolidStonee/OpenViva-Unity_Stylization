@@ -19,7 +19,7 @@ namespace viva
         private bool isHand = false;
 
         private RootMotion.Dynamics.Muscle.Props.Multiplier multiplier = null;
-        private Loli self { get { return mainOwner as Loli; } }
+        private Companion self { get { return mainOwner as Companion; } }
         private ConfigurableJoint joint;
 
 
@@ -39,11 +39,11 @@ namespace viva
             {
                 if (handState.rightSide)
                 {
-                    self.SetTargetAnimation(Loli.Animation.STAND_HANDHOLD_ANGRY_REFUSE_RIGHT);
+                    self.SetTargetAnimation(Companion.Animation.STAND_HANDHOLD_ANGRY_REFUSE_RIGHT);
                 }
                 else
                 {
-                    self.SetTargetAnimation(Loli.Animation.STAND_HANDHOLD_ANGRY_REFUSE_LEFT);
+                    self.SetTargetAnimation(Companion.Animation.STAND_HANDHOLD_ANGRY_REFUSE_LEFT);
                 }
                 return true;
             }

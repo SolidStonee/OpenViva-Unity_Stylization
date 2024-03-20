@@ -14,7 +14,7 @@ namespace viva.console
         {
             Name = "Select Character";
             Command = "selected";
-            Description = "Selects/Deselects Loli's";
+            Description = "Selects/Deselects Companion's";
             Help = "Syntax: selected <all/none> \n" +
                    $"<color={RequiredColor}><all/none></color> is required!";
             Example = "selected all, selected none";
@@ -33,21 +33,21 @@ namespace viva.console
                 }
                 if (commandParameter.Contains("all"))
                 {
-                    Loli loli = GameDirector.instance.FindNearbyLoli(GameDirector.player.head.position, 500.0f);
-                    if (!GameDirector.player.objectFingerPointer.selectedLolis.Contains(loli))
+                    Companion companion = GameDirector.instance.FindNearbyLoli(GameDirector.player.head.position, 500.0f);
+                    if (!GameDirector.player.objectFingerPointer.selectedLolis.Contains(companion))
                     {
-                        loli.characterSelectionTarget.OnSelected();
-                        GameDirector.player.objectFingerPointer.selectedLolis.Add(loli);
+                        companion.characterSelectionTarget.OnSelected();
+                        GameDirector.player.objectFingerPointer.selectedLolis.Add(companion);
                     }
 
-                    AddStaticMessageToConsole("Selected All Loli's");
+                    AddStaticMessageToConsole("Selected All Companion's");
                 }
                 else if (commandParameter.Contains("none"))
                 {
-                    Loli loli = GameDirector.instance.FindNearbyLoli(GameDirector.player.head.position, 500.0f);
-                    loli.characterSelectionTarget.OnUnselected();
-                    GameDirector.player.objectFingerPointer.selectedLolis.Remove(loli);
-                    AddStaticMessageToConsole("Deselected All Loli's");
+                    Companion companion = GameDirector.instance.FindNearbyLoli(GameDirector.player.head.position, 500.0f);
+                    companion.characterSelectionTarget.OnUnselected();
+                    GameDirector.player.objectFingerPointer.selectedLolis.Remove(companion);
+                    AddStaticMessageToConsole("Deselected All Companion's");
                 }
                 else
                 {

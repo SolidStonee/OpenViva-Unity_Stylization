@@ -34,13 +34,13 @@ namespace viva
             facilities.Add(this);
         }
 
-        public override bool AttemptCommandUse(Loli targetLoli, Character commandSource)
+        public override bool AttemptCommandUse(Companion targetCompanion, Character commandSource)
         {
-            if (targetLoli == null)
+            if (targetCompanion == null)
             {
                 return false;
             }
-            return targetLoli.active.cooking.AttemptBeginCooking(this);
+            return targetCompanion.active.cooking.AttemptBeginCooking(this);
         }
 
         public override void EndUse(Character targetCharacter)

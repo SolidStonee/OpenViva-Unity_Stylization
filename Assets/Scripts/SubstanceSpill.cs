@@ -87,10 +87,10 @@ namespace viva
             }
             if (callback.collisionPart == CharacterCollisionCallback.Type.HEAD)
             {
-                Loli loli = targetItem.mainOwner as Loli;
-                if (loli)
+                Companion companion = targetItem.mainOwner as Companion;
+                if (companion)
                 {
-                    loli.passive.environment.AttemptReactToSubstanceSpill(substance, particlePosition);
+                    companion.passive.environment.AttemptReactToSubstanceSpill(substance, particlePosition);
                 }
             }
         }

@@ -15,7 +15,7 @@ namespace viva
         private bool hasReachedNextWaypoint = false;
         private LocomotionBehaviors.PathCache employmentPathID = new LocomotionBehaviors.PathCache();
 
-        public WaypointFollowBehavior(Loli _self) : base(_self, ActiveBehaviors.Behavior.WAYPOINT_FOLLOW, null)
+        public WaypointFollowBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.WAYPOINT_FOLLOW, null)
         {
 
         }

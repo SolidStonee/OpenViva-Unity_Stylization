@@ -15,7 +15,7 @@ namespace viva
         private float polaroidFrameInspectTimer = 0.0f;
         private float lastPolaroidFramePantyTime = 0.0f;
         private float waterReedInteractiontimer = 0.0f;
-        public Loli.Animation polaroidFrameReactAnim = Loli.Animation.NONE;
+        public Companion.Animation polaroidFrameReactAnim = Companion.Animation.NONE;
         private PolaroidFrameRippedFX activeRippedFX = null;
         private GameObject targetEdible = null;
 
@@ -23,13 +23,13 @@ namespace viva
         {
         }
 
-        public class TransitionToPolaroidFrameReact : Loli.TransitionHandle
+        public class TransitionToPolaroidFrameReact : Companion.TransitionHandle
         {
 
-            public TransitionToPolaroidFrameReact() : base(Loli.TransitionHandle.TransitionType.NO_MIRROR)
+            public TransitionToPolaroidFrameReact() : base(Companion.TransitionHandle.TransitionType.NO_MIRROR)
             {
             }
-            public override void Transition(Loli self)
+            public override void Transition(Companion self)
             {
                 self.UpdateAnimationTransition(self.active.idle.polaroidFrameReactAnim);
             }
@@ -48,8 +48,8 @@ namespace viva
             }
 
             Object.Destroy(targetEdible);
-            if (self.currentAnim == Loli.Animation.STAND_HAPPY_DONUT_LAST_BITE_RIGHT ||
-                self.currentAnim == Loli.Animation.STAND_HAPPY_DONUT_LAST_BITE_LEFT)
+            if (self.currentAnim == Companion.Animation.STAND_HAPPY_DONUT_LAST_BITE_RIGHT ||
+                self.currentAnim == Companion.Animation.STAND_HAPPY_DONUT_LAST_BITE_LEFT)
             {
 
                 Item item = targetEdible.transform.parent.GetComponent(typeof(Item)) as Item;
@@ -63,7 +63,7 @@ namespace viva
             }
         }
 
-        public void UpdateIdleHoldItemInteraction(LoliHandState handState)
+        public void UpdateIdleHoldItemInteraction(CompanionHandState handState)
         {
             if (handState.heldItem == null)
             {
@@ -129,23 +129,23 @@ namespace viva
         public void RemoveBagOnShoulder()
         {
 
-            if (self.currentAnim == Loli.Animation.STAND_REMOVE_BAG_RIGHT)
+            if (self.currentAnim == Companion.Animation.STAND_REMOVE_BAG_RIGHT)
             {
                 if (self.rightShoulderState.heldItem)
                 {
-                    self.leftLoliHandState.GrabItemRigidBody(self.rightShoulderState.heldItem);
+                    self.leftCompanionHandState.GrabItemRigidBody(self.rightShoulderState.heldItem);
                 }
             }
             else
             {
                 if (self.leftShoulderState.heldItem)
                 {
-                    self.rightLoliHandState.GrabItemRigidBody(self.leftShoulderState.heldItem);
+                    self.rightCompanionHandState.GrabItemRigidBody(self.leftShoulderState.heldItem);
                 }
             }
         }
 
-        private void UpdateEdibleItemInteraction(LoliHandState handState)
+        private void UpdateEdibleItemInteraction(CompanionHandState handState)
         {
             if (handState.UpdateHoldItemInteractTimer(ref eatTimer, eatWaitTime))
             {
@@ -173,37 +173,37 @@ namespace viva
                     {
                         if (handState == self.rightHandState)
                         {
-                            self.SetTargetAnimation(Loli.Animation.STAND_HAPPY_EAT_ITEM_RIGHT);
+                            self.SetTargetAnimation(Companion.Animation.STAND_HAPPY_EAT_ITEM_RIGHT);
                         }
                         else
                         {
-                            self.SetTargetAnimation(Loli.Animation.STAND_HAPPY_DONUT_EAT_LEFT);
+                            self.SetTargetAnimation(Companion.Animation.STAND_HAPPY_DONUT_EAT_LEFT);
                         }
                     }
                     else
                     {
                         if (handState == self.rightHandState)
                         {
-                            self.SetTargetAnimation(Loli.Animation.STAND_HAPPY_DONUT_LAST_BITE_RIGHT);
+                            self.SetTargetAnimation(Companion.Animation.STAND_HAPPY_DONUT_LAST_BITE_RIGHT);
                         }
                         else
                         {
-                            self.SetTargetAnimation(Loli.Animation.STAND_HAPPY_DONUT_LAST_BITE_LEFT);
+                            self.SetTargetAnimation(Companion.Animation.STAND_HAPPY_DONUT_LAST_BITE_LEFT);
                         }
                     }
                 }
             }
         }
 
-        private void UpdateIdleHatInteraction(LoliHandState handState)
+        private void UpdateIdleHatInteraction(CompanionHandState handState)
         {
             if (handState == self.rightHandState)
             {
-                self.SetTargetAnimation(Loli.Animation.STAND_WEAR_SUNHAT_RIGHT);
+                self.SetTargetAnimation(Companion.Animation.STAND_WEAR_SUNHAT_RIGHT);
             }
             else if (handState == self.leftHandState)
             {
-                self.SetTargetAnimation(Loli.Animation.STAND_WEAR_SUNHAT_LEFT);
+                self.SetTargetAnimation(Companion.Animation.STAND_WEAR_SUNHAT_LEFT);
             }
         }
 
@@ -212,7 +212,7 @@ namespace viva
             polaroidFrameInspectTimer = -15.0f;
         }
 
-        private void UpdateIdlePolaroidFrameInteraction(LoliHandState handState)
+        private void UpdateIdlePolaroidFrameInteraction(CompanionHandState handState)
         {
             if (handState.UpdateHoldItemInteractTimer(ref polaroidFrameInspectTimer, 15.0f))
             {
@@ -220,28 +220,28 @@ namespace viva
                 PolaroidFrame frame = handState.heldItem as PolaroidFrame;
                 if (handState == self.rightHandState)
                 {
-                    self.SetTargetAnimation(Loli.Animation.STAND_POLAROID_FRAME_REACT_IN_RIGHT);
+                    self.SetTargetAnimation(Companion.Animation.STAND_POLAROID_FRAME_REACT_IN_RIGHT);
                     switch (frame.photoSummary)
                     {
                         case PolaroidFrame.PhotoSummary.GENERIC:
-                            polaroidFrameReactAnim = Loli.Animation.STAND_POLAROID_FRAME_REACT_NORMAL_RIGHT;
+                            polaroidFrameReactAnim = Companion.Animation.STAND_POLAROID_FRAME_REACT_NORMAL_RIGHT;
                             break;
                         case PolaroidFrame.PhotoSummary.PANTY:
-                            polaroidFrameReactAnim = Loli.Animation.STAND_POLAROID_FRAME_REACT_PANTY_RIGHT;
+                            polaroidFrameReactAnim = Companion.Animation.STAND_POLAROID_FRAME_REACT_PANTY_RIGHT;
                             self.ShiftHappiness(-2);
                             break;
                     }
                 }
                 else if (handState == self.leftHandState)
                 {
-                    self.SetTargetAnimation(Loli.Animation.STAND_POLAROID_FRAME_REACT_IN_LEFT);
+                    self.SetTargetAnimation(Companion.Animation.STAND_POLAROID_FRAME_REACT_IN_LEFT);
                     switch (frame.photoSummary)
                     {
                         case PolaroidFrame.PhotoSummary.GENERIC:
-                            polaroidFrameReactAnim = Loli.Animation.STAND_POLAROID_FRAME_REACT_NORMAL_LEFT;
+                            polaroidFrameReactAnim = Companion.Animation.STAND_POLAROID_FRAME_REACT_NORMAL_LEFT;
                             break;
                         case PolaroidFrame.PhotoSummary.PANTY:
-                            polaroidFrameReactAnim = Loli.Animation.STAND_POLAROID_FRAME_REACT_PANTY_LEFT;
+                            polaroidFrameReactAnim = Companion.Animation.STAND_POLAROID_FRAME_REACT_PANTY_LEFT;
                             self.ShiftHappiness(-2);
                             break;
                     }
@@ -256,7 +256,7 @@ namespace viva
                 {
                     if (handState == self.rightHandState)
                     {
-                        self.SetTargetAnimation(Loli.Animation.STAND_POLAROID_FRAME_REACT_RIP);
+                        self.SetTargetAnimation(Companion.Animation.STAND_POLAROID_FRAME_REACT_RIP);
                     }
                 }
             }
@@ -292,7 +292,7 @@ namespace viva
             }
         }
 
-        private void UpdateIdleWaterReedInteraction(LoliHandState handState)
+        private void UpdateIdleWaterReedInteraction(CompanionHandState handState)
         {
             if (handState.UpdateHoldItemInteractTimer(ref waterReedInteractiontimer, 60.0f))
             {
@@ -303,21 +303,21 @@ namespace viva
 
                     if (handState == self.rightHandState)
                     {
-                        self.SetTargetAnimation(Loli.Animation.STAND_CATTAIL_IDLE1_RIGHT);
+                        self.SetTargetAnimation(Companion.Animation.STAND_CATTAIL_IDLE1_RIGHT);
                     }
                     else if (handState == self.leftHandState)
                     {
-                        self.SetTargetAnimation(Loli.Animation.STAND_CATTAIL_IDLE1_LEFT);
+                        self.SetTargetAnimation(Companion.Animation.STAND_CATTAIL_IDLE1_LEFT);
                     }
                 }
             }
-            else if (self.happiness == Loli.Happiness.VERY_ANGRY)
+            else if (self.happiness == Companion.Happiness.VERY_ANGRY)
             {
                 self.active.cattail.StartCattailBehavior();
             }
         }
 
-        public void AttemptToThrowHandObject(LoliHandState handState)
+        public void AttemptToThrowHandObject(CompanionHandState handState)
         {
 
             if (handState.heldItem == null)
@@ -326,18 +326,18 @@ namespace viva
             }
             if (self.CanSeePoint(GameDirector.player.head.position))
             {
-                var facedirection = LoliUtility.SetRootFacingTarget(self, "face player", 2.0f, GameDirector.player.floorPos);
+                var facedirection = CompanionUtility.SetRootFacingTarget(self, "face player", 2.0f, GameDirector.player.floorPos);
                 self.autonomy.Interrupt(facedirection);
                 float bearing = Tools.Bearing(self.transform, GameDirector.player.floorPos);
                 if (Mathf.Abs(bearing) < 20.0f)
                 {
                     if (handState.rightSide)
                     {
-                        self.SetTargetAnimation(Loli.Animation.STAND_ANGRY_THROW_RIGHT);
+                        self.SetTargetAnimation(Companion.Animation.STAND_ANGRY_THROW_RIGHT);
                     }
                     else
                     {
-                        self.SetTargetAnimation(Loli.Animation.STAND_ANGRY_THROW_LEFT);
+                        self.SetTargetAnimation(Companion.Animation.STAND_ANGRY_THROW_LEFT);
                     }
                 }
             }
@@ -355,7 +355,7 @@ namespace viva
             GameDirector.player.CompleteAchievement(Player.ObjectiveType.FIND_HAT, new Achievement("FIND_HAT"));
         }
 
-        public void ThrowHandObject(LoliHandState handState)
+        public void ThrowHandObject(CompanionHandState handState)
         {
 
             if (handState.heldItem == null)

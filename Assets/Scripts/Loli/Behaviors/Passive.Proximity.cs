@@ -18,7 +18,7 @@ namespace viva
         private Item lastCheckedItem = null;
         private bool proximityActive = false;
 
-        public ProximityBehavior(Loli _self) : base(_self, 0.0f)
+        public ProximityBehavior(Companion _self) : base(_self, 0.0f)
         {
 
             cheekOffset = new Vector3(0.019f, 0.016f, 0.018f);
@@ -52,7 +52,7 @@ namespace viva
                 endStartleProximity(true);
                 return;
             }
-            //make sure its not an object loli is holding
+            //make sure its not an object companion is holding
             if (lookAtItem.settings.itemType != Item.Type.CHARACTER)
             {
                 endStartleProximity(true);
@@ -105,8 +105,8 @@ namespace viva
             lastCheckedItem = null;
             if (returnToIdle)
             {
-                if (self.currentAnim == Loli.Animation.STAND_FACE_PROX_HAPPY_LOOP ||
-                    self.currentAnim == Loli.Animation.STAND_FACE_PROX_ANGRY_LOOP)
+                if (self.currentAnim == Companion.Animation.STAND_FACE_PROX_HAPPY_LOOP ||
+                    self.currentAnim == Companion.Animation.STAND_FACE_PROX_ANGRY_LOOP)
                 {
                     self.SetTargetAnimation(self.GetLastReturnableIdleAnimation());
                 }
@@ -118,11 +118,11 @@ namespace viva
             proximityActive = true;
             if (self.IsHappy())
             {
-                self.SetTargetAnimation(Loli.Animation.STAND_FACE_PROX_HAPPY_SURPRISE);
+                self.SetTargetAnimation(Companion.Animation.STAND_FACE_PROX_HAPPY_SURPRISE);
             }
             else
             {
-                self.SetTargetAnimation(Loli.Animation.STAND_FACE_PROX_ANGRY_SURPRISE);
+                self.SetTargetAnimation(Companion.Animation.STAND_FACE_PROX_ANGRY_SURPRISE);
             }
             if (self.active.RequestPermission(ActiveBehaviors.Permission.ALLOW_ROOT_FACING_TARGET_CHANGE))
             {
@@ -146,11 +146,11 @@ namespace viva
             proximityActive = true;
             if (self.IsHappy())
             {
-                self.SetTargetAnimation(Loli.Animation.STAND_FACE_PROX_HAPPY_LOOP);
+                self.SetTargetAnimation(Companion.Animation.STAND_FACE_PROX_HAPPY_LOOP);
             }
             else
             {
-                self.SetTargetAnimation(Loli.Animation.STAND_FACE_PROX_ANGRY_LOOP);
+                self.SetTargetAnimation(Companion.Animation.STAND_FACE_PROX_ANGRY_LOOP);
             }
             if (self.bodyState != BodyState.AWAKE_PILLOW_UP && self.bodyState != BodyState.AWAKE_PILLOW_SIDE_LEFT && self.bodyState != BodyState.AWAKE_PILLOW_SIDE_RIGHT)
             {
@@ -187,7 +187,7 @@ namespace viva
             }
             checkStartleProximity();
 
-            if (self.currentAnim == Loli.Animation.STAND_FACE_PROX_HAPPY_LOOP)
+            if (self.currentAnim == Companion.Animation.STAND_FACE_PROX_HAPPY_LOOP)
             {
                 waitToFaceTimer -= Time.deltaTime;
                 if (waitToFaceTimer < 0.0f)
@@ -198,26 +198,26 @@ namespace viva
             }
         }
 
-        public override void OnAnimationChange(Loli.Animation oldAnim, Loli.Animation newAnim)
+        public override void OnAnimationChange(Companion.Animation oldAnim, Companion.Animation newAnim)
         {
             switch (newAnim)
             {
-                case Loli.Animation.STAND_FACE_PROX_ANGRY_SURPRISE:
-                case Loli.Animation.STAND_FACE_PROX_HAPPY_SURPRISE:
+                case Companion.Animation.STAND_FACE_PROX_ANGRY_SURPRISE:
+                case Companion.Animation.STAND_FACE_PROX_HAPPY_SURPRISE:
                     self.SetViewAwarenessTimeout(2.0f);
                     break;
             }
             switch (oldAnim)
             {
-                case Loli.Animation.STAND_FACE_PROX_ANGRY_SURPRISE:
-                case Loli.Animation.STAND_FACE_PROX_HAPPY_SURPRISE:
+                case Companion.Animation.STAND_FACE_PROX_ANGRY_SURPRISE:
+                case Companion.Animation.STAND_FACE_PROX_HAPPY_SURPRISE:
                     animBusy = false;
                     break;
             }
             switch (newAnim)
             {
-                case Loli.Animation.STAND_FACE_PROX_ANGRY_SURPRISE:
-                case Loli.Animation.STAND_FACE_PROX_HAPPY_SURPRISE:
+                case Companion.Animation.STAND_FACE_PROX_ANGRY_SURPRISE:
+                case Companion.Animation.STAND_FACE_PROX_HAPPY_SURPRISE:
                     animBusy = true;
                     break;
             }

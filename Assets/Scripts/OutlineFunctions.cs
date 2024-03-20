@@ -13,35 +13,35 @@ namespace viva
     {
         public class Entry
         {
-            public Loli loli;
+            public Companion companion;
             public Coroutine outlineCoroutine;
             private readonly List<Material> lastTargetMats = new List<Material>();
             public global::Outline headOutline;
             public global::Outline bodyOutline;
             public global::Outline bodyLodOutline;
 
-            public Entry(Loli _loli)
+            public Entry(Companion companion)
             {
-                loli = _loli;
+                this.companion = companion;
 
-                if (loli.bodySMRs == null && loli.headSMR == null) return;
-                if (loli.bodySMRs[0].gameObject.TryGetComponent<global::Outline>(out bodyOutline))
+                if (this.companion.bodySMRs == null && this.companion.headSMR == null) return;
+                if (this.companion.bodySMRs[0].gameObject.TryGetComponent<global::Outline>(out bodyOutline))
                 {
                     CancelDestroy(bodyOutline);
                 }
-                else if (loli.bodySMRs[1].gameObject.TryGetComponent<global::Outline>(out bodyLodOutline))
+                else if (this.companion.bodySMRs[1].gameObject.TryGetComponent<global::Outline>(out bodyLodOutline))
                 {
                     CancelDestroy(bodyLodOutline);
                 }
-                else if (loli.headSMR.gameObject.TryGetComponent<global::Outline>(out headOutline))
+                else if (this.companion.headSMR.gameObject.TryGetComponent<global::Outline>(out headOutline))
                 {
                     CancelDestroy(headOutline);
                 }
                 else
                 {
-                    headOutline = loli.headSMR.gameObject.AddComponent<global::Outline>();
-                    bodyOutline = loli.bodySMRs[0].gameObject.AddComponent<global::Outline>();
-                    bodyLodOutline = loli.bodySMRs[1].gameObject.AddComponent<global::Outline>();
+                    headOutline = this.companion.headSMR.gameObject.AddComponent<global::Outline>();
+                    bodyOutline = this.companion.bodySMRs[0].gameObject.AddComponent<global::Outline>();
+                    bodyLodOutline = this.companion.bodySMRs[1].gameObject.AddComponent<global::Outline>();
                 }
                 if (headOutline == null && bodyOutline == null && bodyLodOutline) return;
 
@@ -115,11 +115,11 @@ namespace viva
             }
         }
 
-        public static Outline.Entry StartOutlining(Loli loli, Color color, OutlineCoroutine outlineCoroutine)
+        public static Outline.Entry StartOutlining(Companion companion, Color color, OutlineCoroutine outlineCoroutine)
         {
-            if (loli == null) return null;
+            if (companion == null) return null;
 
-            var entry = new Outline.Entry(loli);
+            var entry = new Outline.Entry(companion);
             if (outlineCoroutine != null) entry.outlineCoroutine = GameDirector.instance.StartCoroutine(outlineCoroutine(entry, color));
             outlineEntries.Add(entry);
             return entry;

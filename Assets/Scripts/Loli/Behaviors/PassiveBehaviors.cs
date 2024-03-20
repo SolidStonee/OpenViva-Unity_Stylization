@@ -32,7 +32,7 @@ namespace viva
             private protected float runInterval;
             private float intervalTimer = 0.0f;
 
-            public PassiveTask(Loli _self, float _runInterval) : base(_self, JobType.PASSIVE)
+            public PassiveTask(Companion _self, float _runInterval) : base(_self, JobType.PASSIVE)
             {
                 runInterval = _runInterval;
             }
@@ -62,7 +62,7 @@ namespace viva
         public Set<Character> nearbyCharacters { get; private set; } = new Set<Character>();
         public List<Tuple<Item, int>> nearbyItems { get; private set; } = new List<Tuple<Item, int>>();
 
-        public PassiveBehaviors(Loli _self, PassiveBehaviorSettings _passiveBehaviorSettings) : base(_self, Job.JobType.PASSIVE)
+        public PassiveBehaviors(Companion _self, PassiveBehaviorSettings _passiveBehaviorSettings) : base(_self, Job.JobType.PASSIVE)
         {
 
             settings = _passiveBehaviorSettings;
@@ -139,7 +139,7 @@ namespace viva
             }
 
         }
-        public override void OnAnimationChange(Loli.Animation oldAnim, Loli.Animation newAnim)
+        public override void OnAnimationChange(Companion.Animation oldAnim, Companion.Animation newAnim)
         {
             for (int i = 0; i < passives.Length; i++)
             {

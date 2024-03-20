@@ -15,7 +15,7 @@ namespace viva
             public readonly Character client;
             private readonly ClerkSessionCallback onStartClerkSession;
 
-            public ClientSession(Loli self, Character _client, ClerkSessionCallback _onStartClerkSession)
+            public ClientSession(Companion self, Character _client, ClerkSessionCallback _onStartClerkSession)
             {
                 clerkSessionProgress = new AutonomyEmpty(self.autonomy, "clerk session progress", delegate { return null; });
                 client = _client;
@@ -43,7 +43,7 @@ namespace viva
         public OnsenClerkSession onsenClerkSession { get { return session as OnsenClerkSession; } }
 
 
-        public OnsenClerkBehavior(Loli _self) : base(_self, ActiveBehaviors.Behavior.ONSEN_CLERK, new OnsenClerkSession())
+        public OnsenClerkBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.ONSEN_CLERK, new OnsenClerkSession())
         {
         }
 
@@ -110,7 +110,7 @@ namespace viva
             {
                 currentClientSession = clientSessions[0];
 
-                var greetAtReception = new AutonomyPlayAnimation(self.autonomy, "greet at reception", Loli.Animation.STAND_BOW);
+                var greetAtReception = new AutonomyPlayAnimation(self.autonomy, "greet at reception", Companion.Animation.STAND_BOW);
 
                 var walkToReception = onsenClerkSession.onsenReception.CreateGoToEmploymentPosition(self);
                 if (walkToReception != null)
@@ -138,7 +138,7 @@ namespace viva
 
         private void ConfusedAndFinalizeCurrentClient()
         {
-            var playAnim = LoliUtility.CreateSpeechAnimation(self, AnimationSet.CONFUSED, SpeechBubble.INTERROGATION);
+            var playAnim = CompanionUtility.CreateSpeechAnimation(self, AnimationSet.CONFUSED, SpeechBubble.INTERROGATION);
             playAnim.onSuccess += delegate { FinalizeCurrentClient(false); };
             self.autonomy.SetAutonomy(playAnim);
         }
@@ -278,7 +278,7 @@ namespace viva
                 return;
             }
 
-            var playFollowMe = new AutonomyPlayAnimation(self.autonomy, "play follow me", self.rightHandState.occupied ? Loli.Animation.STAND_FOLLOW_ME_LEFT : Loli.Animation.STAND_FOLLOW_ME_RIGHT);
+            var playFollowMe = new AutonomyPlayAnimation(self.autonomy, "play follow me", self.rightHandState.occupied ? Companion.Animation.STAND_FOLLOW_ME_LEFT : Companion.Animation.STAND_FOLLOW_ME_RIGHT);
 
             var goToFollowStart = new AutonomyMoveTo(self.autonomy, "go to follow start", delegate (TaskTarget target)
             {

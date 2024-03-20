@@ -268,11 +268,11 @@ namespace viva
 
                 //run to target if far away
                 bool tooFarAway = targetDistance > 20.0f;
-                if (self.currentAnim != Loli.Animation.STAND_GIDDY_LOCOMOTION)
+                if (self.currentAnim != Companion.Animation.STAND_GIDDY_LOCOMOTION)
                 {
                     if (tooFarAway && allowRunning && !self.IsTired())
                     {
-                        self.SetTargetAnimation(Loli.Animation.STAND_GIDDY_LOCOMOTION);
+                        self.SetTargetAnimation(Companion.Animation.STAND_GIDDY_LOCOMOTION);
                     }
                 }
                 else if (!tooFarAway)

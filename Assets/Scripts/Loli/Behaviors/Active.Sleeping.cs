@@ -35,7 +35,7 @@ namespace viva
         private Vector3 sleepPos;
 
 
-        public SleepingBehavior(Loli _self) : base(_self, ActiveBehaviors.Behavior.SLEEPING, null)
+        public SleepingBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.SLEEPING, null)
         {
         }
 
@@ -55,7 +55,7 @@ namespace viva
 
             if (!_bed.CanHost(self))
             {
-                var playAnim = LoliUtility.CreateSpeechAnimation(self, AnimationSet.REFUSE, SpeechBubble.FULL);
+                var playAnim = CompanionUtility.CreateSpeechAnimation(self, AnimationSet.REFUSE, SpeechBubble.FULL);
                 self.autonomy.Interrupt(playAnim);
                 return false;
             }
@@ -118,7 +118,7 @@ namespace viva
 
         private void ConfuseAndEnd()
         {
-            var playAnim = LoliUtility.CreateSpeechAnimation(self, AnimationSet.CONFUSED, SpeechBubble.INTERROGATION);
+            var playAnim = CompanionUtility.CreateSpeechAnimation(self, AnimationSet.CONFUSED, SpeechBubble.INTERROGATION);
             self.autonomy.Interrupt(playAnim);
             self.active.SetTask(null);
         }
@@ -167,25 +167,25 @@ namespace viva
 
         private void LayDownOnBed()
         {
-            Loli.Animation beforeSleepAnim;
-            Loli.Animation yawnAnim;
-            Loli.Animation goodNightAnim;
+            Companion.Animation beforeSleepAnim;
+            Companion.Animation yawnAnim;
+            Companion.Animation goodNightAnim;
             switch (Random.Range(0, 3))
             {
                 case 0:
-                    beforeSleepAnim = Loli.Animation.AWAKE_HAPPY_PILLOW_UP_IDLE;
-                    yawnAnim = Loli.Animation.AWAKE_PILLOW_SIDE_YAWN_LONG_RIGHT;
-                    goodNightAnim = Loli.Animation.AWAKE_PILLOW_SIDE_SOUND_GOODNIGHT_RIGHT;
+                    beforeSleepAnim = Companion.Animation.AWAKE_HAPPY_PILLOW_UP_IDLE;
+                    yawnAnim = Companion.Animation.AWAKE_PILLOW_SIDE_YAWN_LONG_RIGHT;
+                    goodNightAnim = Companion.Animation.AWAKE_PILLOW_SIDE_SOUND_GOODNIGHT_RIGHT;
                     break;
                 case 1:
-                    beforeSleepAnim = Loli.Animation.AWAKE_PILLOW_SIDE_HAPPY_IDLE_LEFT;
-                    yawnAnim = Loli.Animation.AWAKE_PILLOW_SIDE_YAWN_LONG_LEFT;
-                    goodNightAnim = Loli.Animation.AWAKE_PILLOW_SIDE_SOUND_GOODNIGHT_LEFT;
+                    beforeSleepAnim = Companion.Animation.AWAKE_PILLOW_SIDE_HAPPY_IDLE_LEFT;
+                    yawnAnim = Companion.Animation.AWAKE_PILLOW_SIDE_YAWN_LONG_LEFT;
+                    goodNightAnim = Companion.Animation.AWAKE_PILLOW_SIDE_SOUND_GOODNIGHT_LEFT;
                     break;
                 default:
-                    beforeSleepAnim = Loli.Animation.AWAKE_PILLOW_SIDE_HAPPY_IDLE_RIGHT;
-                    yawnAnim = Loli.Animation.AWAKE_PILLOW_SIDE_YAWN_LONG_RIGHT;
-                    goodNightAnim = Loli.Animation.AWAKE_PILLOW_SIDE_SOUND_GOODNIGHT_RIGHT;
+                    beforeSleepAnim = Companion.Animation.AWAKE_PILLOW_SIDE_HAPPY_IDLE_RIGHT;
+                    yawnAnim = Companion.Animation.AWAKE_PILLOW_SIDE_YAWN_LONG_RIGHT;
+                    goodNightAnim = Companion.Animation.AWAKE_PILLOW_SIDE_SOUND_GOODNIGHT_RIGHT;
                     break;
             }
 
@@ -215,17 +215,17 @@ namespace viva
         private void FallAsleep()
         {
 
-            Loli.Animation sleepAnim;
+            Companion.Animation sleepAnim;
             switch (Random.Range(0, 3))
             {
                 case 0:
-                    sleepAnim = Loli.Animation.SLEEP_PILLOW_UP_IDLE;
+                    sleepAnim = Companion.Animation.SLEEP_PILLOW_UP_IDLE;
                     break;
                 case 1:
-                    sleepAnim = Loli.Animation.SLEEP_PILLOW_SIDE_IDLE_LEFT;
+                    sleepAnim = Companion.Animation.SLEEP_PILLOW_SIDE_IDLE_LEFT;
                     break;
                 default:
-                    sleepAnim = Loli.Animation.SLEEP_PILLOW_SIDE_IDLE_RIGHT;
+                    sleepAnim = Companion.Animation.SLEEP_PILLOW_SIDE_IDLE_RIGHT;
                     break;
             }
 
@@ -274,7 +274,7 @@ namespace viva
         private void WakeUp()
         {
             bool wakeUpHappy = bothersUntilWakeUp > botherResistanceCount/2;
-            Loli.Animation wakeUpAnim = GetWakeUpAnimation(wakeUpHappy);
+            Companion.Animation wakeUpAnim = GetWakeUpAnimation(wakeUpHappy);
             if (!wakeUpHappy)
             {
                 self.ShiftHappiness(-4);
@@ -287,7 +287,7 @@ namespace viva
         private void EndSleeping()
         {
             self.active.idle.hasSaidGoodMorning = false;
-            var standup = new AutonomyPlayAnimation(self.autonomy, "stand up", Loli.Animation.CRAWL_BED_TO_STAND);
+            var standup = new AutonomyPlayAnimation(self.autonomy, "stand up", Companion.Animation.CRAWL_BED_TO_STAND);
             //self.autonomy.SetAutonomy(standup);
 
             standup.onSuccess += delegate
@@ -314,112 +314,112 @@ namespace viva
             getUpTimer -= Time.deltaTime;
             if (getUpTimer < 0.0f)
             {
-                self.SetTargetAnimation(Loli.Animation.AWAKE_PILLOW_UP_TO_CRAWL_TIRED);
+                self.SetTargetAnimation(Companion.Animation.AWAKE_PILLOW_UP_TO_CRAWL_TIRED);
             }
         }
 
-        private Loli.Animation GetWakeUpAnimation(bool wakeUpHappy)
+        private Companion.Animation GetWakeUpAnimation(bool wakeUpHappy)
         {
             switch (self.bodyState)
             {
                 case BodyState.AWAKE_PILLOW_UP:
-                    return Loli.Animation.AWAKE_HAPPY_PILLOW_UP_IDLE;
+                    return Companion.Animation.AWAKE_HAPPY_PILLOW_UP_IDLE;
                 case BodyState.AWAKE_PILLOW_SIDE_LEFT:
                 case BodyState.AWAKE_PILLOW_SIDE_RIGHT:
                     if (layingOnRightSide.Value)
                     {
-                        return Loli.Animation.AWAKE_PILLOW_SIDE_HAPPY_IDLE_RIGHT;
+                        return Companion.Animation.AWAKE_PILLOW_SIDE_HAPPY_IDLE_RIGHT;
                     }
                     else
                     {
-                        return Loli.Animation.AWAKE_PILLOW_SIDE_HAPPY_IDLE_LEFT;
+                        return Companion.Animation.AWAKE_PILLOW_SIDE_HAPPY_IDLE_LEFT;
                     }
                 case BodyState.SLEEP_PILLOW_SIDE_LEFT:
                 case BodyState.SLEEP_PILLOW_SIDE_RIGHT:
                     if (!layingOnRightSide.HasValue)
                     {
-                        return Loli.Animation.NONE;
+                        return Companion.Animation.NONE;
                     }
                     if (wakeUpHappy)
                     {
                         if (layingOnRightSide.Value)
                         {
-                            return Loli.Animation.SLEEP_PILLOW_SIDE_TO_AWAKE_HAPPY_PILLOW_UP_RIGHT;
+                            return Companion.Animation.SLEEP_PILLOW_SIDE_TO_AWAKE_HAPPY_PILLOW_UP_RIGHT;
                         }
                         else
                         {
-                            return Loli.Animation.SLEEP_PILLOW_SIDE_TO_AWAKE_HAPPY_PILLOW_UP_LEFT;
+                            return Companion.Animation.SLEEP_PILLOW_SIDE_TO_AWAKE_HAPPY_PILLOW_UP_LEFT;
                         }
                     }
                     else
                     {
                         if (layingOnRightSide.Value)
                         {
-                            return Loli.Animation.SLEEP_PILLOW_SIDE_TO_AWAKE_ANGRY_PILLOW_UP_RIGHT;
+                            return Companion.Animation.SLEEP_PILLOW_SIDE_TO_AWAKE_ANGRY_PILLOW_UP_RIGHT;
                         }
                         else
                         {
-                            return Loli.Animation.SLEEP_PILLOW_SIDE_TO_AWAKE_ANGRY_PILLOW_UP_LEFT;
+                            return Companion.Animation.SLEEP_PILLOW_SIDE_TO_AWAKE_ANGRY_PILLOW_UP_LEFT;
                         }
                     }
                 case BodyState.SLEEP_PILLOW_UP:
                     if (wakeUpHappy)
                     {
-                        return Loli.Animation.SLEEP_PILLOW_UP_TO_AWAKE_HAPPY_PILLOW_UP;
+                        return Companion.Animation.SLEEP_PILLOW_UP_TO_AWAKE_HAPPY_PILLOW_UP;
                     }
                     else
                     {
-                        return Loli.Animation.SLEEP_PILLOW_UP_TO_AWAKE_ANGRY_PILLOW_UP;
+                        return Companion.Animation.SLEEP_PILLOW_UP_TO_AWAKE_ANGRY_PILLOW_UP;
                     }
                 default:
                     break;
             }
-            return Loli.Animation.NONE;
+            return Companion.Animation.NONE;
         }
 
-        public override void OnAnimationChange(Loli.Animation oldAnim, Loli.Animation newAnim)
+        public override void OnAnimationChange(Companion.Animation oldAnim, Companion.Animation newAnim)
         {
 
             //change layingOnRightSide based on animation
             switch (newAnim)
             {
 
-                case Loli.Animation.AWAKE_PILLOW_SIDE_HAPPY_IDLE_LEFT:
+                case Companion.Animation.AWAKE_PILLOW_SIDE_HAPPY_IDLE_LEFT:
                     layingOnRightSide = true;
                     Debug.Log("on right side");
                     break;
-                case Loli.Animation.SLEEP_PILLOW_SIDE_IDLE_LEFT:
+                case Companion.Animation.SLEEP_PILLOW_SIDE_IDLE_LEFT:
                     sleepTimeStart = GameDirector.skyDirector.worldTime;
                     layingOnRightSide = false;
                     Debug.Log("on left side");
                     break;
-                case Loli.Animation.AWAKE_PILLOW_SIDE_SOUND_GOODNIGHT_RIGHT:
-                case Loli.Animation.AWAKE_PILLOW_SIDE_SOUND_GOODNIGHT_LEFT:
+                case Companion.Animation.AWAKE_PILLOW_SIDE_SOUND_GOODNIGHT_RIGHT:
+                case Companion.Animation.AWAKE_PILLOW_SIDE_SOUND_GOODNIGHT_LEFT:
                     saidGoodnight = true;
                     break;
-                case Loli.Animation.AWAKE_PILLOW_SIDE_HAPPY_IDLE_RIGHT:
+                case Companion.Animation.AWAKE_PILLOW_SIDE_HAPPY_IDLE_RIGHT:
                     layingOnRightSide = true;
                     Debug.Log("on right side");
                     break;
-                case Loli.Animation.SLEEP_PILLOW_SIDE_IDLE_RIGHT:
+                case Companion.Animation.SLEEP_PILLOW_SIDE_IDLE_RIGHT:
                     sleepTimeStart = GameDirector.skyDirector.worldTime;
                     layingOnRightSide = true;
                     Debug.Log("on right side");
                     break;
-                case Loli.Animation.SLEEP_PILLOW_UP_IDLE:
+                case Companion.Animation.SLEEP_PILLOW_UP_IDLE:
                     sleepTimeStart = GameDirector.skyDirector.worldTime;
                     layingOnRightSide = null;
                     break;
-                case Loli.Animation.SLEEP_PILLOW_SIDE_TO_SLEEP_PILLOW_UP_RIGHT:
-                case Loli.Animation.SLEEP_PILLOW_SIDE_TO_SLEEP_PILLOW_UP_LEFT:               
-                case Loli.Animation.SLEEP_PILLOW_SIDE_TO_AWAKE_HAPPY_PILLOW_UP_RIGHT:
-                case Loli.Animation.SLEEP_PILLOW_SIDE_TO_AWAKE_HAPPY_PILLOW_UP_LEFT:
-                case Loli.Animation.SLEEP_PILLOW_SIDE_TO_AWAKE_ANGRY_PILLOW_UP_RIGHT:
-                case Loli.Animation.SLEEP_PILLOW_SIDE_TO_AWAKE_ANGRY_PILLOW_UP_LEFT:
+                case Companion.Animation.SLEEP_PILLOW_SIDE_TO_SLEEP_PILLOW_UP_RIGHT:
+                case Companion.Animation.SLEEP_PILLOW_SIDE_TO_SLEEP_PILLOW_UP_LEFT:               
+                case Companion.Animation.SLEEP_PILLOW_SIDE_TO_AWAKE_HAPPY_PILLOW_UP_RIGHT:
+                case Companion.Animation.SLEEP_PILLOW_SIDE_TO_AWAKE_HAPPY_PILLOW_UP_LEFT:
+                case Companion.Animation.SLEEP_PILLOW_SIDE_TO_AWAKE_ANGRY_PILLOW_UP_RIGHT:
+                case Companion.Animation.SLEEP_PILLOW_SIDE_TO_AWAKE_ANGRY_PILLOW_UP_LEFT:
                     phase = SleepingPhase.AWAKE_ON_BED;
                     layingOnRightSide = null;   //no longer laying on a side
                     break;
-                case Loli.Animation.AWAKE_PILLOW_UP_TO_CRAWL_TIRED:
+                case Companion.Animation.AWAKE_PILLOW_UP_TO_CRAWL_TIRED:
                     phase = SleepingPhase.CRAWLING_OFF_BED;
                     break;
             }

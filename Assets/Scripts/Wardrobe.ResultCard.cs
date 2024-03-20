@@ -18,7 +18,7 @@ namespace viva
         private Image resultCardImage;
 
 
-        private Outfit CreatePhotoshootOutfit(Loli loli, ClothingPreset targetClothing, Outfit.ClothingOverride clothingOverride)
+        private Outfit CreatePhotoshootOutfit(Companion companion, ClothingPreset targetClothing, Outfit.ClothingOverride clothingOverride)
         {
 
             if (targetClothing == null)
@@ -49,7 +49,7 @@ namespace viva
                     break;
             }
 
-            outfit.WearClothingPiece(loli, targetClothing, clothingOverride, 5);
+            outfit.WearClothingPiece(companion, targetClothing, clothingOverride, 5);
 
             return outfit;
         }

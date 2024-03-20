@@ -109,7 +109,7 @@ namespace viva
         {
             onFinishLoadingVivaFile += OnPostLoadVivaFile;
             AttemptLoadVivaFile();
-            Loli.GenerateAnimations();
+            Companion.GenerateAnimations();
             BuildBoundaryWalls();
         }
 
@@ -155,7 +155,7 @@ namespace viva
                 m_items.objects[i].OnItemLateUpdate();
             }
             for (int i = m_characters.objects.Count; i-- > 0;)
-            {   //fix Loli IK running first
+            {   //fix Companion IK running first
                 m_characters.objects[i].OnCharacterLateUpdatePostIK();
             }
             for (int i = 0; i < m_items.objects.Count; i++)

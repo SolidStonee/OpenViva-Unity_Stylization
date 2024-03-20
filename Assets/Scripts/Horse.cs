@@ -359,10 +359,10 @@ namespace viva
             SoundManager.main.RequestHandle(mouthSource.position).PlayOneShot(neighSounds[(int)Random.Range(0.0f, neighSounds.Length - 1)]);
             if (backSeat.owner != null)
             {
-                Loli loli = backSeat.owner as Loli;
-                if (loli)
+                Companion companion = backSeat.owner as Companion;
+                if (companion)
                 {
-                    loli.active.horseback.OnHardStop();
+                    companion.active.horseback.OnHardStop();
                 }
             }
         }
@@ -530,7 +530,7 @@ namespace viva
                     TutorialManager.main.DisplayHint(
                         transform,
                         Vector3.up * 1.8f,
-                        "Grab ONE horse rein to mount the horse. Point to the horse to tell your loli to ride it.",
+                        "Grab ONE horse rein to mount the horse. Point to the horse to tell your companion to ride it.",
                         null,
                         0.8f
                     );
@@ -563,14 +563,14 @@ namespace viva
         public override void OnMechanismTriggerExit(MechanismCollisionCallback self, Collider collider)
         {
         }
-        public override bool AttemptCommandUse(Loli targetLoli, Character commandSource)
+        public override bool AttemptCommandUse(Companion targetCompanion, Character commandSource)
         {
 
-            if (targetLoli == null)
+            if (targetCompanion == null)
             {
                 return false;
             }
-            return targetLoli.active.horseback.AttemptRideHorsePassenger(this);
+            return targetCompanion.active.horseback.AttemptRideHorsePassenger(this);
         }
 
         public override void EndUse(Character targetCharacter)

@@ -10,7 +10,7 @@ namespace viva
     {
 
         private float nextIdleVariationTime = 3.0f;
-        private Loli.Animation nextStandIdleAnim = Loli.Animation.STAND_HAPPY_IDLE1;
+        private Companion.Animation nextStandIdleAnim = Companion.Animation.STAND_HAPPY_IDLE1;
         private float idleRootFacingTargetTimer = 0.0f;
         private float checkForInterestsTimer = 0.0f;
         private float ignoreDesirableItemsTimer = 0.0f;
@@ -19,7 +19,7 @@ namespace viva
         public bool hasSaidGoodMorning = true;
         private float lastYummyReactTime = 0.0f;
 
-        public IdleBehavior(Loli _self) : base(_self, ActiveBehaviors.Behavior.IDLE, null)
+        public IdleBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.IDLE, null)
         {
 
             enableFaceTargetTimer = true;
@@ -32,11 +32,11 @@ namespace viva
         {
             if (self.IsTired())
             {
-                self.SetTargetAnimation(Loli.Animation.STAND_TIRED_REFUSE);
+                self.SetTargetAnimation(Companion.Animation.STAND_TIRED_REFUSE);
             }
             else
             {
-                self.SetTargetAnimation(Loli.Animation.STAND_REFUSE);
+                self.SetTargetAnimation(Companion.Animation.STAND_REFUSE);
             }
         }
 
@@ -48,11 +48,11 @@ namespace viva
                 case BodyState.STAND:
                     if (Random.value > 0.5f)
                     {
-                        self.SetTargetAnimation(Loli.Animation.STAND_HEADPAT_INTERRUPT);
+                        self.SetTargetAnimation(Companion.Animation.STAND_HEADPAT_INTERRUPT);
                     }
                     else
                     {
-                        self.SetTargetAnimation(Loli.Animation.STAND_HEADPAT_ANGRY_END);
+                        self.SetTargetAnimation(Companion.Animation.STAND_HEADPAT_ANGRY_END);
                     }
                     break;
             }
@@ -75,19 +75,19 @@ namespace viva
                 case BodyState.STAND:
                     if (self.IsTired())
                     {
-                        self.SetTargetAnimation(Loli.Animation.STAND_TIRED_REFUSE);
+                        self.SetTargetAnimation(Companion.Animation.STAND_TIRED_REFUSE);
                         return false;
                     }
-                    self.SetTargetAnimation(Loli.Animation.STAND_IMPRESSED1);
+                    self.SetTargetAnimation(Companion.Animation.STAND_IMPRESSED1);
                     break;
                 case BodyState.FLOOR_SIT:
-                    self.SetTargetAnimation(Loli.Animation.FLOOR_SIT_IMPRESSED1);
+                    self.SetTargetAnimation(Companion.Animation.FLOOR_SIT_IMPRESSED1);
                     break;
             }
             return true;
         }
 
-        public Loli.Animation GetAvailableWaveAnimation()
+        public Companion.Animation GetAvailableWaveAnimation()
         {
             switch (self.bodyState)
             {
@@ -98,11 +98,11 @@ namespace viva
                         {
                             if (self.rightHandState.holdType == HoldType.NULL)
                             {
-                                return Loli.Animation.STAND_WAVE_HAPPY_RIGHT;
+                                return Companion.Animation.STAND_WAVE_HAPPY_RIGHT;
                             }
                             else
                             {
-                                return Loli.Animation.STAND_WAVE_HAPPY_LEFT;
+                                return Companion.Animation.STAND_WAVE_HAPPY_LEFT;
                             }
                         }
                     }
@@ -110,25 +110,25 @@ namespace viva
                     {
                         if (Random.value > 0.5f)
                         {
-                            return Loli.Animation.STAND_HEADPAT_INTERRUPT;  //reuses animation
+                            return Companion.Animation.STAND_HEADPAT_INTERRUPT;  //reuses animation
                         }
                         else
                         {
-                            return Loli.Animation.STAND_HEADPAT_ANGRY_END;  //reuses animation
+                            return Companion.Animation.STAND_HEADPAT_ANGRY_END;  //reuses animation
                         }
                     }
-                    return Loli.Animation.NONE;
+                    return Companion.Animation.NONE;
                 case BodyState.BATHING_IDLE:
                     if (self.IsHappy())
                     {
-                        return Loli.Animation.BATHTUB_WAVE_HAPPY_RIGHT;
+                        return Companion.Animation.BATHTUB_WAVE_HAPPY_RIGHT;
                     }
                     else
                     {
-                        return Loli.Animation.NONE;
+                        return Companion.Animation.NONE;
                     }
                 default:
-                    return Loli.Animation.NONE;
+                    return Companion.Animation.NONE;
             }
         }
 
@@ -140,8 +140,8 @@ namespace viva
                     self.CanSeePoint(source.transform.position))
                 {
 
-                    Loli.Animation waveAnimation = GetAvailableWaveAnimation();
-                    if (waveAnimation != Loli.Animation.NONE)
+                    Companion.Animation waveAnimation = GetAvailableWaveAnimation();
+                    if (waveAnimation != Companion.Animation.NONE)
                     {
 
                         self.SetTargetAnimation(waveAnimation);
@@ -176,11 +176,11 @@ namespace viva
             {
                 if (Random.value > 0.5f)
                 {   //update random hand item
-                    UpdateIdleHoldItemInteraction(self.rightLoliHandState);
+                    UpdateIdleHoldItemInteraction(self.rightCompanionHandState);
                 }
                 else
                 {
-                    UpdateIdleHoldItemInteraction(self.leftLoliHandState);
+                    UpdateIdleHoldItemInteraction(self.leftCompanionHandState);
                 }
                 CheckForVisibleNewInterests();
                 CheckToSayGoodMorning();
@@ -199,7 +199,7 @@ namespace viva
                     Player player = GameDirector.instance.FindNearbyPlayer(self.head.position, 3.0f);
                     if (self.GetCurrentLookAtItem() != null && self.GetCurrentLookAtItem().mainOwner == player)
                     {
-                        self.SetTargetAnimation(Loli.Animation.STAND_SOUND_GOOD_MORNING);
+                        self.SetTargetAnimation(Companion.Animation.STAND_SOUND_GOOD_MORNING);
                     }
                 }
             }
@@ -289,7 +289,7 @@ namespace viva
             }
         }
 
-        public Loli.Animation GetAvailableIdleAnimation()
+        public Companion.Animation GetAvailableIdleAnimation()
         {
             if (self.IsHappy() && !self.IsTired())
             {
@@ -300,16 +300,16 @@ namespace viva
                         switch (idleVersion)
                         {
                             case 0:
-                                return Loli.Animation.NONE;
+                                return Companion.Animation.NONE;
                             case 1:
-                                return Loli.Animation.STAND_HAPPY_IDLE2;
+                                return Companion.Animation.STAND_HAPPY_IDLE2;
                             case 2:
-                                return Loli.Animation.STAND_HAPPY_IDLE3;
+                                return Companion.Animation.STAND_HAPPY_IDLE3;
                         }
                         break;
                 }
             }
-            return Loli.Animation.NONE;
+            return Companion.Animation.NONE;
         }
 
         private void UpdateIdleVariations()
@@ -325,7 +325,7 @@ namespace viva
                 nextIdleVariationTime = Time.time + 10.0f + Random.value * 15.0f;   //10~25 sec. wait
 
                 var anim = GetAvailableIdleAnimation();
-                if (anim != Loli.Animation.NONE)
+                if (anim != Companion.Animation.NONE)
                 {
                     self.SetTargetAnimation(anim);
                 }
@@ -354,23 +354,23 @@ namespace viva
                 }
             }
         }
-        public override void OnAnimationChange(Loli.Animation oldAnim, Loli.Animation newAnim)
+        public override void OnAnimationChange(Companion.Animation oldAnim, Companion.Animation newAnim)
         {
 
-            if (newAnim == Loli.Animation.STAND_SOUND_GOOD_MORNING)
+            if (newAnim == Companion.Animation.STAND_SOUND_GOOD_MORNING)
             {
                 hasSaidGoodMorning = true;
             }
             switch (oldAnim)
             {
-                case Loli.Animation.STAND_HAPPY_DONUT_LAST_BITE_RIGHT:
-                case Loli.Animation.STAND_HAPPY_DONUT_LAST_BITE_LEFT:
+                case Companion.Animation.STAND_HAPPY_DONUT_LAST_BITE_RIGHT:
+                case Companion.Animation.STAND_HAPPY_DONUT_LAST_BITE_LEFT:
                     if (Time.time - lastYummyReactTime > 20.0f)
                     {
                         lastYummyReactTime = Time.time;
                         if (self.headModel.voiceIndex == (byte)Voice.VoiceType.SHINOBU)
                         {
-                            self.SetTargetAnimation(Loli.Animation.STAND_SHINOBU_YUMMY);
+                            self.SetTargetAnimation(Companion.Animation.STAND_SHINOBU_YUMMY);
                         }
                     }
                     break;

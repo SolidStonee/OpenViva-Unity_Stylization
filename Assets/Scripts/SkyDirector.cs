@@ -314,10 +314,10 @@ namespace viva
             //update characters ambience
             for (int i = 0; i < GameDirector.characters.objects.Count; i++)
             {
-                Loli loli = GameDirector.characters.objects[i] as Loli;
-                if (loli)
+                Companion companion = GameDirector.characters.objects[i] as Companion;
+                if (companion)
                 {
-                    loli.ApplyToonAmbience(GameDirector.instance.mainCamera.transform.position, baseToonAmbience);
+                    companion.ApplyToonAmbience(GameDirector.instance.mainCamera.transform.position, baseToonAmbience);
                 }
             }
         }
@@ -345,10 +345,10 @@ namespace viva
             //update characters ambience
             for (int i = 0; i < GameDirector.characters.objects.Count; i++)
             {
-                Loli loli = GameDirector.characters.objects[i] as Loli;
-                if (loli)
+                Companion companion = GameDirector.characters.objects[i] as Companion;
+                if (companion)
                 {
-                    loli.ApplyToonAmbience(GameDirector.instance.mainCamera.transform.position, baseToonAmbience);
+                    companion.ApplyToonAmbience(GameDirector.instance.mainCamera.transform.position, baseToonAmbience);
                 }
             }
         }

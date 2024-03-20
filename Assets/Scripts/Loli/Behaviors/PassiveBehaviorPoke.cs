@@ -11,9 +11,9 @@ namespace viva
 
         private float lastPokeTime = 0.0f;
         public int pokeCount = 0;
-        private Loli.Animation postFacePokeAnimation = Loli.Animation.NONE;
-        private Loli.Animation postTummyPokeAnim = Loli.Animation.NONE;
-        private Loli.Animation newFacePokedAnimation = Loli.Animation.NONE;
+        private Companion.Animation postFacePokeAnimation = Companion.Animation.NONE;
+        private Companion.Animation postTummyPokeAnim = Companion.Animation.NONE;
+        private Companion.Animation newFacePokedAnimation = Companion.Animation.NONE;
         private float lastPokeCheekWipeReactTime = -Mathf.Infinity;
         private float lastPokeBlockReactTime = -Mathf.Infinity;
         private Transform lastPokeSource = null;
@@ -21,29 +21,29 @@ namespace viva
         private float pokeLaughTimer = 0.0f;
         private float poleLaughRandomLookAtTimer = 1.0f;
 
-        public PokeBehavior(Loli _self) : base(_self, 0.0f)
+        public PokeBehavior(Companion _self) : base(_self, 0.0f)
         {
         }
 
-        public class TransitionToPostFacePokeAnim : Loli.TransitionHandle
+        public class TransitionToPostFacePokeAnim : Companion.TransitionHandle
         {
 
             public TransitionToPostFacePokeAnim() : base(TransitionType.NO_MIRROR)
             {
             }
-            public override void Transition(Loli self)
+            public override void Transition(Companion self)
             {
                 self.UpdateAnimationTransition(self.passive.poke.postFacePokeAnimation);
             }
         }
 
-        public class TransitionToPostTummyPokeAnim : Loli.TransitionHandle
+        public class TransitionToPostTummyPokeAnim : Companion.TransitionHandle
         {
 
             public TransitionToPostTummyPokeAnim() : base(TransitionType.NO_MIRROR)
             {
             }
-            public override void Transition(Loli self)
+            public override void Transition(Companion self)
             {
                 self.UpdateAnimationTransition(self.passive.poke.postTummyPokeAnim);
             }
@@ -52,14 +52,14 @@ namespace viva
         public override void OnUpdate()
         {
 
-            if (self.currentAnim == Loli.Animation.STAND_POKED_TUMMY_LOOP)
+            if (self.currentAnim == Companion.Animation.STAND_POKED_TUMMY_LOOP)
             {
                 tummyPokeXBlend.Update(Time.deltaTime);
                 self.animator.SetFloat(WorldUtil.pokeTummyXID, tummyPokeXBlend.value);
                 if (pokeLaughTimer <= 0.0f)
                 {
                     pokeLaughTimer = 0.0f;
-                    self.SetTargetAnimation(Loli.Animation.STAND_POKED_TUMMY_OUT);
+                    self.SetTargetAnimation(Companion.Animation.STAND_POKED_TUMMY_OUT);
                 }
                 else
                 {
@@ -100,34 +100,34 @@ namespace viva
                 return false;
             }
             lastPokeSource = sourceItem.transform;
-            if (self.currentAnim == Loli.Animation.STAND_POKED_TUMMY_LOOP)
+            if (self.currentAnim == Companion.Animation.STAND_POKED_TUMMY_LOOP)
             {
                 UpdateTummyPokeX();
             }
-            else if (self.currentAnim == Loli.Animation.STAND_POKED_TUMMY_IN)
+            else if (self.currentAnim == Companion.Animation.STAND_POKED_TUMMY_IN)
             {
-                postTummyPokeAnim = Loli.Animation.STAND_POKED_TUMMY_LOOP;
+                postTummyPokeAnim = Companion.Animation.STAND_POKED_TUMMY_LOOP;
                 UpdateTummyPokeX();
             }
-            else if (self.currentAnim == Loli.Animation.STAND_POKED_TUMMY_OUT)
+            else if (self.currentAnim == Companion.Animation.STAND_POKED_TUMMY_OUT)
             {
                 if (self.GetLayerAnimNormTime(1) < 0.6f)
                 {
                     self.OverrideClearAnimationPriority();
-                    self.SetTargetAnimation(Loli.Animation.STAND_POKED_TUMMY_LOOP);
+                    self.SetTargetAnimation(Companion.Animation.STAND_POKED_TUMMY_LOOP);
                     UpdateTummyPokeX();
                 }
                 else
                 {
-                    self.SetTargetAnimation(Loli.Animation.STAND_POKED_TUMMY_IN);
-                    self.Speak(Loli.VoiceLine.STARTLE_SHORT);
+                    self.SetTargetAnimation(Companion.Animation.STAND_POKED_TUMMY_IN);
+                    self.Speak(Companion.VoiceLine.STARTLE_SHORT);
                 }
             }
             else
             {
-                self.SetTargetAnimation(Loli.Animation.STAND_POKED_TUMMY_IN);
-                postTummyPokeAnim = Loli.Animation.STAND_POKED_TUMMY_OUT;
-                self.Speak(Loli.VoiceLine.STARTLE_SHORT);
+                self.SetTargetAnimation(Companion.Animation.STAND_POKED_TUMMY_IN);
+                postTummyPokeAnim = Companion.Animation.STAND_POKED_TUMMY_OUT;
+                self.Speak(Companion.VoiceLine.STARTLE_SHORT);
             }
             if (self.active.RequestPermission(ActiveBehaviors.Permission.ALLOW_ROOT_FACING_TARGET_CHANGE))
             {
@@ -145,19 +145,19 @@ namespace viva
             float pokeX = Tools.Bearing(self.spine2, lastPokeSource.position);
             float newPokeX = Mathf.Clamp(Mathf.Round(pokeX / 50.0f), -1.0f, 1.0f);
             tummyPokeXBlend.StartBlend(newPokeX, 0.6f);
-            if (self.IsSpeaking(Loli.VoiceLine.LAUGH_LONG))
+            if (self.IsSpeaking(Companion.VoiceLine.LAUGH_LONG))
             {
                 return;
             }
             if (Random.value > 0.85f)
             {
                 pokeLaughTimer = 1.3f;
-                self.Speak(Loli.VoiceLine.LAUGH_LONG);
+                self.Speak(Companion.VoiceLine.LAUGH_LONG);
             }
             else
             {
                 pokeLaughTimer = 0.45f;
-                self.Speak(Loli.VoiceLine.LAUGH_SHORT);
+                self.Speak(Companion.VoiceLine.LAUGH_SHORT);
             }
         }
 
@@ -170,19 +170,19 @@ namespace viva
             return item.rigidBody.velocity.sqrMagnitude > minSqSpeed;
         }
 
-        private Loli.Animation GetBlockFacePokeAnimation(int pokeSideIsLeft)
+        private Companion.Animation GetBlockFacePokeAnimation(int pokeSideIsLeft)
         {
             if (Random.value > 0.5f)
             {
-                return (Loli.Animation)((int)Loli.Animation.STAND_HEADPAT_CLIMAX_TO_CANCEL_RIGHT + pokeSideIsLeft);
+                return (Companion.Animation)((int)Companion.Animation.STAND_HEADPAT_CLIMAX_TO_CANCEL_RIGHT + pokeSideIsLeft);
             }
             else
             {
-                return (Loli.Animation)((int)Loli.Animation.STAND_ANGRY_BLOCK_RIGHT + pokeSideIsLeft);
+                return (Companion.Animation)((int)Companion.Animation.STAND_ANGRY_BLOCK_RIGHT + pokeSideIsLeft);
             }
         }
 
-        private Loli.Animation GetFacePokedAnimation(int pokeSideIsLeft)
+        private Companion.Animation GetFacePokedAnimation(int pokeSideIsLeft)
         {
             //return self.bodyStateAnimationSets[ (int)self.bodyState ].GetAnimationSet( AnimationSet.POKE_FACE_SOFT_RIGHT, pokeSideIsLeft );
             //if( animations.)
@@ -192,33 +192,33 @@ namespace viva
                 case BodyState.STAND:
                     if (self.IsTired())
                     {
-                        return self.GetAnimationFromSet(Loli.Animation.STAND_TIRED_POKE_RIGHT, pokeSideIsLeft);
+                        return self.GetAnimationFromSet(Companion.Animation.STAND_TIRED_POKE_RIGHT, pokeSideIsLeft);
                     }
                     else
                     {
-                        return self.GetAnimationFromSet(Loli.Animation.STAND_POKE_FACE_1_RIGHT, pokeSideIsLeft, 3);
+                        return self.GetAnimationFromSet(Companion.Animation.STAND_POKE_FACE_1_RIGHT, pokeSideIsLeft, 3);
                     }
                 case BodyState.BATHING_RELAX:
-                    return self.GetAnimationFromSet(Loli.Animation.BATHTUB_RELAX_FACE_POKE_RIGHT, pokeSideIsLeft);
+                    return self.GetAnimationFromSet(Companion.Animation.BATHTUB_RELAX_FACE_POKE_RIGHT, pokeSideIsLeft);
                 case BodyState.BATHING_IDLE:
                     return GetBathtubIdleFacePokedAnimation(pokeSideIsLeft);
                 case BodyState.SLEEP_PILLOW_SIDE_LEFT:
                 case BodyState.SLEEP_PILLOW_SIDE_RIGHT:
                     return self.active.sleeping.GetSleepSidePillowFacePokeAnimation( pokeSideIsLeft );
                 case BodyState.SLEEP_PILLOW_UP:
-                    return self.GetAnimationFromSet(Loli.Animation.SLEEP_PILLOW_UP_BOTHER_RIGHT, pokeSideIsLeft);
+                    return self.GetAnimationFromSet(Companion.Animation.SLEEP_PILLOW_UP_BOTHER_RIGHT, pokeSideIsLeft);
                 case BodyState.AWAKE_PILLOW_UP:
-                    return self.GetAnimationFromSet(Loli.Animation.AWAKE_PILLOW_UP_FACE_POKE_RIGHT, pokeSideIsLeft);
+                    return self.GetAnimationFromSet(Companion.Animation.AWAKE_PILLOW_UP_FACE_POKE_RIGHT, pokeSideIsLeft);
                 case BodyState.RELAX:
-                    return Loli.Animation.RELAX_TO_SQUAT_STARTLE;
+                    return Companion.Animation.RELAX_TO_SQUAT_STARTLE;
                 case BodyState.SQUAT:
-                    return self.GetAnimationFromSet(Loli.Animation.SQUAT_FACE_POKE_1_RIGHT, pokeSideIsLeft, 2);
+                    return self.GetAnimationFromSet(Companion.Animation.SQUAT_FACE_POKE_1_RIGHT, pokeSideIsLeft, 2);
                 default:
-                    return Loli.Animation.NONE;
+                    return Companion.Animation.NONE;
             }
         }
 
-        private Loli.Animation GetPostFacePokeAnimation(int pokeSideIsLeft)
+        private Companion.Animation GetPostFacePokeAnimation(int pokeSideIsLeft)
         {
 
             switch (self.bodyState)
@@ -234,17 +234,17 @@ namespace viva
                         {
                             if (self.rightHandState.holdType == HoldType.NULL)
                             {
-                                return Loli.Animation.STAND_WIPE_CHEEK_RIGHT;
+                                return Companion.Animation.STAND_WIPE_CHEEK_RIGHT;
                             }
                         }
                         else if (self.leftHandState.holdType == HoldType.NULL)
                         {
-                            return Loli.Animation.STAND_WIPE_CHEEK_LEFT;
+                            return Companion.Animation.STAND_WIPE_CHEEK_LEFT;
                         }
                     }
                     break;
                 case BodyState.BATHING_RELAX:
-                    return self.GetAnimationFromSet(Loli.Animation.BATHTUB_RELAX_FACE_POKE_RIGHT, pokeSideIsLeft);
+                    return self.GetAnimationFromSet(Companion.Animation.BATHTUB_RELAX_FACE_POKE_RIGHT, pokeSideIsLeft);
                 case BodyState.BATHING_IDLE:
                     return GetBathtubIdlePostFacePokedAnimation(pokeSideIsLeft);
                 case BodyState.SLEEP_PILLOW_SIDE_LEFT:
@@ -303,7 +303,7 @@ namespace viva
 
             float bearing = Tools.Bearing(self.head, lastPokeSource.position);
             int pokeSideIsLeft = (int)System.Convert.ToInt32(bearing < 0);  //0 right or 1 left
-            newFacePokedAnimation = Loli.Animation.NONE;
+            newFacePokedAnimation = Companion.Animation.NONE;
 
             if (pokeCount > 4)
             {   //4 pokes and she becomes angry
@@ -318,7 +318,7 @@ namespace viva
                 if (Random.value < 0.4f && Time.time - lastPokeBlockReactTime > 2.0f && !self.IsTired())
                 {
                     newFacePokedAnimation = GetBlockFacePokeAnimation(pokeSideIsLeft);
-                    if (newFacePokedAnimation == Loli.Animation.NONE)
+                    if (newFacePokedAnimation == Companion.Animation.NONE)
                     {   //if no block poke animation
                         newFacePokedAnimation = GetFacePokedAnimation(pokeSideIsLeft);
                     }
@@ -347,14 +347,14 @@ namespace viva
             }
 
             //no poke animation possible
-            if (newFacePokedAnimation == Loli.Animation.NONE)
+            if (newFacePokedAnimation == Companion.Animation.NONE)
             {
                 return false;
             }
             pokeCount = newPokeCount;
             self.SetTargetAnimation(newFacePokedAnimation);
             postFacePokeAnimation = GetPostFacePokeAnimation(pokeSideIsLeft);
-            if (postFacePokeAnimation == Loli.Animation.NONE)
+            if (postFacePokeAnimation == Companion.Animation.NONE)
             {
                 postFacePokeAnimation = self.GetLastReturnableIdleAnimation();
             }
@@ -362,7 +362,7 @@ namespace viva
             return true;
         }
 
-        public override void OnAnimationChange(Loli.Animation oldAnim, Loli.Animation newAnim)
+        public override void OnAnimationChange(Companion.Animation oldAnim, Companion.Animation newAnim)
         {
 
             if (newAnim == newFacePokedAnimation)
@@ -374,27 +374,27 @@ namespace viva
 
             switch (newAnim)
             {
-                case Loli.Animation.STAND_WIPE_CHEEK_RIGHT:
-                case Loli.Animation.STAND_WIPE_CHEEK_LEFT:
-                case Loli.Animation.STAND_HEADPAT_CLIMAX_TO_CANCEL_RIGHT:
+                case Companion.Animation.STAND_WIPE_CHEEK_RIGHT:
+                case Companion.Animation.STAND_WIPE_CHEEK_LEFT:
+                case Companion.Animation.STAND_HEADPAT_CLIMAX_TO_CANCEL_RIGHT:
                     lastPokeCheekWipeReactTime = Time.time;
                     self.SetLookAtTarget(GameDirector.player.head, 1.2f);
                     self.SetViewAwarenessTimeout(0.5f);
                     break;
-                case Loli.Animation.STAND_ANGRY_BLOCK_RIGHT:
-                case Loli.Animation.STAND_ANGRY_BLOCK_LEFT:
+                case Companion.Animation.STAND_ANGRY_BLOCK_RIGHT:
+                case Companion.Animation.STAND_ANGRY_BLOCK_LEFT:
                     lastPokeBlockReactTime = Time.time;
                     lastPokeTime = Time.time;
                     LookAtLastPokeSource();
                     break;
-                case Loli.Animation.STAND_POKED_TUMMY_IN:
+                case Companion.Animation.STAND_POKED_TUMMY_IN:
                     tummyPokeXBlend.reset(0.0f);
                     break;
             }
 
             switch (oldAnim)
             {
-                case Loli.Animation.STAND_POKED_TUMMY_LOOP:
+                case Companion.Animation.STAND_POKED_TUMMY_LOOP:
                     tummyPokeXBlend.reset(0.0f);
                     break;
             }
@@ -422,10 +422,10 @@ namespace viva
             viva.DevTools.LogExtended("Attempting FootPoke", true, true);
             if( Random.value > 0.85f ){
                 pokeLaughTimer = 1.3f;
-                self.Speak( Loli.VoiceLine.LAUGH_LONG );
+                self.Speak( Companion.VoiceLine.LAUGH_LONG );
             }else{
                 pokeLaughTimer = 0.45f;
-                self.Speak( Loli.VoiceLine.LAUGH_SHORT );
+                self.Speak( Companion.VoiceLine.LAUGH_SHORT );
             }
             return true;
             */
@@ -440,35 +440,35 @@ namespace viva
                 return false;
             }*/
             lastPokeSource = sourceItem.transform;
-            if (self.currentAnim == Loli.Animation.STAND_POKED_TUMMY_LOOP)
+            if (self.currentAnim == Companion.Animation.STAND_POKED_TUMMY_LOOP)
             {
                 UpdateTummyPokeX();
             }
-            else if (self.currentAnim == Loli.Animation.STAND_POKED_TUMMY_IN)
+            else if (self.currentAnim == Companion.Animation.STAND_POKED_TUMMY_IN)
             {
-                postTummyPokeAnim = Loli.Animation.STAND_POKED_TUMMY_LOOP;
+                postTummyPokeAnim = Companion.Animation.STAND_POKED_TUMMY_LOOP;
                 UpdateTummyPokeX();
             }
-            else if (self.currentAnim == Loli.Animation.STAND_POKED_TUMMY_OUT)
+            else if (self.currentAnim == Companion.Animation.STAND_POKED_TUMMY_OUT)
             {
                 viva.DevTools.LogExtended("self.GetLayerAnimNormTime(1)" + self.GetLayerAnimNormTime(1));
                 if (self.GetLayerAnimNormTime(1) < 0.6f)
                 {
                     self.OverrideClearAnimationPriority();
-                    self.SetTargetAnimation(Loli.Animation.STAND_POKED_TUMMY_LOOP);
+                    self.SetTargetAnimation(Companion.Animation.STAND_POKED_TUMMY_LOOP);
                     UpdateTummyPokeX();
                 }
                 else
                 {
-                    self.SetTargetAnimation(Loli.Animation.STAND_POKED_TUMMY_IN);
-                    self.Speak(Loli.VoiceLine.STARTLE_SHORT);
+                    self.SetTargetAnimation(Companion.Animation.STAND_POKED_TUMMY_IN);
+                    self.Speak(Companion.VoiceLine.STARTLE_SHORT);
                 }
             }
             else if (self.bodyState == BodyState.STAND)
             {
-                self.SetTargetAnimation(Loli.Animation.STAND_POKED_TUMMY_IN);
-                postTummyPokeAnim = Loli.Animation.STAND_POKED_TUMMY_OUT;
-                self.Speak(Loli.VoiceLine.STARTLE_SHORT);
+                self.SetTargetAnimation(Companion.Animation.STAND_POKED_TUMMY_IN);
+                postTummyPokeAnim = Companion.Animation.STAND_POKED_TUMMY_OUT;
+                self.Speak(Companion.VoiceLine.STARTLE_SHORT);
             }
             else
             {

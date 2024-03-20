@@ -61,7 +61,7 @@ namespace viva
             base.OnMechanismAwake();
             SetOn(startOn);
         }
-        public override bool AttemptCommandUse(Loli targetLoli, Character commandSource)
+        public override bool AttemptCommandUse(Companion targetCompanion, Character commandSource)
         {
             return false;
         }

@@ -7,7 +7,7 @@ namespace viva
     public class OnsenReception : Service
     {
 
-        public delegate void OnAttendStartCallback(Loli loli, bool valid);
+        public delegate void OnAttendStartCallback(Companion companion, bool valid);
 
         [SerializeField]
         private TowelClip[] m_storageTowelClips = new TowelClip[0];
@@ -46,12 +46,12 @@ namespace viva
             Gizmos.DrawWireSphere(localClientShowChangingRoomPos, 0.2f);
         }
 
-        protected override void OnInitializeEmployment(Loli targetLoli)
+        protected override void OnInitializeEmployment(Companion targetCompanion)
         {
-            targetLoli.active.onsenClerk.onsenClerkSession.onsenReceptionAsset = this;
+            targetCompanion.active.onsenClerk.onsenClerkSession.onsenReceptionAsset = this;
         }
 
-        //returns next employee loli
+        //returns next employee companion
         public bool CreateClerkSession(Character caller, OnsenClerkBehavior.ClerkSessionCallback onStart)
         {
             if (caller == null)
@@ -60,9 +60,9 @@ namespace viva
             }
             //alert nearest employee
             var closest = GetActiveServiceUser(0);
-            if (closest != null && closest.loli != null)
+            if (closest != null && closest.companion != null)
             {
-                return closest.loli.active.onsenClerk.AttemptAttendClient(caller, onStart);
+                return closest.companion.active.onsenClerk.AttemptAttendClient(caller, onStart);
             }
             return false;
         }

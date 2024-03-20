@@ -205,7 +205,7 @@ namespace viva
                 return false;
             }
 
-            //disable nav search if loli is in anchor transition
+            //disable nav search if companion is in anchor transition
             if (self.anchorActive)
             {
                 // Debug.LogError("Skipping nav search due to anchor transition...");
@@ -236,7 +236,7 @@ namespace viva
 
             yield return null; //wait 1 frame so it's not an immediate return
 
-            //ensure loli is in the NavMesh
+            //ensure companion is in the NavMesh
             if (!NavMesh.SamplePosition(self.floorPos, out navTest, minCornerDist * 2.0f, NavMesh.AllAreas))
             {
                 Debug.LogError("[Locomotion] Character not near walkable position");

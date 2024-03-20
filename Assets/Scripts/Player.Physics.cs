@@ -201,8 +201,8 @@ namespace viva
         private void AttemptPoke(Character owner, Collider collider, PlayerHandState handState)
         {
 
-            Loli loli = owner as Loli;
-            if (loli == null)
+            Companion companion = owner as Companion;
+            if (companion == null)
             {
                 return;
             }
@@ -216,11 +216,11 @@ namespace viva
             {
                 return;
             }
-            //viva.DevTools.LogExtended("Loli Collider: " + loli.IdentifyCollider(collider), true, true);
-            switch (loli.IdentifyCollider(collider))
+            //viva.DevTools.LogExtended("Companion Collider: " + companion.IdentifyCollider(collider), true, true);
+            switch (companion.IdentifyCollider(collider))
             {
-                case Loli.BodyPart.TUMMY_CC:
-                    if (loli.passive.poke.AttemptTummyPoke(handState.selfItem))
+                case Companion.BodyPart.TUMMY_CC:
+                    if (companion.passive.poke.AttemptTummyPoke(handState.selfItem))
                     {
                         if (handState.animSys.currentAnim == Animation.IDLE)
                         {

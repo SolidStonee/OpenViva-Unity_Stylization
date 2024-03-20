@@ -25,8 +25,8 @@ namespace viva
         private float currSpeed = 0.0f;
         private Tools.EaseBlend brakeBlend = new Tools.EaseBlend();
         private LocomotionCallback onPathComplete = null;
-        private Loli.LocomotionInfo zeroLocomotionInfo = new Loli.LocomotionInfo(0.0f, 0.0f, 0.0f, 0.0f);
-        private Loli.LocomotionInfo locomotionInfo = null;
+        private Companion.LocomotionInfo zeroLocomotionInfo = new Companion.LocomotionInfo(0.0f, 0.0f, 0.0f, 0.0f);
+        private Companion.LocomotionInfo locomotionInfo = null;
         private LocomotionCallback onFollowPathStart;
         private Coroutine impulseCoroutine = null;
 
@@ -35,7 +35,7 @@ namespace viva
         private static NavMeshHit navTest = new NavMeshHit();
 
 
-        public LocomotionBehaviors(Loli _self) : base(_self, JobType.LOCOMOTION)
+        public LocomotionBehaviors(Companion _self) : base(_self, JobType.LOCOMOTION)
         {
             locomotionInfo = zeroLocomotionInfo;
         }
@@ -279,7 +279,7 @@ namespace viva
             Vector3 targetNavPos = navTest.position;
             if (!NavMesh.SamplePosition(sourcePos, out navTest, 1.0f, NavMesh.AllAreas))
             {
-                Debug.LogError("No nearest loli nav position found");
+                Debug.LogError("No nearest companion nav position found");
                 Debug.DrawLine(newTargetMoveToPos, newTargetMoveToPos + Vector3.up * 0.5f, Color.red, 3.0f);
                 return null;
             }
@@ -296,10 +296,10 @@ namespace viva
             return null;
         }
 
-        public override void OnAnimationChange(Loli.Animation oldAnim, Loli.Animation newAnim)
+        public override void OnAnimationChange(Companion.Animation oldAnim, Companion.Animation newAnim)
         {
 
-            locomotionInfo = Loli.GetLegSpeedInfo(newAnim);
+            locomotionInfo = Companion.GetLegSpeedInfo(newAnim);
             if (locomotionInfo == null)
             {
                 locomotionInfo = zeroLocomotionInfo;

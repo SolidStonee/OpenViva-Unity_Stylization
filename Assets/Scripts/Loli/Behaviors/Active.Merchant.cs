@@ -26,7 +26,7 @@ namespace viva
         private float lastBeginSellingTime;
 
 
-        public MerchantBehavior(Loli _self) : base(_self, ActiveBehaviors.Behavior.MERCHANT, new MerchantSession())
+        public MerchantBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.MERCHANT, new MerchantSession())
         {
         }
 
@@ -46,7 +46,7 @@ namespace viva
             self.active.SetTask(this, null);
 
             var playSellAnim = new AutonomyPlayAnimation(
-                self.autonomy, "play sell anim", Loli.Animation.STAND_MERCHANT_IDLE1
+                self.autonomy, "play sell anim", Companion.Animation.STAND_MERCHANT_IDLE1
             );
             playSellAnim.loop = true;
             playSellAnim.AddRequirement(merchantSession.merchantSpot.CreateGoToEmploymentPosition(self));
@@ -90,7 +90,7 @@ namespace viva
                     {
                         alreadyAttended.Add(client);
 
-                        var comeAnimation = self.rightHandState.occupied ? Loli.Animation.STAND_FOLLOW_ME_LEFT : Loli.Animation.STAND_FOLLOW_ME_RIGHT;
+                        var comeAnimation = self.rightHandState.occupied ? Companion.Animation.STAND_FOLLOW_ME_LEFT : Companion.Animation.STAND_FOLLOW_ME_RIGHT;
                         comeCloserPlayAnim = new AutonomyPlayAnimation(self.autonomy, "play come closer", comeAnimation);
 
                         var waitForIdle = new AutonomyWaitForIdle(self.autonomy, "wait for idle");

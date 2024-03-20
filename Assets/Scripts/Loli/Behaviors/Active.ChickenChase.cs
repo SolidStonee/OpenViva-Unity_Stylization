@@ -24,7 +24,7 @@ namespace viva
         private float tangentSpeed = 0.0f;
         private float chaseTimeout = 0.0f;
 
-        public ChickenChaseBehavior(Loli _self) : base(_self, ActiveBehaviors.Behavior.CHICKEN_CHASE, null)
+        public ChickenChaseBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.CHICKEN_CHASE, null)
         {
         }
 
@@ -60,7 +60,7 @@ namespace viva
 
         public override void OnDeactivate()
         {
-            if (self.currentAnim == Loli.Animation.STAND_CHASE_LOW_LOCOMOTION)
+            if (self.currentAnim == Companion.Animation.STAND_CHASE_LOW_LOCOMOTION)
             {
                 self.SetTargetAnimation(self.GetLastReturnableIdleAnimation());
             }
@@ -113,9 +113,9 @@ namespace viva
             {
                 MoveToCircleIfPointIsOutsideKeepRadius(finalDest.Value);
             }
-            if (self.currentAnim != Loli.Animation.STAND_GIDDY_LOCOMOTION)
+            if (self.currentAnim != Companion.Animation.STAND_GIDDY_LOCOMOTION)
             {
-                self.SetTargetAnimation(Loli.Animation.STAND_GIDDY_LOCOMOTION);
+                self.SetTargetAnimation(Companion.Animation.STAND_GIDDY_LOCOMOTION);
             }
         }
 
@@ -175,9 +175,9 @@ namespace viva
                 return;
             }
 
-            if (self.currentAnim != Loli.Animation.STAND_CHASE_LOW_LOCOMOTION)
+            if (self.currentAnim != Companion.Animation.STAND_CHASE_LOW_LOCOMOTION)
             {
-                self.SetTargetAnimation(Loli.Animation.STAND_CHASE_LOW_LOCOMOTION);
+                self.SetTargetAnimation(Companion.Animation.STAND_CHASE_LOW_LOCOMOTION);
             }
             //normalize for future use
             chickenToSelf /= chickenToSelfLength;
@@ -192,11 +192,11 @@ namespace viva
             if (Mathf.Abs(angleDiff) > 150.0f)
             {   //reached other side
                 state = ChaseState.APPROACHING;
-                self.Speak(Loli.VoiceLine.ANGRY_GRUMBLE_LONG, false);
+                self.Speak(Companion.VoiceLine.ANGRY_GRUMBLE_LONG, false);
                 return;
             }
             //move along circle tangent until reached other side
-            Loli.LocomotionInfo legSpeedInfo = Loli.GetLegSpeedInfo(self.currentAnim);
+            Companion.LocomotionInfo legSpeedInfo = Companion.GetLegSpeedInfo(self.currentAnim);
             if (legSpeedInfo == null)
             {
                 return;
@@ -217,7 +217,7 @@ namespace viva
                 if (chaseTimeout > 1.0f)
                 {
                     state = ChaseState.APPROACHING;
-                    self.Speak(Loli.VoiceLine.ANGRY_GRUMBLE_LONG, false);
+                    self.Speak(Companion.VoiceLine.ANGRY_GRUMBLE_LONG, false);
                     return;
                 }
             }
@@ -243,9 +243,9 @@ namespace viva
                 MoveToChickenIfPointIsOutsideChaseRadius(finalDest.Value);
             }
 
-            if (self.currentAnim != Loli.Animation.STAND_CHASE_LOW_LOCOMOTION)
+            if (self.currentAnim != Companion.Animation.STAND_CHASE_LOW_LOCOMOTION)
             {
-                self.SetTargetAnimation(Loli.Animation.STAND_CHASE_LOW_LOCOMOTION);
+                self.SetTargetAnimation(Companion.Animation.STAND_CHASE_LOW_LOCOMOTION);
             }
             chaseTimeout += Time.deltaTime;
             if (chaseTimeout > 15.0f)
@@ -256,7 +256,7 @@ namespace viva
             //attempt pickup
             if (Vector3.SqrMagnitude(targetChicken.transform.position - self.floorPos) < 0.5f)
             {
-                self.Speak(Loli.VoiceLine.YA_ANNOYED, false);
+                self.Speak(Companion.VoiceLine.YA_ANNOYED, false);
 
                 if (!self.rightHandState.occupied)
                 {

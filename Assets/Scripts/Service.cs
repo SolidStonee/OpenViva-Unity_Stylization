@@ -23,13 +23,13 @@ namespace viva
 
             public delegate void SetupCallback(Service service, EmployeeInfo info);
 
-            public readonly Loli loli;
+            public readonly Companion companion;
             public EmployeeInfo info { get; private set; }
             public Service service { get; private set; }
 
-            public ServiceUser(Loli _loli, ref SetupCallback accessor)
+            public ServiceUser(Companion companion, ref SetupCallback accessor)
             {
-                loli = _loli;
+                this.companion = companion;
                 accessor = Setup;
             }
 
@@ -60,71 +60,71 @@ namespace viva
         {
         }
 
-        public override sealed bool AttemptCommandUse(Loli targetLoli, Character commandSource)
+        public override sealed bool AttemptCommandUse(Companion targetCompanion, Character commandSource)
         {
-            if (targetLoli == null)
+            if (targetCompanion == null)
             {
                 return false;
             }
-            if (!targetLoli.IsHappy() || targetLoli.IsTired())
+            if (!targetCompanion.IsHappy() || targetCompanion.IsTired())
             {   //must be happy and not tired
-                targetLoli.active.idle.PlayAvailableRefuseAnimation();
+                targetCompanion.active.idle.PlayAvailableRefuseAnimation();
                 return false;
             }
-            bool success = Employ(targetLoli);
+            bool success = Employ(targetCompanion);
             if (success)
             {
-                targetLoli.active.SetTask(targetLoli.active.GetTask(targetBehavior));
-                GameDirector.player.objectFingerPointer.selectedLolis.Remove(targetLoli);
-                targetLoli.characterSelectionTarget.OnUnselected();
+                targetCompanion.active.SetTask(targetCompanion.active.GetTask(targetBehavior));
+                GameDirector.player.objectFingerPointer.selectedLolis.Remove(targetCompanion);
+                targetCompanion.characterSelectionTarget.OnUnselected();
             }
             else
             {
-                var playAnim = LoliUtility.CreateSpeechAnimation(targetLoli, AnimationSet.REFUSE, SpeechBubble.FULL);
-                targetLoli.autonomy.Interrupt(playAnim);
+                var playAnim = CompanionUtility.CreateSpeechAnimation(targetCompanion, AnimationSet.REFUSE, SpeechBubble.FULL);
+                targetCompanion.autonomy.Interrupt(playAnim);
             }
             return success;
         }
 
-        protected abstract void OnInitializeEmployment(Loli targetLoli);
+        protected abstract void OnInitializeEmployment(Companion targetCompanion);
 
 
-        private void OnTaskChange(Loli loli, ActiveBehaviors.Behavior newBehavior)
+        private void OnTaskChange(Companion companion, ActiveBehaviors.Behavior newBehavior)
         {
             if (newBehavior != targetBehavior)
             {
-                Unemploy(loli);
+                Unemploy(companion);
             }
         }
 
-        private static ServiceUserEntry EnsureServiceUser(Loli loli)
+        private static ServiceUserEntry EnsureServiceUser(Companion companion)
         {
-            if (loli == null)
+            if (companion == null)
             {
                 return null;
             }
             for (int i = 0; i < serviceUserEntries.Count; i++)
             {
-                if (serviceUserEntries[i]._1.loli == loli)
+                if (serviceUserEntries[i]._1.companion == companion)
                 {
                     return serviceUserEntries[i];
                 }
             }
 
             ServiceUser.SetupCallback accessor = null;
-            var serviceUser = new ServiceUser(loli, ref accessor);
+            var serviceUser = new ServiceUser(companion, ref accessor);
             var entry = new ServiceUserEntry(serviceUser, accessor);
             serviceUserEntries.Add(entry);
             return entry;
         }
 
-        public static int GetServiceIndex(Loli loli)
+        public static int GetServiceIndex(Companion companion)
         {
-            if (loli == null)
+            if (companion == null)
             {
                 return -1;
             }
-            var entry = EnsureServiceUser(loli);
+            var entry = EnsureServiceUser(companion);
             if (entry != null)
             {
                 return GameDirector.instance.town.services.IndexOf(entry._1.service);
@@ -170,15 +170,15 @@ namespace viva
             return employeeInfos[index];
         }
 
-        public EmployeeInfo FindActiveEmployeeInfo(Loli loli)
+        public EmployeeInfo FindActiveEmployeeInfo(Companion companion)
         {
-            if (loli == null)
+            if (companion == null)
             {
                 return null;
             }
             foreach (var serviceUser in activeServiceUsers)
             {
-                if (serviceUser.loli == loli)
+                if (serviceUser.companion == companion)
                 {
                     return serviceUser.info;
                 }
@@ -186,14 +186,14 @@ namespace viva
             return null;
         }
 
-        public bool Employ(Loli loli)
+        public bool Employ(Companion companion)
         {
-            if (loli == null)
+            if (companion == null)
             {
-                Debug.LogError("[Service] Cannot employ null loli");
+                Debug.LogError("[Service] Cannot employ null companion");
                 return false;
             }
-            var entry = EnsureServiceUser(loli);
+            var entry = EnsureServiceUser(companion);
             if (entry == null)
             {
                 Debug.LogError("[Service] Could not ensure service user");
@@ -207,7 +207,7 @@ namespace viva
                 }
                 else
                 {
-                    Debug.LogError("[Service] Loli already employed in a service");
+                    Debug.LogError("[Service] Companion already employed in a service");
                     return false;
                 }
             }
@@ -221,20 +221,20 @@ namespace viva
             entry._2.Invoke(this, targetInfo);
             employeeInfos.Remove(targetInfo);
             activeServiceUsers.Add(entry._1);
-            loli.onTaskChange += OnTaskChange;
+            companion.onTaskChange += OnTaskChange;
 
             if (activeServiceUsers.Count > 0)
             {
                 GameDirector.mechanisms.Add(this);
             }
-            loli.SetNameTagTexture(employeeNametag, employeeNametagYOffset);
-            OnInitializeEmployment(loli);
+            companion.SetNameTagTexture(employeeNametag, employeeNametagYOffset);
+            OnInitializeEmployment(companion);
             return true;
         }
 
-        private void Unemploy(Loli loli)
+        private void Unemploy(Companion companion)
         {
-            var entry = EnsureServiceUser(loli);
+            var entry = EnsureServiceUser(companion);
             if (entry == null)
             {
                 Debug.LogError("[Service] Could not ensure service user");
@@ -242,16 +242,16 @@ namespace viva
             }
             if (entry._1.service != this)
             {
-                Debug.LogError("[Service] Loli not employed to service " + this);
+                Debug.LogError("[Service] Companion not employed to service " + this);
                 return;
             }
             //restore employee info
             employeeInfos.Add(entry._1.info);
             entry._2.Invoke(null, null);
             activeServiceUsers.Remove(entry._1);
-            loli.onTaskChange -= OnTaskChange;
+            companion.onTaskChange -= OnTaskChange;
 
-            loli.SetNameTagTexture(null, 0);
+            companion.SetNameTagTexture(null, 0);
 
             if (activeServiceUsers.Count == 0)
             {
@@ -259,14 +259,14 @@ namespace viva
             }
         }
 
-        public AutonomyMoveTo CreateGoToEmploymentPosition(Loli loli)
+        public AutonomyMoveTo CreateGoToEmploymentPosition(Companion companion)
         {
 
-            if (loli == null)
+            if (companion == null)
             {
                 return null;
             }
-            var employeeInfo = FindActiveEmployeeInfo(loli);
+            var employeeInfo = FindActiveEmployeeInfo(companion);
             if (employeeInfo == null)
             {
                 Debug.LogError("[OnsenClerk] employee info is null");
@@ -275,7 +275,7 @@ namespace viva
 
             var receptionPos = transform.TransformPoint(employeeInfo.localPos);
             var walkToReception = new AutonomyMoveTo(
-                loli.autonomy,
+                companion.autonomy,
                 "walk to reception",
                 delegate (TaskTarget target) { target.SetTargetPosition(receptionPos); },
                 0.1f,

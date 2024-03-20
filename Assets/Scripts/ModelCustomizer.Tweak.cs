@@ -90,7 +90,7 @@ namespace viva
             modelPreviewer.modelDefault.RebuildVoice();
             UpdateProperty(VivaModelProperty.VOICE);
             //play a sample
-            GameDirector.instance.PlayGlobalSound(modelPreviewer.modelDefault.GetNextVoiceLine(Loli.VoiceLine.STARTLE_SHORT));
+            GameDirector.instance.PlayGlobalSound(modelPreviewer.modelDefault.GetNextVoiceLine(Companion.VoiceLine.STARTLE_SHORT));
         }
 
         private void SetImageHeight(Image target, float height)
@@ -425,7 +425,7 @@ namespace viva
                 GameDirector.instance.StopCoroutine(testHairMotionCoroutine);
                 testHairMotionCoroutine = null;
                 modelPreviewer.modelDefault.transform.localPosition = Vector3.zero;
-                modelPreviewer.modelDefault.ForceImmediatePose(Loli.Animation.STAND_HAPPY_IDLE2);
+                modelPreviewer.modelDefault.ForceImmediatePose(Companion.Animation.STAND_HAPPY_IDLE2);
                 modelPreviewer.modelDefault.SetLookAtTarget(modelPreviewer.renderCamera.transform);
             }
         }
@@ -434,7 +434,7 @@ namespace viva
         {
             StopHairMotionTest();   //ensure coroutine is null
             testHairMotionCoroutine = GameDirector.instance.StartCoroutine(TestHairMotion());
-            modelPreviewer.modelDefault.ForceImmediatePose(Loli.Animation.STAND_HAPPY_IDLE1);
+            modelPreviewer.modelDefault.ForceImmediatePose(Companion.Animation.STAND_HAPPY_IDLE1);
             modelPreviewer.modelDefault.SetLookAtTarget(null);
         }
 

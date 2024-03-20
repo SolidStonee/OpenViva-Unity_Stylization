@@ -9,7 +9,7 @@ namespace viva
     {
 
         public BodyState targetBodyState { get; private set; }
-        private List<Loli.Animation> transferAnims = new List<Loli.Animation>();
+        private List<Companion.Animation> transferAnims = new List<Companion.Animation>();
 
 
         public AutonomyEnforceBodyState(Autonomy _autonomy, string _name, BodyState _targetBodyState) : base(_autonomy, _name)
@@ -39,7 +39,7 @@ namespace viva
 
         private void RecalculateTransferAnims()
         {
-            Loli.FindBodyStatePath(self, transferAnims, self.bodyState, targetBodyState);
+            Companion.FindBodyStatePath(self, transferAnims, self.bodyState, targetBodyState);
         }
 
         public override bool? Progress()
@@ -61,7 +61,7 @@ namespace viva
             {
 
                 var exitAnim = transferAnims[0];
-                if (exitAnim != Loli.Animation.NONE)
+                if (exitAnim != Companion.Animation.NONE)
                 {
                     self.SetTargetAnimation(exitAnim);
                 }

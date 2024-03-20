@@ -80,10 +80,10 @@ namespace viva
             alternateWin = false;
 
             //scare all lolis
-            var lolis = GameDirector.instance.FindCharactersInSphere((int)Character.Type.LOLI, transform.position, 30.0f);
+            var lolis = GameDirector.instance.FindCharactersInSphere((int)Character.Type.COMPANION, transform.position, 30.0f);
             foreach (var loli in lolis)
             {
-                (loli as Loli).passive.scared.Scare(30.0f);
+                (loli as Companion).passive.scared.Scare(30.0f);
             }
         }
 

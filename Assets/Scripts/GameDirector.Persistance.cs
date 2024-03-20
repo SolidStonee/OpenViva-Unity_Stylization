@@ -434,14 +434,14 @@ namespace viva
                 //load lolis
                 var cdm = new CoroutineDeserializeManager();
 
-                var toLoad = new List<Tuple<Loli, VivaFile.SerializedLoli>>();
+                var toLoad = new List<Tuple<Companion, VivaFile.SerializedLoli>>();
                 foreach (var serializedLoli in file.loliAssets)
                 {
                     var targetLoli = GameDirector.instance.GetLoliFromPool();
                     cdm.waiting++;
-                    StartCoroutine(Loli.LoadLoliFromSerializedLoli(serializedLoli.sourceCardFilename, targetLoli, delegate
+                    StartCoroutine(Companion.LoadLoliFromSerializedLoli(serializedLoli.sourceCardFilename, targetLoli, delegate
                     {
-                        toLoad.Add(new Tuple<Loli, VivaFile.SerializedLoli>(targetLoli, serializedLoli));
+                        toLoad.Add(new Tuple<Companion, VivaFile.SerializedLoli>(targetLoli, serializedLoli));
                         cdm.waiting--;
                     }
                     ));

@@ -12,7 +12,7 @@ namespace viva
         private Vector3 begTargetPos = Vector3.zero;
         private Item targetItem = null;
 
-        public BegBehavior(Loli _self) : base(_self, ActiveBehaviors.Behavior.BEG, null)
+        public BegBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.BEG, null)
         {
             self.onGiftItemCallstack.AddCallback(OnItemBeg);
         }
@@ -48,7 +48,7 @@ namespace viva
             if (Random.value > 0.5f)
             {
 
-                var startleFirst = new AutonomyPlayAnimation(self.autonomy, "startle before pickup", Loli.Animation.STAND_GIDDY_SURPRISE);
+                var startleFirst = new AutonomyPlayAnimation(self.autonomy, "startle before pickup", Companion.Animation.STAND_GIDDY_SURPRISE);
                 startleFirst.AddRequirement(new AutonomyEnforceBodyState(self.autonomy, "enforce stand", BodyState.STAND));
                 startleFirst.AddPassive(new AutonomyFaceDirection(self.autonomy, "face beg item", delegate (TaskTarget target) { target.SetTargetItem(targetItem); }));
 
@@ -87,7 +87,7 @@ namespace viva
             Debug.Log(self.headModel.name + " picked up " + targetItem.name);
             self.SetLookAtTarget(null);
 
-            var playEndBegAnim = new AutonomyPlayAnimation(self.autonomy, "end beg anim", Loli.Animation.STAND_HAPPY_BEG_END);
+            var playEndBegAnim = new AutonomyPlayAnimation(self.autonomy, "end beg anim", Companion.Animation.STAND_HAPPY_BEG_END);
             self.autonomy.SetAutonomy(playEndBegAnim);
 
             playEndBegAnim.onSuccess += PlayPostPickupAnim;
@@ -98,7 +98,7 @@ namespace viva
 
         private void PlayPostPickupAnim()
         {
-            var postPickupAnim = Loli.Animation.NONE;// self.active.pickup.GetPostPickupAnimationByItemType( targetItem.settings.itemType );
+            var postPickupAnim = Companion.Animation.NONE;// self.active.pickup.GetPostPickupAnimationByItemType( targetItem.settings.itemType );
             var playPostPickupAnim = new AutonomyPlayAnimation(self.autonomy, "end beg anim", postPickupAnim);
 
             self.autonomy.SetAutonomy(playPostPickupAnim);
@@ -106,7 +106,7 @@ namespace viva
 
         private void ConfusedAndIdle()
         {
-            var playAnim = LoliUtility.CreateSpeechAnimation(self, AnimationSet.CONFUSED, SpeechBubble.INTERROGATION);
+            var playAnim = CompanionUtility.CreateSpeechAnimation(self, AnimationSet.CONFUSED, SpeechBubble.INTERROGATION);
             playAnim.onSuccess += delegate { self.active.SetTask(self.active.idle); };
             self.autonomy.SetAutonomy(playAnim);
         }

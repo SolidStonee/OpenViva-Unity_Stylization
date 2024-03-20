@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 [CustomEditor(typeof(viva.PoseCache))]
@@ -7,15 +8,15 @@ using UnityEngine;
 public class PoseCacheEditor : Editor
 {
 
-    public viva.Loli loli;
+    [FormerlySerializedAs("loli")] public viva.Companion companion;
 
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
-        loli = EditorGUILayout.ObjectField("Loli", loli, typeof(viva.Loli), true) as viva.Loli;
+        companion = EditorGUILayout.ObjectField("Companion", companion, typeof(viva.Companion), true) as viva.Companion;
 
-        if (loli)
+        if (companion)
         {
             if (GUILayout.Button("Copy"))
             {
@@ -24,13 +25,13 @@ public class PoseCacheEditor : Editor
 
                 var positionsObj = sObj.FindProperty("positions");
                 var quaternionsObj = sObj.FindProperty("quaternions");
-                positionsObj.arraySize = loli.bodySMRs[0].bones.Length;
-                quaternionsObj.arraySize = loli.bodySMRs[0].bones.Length;
+                positionsObj.arraySize = companion.bodySMRs[0].bones.Length;
+                quaternionsObj.arraySize = companion.bodySMRs[0].bones.Length;
                 for (int i = 0; i < positionsObj.arraySize; i++)
                 {
-                    positionsObj.GetArrayElementAtIndex(i).vector3Value = loli.bodySMRs[0].bones[i].localPosition;
-                    quaternionsObj.GetArrayElementAtIndex(i).quaternionValue = loli.bodySMRs[0].bones[i].localRotation;
-                    Debug.Log("[Pose Cache] " + i + " = " + loli.bodySMRs[0].bones[i].name);
+                    positionsObj.GetArrayElementAtIndex(i).vector3Value = companion.bodySMRs[0].bones[i].localPosition;
+                    quaternionsObj.GetArrayElementAtIndex(i).quaternionValue = companion.bodySMRs[0].bones[i].localRotation;
+                    Debug.Log("[Pose Cache] " + i + " = " + companion.bodySMRs[0].bones[i].name);
                 }
                 sObj.ApplyModifiedProperties();
             }
@@ -40,9 +41,9 @@ public class PoseCacheEditor : Editor
                 var positionsObj = sObj.FindProperty("positions");
                 var quaternionsObj = sObj.FindProperty("quaternions");
 
-                for (int i = 0; i < loli.bodySMRs[0].bones.Length; i++)
+                for (int i = 0; i < companion.bodySMRs[0].bones.Length; i++)
                 {
-                    Transform t = loli.bodySMRs[0].bones[i];
+                    Transform t = companion.bodySMRs[0].bones[i];
                     t.localPosition = positionsObj.GetArrayElementAtIndex(i).vector3Value;
                     t.localRotation = quaternionsObj.GetArrayElementAtIndex(i).quaternionValue;
                 }

@@ -39,7 +39,7 @@ namespace viva
         private Recipe currentRecipe = new Recipe();
         private MixingBowl targetMixingBowl = null;
 
-        public CookingBehavior(Loli _self) : base(_self, ActiveBehaviors.Behavior.COOKING, null)
+        public CookingBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.COOKING, null)
         {
         }
 
@@ -217,14 +217,14 @@ namespace viva
                 SetCookingPhase(Phase.SEARCH_COOKING_INGREDIENTS);
                 return;
             }
-            Loli.Animation eggCrackAnim;
+            Companion.Animation eggCrackAnim;
             if (bowl.mainOccupyState.rightSide)
             {
-                eggCrackAnim = Loli.Animation.STAND_EGG_INTO_MIXING_BOWL_LEFT;
+                eggCrackAnim = Companion.Animation.STAND_EGG_INTO_MIXING_BOWL_LEFT;
             }
             else
             {
-                eggCrackAnim = Loli.Animation.STAND_EGG_INTO_MIXING_BOWL_RIGHT;
+                eggCrackAnim = Companion.Animation.STAND_EGG_INTO_MIXING_BOWL_RIGHT;
             }
             if (self.currentAnim != eggCrackAnim)
             {
@@ -254,17 +254,17 @@ namespace viva
                 {
                     if (!bowl.mainOccupyState.rightSide)
                     {
-                        self.SetTargetAnimation(Loli.Animation.STAND_MIXING_BOWL_MIX_LOOP_LEFT);
+                        self.SetTargetAnimation(Companion.Animation.STAND_MIXING_BOWL_MIX_LOOP_LEFT);
                     }
                     else
                     {
-                        self.SetTargetAnimation(Loli.Animation.STAND_MIXING_BOWL_MIX_LOOP_RIGHT);
+                        self.SetTargetAnimation(Companion.Animation.STAND_MIXING_BOWL_MIX_LOOP_RIGHT);
                     }
                     self.SetLookAtTarget(bowl.transform);
                 }
                 if (!self.IsSpeakingAtAll())
                 {
-                    self.SpeakAtRandomIntervals(Loli.VoiceLine.HUMMING, 3.0f, 3.0f);
+                    self.SpeakAtRandomIntervals(Companion.VoiceLine.HUMMING, 3.0f, 3.0f);
                 }
             }
             else
@@ -293,17 +293,17 @@ namespace viva
                 {
                     if (self.rightHandState.heldItem.settings.itemType == Item.Type.PESTLE)
                     {
-                        self.SetTargetAnimation(Loli.Animation.STAND_MORTAR_AND_PESTLE_GRIND_LOOP_LEFT);
+                        self.SetTargetAnimation(Companion.Animation.STAND_MORTAR_AND_PESTLE_GRIND_LOOP_LEFT);
                     }
                     else
                     {
-                        self.SetTargetAnimation(Loli.Animation.STAND_MORTAR_AND_PESTLE_GRIND_LOOP_RIGHT);
+                        self.SetTargetAnimation(Companion.Animation.STAND_MORTAR_AND_PESTLE_GRIND_LOOP_RIGHT);
                     }
                     self.SetLookAtTarget(mortar.transform);
                 }
                 if (!self.IsSpeakingAtAll())
                 {
-                    self.SpeakAtRandomIntervals(Loli.VoiceLine.HUMMING, 3.0f, 3.0f);
+                    self.SpeakAtRandomIntervals(Companion.VoiceLine.HUMMING, 3.0f, 3.0f);
                 }
             }
             else
@@ -333,11 +333,11 @@ namespace viva
             {
                 if (mortar.mainOccupyState.rightSide)
                 {
-                    self.SetTargetAnimation(Loli.Animation.STAND_WHEAT_INTO_MORTAR_RIGHT);
+                    self.SetTargetAnimation(Companion.Animation.STAND_WHEAT_INTO_MORTAR_RIGHT);
                 }
                 else
                 {
-                    self.SetTargetAnimation(Loli.Animation.STAND_WHEAT_INTO_MORTAR_LEFT);
+                    self.SetTargetAnimation(Companion.Animation.STAND_WHEAT_INTO_MORTAR_LEFT);
                 }
             }
         }
@@ -365,24 +365,24 @@ namespace viva
             {
                 if (mixingBowl.mainOccupyState.rightSide)
                 {
-                    self.SetTargetAnimation(Loli.Animation.STAND_POUR_MORTAR_INTO_MIXING_BOWL_LEFT);
+                    self.SetTargetAnimation(Companion.Animation.STAND_POUR_MORTAR_INTO_MIXING_BOWL_LEFT);
                 }
                 else
                 {
-                    self.SetTargetAnimation(Loli.Animation.STAND_POUR_MORTAR_INTO_MIXING_BOWL_RIGHT);
+                    self.SetTargetAnimation(Companion.Animation.STAND_POUR_MORTAR_INTO_MIXING_BOWL_RIGHT);
                 }
             }
         }
 
         private Item FindHeldItem(Item.Type type)
         {
-            if (self.rightLoliHandState.heldItem != null && self.rightLoliHandState.heldItem.settings.itemType == type)
+            if (self.rightCompanionHandState.heldItem != null && self.rightCompanionHandState.heldItem.settings.itemType == type)
             {
-                return self.rightLoliHandState.heldItem;
+                return self.rightCompanionHandState.heldItem;
             }
-            if (self.leftLoliHandState.heldItem != null && self.leftLoliHandState.heldItem.settings.itemType == type)
+            if (self.leftCompanionHandState.heldItem != null && self.leftCompanionHandState.heldItem.settings.itemType == type)
             {
-                return self.leftLoliHandState.heldItem;
+                return self.leftCompanionHandState.heldItem;
             }
             return null;
         }
@@ -470,7 +470,7 @@ namespace viva
                     target.SetTargetPosition(self.floorPos - self.transform.forward);
                 }, 2.0f));
                 // self.SetRootFacingTarget( self.floorPos-self.transform.forward, 200.0f, 15.0f, 15.0f );
-                self.SetTargetAnimation(Loli.Animation.STAND_SEARCH_RIGHT);
+                self.SetTargetAnimation(Companion.Animation.STAND_SEARCH_RIGHT);
                 searches++;
             }
         }
@@ -574,16 +574,16 @@ namespace viva
                 }
 
                 //Find HandState to pickup with
-                LoliHandState pickupHand;
+                CompanionHandState pickupHand;
                 if (mainItem != null && item.settings.itemType == missingMainItemCompliment)
                 {
                     if (self.rightHandState.heldItem != null && self.rightHandState.heldItem.settings.itemType == mainItem.settings.itemType)
                     {
-                        pickupHand = self.leftLoliHandState;
+                        pickupHand = self.leftCompanionHandState;
                     }
                     else if (self.leftHandState.heldItem && self.leftHandState.heldItem.settings.itemType == mainItem.settings.itemType)
                     {
-                        pickupHand = self.rightLoliHandState;
+                        pickupHand = self.rightCompanionHandState;
                     }
                     else
                     {
@@ -595,11 +595,11 @@ namespace viva
                 {
                     if (UnityEngine.Random.value > 0.5f)
                     {
-                        pickupHand = self.rightLoliHandState;
+                        pickupHand = self.rightCompanionHandState;
                     }
                     else
                     {
-                        pickupHand = self.leftLoliHandState;
+                        pickupHand = self.leftCompanionHandState;
                     }
                 }
                 //drop item if pickupHand is curently busy
@@ -642,16 +642,16 @@ namespace viva
             if (searches > 2)
             {
                 //if didn't find anything, drop contents and end behavior
-                LoliHandState dropHand;
+                CompanionHandState dropHand;
                 if (mainItem != null)
                 {
                     if (self.rightHandState.heldItem == mainItem)
                     {
-                        dropHand = self.rightLoliHandState;
+                        dropHand = self.rightCompanionHandState;
                     }
                     else if (self.leftHandState.heldItem == mainItem)
                     {
-                        dropHand = self.leftLoliHandState;
+                        dropHand = self.leftCompanionHandState;
                     }
                     else
                     {
@@ -671,7 +671,7 @@ namespace viva
             }
         }
 
-        public override void OnAnimationChange(Loli.Animation oldAnim, Loli.Animation newAnim)
+        public override void OnAnimationChange(Companion.Animation oldAnim, Companion.Animation newAnim)
         {
 
         }

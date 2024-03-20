@@ -369,12 +369,12 @@ namespace viva
             Button button = respawnLoliText.transform.parent.GetComponent<Button>();
             if (GameDirector.characters.Count > 1)
             {
-                respawnLoliText.text = "Respawn Loli";
+                respawnLoliText.text = "Respawn Companion";
                 button.enabled = true;
             }
             else
             {
-                respawnLoliText.text = "You need to spawn Loli in the Mirror first";
+                respawnLoliText.text = "You need to spawn Companion in the Mirror first";
                 button.enabled = false;
             }
         }
@@ -383,16 +383,16 @@ namespace viva
         //TODO Make this work with selected Lolis
         public void clickRespawnShinobu()
         {
-            // Loli loli = GameDirector.instance.loli;
-            // if( loli != null ){
-            //     loli.active.SetTask( loli.active.idle, null );
-            //     loli.OverrideBodyState( BodyState.STAND );
-            //     loli.OverrideClearAnimationPriority();
-            //     loli.SetTargetAnimation( loli.GetLastReturnableIdleAnimation() );
+            // Companion companion = GameDirector.instance.companion;
+            // if( companion != null ){
+            //     companion.active.SetTask( companion.active.idle, null );
+            //     companion.OverrideBodyState( BodyState.STAND );
+            //     companion.OverrideClearAnimationPriority();
+            //     companion.SetTargetAnimation( companion.GetLastReturnableIdleAnimation() );
 
             //     Player player = GameDirector.player;
-            //     loli.transform.position = player.head.position+player.head.forward*0.8f;
-            //     loli.rigidBody.velocity = Vector3.zero;
+            //     companion.transform.position = player.head.position+player.head.forward*0.8f;
+            //     companion.rigidBody.velocity = Vector3.zero;
             // }
         }
 

@@ -11,7 +11,7 @@ namespace viva
 
         private float pervTimer = 0.0f;
 
-        public LewdBehavior(Loli _self) : base(_self, 0.0f)
+        public LewdBehavior(Companion _self) : base(_self, 0.0f)
         {
         }
 
@@ -32,7 +32,7 @@ namespace viva
                     pervTimer -= Time.deltaTime;
                     if (pervTimer < 0)
                     {
-                        self.SetTargetAnimation(Loli.Animation.STAND_REACT_PERV_FRONT_OUT);
+                        self.SetTargetAnimation(Companion.Animation.STAND_REACT_PERV_FRONT_OUT);
                     }
                 }
                 else
@@ -88,22 +88,22 @@ namespace viva
                 target.SetTargetPosition(facingPosition);
             }, 2.0f));
 
-            self.SetTargetAnimation(Loli.Animation.STAND_REACT_PERV_FRONT_IN);
+            self.SetTargetAnimation(Companion.Animation.STAND_REACT_PERV_FRONT_IN);
             pervTimer = 2.0f;
             self.locomotion.StopMoveTo();
         }
 
-        public override void OnAnimationChange(Loli.Animation oldAnim, Loli.Animation newAnim)
+        public override void OnAnimationChange(Companion.Animation oldAnim, Companion.Animation newAnim)
         {
             switch (oldAnim)
             {
-                case Loli.Animation.STAND_REACT_PERV_FRONT_OUT:
+                case Companion.Animation.STAND_REACT_PERV_FRONT_OUT:
                     self.SetViewAwarenessTimeout(0.0f);
                     break;
             }
             switch (newAnim)
             {
-                case Loli.Animation.STAND_REACT_PERV_FRONT_IN:
+                case Companion.Animation.STAND_REACT_PERV_FRONT_IN:
                     GameDirector.player.CompleteAchievement(Player.ObjectiveType.LOOK_UP_SKIRT, new Achievement("LOOK_UP_SKIRT"));
                     self.rightHandState.AttemptDrop();
                     self.leftHandState.AttemptDrop();

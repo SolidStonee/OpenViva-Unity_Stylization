@@ -93,7 +93,7 @@ namespace viva
         }
 
         private float animTargetIKBlend = 0.0f;
-        private LoliHandState targetHandState;
+        private CompanionHandState targetHandState;
         private Transform tappingFinger;
         private int animIKSide = 0; //-1 left, 0 none, 1 right
         private float appliedTurnTimer = 0.0f;
@@ -114,7 +114,7 @@ namespace viva
         private bool chopsticksActive = false;
 
 
-        public ChopsticksBehavior(Loli _self) : base(_self, ActiveBehaviors.Behavior.CHOPSTICKS, null)
+        public ChopsticksBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.CHOPSTICKS, null)
         {
         }
 
@@ -162,7 +162,7 @@ namespace viva
 
         private void StartFinishingChopsticksBehavior()
         {
-            self.SetTargetAnimation(Loli.Animation.FLOOR_SIT_TO_STAND);
+            self.SetTargetAnimation(Companion.Animation.FLOOR_SIT_TO_STAND);
         }
 
         public bool IsPlayerWithinChopsticksRange()
@@ -192,7 +192,7 @@ namespace viva
                 switch (self.bodyState)
                 {
                     case BodyState.STAND:
-                        self.SetTargetAnimation(Loli.Animation.STAND_TO_SIT_FLOOR);
+                        self.SetTargetAnimation(Companion.Animation.STAND_TO_SIT_FLOOR);
                         //self.autonomy.Interrupt(new AutonomyFaceDirection(self.autonomy, "face direction chopsticks", delegate (TaskTarget target)
                         //{
                         //    target.SetTargetPosition(GameDirector.player.floorPos);
@@ -200,15 +200,15 @@ namespace viva
                         // self.SetRootFacingTarget( GameDirector.player.floorPos, 130.0f, 15.0f, 20.0f );
                         break;
                     case BodyState.FLOOR_SIT:
-                        if (self.currentAnim == Loli.Animation.FLOOR_SIT_LOCOMOTION_HAPPY)
+                        if (self.currentAnim == Companion.Animation.FLOOR_SIT_LOCOMOTION_HAPPY)
                         {
                             if (!showedHype)
                             {
-                                self.SetTargetAnimation(Loli.Animation.FLOOR_SIT_HYPE);
+                                self.SetTargetAnimation(Companion.Animation.FLOOR_SIT_HYPE);
                             }
                             else
                             {
-                                self.SetTargetAnimation(Loli.Animation.FLOOR_SIT_CHOPSTICKS_IN);
+                                self.SetTargetAnimation(Companion.Animation.FLOOR_SIT_CHOPSTICKS_IN);
                             }
                         }
                         break;
@@ -285,7 +285,7 @@ namespace viva
                                 if (waitTurnsUntilReachNeutral-- == 0)
                                 {
                                     waitTurnsUntilReachNeutral = 4 + (int)(Random.value * 6);
-                                    self.SetTargetAnimation(Loli.Animation.FLOOR_SIT_CHOPSTICKS_NEUTRAL);
+                                    self.SetTargetAnimation(Companion.Animation.FLOOR_SIT_CHOPSTICKS_NEUTRAL);
                                     waitForChopsticksIdle = true;
                                 }
                                 else
@@ -363,7 +363,7 @@ namespace viva
             {
                 if (CheckShinobuWon())
                 {
-                    self.SetTargetAnimation(Loli.Animation.FLOOR_SIT_CHOPSTICKS_WIN);
+                    self.SetTargetAnimation(Companion.Animation.FLOOR_SIT_CHOPSTICKS_WIN);
                     FinishGame();
                 }
                 else
@@ -375,7 +375,7 @@ namespace viva
             {
                 if (CheckPlayerWon())
                 {
-                    self.SetTargetAnimation(Loli.Animation.FLOOR_SIT_CHOPSTICKS_LOSE);
+                    self.SetTargetAnimation(Companion.Animation.FLOOR_SIT_CHOPSTICKS_LOSE);
                     // GameDirector.player.CompleteAchievement(Player.ObjectiveType.BEAT_AT_CHOPSTICKS);
                     FinishGame();
                 }
@@ -398,7 +398,7 @@ namespace viva
             {
                 if ((loliInfo.rightFingerCount > 1 && loliInfo.rightFingerCount <= 4) || (loliInfo.leftFingerCount > 1 && loliInfo.leftFingerCount <= 4))
                 {
-                    self.SetTargetAnimation(Loli.Animation.FLOOR_SIT_CHOPSTICKS_REDISTRIBUTE);
+                    self.SetTargetAnimation(Companion.Animation.FLOOR_SIT_CHOPSTICKS_REDISTRIBUTE);
                     waitForChopsticksIdle = true;
                     if (loliInfo.rightFingerCount > 4)
                     {
@@ -604,7 +604,7 @@ namespace viva
                 {
                     loliInfo.rightFingerCount += playerInfo.leftFingerCount;
                 }
-                self.SetTargetAnimation(Loli.Animation.FLOOR_SIT_CHOPSTICKS_RECEIVE_RIGHT);
+                self.SetTargetAnimation(Companion.Animation.FLOOR_SIT_CHOPSTICKS_RECEIVE_RIGHT);
             }
             else
             {
@@ -616,7 +616,7 @@ namespace viva
                 {
                     loliInfo.leftFingerCount += playerInfo.leftFingerCount;
                 }
-                self.SetTargetAnimation(Loli.Animation.FLOOR_SIT_CHOPSTICKS_RECEIVE_LEFT);
+                self.SetTargetAnimation(Companion.Animation.FLOOR_SIT_CHOPSTICKS_RECEIVE_LEFT);
             }
             loliInfo.updateTargetFingers();
             self.SetLookAtTarget(loliHand.hand.transform);
@@ -642,13 +642,13 @@ namespace viva
             if (loliInfo.rightFingerCount >= 4 && (loliReactPlayerWorried & 2) == 0)
             {
                 loliReactPlayerWorried += 2;
-                self.SetTargetAnimation(Loli.Animation.FLOOR_SIT_CHOPSTICKS_WORRIED);
+                self.SetTargetAnimation(Companion.Animation.FLOOR_SIT_CHOPSTICKS_WORRIED);
                 waitForChopsticksIdle = true;
             }
             else if (loliInfo.leftFingerCount >= 4 && (loliReactPlayerWorried & 1) == 0)
             {
                 loliReactPlayerWorried += 1;
-                self.SetTargetAnimation(Loli.Animation.FLOOR_SIT_CHOPSTICKS_WORRIED);
+                self.SetTargetAnimation(Companion.Animation.FLOOR_SIT_CHOPSTICKS_WORRIED);
                 waitForChopsticksIdle = true;
             }
         }
@@ -690,13 +690,13 @@ namespace viva
             if (playerInfo.rightFingerCount > 4 && (loliReactPlayerConfident & 2) == 0)
             {
                 loliReactPlayerConfident += 2;
-                self.SetTargetAnimation(Loli.Animation.FLOOR_SIT_CHOPSTICKS_CONFIDENT);
+                self.SetTargetAnimation(Companion.Animation.FLOOR_SIT_CHOPSTICKS_CONFIDENT);
                 waitForChopsticksIdle = true;
             }
             else if (playerInfo.leftFingerCount > 4 && (loliReactPlayerConfident & 1) == 0)
             {
                 loliReactPlayerConfident += 1;
-                self.SetTargetAnimation(Loli.Animation.FLOOR_SIT_CHOPSTICKS_CONFIDENT);
+                self.SetTargetAnimation(Companion.Animation.FLOOR_SIT_CHOPSTICKS_CONFIDENT);
                 waitForChopsticksIdle = true;
             }
         }
@@ -765,13 +765,13 @@ namespace viva
             if (loliRightHand)
             {
                 animIKSide = 1;
-                targetHandState = self.rightLoliHandState;
+                targetHandState = self.rightCompanionHandState;
                 tappingFinger = self.rightHandState.fingerAnimator.fingers[3];
             }
             else
             {
                 animIKSide = -1;
-                targetHandState = self.leftLoliHandState;
+                targetHandState = self.leftCompanionHandState;
                 tappingFinger = self.leftHandState.fingerAnimator.fingers[3];
             }
             if (playerRightHand)
@@ -812,34 +812,34 @@ namespace viva
             }
         }
 
-        public override void OnAnimationChange(Loli.Animation oldAnim, Loli.Animation newAnim)
+        public override void OnAnimationChange(Companion.Animation oldAnim, Companion.Animation newAnim)
         {
 
-            if (oldAnim == Loli.Animation.FLOOR_SIT_HYPE)
+            if (oldAnim == Companion.Animation.FLOOR_SIT_HYPE)
             {
                 showedHype = true;
             }
             switch (oldAnim)
             {
-                case Loli.Animation.FLOOR_SIT_HYPE:
+                case Companion.Animation.FLOOR_SIT_HYPE:
                     showedHype = true;
                     break;
-                case Loli.Animation.STAND_TO_SIT_FLOOR:
+                case Companion.Animation.STAND_TO_SIT_FLOOR:
                     self.ApplyDisableFaceYaw(ref disableFaceYawChopsticks);
                     break;
-                case Loli.Animation.FLOOR_SIT_CHOPSTICKS_WIN:
-                    self.SetTargetAnimation(Loli.Animation.FLOOR_SIT_CHOPSTICKS_IN);
+                case Companion.Animation.FLOOR_SIT_CHOPSTICKS_WIN:
+                    self.SetTargetAnimation(Companion.Animation.FLOOR_SIT_CHOPSTICKS_IN);
                     break;
             }
             switch (newAnim)
             {
-                case Loli.Animation.FLOOR_SIT_CHOPSTICKS_IDLE:
+                case Companion.Animation.FLOOR_SIT_CHOPSTICKS_IDLE:
                     waitForChopsticksIdle = false;
                     break;
-                case Loli.Animation.FLOOR_SIT_CHOPSTICKS_IN:
+                case Companion.Animation.FLOOR_SIT_CHOPSTICKS_IN:
                     BeginChopsticksGame();
                     break;
-                case Loli.Animation.FLOOR_SIT_TO_STAND:
+                case Companion.Animation.FLOOR_SIT_TO_STAND:
                     self.RemoveDisableFaceYaw(ref disableFaceYawChopsticks);
                     ExitChopsticksBehavior();
                     break;

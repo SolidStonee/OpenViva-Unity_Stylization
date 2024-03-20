@@ -166,8 +166,8 @@ namespace viva
             }
             switch (mainOwner.characterType)
             {
-                case Character.Type.LOLI:
-                    LateUpdateLoliUsage(mainOwner as Loli);
+                case Character.Type.COMPANION:
+                    LateUpdateLoliUsage(mainOwner as Companion);
                     break;
                 case Character.Type.PLAYER:
                     LateUpdatePlayerUsage(mainOwner as Player);
@@ -277,7 +277,7 @@ namespace viva
             return true;
         }
 
-        private void LateUpdateLoliUsage(Loli loli)
+        private void LateUpdateLoliUsage(Companion companion)
         {
 
             if (isOnShoulder)
@@ -292,21 +292,21 @@ namespace viva
             }
 
             //ensure bag is fully parented before triggering animation so blends look right
-            //if (!loli.active.IsTaskActive(loli.active.give))
+            //if (!companion.active.IsTaskActive(companion.active.give))
             //{
-            //    if (loli.leftHandState.heldItem == this && !loli.rightShoulderState.occupied)
+            //    if (companion.leftHandState.heldItem == this && !companion.rightShoulderState.occupied)
             //    {
 
-            //        if (loli.leftHandState.finishedBlending)
+            //        if (companion.leftHandState.finishedBlending)
             //        {
-            //            loli.SetTargetAnimation(Loli.Animation.STAND_WEAR_BAG_RIGHT);
+            //            companion.SetTargetAnimation(Companion.Animation.STAND_WEAR_BAG_RIGHT);
             //        }
             //    }
-            //    else if (!loli.leftShoulderState.occupied)
+            //    else if (!companion.leftShoulderState.occupied)
             //    {
-            //        if (loli.rightHandState.finishedBlending)
+            //        if (companion.rightHandState.finishedBlending)
             //        {
-            //            loli.SetTargetAnimation(Loli.Animation.STAND_WEAR_BAG_LEFT);
+            //            companion.SetTargetAnimation(Companion.Animation.STAND_WEAR_BAG_LEFT);
             //        }
             //    }
             //}
@@ -314,16 +314,16 @@ namespace viva
 
         public override bool ShouldPickupWithRightHand(Character source)
         {
-            Loli loli = source as Loli;
-            if (loli == null)
+            Companion companion = source as Companion;
+            if (companion == null)
             {
                 return base.ShouldPickupWithRightHand(source);
             }
-            if (loli.rightShoulderState.occupied)
+            if (companion.rightShoulderState.occupied)
             {
                 return true;
             }
-            else if (loli.leftShoulderState.occupied)
+            else if (companion.leftShoulderState.occupied)
             {
                 return false;
             }
@@ -341,8 +341,8 @@ namespace viva
         private void InitializeWearOnLoliShoulder(bool rightShoulder)
         {
 
-            Loli loli = mainOwner as Loli;
-            if (loli == null)
+            Companion companion = mainOwner as Companion;
+            if (companion == null)
             {
                 return;
             }
@@ -351,12 +351,12 @@ namespace viva
             IKAnimationTarget armIKOverrideAnimation;
             if (rightShoulder)
             {
-                targetShoulderState = loli.rightShoulderState;
+                targetShoulderState = companion.rightShoulderState;
                 armIKOverrideAnimation = rightArmIKOverrideAnimation;
             }
             else
             {
-                targetShoulderState = loli.leftShoulderState;
+                targetShoulderState = companion.leftShoulderState;
                 armIKOverrideAnimation = leftArmIKOverrideAnimation;
             }
             targetShoulderState.Pickup(
@@ -409,8 +409,8 @@ namespace viva
             bagItemDetector.HideIndicator();
 
             //remove from shoulderState if applicable
-            Loli loli = mainOwner as Loli;
-            if (loli == null)
+            Companion companion = mainOwner as Companion;
+            if (companion == null)
             {
                 return;
             }

@@ -19,7 +19,7 @@ namespace viva
         [SerializeField]
         private Text errorText;
         [SerializeField]
-        private Loli modelDefault;
+        private Companion modelDefault;
 
         private ModelBuildSettings lastMBS = null;
 
@@ -27,10 +27,10 @@ namespace viva
         {
 
             public readonly string filename;
-            public readonly Loli target;
+            public readonly Companion target;
             public string error;
 
-            public LoadLoliFromCardRequest(string _filename, Loli _target)
+            public LoadLoliFromCardRequest(string _filename, Companion _target)
             {
                 filename = _filename;
                 target = _target;
@@ -98,7 +98,7 @@ namespace viva
         {
             if (cardRequest.target == null)
             {
-                cardRequest.error = "Target loli is null";
+                cardRequest.error = "Target companion is null";
                 EndActiveCoroutineAction(cardRequest.error);
                 yield break;
             }

@@ -8,7 +8,7 @@ namespace viva
     public partial class HeadpatBehavior : PassiveBehaviors.PassiveTask
     {
 
-        private Loli.Animation GetRegularHeadpatEndAnim()
+        private Companion.Animation GetRegularHeadpatEndAnim()
         {
 
             switch (self.bodyState)
@@ -22,16 +22,16 @@ namespace viva
                         {
                             if (Random.value > 0.5f && headpatProperTotal > 2.0f)
                             {
-                                return Loli.Animation.STAND_HEADPAT_HAPPY_SATISFACTION;
+                                return Companion.Animation.STAND_HEADPAT_HAPPY_SATISFACTION;
                             }
                             else
                             {
-                                return Loli.Animation.STAND_HAPPY_IDLE1;
+                                return Companion.Animation.STAND_HAPPY_IDLE1;
                             }
                         }
                         else
                         {
-                            return Loli.Animation.STAND_HEADPAT_HAPPY_WANTED_MORE;
+                            return Companion.Animation.STAND_HEADPAT_HAPPY_WANTED_MORE;
                         }
                     }
                     else
@@ -39,11 +39,11 @@ namespace viva
                         switch ((int)(Random.value * 3.0f))
                         {
                             case 0:
-                                return Loli.Animation.STAND_ANGRY_IDLE1;
+                                return Companion.Animation.STAND_ANGRY_IDLE1;
                             case 1:
-                                return Loli.Animation.STAND_HEADPAT_INTERRUPT;
+                                return Companion.Animation.STAND_HEADPAT_INTERRUPT;
                             default:
-                                return Loli.Animation.STAND_HEADPAT_ANGRY_END;
+                                return Companion.Animation.STAND_HEADPAT_ANGRY_END;
                         }
                     }
                 case BodyState.FLOOR_SIT:
@@ -52,10 +52,10 @@ namespace viva
                         wantsMoreHeadpats = !wantsMoreHeadpats;
                         if (wantsMoreHeadpats)
                         {
-                            return Loli.Animation.FLOOR_SIT_HEADPAT_HAPPY_WANTED_MORE;
+                            return Companion.Animation.FLOOR_SIT_HEADPAT_HAPPY_WANTED_MORE;
                         }
                     }
-                    return Loli.Animation.NONE;
+                    return Companion.Animation.NONE;
                 case BodyState.SQUAT:
                     if (self.IsHappy())
                     {
@@ -63,71 +63,71 @@ namespace viva
                         wantsMoreHeadpats = !wantsMoreHeadpats;
                         if (wantsMoreHeadpats)
                         {
-                            return Loli.Animation.SQUAT_HEADPAT_HAPPY_WANTED_MORE;
+                            return Companion.Animation.SQUAT_HEADPAT_HAPPY_WANTED_MORE;
                         }
                     }
-                    return Loli.Animation.NONE;
+                    return Companion.Animation.NONE;
                 default:
-                    return Loli.Animation.NONE;
+                    return Companion.Animation.NONE;
             }
         }
 
-        private Loli.Animation GetHeadpatSucceededAnimation()
+        private Companion.Animation GetHeadpatSucceededAnimation()
         {
             return self.bodyStateAnimationSets[(int)self.bodyState].GetRandomAnimationSet(AnimationSet.HEADPAT_SUCCESS);
             // switch( self.bodyState ){
             // case BodyState.STAND:
-            // 	return Loli.Animation.STAND_HEADPAT_CLIMAX_TO_HAPPY;
+            // 	return Companion.Animation.STAND_HEADPAT_CLIMAX_TO_HAPPY;
             // case BodyState.FLOOR_SIT:
-            // 	return Loli.Animation.FLOOR_SIT_HEADPAT_ANGRY_CLIMAX_TO_HAPPY;
+            // 	return Companion.Animation.FLOOR_SIT_HEADPAT_ANGRY_CLIMAX_TO_HAPPY;
             // case BodyState.BATHING_IDLE:
-            // 	return Loli.Animation.BATHTUB_HEADAPAT_ANGRY_PROPER_TO_HAPPY;
+            // 	return Companion.Animation.BATHTUB_HEADAPAT_ANGRY_PROPER_TO_HAPPY;
             // case BodyState.SQUAT:
-            // 	return Loli.Animation.SQUAT_HEADPAT_CLIMAX_TO_HAPPY;
+            // 	return Companion.Animation.SQUAT_HEADPAT_CLIMAX_TO_HAPPY;
             // default:
-            // 	return Loli.Animation.NONE;
+            // 	return Companion.Animation.NONE;
             // }
         }
 
-        private Loli.Animation GetHeadpatCancelSuccessAnimation()
+        private Companion.Animation GetHeadpatCancelSuccessAnimation()
         {
             return self.bodyStateAnimationSets[(int)self.bodyState].GetRandomAnimationSet(AnimationSet.HEADPAT_CANCEL_SUCCESS);
             // switch( self.bodyState ){
             // case BodyState.STAND:
-            // 	return Loli.Animation.STAND_HEADPAT_CLIMAX_TO_CANCEL_RIGHT;
+            // 	return Companion.Animation.STAND_HEADPAT_CLIMAX_TO_CANCEL_RIGHT;
             // case BodyState.FLOOR_SIT:
-            // 	return Loli.Animation.FLOOR_SIT_HEADPAT_ANGRY_BRUSH_AWAY;
+            // 	return Companion.Animation.FLOOR_SIT_HEADPAT_ANGRY_BRUSH_AWAY;
             // case BodyState.BATHING_IDLE:
-            // 	return Loli.Animation.BATHTUB_HEADPAT_BRUSH_AWAY;
+            // 	return Companion.Animation.BATHTUB_HEADPAT_BRUSH_AWAY;
             // case BodyState.SQUAT:
-            // 	return Loli.Animation.SQUAT_HEADPAT_CLIMAX_TO_CANCEL_RIGHT;
+            // 	return Companion.Animation.SQUAT_HEADPAT_CLIMAX_TO_CANCEL_RIGHT;
             // default:
-            // 	return Loli.Animation.NONE;
+            // 	return Companion.Animation.NONE;
             // }
         }
 
-        private Loli.Animation GetHeadpatEndRoughAnimation()
+        private Companion.Animation GetHeadpatEndRoughAnimation()
         {
             return self.bodyStateAnimationSets[(int)self.bodyState].GetRandomAnimationSet(AnimationSet.HEADPAT_BRUSH_AWAY);
 
             // switch( self.bodyState ){
             // case BodyState.STAND:
-            // 	return Loli.Animation.STAND_HEADPAT_ANGRY_BRUSH_AWAY;
+            // 	return Companion.Animation.STAND_HEADPAT_ANGRY_BRUSH_AWAY;
             // case BodyState.FLOOR_SIT:
-            // 	return Loli.Animation.FLOOR_SIT_HEADPAT_ANGRY_BRUSH_AWAY;
+            // 	return Companion.Animation.FLOOR_SIT_HEADPAT_ANGRY_BRUSH_AWAY;
             // case BodyState.BATHING_IDLE:
             // case BodyState.BATHING_RELAX:
-            // 	return Loli.Animation.BATHTUB_HEADPAT_BRUSH_AWAY;
+            // 	return Companion.Animation.BATHTUB_HEADPAT_BRUSH_AWAY;
             // case BodyState.BATHING_ON_KNEES:
-            // 	return Loli.Animation.BATHTUB_ON_KNEES_HEADPAT_BRUSH_AWAY_TO_ANGRY_IDLE;
+            // 	return Companion.Animation.BATHTUB_ON_KNEES_HEADPAT_BRUSH_AWAY_TO_ANGRY_IDLE;
             // case BodyState.SQUAT:
-            // 	return Loli.Animation.SQUAT_HEADPAT_ANGRY_BRUSH_AWAY;
+            // 	return Companion.Animation.SQUAT_HEADPAT_ANGRY_BRUSH_AWAY;
             // default:
-            // 	return Loli.Animation.NONE;
+            // 	return Companion.Animation.NONE;
             // }
         }
 
-        private Loli.Animation GetHeadpatStartAnimation()
+        private Companion.Animation GetHeadpatStartAnimation()
         {
             if (self.IsTired())
             {
@@ -152,11 +152,11 @@ namespace viva
             // case BodyState.FLOOR_SIT:
             // 	return GetFloorSitHeadpatStartAnimation();
             // case BodyState.BATHING_RELAX:
-            // 	return self.GetAnimationFromMood( Loli.Animation.BATHTUB_RELAX_TO_HAPPY_IDLE );
+            // 	return self.GetAnimationFromMood( Companion.Animation.BATHTUB_RELAX_TO_HAPPY_IDLE );
             // case BodyState.BATHING_IDLE:
-            // 	return self.GetAnimationFromMood( Loli.Animation.BATHTUB_HEADPAT_HAPPY_IDLE );
+            // 	return self.GetAnimationFromMood( Companion.Animation.BATHTUB_HEADPAT_HAPPY_IDLE );
             // case BodyState.BATHING_ON_KNEES:
-            // 	return Loli.Animation.BATHTUB_ON_KNEES_HEADPAT_IDLE;
+            // 	return Companion.Animation.BATHTUB_ON_KNEES_HEADPAT_IDLE;
             // case BodyState.TIRED_LAY_PILLOW_SIDE:
             // 	return self.active.sleeping.GetLaySidePillowHeadpatStartAnimation();
             // case BodyState.SLEEP_PILLOW_SIDE:
@@ -166,13 +166,13 @@ namespace viva
             // case BodyState.AWAKE_PILLOW_UP:
             // 	return self.active.sleeping.GetAwakePillowUpHeadpatStartAnimation();
             // case BodyState.SQUAT:
-            // 	return self.GetAnimationFromMood( Loli.Animation.SQUAT_HEADPAT_HAPPY_START );
+            // 	return self.GetAnimationFromMood( Companion.Animation.SQUAT_HEADPAT_HAPPY_START );
             // default:
-            // 	return Loli.Animation.NONE;
+            // 	return Companion.Animation.NONE;
             // }
         }
 
-        private Loli.Animation GetHeadpatIdleAnimation()
+        private Companion.Animation GetHeadpatIdleAnimation()
         {
 
             switch (self.bodyState)
@@ -184,16 +184,16 @@ namespace viva
                     }
                     else
                     {
-                        return self.GetAnimationFromMood(Loli.Animation.STAND_HEADPAT_HAPPY_LOOP);
+                        return self.GetAnimationFromMood(Companion.Animation.STAND_HEADPAT_HAPPY_LOOP);
                     }
                 case BodyState.FLOOR_SIT:
-                    return self.GetAnimationFromMood(Loli.Animation.FLOOR_SIT_LOCOMOTION_HAPPY);
+                    return self.GetAnimationFromMood(Companion.Animation.FLOOR_SIT_LOCOMOTION_HAPPY);
                 case BodyState.BATHING_RELAX:
-                    return self.GetAnimationFromMood(Loli.Animation.BATHTUB_RELAX_TO_HAPPY_IDLE);
+                    return self.GetAnimationFromMood(Companion.Animation.BATHTUB_RELAX_TO_HAPPY_IDLE);
                 case BodyState.BATHING_IDLE:
-                    return self.GetAnimationFromMood(Loli.Animation.BATHTUB_HEADPAT_HAPPY_IDLE);
+                    return self.GetAnimationFromMood(Companion.Animation.BATHTUB_HEADPAT_HAPPY_IDLE);
                 case BodyState.BATHING_ON_KNEES:
-                    return Loli.Animation.BATHTUB_ON_KNEES_HEADPAT_IDLE;
+                    return Companion.Animation.BATHTUB_ON_KNEES_HEADPAT_IDLE;
                 // case BodyState.TIRED_LAY_PILLOW_SIDE:
                 // 	return self.active.sleeping.GetLaySidePillowHeadpatIdleAnimation();
                 // case BodyState.SLEEP_PILLOW_SIDE:
@@ -203,40 +203,40 @@ namespace viva
                 // case BodyState.AWAKE_PILLOW_UP:
                 // 	return self.active.sleeping.GetAwakePillowUpHeadpatIdleAnimation();
                 case BodyState.SQUAT:
-                    return self.GetAnimationFromMood(Loli.Animation.SQUAT_HEADPAT_HAPPY_LOOP);
+                    return self.GetAnimationFromMood(Companion.Animation.SQUAT_HEADPAT_HAPPY_LOOP);
                 default:
-                    return Loli.Animation.NONE;
+                    return Companion.Animation.NONE;
             }
         }
 
-        private Loli.Animation GetStandHeadpatStartAnimation()
+        private Companion.Animation GetStandHeadpatStartAnimation()
         {
             if (self.IsHappy())
             {
                 if (wantsMoreHeadpats)
                 {
-                    return Loli.Animation.STAND_HEADPAT_HAPPY_AFTER_MORE;
+                    return Companion.Animation.STAND_HEADPAT_HAPPY_AFTER_MORE;
                 }
                 else
                 {
-                    return Loli.Animation.STAND_HEADPAT_HAPPY_START;
+                    return Companion.Animation.STAND_HEADPAT_HAPPY_START;
                 }
             }
             else
             {
-                return Loli.Animation.STAND_HEADPAT_ANGRY_LOOP;
+                return Companion.Animation.STAND_HEADPAT_ANGRY_LOOP;
             }
         }
 
-        private Loli.Animation GetFloorSitHeadpatStartAnimation()
+        private Companion.Animation GetFloorSitHeadpatStartAnimation()
         {
             if (self.IsHappy())
             {
-                return Loli.Animation.FLOOR_SIT_HEADPAT_HAPPY_START;
+                return Companion.Animation.FLOOR_SIT_HEADPAT_HAPPY_START;
             }
             else
             {
-                return Loli.Animation.FLOOR_SIT_HEADPAT_ANGRY_LOOP;
+                return Companion.Animation.FLOOR_SIT_HEADPAT_ANGRY_LOOP;
             }
         }
     }

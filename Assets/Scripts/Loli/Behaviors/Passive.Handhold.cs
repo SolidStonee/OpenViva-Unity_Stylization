@@ -18,7 +18,7 @@ namespace viva
         private Quaternion matchWalkEaseHandFix = Quaternion.identity;
         public bool anyHandBeingHeld { get { return rightLimbGrabs > 0 || leftLimbGrabs > 0; } }
 
-        public HandholdBehavior(Loli _self) : base(_self, 0.0f)
+        public HandholdBehavior(Companion _self) : base(_self, 0.0f)
         {
         }
 
@@ -27,11 +27,11 @@ namespace viva
 
             if (rightLimbGrabs > 0)
             {
-                FixedUpdateHandhold((LoliHandState)self.rightHandState);
+                FixedUpdateHandhold((CompanionHandState)self.rightHandState);
             }
             if (leftLimbGrabs > 0)
             {
-                FixedUpdateHandhold((LoliHandState)self.leftHandState);
+                FixedUpdateHandhold((CompanionHandState)self.leftHandState);
             }
         }
 
@@ -73,7 +73,7 @@ namespace viva
             return orthoDirDeg;
         }
 
-        private void FixedUpdateHandhold(LoliHandState targetHandState)
+        private void FixedUpdateHandhold(CompanionHandState targetHandState)
         {
             // joint.massScale = targetHandState.selfItem.occupyState.blendProgress;
 
@@ -111,24 +111,24 @@ namespace viva
         {
             if (rightLimbGrabs > 0)
             {
-                LateUpdateHandhold((LoliHandState)self.rightHandState, 1.0f);
+                LateUpdateHandhold((CompanionHandState)self.rightHandState, 1.0f);
                 // Debug.DrawLine( self.transform.TransformPoint( rightHandJoint.anchor ), self.transform.TransformPoint( rightHandJoint.connectedAnchor ), Color.cyan, 0.1f );
             }
             if (leftLimbGrabs > 0)
             {
-                LateUpdateHandhold((LoliHandState)self.leftHandState, -1.0f);
+                LateUpdateHandhold((CompanionHandState)self.leftHandState, -1.0f);
                 // Debug.DrawLine( self.transform.TransformPoint( leftHandJoint.anchor ), self.transform.TransformPoint( leftHandJoint.connectedAnchor ), Color.cyan, 0.1f );
             }
         }
 
-        private Vector3 CalculatePickupPole(LoliHandState handState)
+        private Vector3 CalculatePickupPole(CompanionHandState handState)
         {
-            Loli.ArmIK armIK = handState.holdArmIK;
+            Companion.ArmIK armIK = handState.holdArmIK;
             float sign = -1.0f + (float)System.Convert.ToInt32(handState == self.rightHandState) * 2.0f;
             return armIK.shoulder.position + armIK.shoulder.right * -0.3f * sign + armIK.shoulder.up * 0.4f + armIK.shoulder.forward * -0.3f;
         }
 
-        private void LateUpdateHandhold(LoliHandState targetHandState, float side)
+        private void LateUpdateHandhold(CompanionHandState targetHandState, float side)
         {
             Vector3 front = self.spine2.position + self.transform.right * side * 0.3f +
                             self.transform.forward * 0.75f +
@@ -178,7 +178,7 @@ namespace viva
                         currentOrthoDirDeg = InitCurrentMatchWalkOrthoDeg();
                         matchWalkEaseHandFix = Quaternion.Euler(0.0f, -matchWalkSide * 90.0f, 0.0f);
                         self.OverrideClearAnimationPriority();
-                        self.SetTargetAnimation(Loli.Animation.STAND_HAPPY_IDLE1);
+                        self.SetTargetAnimation(Companion.Animation.STAND_HAPPY_IDLE1);
                     }
                 }
             }
@@ -193,7 +193,7 @@ namespace viva
             matchWalkEase.Update(Time.deltaTime);
         }
 
-        private void LateUpdatePostIKNonMatchWalkHandold(LoliHandState targetHandState, HandState sourceHandState)
+        private void LateUpdatePostIKNonMatchWalkHandold(CompanionHandState targetHandState, HandState sourceHandState)
         {
             float speed = self.animator.GetFloat(WorldUtil.speedID);
             float armStretchSqDist = Vector3.SqrMagnitude(targetHandState.selfItem.rigidBody.position - sourceHandState.selfItem.rigidBody.position);
@@ -248,7 +248,7 @@ namespace viva
                     if (bothHands)
                     {
                         self.OverrideClearAnimationPriority();
-                        self.SetTargetAnimation(Loli.Animation.STAND_GIDDY_LOCOMOTION);
+                        self.SetTargetAnimation(Companion.Animation.STAND_GIDDY_LOCOMOTION);
                     }
                     else
                     {
@@ -258,7 +258,7 @@ namespace viva
             }
         }
 
-        // private void LateUpdatePostIKHandhold( HandholdInfo hhInfo, LoliHandState handTargetHoldState ){
+        // private void LateUpdatePostIKHandhold( HandholdInfo hhInfo, CompanionHandState handTargetHoldState ){
 
         // 	HandState sourceHandState = handTargetHoldState.selfItem.occupyState as HandState;
         // 	if( sourceHandState == null ){
@@ -292,22 +292,22 @@ namespace viva
             {
                 if (rightSide)
                 {
-                    self.SetTargetAnimation(Loli.Animation.STAND_TIRED_HANDHOLD_PULL_RIGHT);
+                    self.SetTargetAnimation(Companion.Animation.STAND_TIRED_HANDHOLD_PULL_RIGHT);
                 }
                 else
                 {
-                    self.SetTargetAnimation(Loli.Animation.STAND_TIRED_HANDHOLD_PULL_LEFT);
+                    self.SetTargetAnimation(Companion.Animation.STAND_TIRED_HANDHOLD_PULL_LEFT);
                 }
             }
             else
             {
                 if (rightSide)
                 {
-                    self.SetTargetAnimation(Loli.Animation.STAND_HANDHOLD_HAPPY_PULL_RIGHT);
+                    self.SetTargetAnimation(Companion.Animation.STAND_HANDHOLD_HAPPY_PULL_RIGHT);
                 }
                 else
                 {
-                    self.SetTargetAnimation(Loli.Animation.STAND_HANDHOLD_HAPPY_PULL_LEFT);
+                    self.SetTargetAnimation(Companion.Animation.STAND_HANDHOLD_HAPPY_PULL_LEFT);
                 }
             }
         }
@@ -317,12 +317,12 @@ namespace viva
 
             if (rightSide)
             {
-                self.SetTargetAnimation(Loli.Animation.STAND_HANDHOLD_HAPPY_EMBARRASSED_RIGHT);
+                self.SetTargetAnimation(Companion.Animation.STAND_HANDHOLD_HAPPY_EMBARRASSED_RIGHT);
                 rightLimbGrabs++;
             }
             else
             {
-                self.SetTargetAnimation(Loli.Animation.STAND_HANDHOLD_HAPPY_EMBARRASSED_LEFT);
+                self.SetTargetAnimation(Companion.Animation.STAND_HANDHOLD_HAPPY_EMBARRASSED_LEFT);
                 leftLimbGrabs++;
             }
             slowHandholdTimer = 0.0f;

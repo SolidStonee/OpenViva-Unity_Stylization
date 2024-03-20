@@ -99,10 +99,10 @@ namespace viva
 
         private Character characterUsingTub = null;
 
-        public override bool AttemptCommandUse(Loli targetLoli, Character commandSource)
+        public override bool AttemptCommandUse(Companion targetCompanion, Character commandSource)
         {
 
-            if (targetLoli == null)
+            if (targetCompanion == null)
             {
                 return false;
             }
@@ -110,9 +110,9 @@ namespace viva
             {
                 return false;
             }
-            if (targetLoli.active.bathing.AttemptStartBathingBehavior(this, commandSource))
+            if (targetCompanion.active.bathing.AttemptStartBathingBehavior(this, commandSource))
             {
-                characterUsingTub = targetLoli;
+                characterUsingTub = targetCompanion;
             }
             return characterUsingTub != null;
         }
@@ -120,8 +120,8 @@ namespace viva
         public override void EndUse(Character targetCharacter)
         {
 
-            Loli loli = targetCharacter as Loli;
-            if (loli == null)
+            Companion companion = targetCharacter as Companion;
+            if (companion == null)
             {
                 return;
             }

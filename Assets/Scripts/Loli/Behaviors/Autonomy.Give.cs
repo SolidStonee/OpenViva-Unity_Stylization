@@ -34,7 +34,7 @@
             playGive.onAnimationExit += delegate { EndGive(false, false); };    //time out for accepting item
             playGive.onRegistered += delegate
             {
-                new BlendController(targetItem.mainOccupyState as LoliHandState, playGive.entryAnimation, ModifyArmGiveTo);
+                new BlendController(targetItem.mainOccupyState as CompanionHandState, playGive.entryAnimation, ModifyArmGiveTo);
             };
             playGive.onUnregistered += PlayReachEndAnimation;
             AddRequirement(playGive);
@@ -124,38 +124,38 @@
             return -1.0f;
         }
 
-        private Loli.Animation GetGiveEndAnimation()
+        private Companion.Animation GetGiveEndAnimation()
         {
             switch (self.bodyState)
             {
                 case BodyState.STAND:
                     if (itemIsOnRight)
                     {
-                        return Loli.Animation.STAND_REACH_OUT_END_RIGHT;
+                        return Companion.Animation.STAND_REACH_OUT_END_RIGHT;
                     }
                     else
                     {
-                        return Loli.Animation.STAND_REACH_OUT_END_LEFT;
+                        return Companion.Animation.STAND_REACH_OUT_END_LEFT;
                     }
             }
-            return Loli.Animation.NONE;
+            return Companion.Animation.NONE;
         }
 
-        private Loli.Animation GetGiveAnimation()
+        private Companion.Animation GetGiveAnimation()
         {
             switch (self.bodyState)
             {
                 case BodyState.STAND:
                     if (itemIsOnRight)
                     {
-                        return Loli.Animation.STAND_REACH_OUT_RIGHT;
+                        return Companion.Animation.STAND_REACH_OUT_RIGHT;
                     }
                     else
                     {
-                        return Loli.Animation.STAND_REACH_OUT_LEFT;
+                        return Companion.Animation.STAND_REACH_OUT_LEFT;
                     }
             }
-            return Loli.Animation.NONE;
+            return Companion.Animation.NONE;
         }
     }
 

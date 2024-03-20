@@ -10,7 +10,7 @@ namespace viva
 
         private float cameraPoseTimer = 0.0f;
 
-        public CameraPoseBehavior(Loli _self) : base(_self, ActiveBehaviors.Behavior.CAMERA_POSE, null)
+        public CameraPoseBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.CAMERA_POSE, null)
         {
         }
 
@@ -28,11 +28,11 @@ namespace viva
             }
             else
             {
-                if (self.currentAnim != Loli.Animation.STAND_POSE_PEACE_IN &&
-                    self.currentAnim != Loli.Animation.STAND_POSE_PEACE_LOOP)
+                if (self.currentAnim != Companion.Animation.STAND_POSE_PEACE_IN &&
+                    self.currentAnim != Companion.Animation.STAND_POSE_PEACE_LOOP)
                 {
 
-                    self.SetTargetAnimation(Loli.Animation.STAND_POSE_PEACE_IN);
+                    self.SetTargetAnimation(Companion.Animation.STAND_POSE_PEACE_IN);
                 }
             }
         }

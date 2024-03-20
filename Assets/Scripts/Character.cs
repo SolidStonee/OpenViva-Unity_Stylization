@@ -12,7 +12,7 @@ namespace viva
 
         public enum Type
         {
-            LOLI = 1,
+            COMPANION = 1,
             PLAYER = 2
         }
 

@@ -19,13 +19,13 @@ namespace viva
             RIGIDBODY
         }
 
-        private readonly Loli self;
+        private readonly Companion self;
         public Vector3? lastReadPos = null;
 
         public object target { get; private set; }
         public TargetType type { get; private set; } = TargetType.WORLD_POSITION;
 
-        public TaskTarget(Loli _self)
+        public TaskTarget(Companion _self)
         {
             self = _self;
         }

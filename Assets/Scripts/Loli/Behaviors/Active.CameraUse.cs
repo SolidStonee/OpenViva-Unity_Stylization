@@ -24,7 +24,7 @@ namespace viva
         private float cameraPrepared = 0.0f;
         private bool stillTimerHasReset = true;
 
-        public CameraUseBehavior(Loli _self) : base(_self, ActiveBehaviors.Behavior.CAMERA_USE, null)
+        public CameraUseBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.CAMERA_USE, null)
         {
         }
 
@@ -47,7 +47,7 @@ namespace viva
                 case Phase.NONE:
                     if (self.IsCurrentAnimationIdle())
                     {
-                        self.SetTargetAnimation(Loli.Animation.STAND_HAPPY_TAKE_PHOTO_IN);
+                        self.SetTargetAnimation(Companion.Animation.STAND_HAPPY_TAKE_PHOTO_IN);
                     }
                     break;
                 case Phase.TAKING_PICTURE:
@@ -61,7 +61,7 @@ namespace viva
 
         private void LateUpdateTakingPicture()
         {
-            if (self.currentAnim == Loli.Animation.STAND_HAPPY_TAKE_PHOTO_LOOP)
+            if (self.currentAnim == Companion.Animation.STAND_HAPPY_TAKE_PHOTO_LOOP)
             {
 
                 PolaroidCamera camera = GetHeldCamera();
@@ -168,11 +168,11 @@ namespace viva
             {
                 if (self.FindOccupyStateByHeldItem(camera) == self.rightHandState)
                 {
-                    self.SetTargetAnimation(Loli.Animation.STAND_HAPPY_TAKE_PHOTO_OUT_RIGHT);
+                    self.SetTargetAnimation(Companion.Animation.STAND_HAPPY_TAKE_PHOTO_OUT_RIGHT);
                 }
                 else
                 {
-                    self.SetTargetAnimation(Loli.Animation.STAND_HAPPY_TAKE_PHOTO_OUT_LEFT);
+                    self.SetTargetAnimation(Companion.Animation.STAND_HAPPY_TAKE_PHOTO_OUT_LEFT);
                 }
             }
         }
@@ -301,19 +301,19 @@ namespace viva
             return true;
         }
 
-        public override void OnAnimationChange(Loli.Animation oldAnim, Loli.Animation newAnim)
+        public override void OnAnimationChange(Companion.Animation oldAnim, Companion.Animation newAnim)
         {
 
-            if (newAnim == Loli.Animation.STAND_HAPPY_TAKE_PHOTO_LOOP)
+            if (newAnim == Companion.Animation.STAND_HAPPY_TAKE_PHOTO_LOOP)
             {
                 currentPhase = Phase.TAKING_PICTURE;
             }
             switch (newAnim)
             {
-                case Loli.Animation.STAND_HAPPY_TAKE_PHOTO_IN:
-                case Loli.Animation.STAND_HAPPY_TAKE_PHOTO_LOOP:
-                case Loli.Animation.STAND_HAPPY_TAKE_PHOTO_OUT_RIGHT:
-                case Loli.Animation.STAND_HAPPY_TAKE_PHOTO_OUT_LEFT:
+                case Companion.Animation.STAND_HAPPY_TAKE_PHOTO_IN:
+                case Companion.Animation.STAND_HAPPY_TAKE_PHOTO_LOOP:
+                case Companion.Animation.STAND_HAPPY_TAKE_PHOTO_OUT_RIGHT:
+                case Companion.Animation.STAND_HAPPY_TAKE_PHOTO_OUT_LEFT:
                     break;
                 default:    //INTERRUPTED BY PASSIVE BEHAVIOR DETECTED
                     EndCameraUseBehavior(false, false);

@@ -83,29 +83,29 @@ namespace viva
                 return false;
             }
             CharacterCollisionCallback ccc = collider.GetComponent<CharacterCollisionCallback>();
-            if (ccc && ccc.owner.characterType == Character.Type.LOLI)
+            if (ccc && ccc.owner.characterType == Character.Type.COMPANION)
             {
-                Loli loli = ccc.owner as Loli;
+                Companion companion = ccc.owner as Companion;
                 switch (ccc.collisionPart)
                 {
                     case CharacterCollisionCallback.Type.RIGHT_PALM:
                     case CharacterCollisionCallback.Type.LEFT_PALM:
-                        if (loli.outfit.fingerNailColor != m_fillingColor)
+                        if (companion.outfit.fingerNailColor != m_fillingColor)
                         {
-                            loli.outfit.fingerNailColor = m_fillingColor;
+                            companion.outfit.fingerNailColor = m_fillingColor;
                             SetFillingScoop(null);
-                            loli.ApplyFingerNailColor(loli.outfit.fingerNailColor);
+                            companion.ApplyFingerNailColor(companion.outfit.fingerNailColor);
                             PlayJellyApplySound();
                             return true;
                         }
                         break;
                     case CharacterCollisionCallback.Type.RIGHT_FOOT:
                     case CharacterCollisionCallback.Type.LEFT_FOOT:
-                        if (loli.outfit.toeNailColor != m_fillingColor)
+                        if (companion.outfit.toeNailColor != m_fillingColor)
                         {
-                            loli.outfit.toeNailColor = m_fillingColor;
+                            companion.outfit.toeNailColor = m_fillingColor;
                             SetFillingScoop(null);
-                            loli.ApplyToeNailColor(loli.outfit.toeNailColor);
+                            companion.ApplyToeNailColor(companion.outfit.toeNailColor);
                             PlayJellyApplySound();
                             return true;
                         }

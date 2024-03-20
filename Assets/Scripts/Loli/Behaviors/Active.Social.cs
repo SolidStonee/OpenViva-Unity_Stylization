@@ -24,14 +24,14 @@ namespace viva
 
         private List<SocialLink> socialLinks = new List<SocialLink>();
         private bool reachedSocialCircle = false;
-        private Loli.Animation waveAnimation = Loli.Animation.NONE;
-        private Loli.Animation targetSocialAnimation = Loli.Animation.NONE;
+        private Companion.Animation waveAnimation = Companion.Animation.NONE;
+        private Companion.Animation targetSocialAnimation = Companion.Animation.NONE;
         private SocialLink currentWaveTarget = null;
         private bool playRandomSocialAnim = true;
         private float returnToEmploymentTimer = 0.0f;
 
 
-        public SocialBehavior(Loli _self) : base(_self, ActiveBehaviors.Behavior.SOCIAL, null)
+        public SocialBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.SOCIAL, null)
         {
         }
 
@@ -68,17 +68,17 @@ namespace viva
 
         // private void GrowSocialCircle( Character character ){
         // 	foreach( var info in socialLinks ){
-        // 		Loli loli = info.character as Loli;
+        // 		Companion companion = info.character as Companion;
         // 		info.lastInteraction = Time.time;
-        // 		if( loli ){
-        // 			loli.active.social.AttemptSocialContact( character );
+        // 		if( companion ){
+        // 			companion.active.social.AttemptSocialContact( character );
         // 		}
         // 	}
         // 	returnToEmploymentTimer = 20.0f;
         // }
 
         // public override void OnActivate(){
-        // 	waveAnimation = Loli.Animation.NONE;
+        // 	waveAnimation = Companion.Animation.NONE;
         // 	currentWaveTarget = null;
         // 	playRandomSocialAnim = false;
         // 	self.employment.Pause();
@@ -118,11 +118,11 @@ namespace viva
         // 		}
         // 	}
         // 	if( playRandomSocialAnim ){
-        // 		var lolis = new List<Loli>();
+        // 		var lolis = new List<Companion>();
         // 		foreach( var info in socialLinks ){
-        // 			Loli loli = info.character as Loli;
-        // 			if( loli ){
-        // 				lolis.Add( loli );
+        // 			Companion companion = info.character as Companion;
+        // 			if( companion ){
+        // 				lolis.Add( companion );
         // 			}
         // 		}
         // 		if( lolis.Count > 0 ){
@@ -133,11 +133,11 @@ namespace viva
         // 			self.SetViewAwarenessTimeout( 1.0f );
         // 		}
         // 		targetSocialAnimation = GetAvailableSocialAnimation( lolis.Count > 0 );
-        // 		if( targetSocialAnimation != Loli.Animation.NONE ){
+        // 		if( targetSocialAnimation != Companion.Animation.NONE ){
         // 			playRandomSocialAnim = false;
         // 		}
         // 	}else{
-        // 		if( targetSocialAnimation != Loli.Animation.NONE && self.currentAnim == Loli.Animation.STAND_HAPPY_IDLE1 ){
+        // 		if( targetSocialAnimation != Companion.Animation.NONE && self.currentAnim == Companion.Animation.STAND_HAPPY_IDLE1 ){
         // 			self.SetTargetAnimation( targetSocialAnimation );
         // 			//pick random character and face them
         // 		}
@@ -149,24 +149,24 @@ namespace viva
         // 		self.active.SetTask( self.active.idle, true );
         // 		//make others return as well
         // 		foreach( var info in socialLinks ){
-        // 			Loli loli = info.character as Loli;
+        // 			Companion companion = info.character as Companion;
         // 			info.lastInteraction = Time.time;
-        // 			if( loli && loli.active.IsTaskActive( loli.active.social ) && loli.employment.isActive ){
-        // 				loli.active.SetTask( loli.active.idle, true );
+        // 			if( companion && companion.active.IsTaskActive( companion.active.social ) && companion.employment.isActive ){
+        // 				companion.active.SetTask( companion.active.idle, true );
         // 			}
         // 		}
         // 	}
         // }
 
-        // private Loli.Animation GetAvailableSocialAnimation( bool allowSocialAnim ){
+        // private Companion.Animation GetAvailableSocialAnimation( bool allowSocialAnim ){
         // 	var idleAnim = self.active.idle.GetAvailableIdleAnimation();
-        // 	if( idleAnim != Loli.Animation.NONE && ( UnityEngine.Random.value > 0.5f || !allowSocialAnim ) ){
+        // 	if( idleAnim != Companion.Animation.NONE && ( UnityEngine.Random.value > 0.5f || !allowSocialAnim ) ){
         // 		return idleAnim;
         // 	}else{
         // 		if( allowSocialAnim ){
-        // 			return Loli.Animation.STAND_HAPPY_SOCIAL1;
+        // 			return Companion.Animation.STAND_HAPPY_SOCIAL1;
         // 		}else{
-        // 			return Loli.Animation.STAND_HAPPY_IDLE3;
+        // 			return Companion.Animation.STAND_HAPPY_IDLE3;
         // 		}
         // 	}
         // }
@@ -183,7 +183,7 @@ namespace viva
         // 	if( reachedDestination ){
         // 		reachedSocialCircle = true;
         // 	}else{
-        // 		self.SetTargetAnimation( Loli.Animation.STAND_GIDDY_LOCOMOTION );
+        // 		self.SetTargetAnimation( Companion.Animation.STAND_GIDDY_LOCOMOTION );
         // 	}
         // }
 
@@ -201,14 +201,14 @@ namespace viva
         //         self.SetRootFacingTarget( info.character.floorPos, 200.0f, 20.0f, 20.0f );
         // 		return;
         // 	}
-        // 	Loli loli = info.character as Loli;
-        // 	//wait for loli to gain balance to asy hello
-        // 	if( loli && !loli.hasBalance ){
+        // 	Companion companion = info.character as Companion;
+        // 	//wait for companion to gain balance to asy hello
+        // 	if( companion && !companion.hasBalance ){
         // 		return;
         // 	}
         // 	waveAnimation = self.active.idle.GetAvailableWaveAnimation();
         // 	Debug.Log(waveAnimation);
-        //     if( waveAnimation != Loli.Animation.NONE ){
+        //     if( waveAnimation != Companion.Animation.NONE ){
         //         self.SetTargetAnimation( waveAnimation );
         // 		currentWaveTarget = info;
         // 		self.SetLookAtTarget( info.character.head );
@@ -217,19 +217,19 @@ namespace viva
         // }
 
         // private void OnSuccessfulGreet( SocialLink info ){
-        // 	Loli loli = info.character as Loli;
+        // 	Companion companion = info.character as Companion;
         // 	info.greeted = true;
-        // 	if( loli ){
-        // 		if( loli.employment.isActive ){
-        // 			loli.locomotion.StopMoveTo();
-        // 			loli.active.social.AttemptSocialContact( self );
-        // 			loli.SetRootFacingTarget( self.spine1.position, 300.0f, 30.0f, 20.0f );
+        // 	if( companion ){
+        // 		if( companion.employment.isActive ){
+        // 			companion.locomotion.StopMoveTo();
+        // 			companion.active.social.AttemptSocialContact( self );
+        // 			companion.SetRootFacingTarget( self.spine1.position, 300.0f, 30.0f, 20.0f );
         // 		}	///TODO CALLBACK FOR ALLOWED EMPLOYMENT TASKS
         // 	}
         // 	playRandomSocialAnim = true;
         // }
 
-        // public override void OnAnimationChange( Loli.Animation oldAnim, Loli.Animation newAnim ){
+        // public override void OnAnimationChange( Companion.Animation oldAnim, Companion.Animation newAnim ){
         // 	if( newAnim == waveAnimation ){
         // 		if( currentWaveTarget != null ){
         // 			OnSuccessfulGreet( currentWaveTarget );

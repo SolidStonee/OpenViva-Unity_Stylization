@@ -34,12 +34,12 @@ namespace viva.console
                 {
                     foreach (var loli in GameDirector.player.objectFingerPointer.selectedLolis)
                     {
-                        loli.BeginRagdollMode(weight, Loli.Animation.FALLING_LOOP);
+                        loli.BeginRagdollMode(weight, Companion.Animation.FALLING_LOOP);
                     }
                 }
                 else
                 {
-                    AddStaticMessageToConsole("No Loli's Selected");
+                    AddStaticMessageToConsole("No Companion's Selected");
                 }
             }
             else

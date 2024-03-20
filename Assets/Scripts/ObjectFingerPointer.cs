@@ -243,13 +243,13 @@ namespace viva
         private GestureHand[] gestureHands = new GestureHand[2];
         public GestureHand rightGestureHand { get { return gestureHands[0]; } }
         public GestureHand leftGestureHand { get { return gestureHands[1]; } }
-        public List<Loli> selectedLolis { get; private set; } = new List<Loli>();       
+        public List<Companion> selectedLolis { get; private set; } = new List<Companion>();       
         private Coroutine pointingCoroutine = null;
         private List<VivaSessionAsset> pointedAssets = new List<VivaSessionAsset>();
         private Coroutine gestureDisplayCoroutine = null;
         private static readonly int clockProgressID = Shader.PropertyToID("_ClockProgress");
         private bool pointedShort;
-        private Loli pointedLoli = null;
+        private Companion pointedCompanion = null;
         private Mechanism pointedMechanism = null;
         private Vector3 pointedPos;
 
@@ -290,7 +290,7 @@ namespace viva
             switch (gesture)
             {
                 case Gesture.FOLLOW:
-                    foreach (Loli loli in selectedLolis)
+                    foreach (Companion loli in selectedLolis)
                     {
                         loli.active.OnGesture(sourceHand.playerHandState.selfItem, gesture);
                     }
@@ -316,9 +316,9 @@ namespace viva
                             {
                                 continue;
                             }
-                            Loli loli = selectedLolis[index];
-                            viva.DevTools.LogExtended("Presenting " + sourceHand.playerHandState.heldItem + " to loli " + loli, true, true);
-                            loli.onGiftItemCallstack.Call(sourceHand.playerHandState.heldItem);
+                            Companion companion = selectedLolis[index];
+                            viva.DevTools.LogExtended("Presenting " + sourceHand.playerHandState.heldItem + " to companion " + companion, true, true);
+                            companion.onGiftItemCallstack.Call(sourceHand.playerHandState.heldItem);
                         }
                     }
                     GameDirector.player.pauseMenu.ContinueTutorial(PauseMenu.MenuTutorial.WAIT_TO_PRESENT);
@@ -374,7 +374,7 @@ namespace viva
             var seen = new List<Character>();
 
             //Call if selected
-            foreach (Loli loli in selectedLolis)
+            foreach (Companion loli in selectedLolis)
             {
                 loli.active.OnGesture(gestureHand.playerHandState.selfItem, gesture);
             }
@@ -386,7 +386,7 @@ namespace viva
                 var currentRayForward = Quaternion.Euler(0, currentYaw, 0) * rayForward;
                 var character = FindSpherecastCharacter<Character>(rayStart, currentRayForward, rayLength, delegate (Character character) {
                     //ignore character being grabbed by player
-                    var candidate = character as Loli;
+                    var candidate = character as Companion;
                     //if (candidate.isConstrained) return false;
 
                     return candidate;
@@ -396,8 +396,8 @@ namespace viva
 
             foreach (var character in seen)
             {
-                var loli = character as Loli;
-                //loli.onGesture.Invoke(gesture, player.character);
+                var loli = character as Companion;
+                //companion.onGesture.Invoke(gesture, player.character);
                 if (!selectedLolis.Contains(loli))
                 {
                     Outline.StartOutlining(loli, Color.white, Outline.Flash);
@@ -410,7 +410,7 @@ namespace viva
 
         public void ClearSelection()
         {
-            foreach (Loli loli in selectedLolis)
+            foreach (Companion loli in selectedLolis)
             {
                 loli.characterSelectionTarget.OnUnselected();
             }
@@ -556,20 +556,20 @@ namespace viva
         private IEnumerator ValidateLastPointing()
         {
             yield return new WaitForSeconds(0.3f);
-            if (pointedLoli)
+            if (pointedCompanion)
             {
-                if (!selectedLolis.Contains(pointedLoli))
+                if (!selectedLolis.Contains(pointedCompanion))
                 {
-                    pointedLoli.characterSelectionTarget.OnSelected();
-                    selectedLolis.Add(pointedLoli);
+                    pointedCompanion.characterSelectionTarget.OnSelected();
+                    selectedLolis.Add(pointedCompanion);
                     GameDirector.instance.PlayGlobalSound(newSelectionSound);
                 }
                 else
                 {
-                    pointedLoli.characterSelectionTarget.OnUnselected();
-                    selectedLolis.Remove(pointedLoli);
+                    pointedCompanion.characterSelectionTarget.OnUnselected();
+                    selectedLolis.Remove(pointedCompanion);
                 }
-                pointedLoli = null;
+                pointedCompanion = null;
             }
             else if (pointedMechanism)
             {
@@ -617,8 +617,8 @@ namespace viva
             }
             Transform newRoot = GamePhysics.result().collider.transform;
             pointedPos = GamePhysics.result().point;
-            pointedLoli = Tools.SearchTransformAncestors<Loli>(newRoot);
-            if (!pointedLoli)
+            pointedCompanion = Tools.SearchTransformAncestors<Companion>(newRoot);
+            if (!pointedCompanion)
             {
                 pointedMechanism = Tools.SearchTransformAncestors<Mechanism>(newRoot);
                 if (pointedMechanism)

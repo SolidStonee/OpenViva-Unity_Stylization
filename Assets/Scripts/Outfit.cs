@@ -172,7 +172,7 @@ namespace viva
         }
 
         //Replaces and removes if same wear type clothing exists 
-        public void WearClothingPiece(Loli self, ClothingPreset clothingPiece, Outfit.ClothingOverride clothingOverride, int startTestAt = 0)
+        public void WearClothingPiece(Companion self, ClothingPreset clothingPiece, Outfit.ClothingOverride clothingOverride, int startTestAt = 0)
         {
             if (clothingPiece == null)
             {

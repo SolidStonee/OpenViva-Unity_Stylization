@@ -33,14 +33,14 @@ namespace viva
             {
                 return;
             }
-            LoliHandState targetHandState;
+            CompanionHandState targetHandState;
             if (shoulderState.rightSide)
             {
-                targetHandState = self.leftLoliHandState;
+                targetHandState = self.leftCompanionHandState;
             }
             else
             {
-                targetHandState = self.rightLoliHandState;
+                targetHandState = self.rightCompanionHandState;
             }
             //store item after item has been fully picked up
             if (!targetHandState.finishedBlending)
@@ -62,11 +62,11 @@ namespace viva
             {
                 if (shoulderState.rightSide)
                 {
-                    self.SetTargetAnimation(Loli.Animation.STAND_BAG_PUT_IN_RIGHT);
+                    self.SetTargetAnimation(Companion.Animation.STAND_BAG_PUT_IN_RIGHT);
                 }
                 else
                 {
-                    self.SetTargetAnimation(Loli.Animation.STAND_BAG_PUT_IN_LEFT);
+                    self.SetTargetAnimation(Companion.Animation.STAND_BAG_PUT_IN_LEFT);
                 }
             }
             else
@@ -74,11 +74,11 @@ namespace viva
                 //check if the other hand has a valid storable item
                 if (shoulderState.rightSide)
                 {
-                    targetHandState = self.rightLoliHandState;
+                    targetHandState = self.rightCompanionHandState;
                 }
                 else
                 {
-                    targetHandState = self.leftLoliHandState;
+                    targetHandState = self.leftCompanionHandState;
                 }
                 if (bag.CanStoreItem(targetHandState.heldItem))
                 {
@@ -113,12 +113,12 @@ namespace viva
             if (rightSide)
             {
                 bag = self.rightShoulderState.heldItem as Bag;
-                targetItem = self.leftLoliHandState.heldItem;
+                targetItem = self.leftCompanionHandState.heldItem;
             }
             else
             {
                 bag = self.leftShoulderState.heldItem as Bag;
-                targetItem = self.rightLoliHandState.heldItem;
+                targetItem = self.rightCompanionHandState.heldItem;
             }
             if (bag == null)
             {

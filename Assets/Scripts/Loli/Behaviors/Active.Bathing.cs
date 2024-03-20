@@ -27,7 +27,7 @@ namespace viva
         private Bathtub bathtub = null;
         private bool shinobuIsOnRightSide;
         private Vector3? targetBathPos = null;
-        private Loli.Animation bathingWaterTempAnim = Loli.Animation.NONE;
+        private Companion.Animation bathingWaterTempAnim = Companion.Animation.NONE;
         private readonly float maxPointingBearing = 100.0f;
         private float bathroomSayGetOutTimer = 1.0f;
         private float refreshLookAtTargetTimer = 0.0f;
@@ -43,7 +43,7 @@ namespace viva
 
         private List<GameObject> activeDynBoneBubbles = new List<GameObject>();
 
-        public BathingBehavior(Loli _self) : base(_self, ActiveBehaviors.Behavior.BATHING, null)
+        public BathingBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.BATHING, null)
         {
         }
 
@@ -53,7 +53,7 @@ namespace viva
             {
                 self.SetLookAtTarget(null);
                 self.SetViewAwarenessTimeout(0.0f);
-                self.SetTargetAnimation(Loli.Animation.BATHTUB_ON_KNEES_TO_TOWEL_IDLE);
+                self.SetTargetAnimation(Companion.Animation.BATHTUB_ON_KNEES_TO_TOWEL_IDLE);
             }
         }
 
@@ -79,7 +79,7 @@ namespace viva
                 case BodyState.BATHING_RELAX:
                 case BodyState.BATHING_STAND:
                     self.OverrideClearAnimationPriority();
-                    self.SetTargetAnimation(Loli.Animation.STAND_HAPPY_IDLE2);
+                    self.SetTargetAnimation(Companion.Animation.STAND_HAPPY_IDLE2);
                     self.SetOutfit(self.outfit); Debug.LogError("NEED TO FIX");
                     self.Teleport(
                         bathtub.GetBathtubModelTransform().position + bathtub.GetBathtubModelTransform().forward * 0.6f,
@@ -124,13 +124,13 @@ namespace viva
             }
         }
 
-        public class TransitionToBathtubAnim : Loli.TransitionHandle
+        public class TransitionToBathtubAnim : Companion.TransitionHandle
         {
 
-            public TransitionToBathtubAnim() : base(Loli.TransitionHandle.TransitionType.NO_MIRROR)
+            public TransitionToBathtubAnim() : base(Companion.TransitionHandle.TransitionType.NO_MIRROR)
             {
             }
-            public override void Transition(Loli self)
+            public override void Transition(Companion self)
             {
                 self.UpdateAnimationTransition(self.active.bathing.bathingWaterTempAnim);
             }
@@ -146,11 +146,11 @@ namespace viva
                 case BodyState.BATHING_RELAX:
                     if (self.IsHappy())
                     {
-                        self.SetTargetAnimation(Loli.Animation.BATHTUB_RELAX_TO_HAPPY_IDLE);
+                        self.SetTargetAnimation(Companion.Animation.BATHTUB_RELAX_TO_HAPPY_IDLE);
                     }
                     else
                     {
-                        self.SetTargetAnimation(Loli.Animation.BATHTUB_RELAX_TO_ANGRY_IDLE);
+                        self.SetTargetAnimation(Companion.Animation.BATHTUB_RELAX_TO_ANGRY_IDLE);
                     }
                     break;
             }
@@ -188,8 +188,8 @@ namespace viva
                 self.SetLookAtTarget(commandSource.head);
             }
 
-            self.rightLoliHandState.AttemptDrop();
-            self.leftLoliHandState.AttemptDrop();
+            self.rightCompanionHandState.AttemptDrop();
+            self.leftCompanionHandState.AttemptDrop();
             self.rightShoulderState.AttemptDrop();
             self.leftShoulderState.AttemptDrop();
             Debug.Log("Bathing Debug 4");
@@ -245,14 +245,14 @@ namespace viva
                 //if no player nearby, go back to normal bathing pose
                 if (player == null)
                 {
-                    self.SetTargetAnimation(Loli.Animation.BATHTUB_ON_KNEES_TO_HAPPY_IDLE);
+                    self.SetTargetAnimation(Companion.Animation.BATHTUB_ON_KNEES_TO_HAPPY_IDLE);
                     return;
                 }
                 //begin towel beg if available
                 Towel towel = IsPlayerOfferingATowel(player);
                 if (towel != null)
                 {
-                    self.SetTargetAnimation(Loli.Animation.BATHTUB_HAPPY_BEG_LOOP);
+                    self.SetTargetAnimation(Companion.Animation.BATHTUB_HAPPY_BEG_LOOP);
                     UpdateBeggingForItem(towel);
                 }
                 else
@@ -262,7 +262,7 @@ namespace viva
                     float bearing = Tools.Bearing(self.transform, player.head.position);
                     if (Mathf.Abs(bearing) < 90.0f)
                     {
-                        self.SetTargetAnimation(Loli.Animation.BATHTUB_ON_KNEES_TO_HAPPY_IDLE);
+                        self.SetTargetAnimation(Companion.Animation.BATHTUB_ON_KNEES_TO_HAPPY_IDLE);
                     }
                 }
             }
@@ -271,7 +271,7 @@ namespace viva
         private void LateUpdatePostIKOnKnees()
         {
 
-            if (self.currentAnim == Loli.Animation.BATHTUB_HAPPY_BEG_LOOP)
+            if (self.currentAnim == Companion.Animation.BATHTUB_HAPPY_BEG_LOOP)
             {
                 Item item = GameDirector.instance.FindPickupItemForCharacter(
                     self,
@@ -308,13 +308,13 @@ namespace viva
             currBegDirection += (bearing / 120.0f - currBegDirection) * Time.deltaTime * 6.0f;
             self.animator.SetFloat(WorldUtil.begDirection, currBegDirection);
 
-            Vector3 approxPos = begTarget.transform.position - self.rightLoliHandState.fingerAnimator.hand.right * 0.1f;
+            Vector3 approxPos = begTarget.transform.position - self.rightCompanionHandState.fingerAnimator.hand.right * 0.1f;
 
-            // self.rightLoliHandState.holdArmIK.OverrideWorldRetargetingTransform(
-            // 	self.rightLoliHandState.freeHandRetargeting,
+            // self.rightCompanionHandState.holdArmIK.OverrideWorldRetargetingTransform(
+            // 	self.rightCompanionHandState.freeHandRetargeting,
             // 	approxPos,
             // 	self.floorPos+self.transform.right+self.transform.forward,
-            // 	self.rightLoliHandState.fingerAnimator.hand.rotation
+            // 	self.rightCompanionHandState.fingerAnimator.hand.rotation
             // );
         }
 
@@ -343,25 +343,25 @@ namespace viva
             switch (bathtub.GetTemperature())
             {
                 case Bathtub.Temperature.COLD:
-                    bathingWaterTempAnim = Loli.Animation.BATHTUB_TEST_WATER_IN_COLD_RIGHT;
+                    bathingWaterTempAnim = Companion.Animation.BATHTUB_TEST_WATER_IN_COLD_RIGHT;
                     break;
                 case Bathtub.Temperature.LUKEWARM:
-                    bathingWaterTempAnim = Loli.Animation.BATHTUB_TEST_WATER_LUKEWARM_RIGHT;
+                    bathingWaterTempAnim = Companion.Animation.BATHTUB_TEST_WATER_LUKEWARM_RIGHT;
                     break;
                 case Bathtub.Temperature.HOT:
-                    bathingWaterTempAnim = Loli.Animation.BATHTUB_TEST_WATER_IN_HOT_RIGHT;
+                    bathingWaterTempAnim = Companion.Animation.BATHTUB_TEST_WATER_IN_HOT_RIGHT;
                     break;
             }
 
             if (useRightAnim)
             {
-                self.SetTargetAnimation(Loli.Animation.BATHTUB_TEST_WATER_IN_RIGHT);
+                self.SetTargetAnimation(Companion.Animation.BATHTUB_TEST_WATER_IN_RIGHT);
             }
             else
             {
-                self.SetTargetAnimation(Loli.Animation.BATHTUB_TEST_WATER_IN_LEFT);
+                self.SetTargetAnimation(Companion.Animation.BATHTUB_TEST_WATER_IN_LEFT);
                 //increment to left version
-                bathingWaterTempAnim = (Loli.Animation)((int)bathingWaterTempAnim + 1);
+                bathingWaterTempAnim = (Companion.Animation)((int)bathingWaterTempAnim + 1);
             }
         }
 
@@ -411,21 +411,21 @@ namespace viva
             {
                 if (doorBearing > 0.0f)
                 {
-                    self.SetTargetAnimation(Loli.Animation.STAND_POINT_OUT_IN_RIGHT);
+                    self.SetTargetAnimation(Companion.Animation.STAND_POINT_OUT_IN_RIGHT);
                 }
                 else
                 {
-                    self.SetTargetAnimation(Loli.Animation.STAND_POINT_OUT_IN_LEFT);
+                    self.SetTargetAnimation(Companion.Animation.STAND_POINT_OUT_IN_LEFT);
                 }
                 self.SetLookAtTarget(GameDirector.player.head, 2.1f);
             }
             else
             {
-                self.SetTargetAnimation(Loli.Animation.STAND_WAIT_ANNOYED_LOOP);
+                self.SetTargetAnimation(Companion.Animation.STAND_WAIT_ANNOYED_LOOP);
             }
         }
 
-        private void CheckIfShouldSayGetOut(Loli.Animation sayAnim)
+        private void CheckIfShouldSayGetOut(Companion.Animation sayAnim)
         {
 
             bathroomSayGetOutTimer -= Time.deltaTime;
@@ -442,39 +442,39 @@ namespace viva
         {
             switch (self.currentAnim)
             {
-                case Loli.Animation.STAND_POINT_OUT_LOOP_LEFT:
-                    self.SetTargetAnimation(Loli.Animation.STAND_POINT_OUT_TO_WAIT_LEFT);
+                case Companion.Animation.STAND_POINT_OUT_LOOP_LEFT:
+                    self.SetTargetAnimation(Companion.Animation.STAND_POINT_OUT_TO_WAIT_LEFT);
                     break;
-                case Loli.Animation.STAND_POINT_OUT_LOOP_RIGHT:
-                    self.SetTargetAnimation(Loli.Animation.STAND_POINT_OUT_TO_WAIT_RIGHT);
+                case Companion.Animation.STAND_POINT_OUT_LOOP_RIGHT:
+                    self.SetTargetAnimation(Companion.Animation.STAND_POINT_OUT_TO_WAIT_RIGHT);
                     break;
             }
         }
 
-        private Loli.Animation GetPointAndSayOutAnimation(bool rightSide)
+        private Companion.Animation GetPointAndSayOutAnimation(bool rightSide)
         {
             if (self.headModel.voiceIndex == (byte)Voice.VoiceType.SHINOBU)
             {
                 if (rightSide)
                 {
-                    return Loli.Animation.STAND_POINT_OUT_SOUND_2_3_RIGHT;
+                    return Companion.Animation.STAND_POINT_OUT_SOUND_2_3_RIGHT;
                 }
 
-                return Loli.Animation.STAND_POINT_OUT_SOUND_2_3_LEFT;
+                return Companion.Animation.STAND_POINT_OUT_SOUND_2_3_LEFT;
             }
 
             if (rightSide)
             {
-                return Loli.Animation.STAND_POINT_OUT_ANTSY_RIGHT;
+                return Companion.Animation.STAND_POINT_OUT_ANTSY_RIGHT;
             }
 
-            return Loli.Animation.STAND_POINT_OUT_ANTSY_LEFT;
+            return Companion.Animation.STAND_POINT_OUT_ANTSY_LEFT;
         }
 
         private void UpdateWaitForPlayerToGetOutAnimation(
                     bool playerIsStillInBathroom,
-                    LoliHandState currentPointingHand,
-                    Loli.Animation sayGetOutAnimation)
+                    CompanionHandState currentPointingHand,
+                    Companion.Animation sayGetOutAnimation)
         {
             //new BlendController(currentPointingHand, OnPointingArmIKControl;
             if (playerIsStillInBathroom)
@@ -491,16 +491,16 @@ namespace viva
                 {
                     if (doorBearing > 0.0f)
                     {
-                        if (self.currentAnim == Loli.Animation.STAND_POINT_OUT_LOOP_LEFT)
+                        if (self.currentAnim == Companion.Animation.STAND_POINT_OUT_LOOP_LEFT)
                         {
-                            self.SetTargetAnimation(Loli.Animation.STAND_POINT_OUT_IN_RIGHT);
+                            self.SetTargetAnimation(Companion.Animation.STAND_POINT_OUT_IN_RIGHT);
                         }
                     }
                     else
                     {
-                        if (self.currentAnim == Loli.Animation.STAND_POINT_OUT_LOOP_RIGHT)
+                        if (self.currentAnim == Companion.Animation.STAND_POINT_OUT_LOOP_RIGHT)
                         {
-                            self.SetTargetAnimation(Loli.Animation.STAND_POINT_OUT_IN_LEFT);
+                            self.SetTargetAnimation(Companion.Animation.STAND_POINT_OUT_IN_LEFT);
                         }
                     }
                 }
@@ -532,38 +532,38 @@ namespace viva
             }
             switch (self.currentAnim)
             {
-                case Loli.Animation.STAND_POINT_OUT_IN_RIGHT:
-                case Loli.Animation.STAND_POINT_OUT_LOOP_RIGHT:
-                case Loli.Animation.STAND_POINT_OUT_ANTSY_RIGHT:
-                case Loli.Animation.STAND_POINT_OUT_SOUND_2_3_RIGHT:
+                case Companion.Animation.STAND_POINT_OUT_IN_RIGHT:
+                case Companion.Animation.STAND_POINT_OUT_LOOP_RIGHT:
+                case Companion.Animation.STAND_POINT_OUT_ANTSY_RIGHT:
+                case Companion.Animation.STAND_POINT_OUT_SOUND_2_3_RIGHT:
                     UpdateWaitForPlayerToGetOutAnimation(
                         playerIsInRoom,
-                        self.rightLoliHandState,
+                        self.rightCompanionHandState,
                         GetPointAndSayOutAnimation(true)
                     );
                     break;
-                case Loli.Animation.STAND_POINT_OUT_IN_LEFT:
-                case Loli.Animation.STAND_POINT_OUT_LOOP_LEFT:
-                case Loli.Animation.STAND_POINT_OUT_ANTSY_LEFT:
-                case Loli.Animation.STAND_POINT_OUT_SOUND_2_3_LEFT:
+                case Companion.Animation.STAND_POINT_OUT_IN_LEFT:
+                case Companion.Animation.STAND_POINT_OUT_LOOP_LEFT:
+                case Companion.Animation.STAND_POINT_OUT_ANTSY_LEFT:
+                case Companion.Animation.STAND_POINT_OUT_SOUND_2_3_LEFT:
                     UpdateWaitForPlayerToGetOutAnimation(
                         playerIsInRoom,
-                        self.leftLoliHandState,
+                        self.leftCompanionHandState,
                         GetPointAndSayOutAnimation(false)
                     );
                     break;
-                case Loli.Animation.STAND_WAIT_ANNOYED_LOOP:
+                case Companion.Animation.STAND_WAIT_ANNOYED_LOOP:
                     if (playerIsInRoom)
                     {
                         CheckIfCanPointToDoor();
                     }
                     break;
 
-                case Loli.Animation.BATHTUB_TOWEL_IDLE_LOOP:
+                case Companion.Animation.BATHTUB_TOWEL_IDLE_LOOP:
                     //if towel was taken away
                     if (!self.rightHandState.GetItemIfHeld<Towel>())
                     {
-                        self.SetTargetAnimation(Loli.Animation.BATHTUB_TOWEL_EMBARRASSED_TO_BATHTUB_IDLE);
+                        self.SetTargetAnimation(Companion.Animation.BATHTUB_TOWEL_EMBARRASSED_TO_BATHTUB_IDLE);
                         self.SetLookAtTarget(GameDirector.player.head, 1.5f);
                         self.ShiftHappiness(-2);
                     }
@@ -571,7 +571,7 @@ namespace viva
                     {
                         if (self.headModel.voiceIndex == (byte)Voice.VoiceType.SHINOBU)
                         {
-                            CheckIfShouldSayGetOut(Loli.Animation.BATHTUB_TOWEL_OUT_SOUND_2_3);
+                            CheckIfShouldSayGetOut(Companion.Animation.BATHTUB_TOWEL_OUT_SOUND_2_3);
                         }
                     }
                     break;
@@ -615,7 +615,7 @@ namespace viva
             );
 
             self.OverrideClearAnimationPriority();
-            self.SetTargetAnimation(Loli.Animation.BATHTUB_RELAX_LOOP);
+            self.SetTargetAnimation(Companion.Animation.BATHTUB_RELAX_LOOP);
             Outfit outfit = Outfit.Create(
                 new string[]{
                 "bubble torso",
@@ -689,8 +689,8 @@ namespace viva
             {
                 return;
             }
-            Loli.Animation splashBackAnim = GetSplashBackAnimation();
-            if (splashBackAnim == Loli.Animation.NONE)
+            Companion.Animation splashBackAnim = GetSplashBackAnimation();
+            if (splashBackAnim == Companion.Animation.NONE)
             {
                 return;
             }
@@ -731,7 +731,7 @@ namespace viva
             );
         }
 
-        private Loli.Animation GetSplashBackAnimation()
+        private Companion.Animation GetSplashBackAnimation()
         {
             if (self.IsHappy())
             {
@@ -740,12 +740,12 @@ namespace viva
                     case BodyState.BATHING_IDLE:
                         if (self.IsHappy())
                         {
-                            return Loli.Animation.BATHTUB_HAPPY_SPLASH;
+                            return Companion.Animation.BATHTUB_HAPPY_SPLASH;
                         }
                         break;
                 }
             }
-            return Loli.Animation.NONE;
+            return Companion.Animation.NONE;
         }
 
         private bool CheckIfPlayerIsOfferingTowel(Player player)
@@ -764,11 +764,11 @@ namespace viva
             bool playerIsOnRightSide = bathtub.IsClosestEdgeRightSide(player.transform.position);
             if (playerIsOnRightSide == shinobuIsOnRightSide)
             {
-                self.SetTargetAnimation(Loli.Animation.BATHTUB_HAPPY_SWITCH_SIDES);
+                self.SetTargetAnimation(Companion.Animation.BATHTUB_HAPPY_SWITCH_SIDES);
             }
             else
             {
-                self.SetTargetAnimation(Loli.Animation.BATHTUB_HAPPY_IDLE_TO_ON_KNEES);
+                self.SetTargetAnimation(Companion.Animation.BATHTUB_HAPPY_IDLE_TO_ON_KNEES);
             }
             return true;
         }
@@ -785,11 +785,11 @@ namespace viva
                 bool playerIsOnRightSide = bathtub.IsClosestEdgeRightSide(GameDirector.player.transform.position);
                 if (playerIsOnRightSide != shinobuIsOnRightSide)
                 {
-                    self.SetTargetAnimation(Loli.Animation.BATHTUB_HAPPY_SWITCH_SIDES);
+                    self.SetTargetAnimation(Companion.Animation.BATHTUB_HAPPY_SWITCH_SIDES);
                 }
                 else
                 {
-                    self.SetTargetAnimation(Loli.Animation.BATHTUB_HAPPY_IDLE_TO_ON_KNEES);
+                    self.SetTargetAnimation(Companion.Animation.BATHTUB_HAPPY_IDLE_TO_ON_KNEES);
                 }
                 return true;
             }
@@ -810,20 +810,20 @@ namespace viva
                     {
                         if (Random.value > 0.66f)
                         {
-                            self.SetTargetAnimation(Loli.Animation.BATHTUB_HAPPY_IDLE2);
+                            self.SetTargetAnimation(Companion.Animation.BATHTUB_HAPPY_IDLE2);
                         }
                         else if (Random.value > 0.5f)
                         {
-                            self.SetTargetAnimation(Loli.Animation.BATHTUB_HAPPY_IDLE3);
+                            self.SetTargetAnimation(Companion.Animation.BATHTUB_HAPPY_IDLE3);
                         }
                         else
                         {
-                            self.SetTargetAnimation(Loli.Animation.BATHTUB_HAPPY_IDLE4);
+                            self.SetTargetAnimation(Companion.Animation.BATHTUB_HAPPY_IDLE4);
                         }
                     }
                     break;
                 case BodyState.BATHING_RELAX:
-                    self.SetTargetAnimation(Loli.Animation.BATHTUB_RELAX_HUMMING);
+                    self.SetTargetAnimation(Companion.Animation.BATHTUB_RELAX_HUMMING);
                     bathtubIdleAnimTimer = 10.0f;
                     break;
                 default:
@@ -832,7 +832,7 @@ namespace viva
             }
         }
 
-        private void OnPointingArmIKControl(BlendController blendController, LoliHandState handState)
+        private void OnPointingArmIKControl(BlendController blendController, CompanionHandState handState)
         {
             Door door = bathtub.GetBathroomDoor(0);
             Quaternion pointRotation = Quaternion.LookRotation(door.transform.position - blendController.armIK.hand.position, self.transform.up);
@@ -879,7 +879,7 @@ namespace viva
             if (target == self.head)
             {
                 //position bubbles above headpat sphere
-                SphereCollider headSC = self.GetColliderBodyPart(Loli.BodyPart.HEAD_SC) as SphereCollider;
+                SphereCollider headSC = self.GetColliderBodyPart(Companion.BodyPart.HEAD_SC) as SphereCollider;
                 bubbles.transform.localPosition = headSC.center + Vector3.up * headSC.radius;
             }
             else
@@ -1089,19 +1089,19 @@ namespace viva
             }
         }
 
-        public override void OnAnimationChange(Loli.Animation oldAnim, Loli.Animation newAnim)
+        public override void OnAnimationChange(Companion.Animation oldAnim, Companion.Animation newAnim)
         {
 
             switch (newAnim)
             {
-                case Loli.Animation.BATHTUB_HAPPY_SPLASH:
+                case Companion.Animation.BATHTUB_HAPPY_SPLASH:
                     splashBackCount = Mathf.Max(0, splashBackCount - 1);
                     break;
-                case Loli.Animation.BATHTUB_SPLASH_REACT_LEFT:
-                case Loli.Animation.BATHTUB_SPLASH_REACT_RIGHT:
+                case Companion.Animation.BATHTUB_SPLASH_REACT_LEFT:
+                case Companion.Animation.BATHTUB_SPLASH_REACT_RIGHT:
                     splashBackCount = Mathf.Min(splashBackCount + 2, 3);
                     break;
-                case Loli.Animation.BATHTUB_HAPPY_SWITCH_SIDES:
+                case Companion.Animation.BATHTUB_HAPPY_SWITCH_SIDES:
                     shinobuIsOnRightSide = !shinobuIsOnRightSide;
                     self.BeginAnchorTransformAnimation(
                         self.floorPos,
@@ -1111,45 +1111,45 @@ namespace viva
                         false
                     );
                     break;
-                case Loli.Animation.BATHTUB_TEST_WATER_IN_RIGHT:
-                case Loli.Animation.BATHTUB_TEST_WATER_IN_LEFT:
+                case Companion.Animation.BATHTUB_TEST_WATER_IN_RIGHT:
+                case Companion.Animation.BATHTUB_TEST_WATER_IN_LEFT:
                     bathingPhase = BathingPhase.TESTING_WATER;
                     break;
-                case Loli.Animation.BATHTUB_HAPPY_IDLE_TO_ON_KNEES:
+                case Companion.Animation.BATHTUB_HAPPY_IDLE_TO_ON_KNEES:
                     bathingPhase = BathingPhase.ON_KNEES;
                     break;
-                case Loli.Animation.BATHTUB_ON_KNEES_TO_HAPPY_IDLE:
-                case Loli.Animation.BATHTUB_TOWEL_EMBARRASSED_TO_BATHTUB_IDLE:
-                case Loli.Animation.BATHTUB_ON_KNEES_HEADPAT_BRUSH_AWAY_TO_ANGRY_IDLE:
+                case Companion.Animation.BATHTUB_ON_KNEES_TO_HAPPY_IDLE:
+                case Companion.Animation.BATHTUB_TOWEL_EMBARRASSED_TO_BATHTUB_IDLE:
+                case Companion.Animation.BATHTUB_ON_KNEES_HEADPAT_BRUSH_AWAY_TO_ANGRY_IDLE:
                     bathingPhase = BathingPhase.BATHING;
                     break;
-                case Loli.Animation.BATHTUB_ON_KNEES_TO_TOWEL_IDLE:
+                case Companion.Animation.BATHTUB_ON_KNEES_TO_TOWEL_IDLE:
                     bathingPhase = BathingPhase.COMMAND_PLAYER_TO_GET_OUT;
                     break;
             }
             switch (oldAnim)
             {
-                case Loli.Animation.BATHTUB_TEST_WATER_IN_COLD_RIGHT:
-                case Loli.Animation.BATHTUB_TEST_WATER_IN_COLD_LEFT:
-                case Loli.Animation.BATHTUB_TEST_WATER_IN_HOT_RIGHT:
-                case Loli.Animation.BATHTUB_TEST_WATER_IN_HOT_LEFT:
+                case Companion.Animation.BATHTUB_TEST_WATER_IN_COLD_RIGHT:
+                case Companion.Animation.BATHTUB_TEST_WATER_IN_COLD_LEFT:
+                case Companion.Animation.BATHTUB_TEST_WATER_IN_HOT_RIGHT:
+                case Companion.Animation.BATHTUB_TEST_WATER_IN_HOT_LEFT:
                     FailBathtubWaterTest();
                     break;
-                case Loli.Animation.BATHTUB_TEST_WATER_LUKEWARM_RIGHT:
-                case Loli.Animation.BATHTUB_TEST_WATER_LUKEWARM_LEFT:
+                case Companion.Animation.BATHTUB_TEST_WATER_LUKEWARM_RIGHT:
+                case Companion.Animation.BATHTUB_TEST_WATER_LUKEWARM_LEFT:
                     SucceedBathtubWaterTest();
                     break;
-                case Loli.Animation.STAND_POINT_OUT_SOUND_2_3_RIGHT:
-                case Loli.Animation.STAND_POINT_OUT_SOUND_2_3_LEFT:
+                case Companion.Animation.STAND_POINT_OUT_SOUND_2_3_RIGHT:
+                case Companion.Animation.STAND_POINT_OUT_SOUND_2_3_LEFT:
                     TutorialManager.main.DisplayHint(
                         null,
                         self.head.position + Vector3.up * 0.5f,
-                        "Leave and close the door behind you to allow the loli to undress",
+                        "Leave and close the door behind you to allow the companion to undress",
                         null,
                         0.6f
                     );
                     break;
-                case Loli.Animation.BATHTUB_RELAX_TO_HAPPY_IDLE:
+                case Companion.Animation.BATHTUB_RELAX_TO_HAPPY_IDLE:
                     TutorialManager.main.DisplayHint(
                         null,
                         self.head.position + Vector3.up * 0.5f,

@@ -53,7 +53,7 @@ namespace viva
 
             //find characters nearby to splash
             List<Character> characters = GameDirector.instance.FindCharactersInSphere(
-                (int)Character.Type.LOLI,
+                (int)Character.Type.COMPANION,
                 surfacePos + splashDir,
                 0.5f
             );

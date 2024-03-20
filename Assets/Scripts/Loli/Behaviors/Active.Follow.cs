@@ -8,7 +8,7 @@ namespace viva
     public class FollowBehavior : ActiveBehaviors.ActiveTask
     {
 
-        public FollowBehavior(Loli _self) : base(_self, ActiveBehaviors.Behavior.FOLLOW, null)
+        public FollowBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.FOLLOW, null)
         {
         }
 

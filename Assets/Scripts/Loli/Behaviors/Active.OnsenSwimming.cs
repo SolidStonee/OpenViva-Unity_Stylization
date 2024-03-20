@@ -29,7 +29,7 @@ namespace viva
         private AutonomyEmpty currentClerkSession;
 
 
-        public OnsenSwimming(Loli _self) : base(_self, ActiveBehaviors.Behavior.ONSEN_SWIMMING, new OnsenSwimmingSession())
+        public OnsenSwimming(Companion _self) : base(_self, ActiveBehaviors.Behavior.ONSEN_SWIMMING, new OnsenSwimmingSession())
         {
         }
 
@@ -270,7 +270,7 @@ namespace viva
                 });
 
                 var perpetuate = new AutonomyEmpty(self.autonomy, "perpetuate relax", delegate { return null; });
-                var relax = new AutonomyPlayAnimation(self.autonomy, "relax", Loli.Animation.SQUAT_TO_RELAX);
+                var relax = new AutonomyPlayAnimation(self.autonomy, "relax", Companion.Animation.SQUAT_TO_RELAX);
                 GameDirector.player.CompleteAchievement(Player.ObjectiveType.RELAX_ONSEN, new Achievement("RELAX_ONSEN"));
 
                 moveToRelax.onRegistered += delegate { relax.Reset(); };
@@ -296,7 +296,7 @@ namespace viva
 
             var receptionClient = new AutonomyEmpty(self.autonomy, "reception client", delegate { return null; });
 
-            //ensure one loli at a time using reception desk as a client
+            //ensure one companion at a time using reception desk as a client
             var receptionFilterUse = new AutonomyFilterUse(self.autonomy, "reception client filter use", reception.receptionBell.filterUse, 2.0f);
 
             //wait in line
@@ -312,12 +312,12 @@ namespace viva
             receptionClient.AddRequirement(receptionFilterUse);
 
             //setup hit bell on reception desk
-            var hitBell = new AutonomyPlayAnimation(self.autonomy, "hit bell anim", Loli.Animation.STAND_PICKUP_RIGHT);
+            var hitBell = new AutonomyPlayAnimation(self.autonomy, "hit bell anim", Companion.Animation.STAND_PICKUP_RIGHT);
             hitBell.loop = true;
             hitBell.onRegistered += delegate { hitBell.OverrideAnimations(GetHitBellAnimation()); };
             hitBell.onRegistered += delegate
             {
-                new BlendController(hitBell.entryAnimation == Loli.Animation.STAND_PICKUP_RIGHT ? self.rightLoliHandState : self.leftLoliHandState, hitBell.entryAnimation, OnHitBellIKControl);
+                new BlendController(hitBell.entryAnimation == Companion.Animation.STAND_PICKUP_RIGHT ? self.rightCompanionHandState : self.leftCompanionHandState, hitBell.entryAnimation, OnHitBellIKControl);
             };
             hitBell.onSuccess += WaitForClerkSession;
             hitBell.onFail += delegate { self.active.SetTask(self.active.idle); };
@@ -415,7 +415,7 @@ namespace viva
         private void EndConfused()
         {
             var goToWaitZone = CreateWaitAtClientPostRingWaitZone();
-            var playAnim = LoliUtility.CreateSpeechAnimation(self, AnimationSet.CONFUSED, SpeechBubble.INTERROGATION);
+            var playAnim = CompanionUtility.CreateSpeechAnimation(self, AnimationSet.CONFUSED, SpeechBubble.INTERROGATION);
             if (goToWaitZone != null)
             {
                 playAnim.onSuccess += delegate { self.autonomy.SetAutonomy(goToWaitZone); };
@@ -448,14 +448,14 @@ namespace viva
             return waitAtWaitPos;
         }
 
-        private Loli.Animation GetHitBellAnimation()
+        private Companion.Animation GetHitBellAnimation()
         {
             if (self.rightHandState.occupied)
             {
-                return Loli.Animation.STAND_PICKUP_LEFT;
+                return Companion.Animation.STAND_PICKUP_LEFT;
             }
 
-            return Loli.Animation.STAND_PICKUP_RIGHT;
+            return Companion.Animation.STAND_PICKUP_RIGHT;
         }
 
         private float OnHitBellIKControl(BlendController blendController)

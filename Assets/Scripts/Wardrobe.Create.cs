@@ -201,7 +201,7 @@ namespace viva
         }
 
         //load dropped image and decide if it's a card or a custom texture
-        private IEnumerator OnDropTextureFile(Loli loli, string filepath, Image dragFileImage)
+        private IEnumerator OnDropTextureFile(Companion companion, string filepath, Image dragFileImage)
         {
 
             StartLoadingCycle();
@@ -270,7 +270,7 @@ namespace viva
                 request.result.name += " " + targetClothing.name.Split(' ')[0];
                 Outfit.ClothingOverride clothingOverride = new Outfit.ClothingOverride(request.result, request.result.name);
                 Outfit outfit = CreatePhotoshootOutfit(
-                    loli,
+                    companion,
                     targetClothing,
                     clothingOverride
                 );
@@ -280,15 +280,15 @@ namespace viva
                     activeCoroutine = GameDirector.instance.StartCoroutine(EndDropTextureFile(dragFileText, "Could not create photoshoot outfit!"));
                     yield break;
                 }
-                loli.SetOutfit(outfit);
+                companion.SetOutfit(outfit);
 
                 GameDirector.PhotoshootRequest photoshoot = new GameDirector.PhotoshootRequest(
                     new Vector2Int(Steganography.PACK_SIZE, Steganography.CARD_HEIGHT),
                     FindClothingPresetByClothingName(targetClothing.name).photoshootPose,
                     clothingBackground,
-                    Loli.Animation.PHOTOSHOOT_1
+                    Companion.Animation.PHOTOSHOOT_1
                 );
-                yield return GameDirector.instance.StartCoroutine(GameDirector.instance.RenderPhotoshoot(loli, photoshoot));
+                yield return GameDirector.instance.StartCoroutine(GameDirector.instance.RenderPhotoshoot(companion, photoshoot));
 
                 resultCardImage.gameObject.SetActive(false);
                 Steganography.PackLossyTextureRequest packRequest = new Steganography.PackLossyTextureRequest(
@@ -320,8 +320,8 @@ namespace viva
                 }
 
                 //Finally apply new outfit to
-                loli.outfit.WearClothingPiece(loli, targetClothing, clothingOverride);
-                loli.SetOutfit(loli.outfit);
+                companion.outfit.WearClothingPiece(companion, targetClothing, clothingOverride);
+                companion.SetOutfit(companion.outfit);
             }
 
             //ease towards endPos
@@ -380,8 +380,8 @@ namespace viva
             }
 
             //ensure Shinobu Character is nearby
-            Loli loli = GameDirector.instance.FindClosestCharacter<Loli>(GameDirector.player.floorPos, 10.0f);
-            if (loli == null)
+            Companion companion = GameDirector.instance.FindClosestCharacter<Companion>(GameDirector.player.floorPos, 10.0f);
+            if (companion == null)
             {
                 Debug.LogError("No Shinobu is nearby!");
                 return;
@@ -393,7 +393,7 @@ namespace viva
                 Debug.LogError("ERROR drag file visualizer needs an Image!");
                 return;
             }
-            activeCoroutine = GameDirector.instance.StartCoroutine(OnDropTextureFile(loli, files[0], dragFileImage));
+            activeCoroutine = GameDirector.instance.StartCoroutine(OnDropTextureFile(companion, files[0], dragFileImage));
 
             dragFileVisualizer.transform.position = hitInfo.point;
             dragFileVisualizer.transform.rotation = Quaternion.LookRotation(hitInfo.point - GameDirector.instance.mainCamera.transform.position, Vector3.up);

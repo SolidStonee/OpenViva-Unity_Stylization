@@ -30,9 +30,9 @@ namespace viva
         private int merchantGoodIndexCounter = 0;
 
 
-        protected override void OnInitializeEmployment(Loli targetLoli)
+        protected override void OnInitializeEmployment(Companion targetCompanion)
         {
-            targetLoli.active.merchant.merchantSession.merchantSpotAsset = this;
+            targetCompanion.active.merchant.merchantSession.merchantSpotAsset = this;
         }
 
         public void AddNearbyMarketContainer(MarketContainer mc)

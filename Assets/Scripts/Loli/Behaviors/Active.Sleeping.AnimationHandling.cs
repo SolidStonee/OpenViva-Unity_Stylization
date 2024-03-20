@@ -5,104 +5,104 @@ namespace viva
     public partial class SleepingBehavior : ActiveBehaviors.ActiveTask
     {
 
-        // public Loli.Animation GetLaySidePillowHeadpatStartAnimation(){
+        // public Companion.Animation GetLaySidePillowHeadpatStartAnimation(){
 
         // 	if( !layingOnRightSide.HasValue ){
-        // 		return Loli.Animation.NONE;
+        // 		return Companion.Animation.NONE;
         // 	}
         // 	if( phase == SleepingPhase.SLEEPING ){
         // 		if( layingOnRightSide.Value ){
-        // 			return Loli.Animation.SLEEP_PILLOW_SIDE_IDLE_RIGHT;
+        // 			return Companion.Animation.SLEEP_PILLOW_SIDE_IDLE_RIGHT;
         // 		}else{
-        // 			return Loli.Animation.SLEEP_PILLOW_SIDE_IDLE_LEFT;
+        // 			return Companion.Animation.SLEEP_PILLOW_SIDE_IDLE_LEFT;
         // 		}
         // 	}else{
         // 		if( layingOnRightSide.Value ){
-        // 			return Loli.Animation.LAY_PILLOW_SIDE_HAPPY_IDLE_RIGHT;
+        // 			return Companion.Animation.LAY_PILLOW_SIDE_HAPPY_IDLE_RIGHT;
         // 		}else{
-        // 			return Loli.Animation.LAY_PILLOW_SIDE_HAPPY_IDLE_LEFT;
+        // 			return Companion.Animation.LAY_PILLOW_SIDE_HAPPY_IDLE_LEFT;
         // 		}
         // 	}
         // }
 
-        // public Loli.Animation GetSleepSidePillowHeadpatStartAnimation(){
+        // public Companion.Animation GetSleepSidePillowHeadpatStartAnimation(){
 
         // 	if( !layingOnRightSide.HasValue ){
-        // 		return Loli.Animation.NONE;
+        // 		return Companion.Animation.NONE;
         // 	}
         // 	if( layingOnRightSide.Value ){
-        // 		return Loli.Animation.SLEEP_PILLOW_SIDE_HEADPAT_START_RIGHT;
+        // 		return Companion.Animation.SLEEP_PILLOW_SIDE_HEADPAT_START_RIGHT;
         // 	}else{
-        // 		return Loli.Animation.SLEEP_PILLOW_SIDE_HEADPAT_START_LEFT;
+        // 		return Companion.Animation.SLEEP_PILLOW_SIDE_HEADPAT_START_LEFT;
         // 	}
         // }
 
 
-        // public Loli.Animation GetSleepPillowUpHeadpatStartAnimation(){
-        // 	return Loli.Animation.SLEEP_PILLOW_UP_IDLE;
+        // public Companion.Animation GetSleepPillowUpHeadpatStartAnimation(){
+        // 	return Companion.Animation.SLEEP_PILLOW_UP_IDLE;
         // }
 
-        // public Loli.Animation GetSleepPillowUpHeadpatIdleAnimation(){
+        // public Companion.Animation GetSleepPillowUpHeadpatIdleAnimation(){
         // 	return GetSleepPillowUpHeadpatStartAnimation();
         // }
 
-        // public Loli.Animation GetAwakePillowUpHeadpatStartAnimation(){
+        // public Companion.Animation GetAwakePillowUpHeadpatStartAnimation(){
         // 	return self.GetLastReturnableIdleAnimation();
         // }
 
-        // public Loli.Animation GetAwakePillowUpHeadpatIdleAnimation(){
+        // public Companion.Animation GetAwakePillowUpHeadpatIdleAnimation(){
         // 	if( self.IsHappy() ){
-        // 		return Loli.Animation.AWAKE_HAPPY_PILLOW_UP_HEADPAT_LOOP;
+        // 		return Companion.Animation.AWAKE_HAPPY_PILLOW_UP_HEADPAT_LOOP;
         // 	}else{
         // 		return self.GetLastReturnableIdleAnimation();
         // 	}
         // }
 
-        // public Loli.Animation GetSleepSidePillowHeadpatIdleAnimation(){
+        // public Companion.Animation GetSleepSidePillowHeadpatIdleAnimation(){
         // 	if( !layingOnRightSide.HasValue ){
-        // 		return Loli.Animation.NONE;
+        // 		return Companion.Animation.NONE;
         // 	}
         // 	if( layingOnRightSide.Value ){
-        // 		return Loli.Animation.SLEEP_PILLOW_SIDE_IDLE_RIGHT;
+        // 		return Companion.Animation.SLEEP_PILLOW_SIDE_IDLE_RIGHT;
         // 	}else{
-        // 		return Loli.Animation.SLEEP_PILLOW_SIDE_IDLE_LEFT;
+        // 		return Companion.Animation.SLEEP_PILLOW_SIDE_IDLE_LEFT;
         // 	}
         // }
 
-        // public Loli.Animation GetLaySidePillowHeadpatIdleAnimation(){
+        // public Companion.Animation GetLaySidePillowHeadpatIdleAnimation(){
         //     return GetLaySidePillowHeadpatStartAnimation();	//same animation
         // }
 
-        public Loli.Animation GetSleepSidePillowFacePokeAnimation(int pokeSideIsLeft)
+        public Companion.Animation GetSleepSidePillowFacePokeAnimation(int pokeSideIsLeft)
         {
             if (!layingOnRightSide.HasValue)
             {
-                return Loli.Animation.NONE;
+                return Companion.Animation.NONE;
             }
             if (phase == SleepingPhase.SLEEPING)
             {
                 if (layingOnRightSide.Value)
                 {
-                    return Loli.Animation.SLEEP_PILLOW_SIDE_BOTHER_RIGHT;
+                    return Companion.Animation.SLEEP_PILLOW_SIDE_BOTHER_RIGHT;
                 }
                 else
                 {
-                    return Loli.Animation.SLEEP_PILLOW_SIDE_BOTHER_LEFT;
+                    return Companion.Animation.SLEEP_PILLOW_SIDE_BOTHER_LEFT;
                 }
             }
             else
             {
                 //TODO: sleep side pillow awake poke animations?
             }
-            return Loli.Animation.NONE;
+            return Companion.Animation.NONE;
         }
 
-        public Loli.Animation GetSleepSidePillowPostFacePokeAnimation()
+        public Companion.Animation GetSleepSidePillowPostFacePokeAnimation()
         {
 
             if (!layingOnRightSide.HasValue)
             {
-                return Loli.Animation.NONE;
+                return Companion.Animation.NONE;
             }
 
             if (CheckIfShouldWakeUpFromBother())
@@ -113,17 +113,17 @@ namespace viva
             {
                 if (layingOnRightSide.Value)
                 {
-                    return Loli.Animation.SLEEP_PILLOW_SIDE_TO_SLEEP_PILLOW_UP_RIGHT;
+                    return Companion.Animation.SLEEP_PILLOW_SIDE_TO_SLEEP_PILLOW_UP_RIGHT;
                 }
                 else
                 {
-                    return Loli.Animation.SLEEP_PILLOW_SIDE_TO_SLEEP_PILLOW_UP_LEFT;
+                    return Companion.Animation.SLEEP_PILLOW_SIDE_TO_SLEEP_PILLOW_UP_LEFT;
                 }
             }
-            return Loli.Animation.NONE;
+            return Companion.Animation.NONE;
         }
 
-        public Loli.Animation GetSleepPillowUpPostFacePokeAnimation()
+        public Companion.Animation GetSleepPillowUpPostFacePokeAnimation()
         {
 
             if (CheckIfShouldWakeUpFromBother())
@@ -134,14 +134,14 @@ namespace viva
             {
                 if (UnityEngine.Random.value > 0.5f)
                 {
-                    return Loli.Animation.SLEEP_PILLOW_UP_TO_SLEEP_PILLOW_SIDE_LEFT;
+                    return Companion.Animation.SLEEP_PILLOW_UP_TO_SLEEP_PILLOW_SIDE_LEFT;
                 }
                 else
                 {
-                    return Loli.Animation.SLEEP_PILLOW_UP_TO_SLEEP_PILLOW_SIDE_RIGHT;
+                    return Companion.Animation.SLEEP_PILLOW_UP_TO_SLEEP_PILLOW_SIDE_RIGHT;
                 }
             }
-            return Loli.Animation.NONE;
+            return Companion.Animation.NONE;
         }
     }
 

@@ -17,10 +17,10 @@ namespace viva
         private Player.Animation m_playerHeldAnimation = Player.Animation.IDLE;
         public Player.Animation playerHeldAnimation { get { return m_playerHeldAnimation; } }
 
-        [Header("Loli Info")]
+        [Header("Companion Info")]
         [SerializeField]
-        private Loli.HoldFormAnimation m_loliHeldAnimation;
-        public Loli.HoldFormAnimation loliHeldAnimation { get { return m_loliHeldAnimation; } }
+        private Companion.HoldFormAnimation m_loliHeldAnimation;
+        public Companion.HoldFormAnimation loliHeldAnimation { get { return m_loliHeldAnimation; } }
         [SerializeField]
         private Vector3 m_IKHoldTarget = new Vector3(0.12f, 0.06f, 0.17f);
         public Vector3 IKTarget { get { return m_IKHoldTarget; } }

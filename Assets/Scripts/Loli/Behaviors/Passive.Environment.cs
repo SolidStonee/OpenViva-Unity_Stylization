@@ -9,9 +9,9 @@ namespace viva
     public class EnvironmentBehavior : PassiveBehaviors.PassiveTask
     {
 
-        private Loli.Animation initiateListenEntryAnim = Loli.Animation.NONE;
+        private Companion.Animation initiateListenEntryAnim = Companion.Animation.NONE;
 
-        public EnvironmentBehavior(Loli _self) : base(_self, Mathf.Infinity)
+        public EnvironmentBehavior(Companion _self) : base(_self, Mathf.Infinity)
         {
         }
 
@@ -20,8 +20,8 @@ namespace viva
 
             //random but still bearing dependent animation variety
             bool sourceSide = Tools.Bearing(self.transform, particlePosition) - 10.0f + UnityEngine.Random.value * 20.0f > 0.0f;
-            Loli.Animation reactAnim = GetAvailableSplashedReactAnim(sourceSide);
-            if (reactAnim == Loli.Animation.NONE)
+            Companion.Animation reactAnim = GetAvailableSplashedReactAnim(sourceSide);
+            if (reactAnim == Companion.Animation.NONE)
             {   //no available animation to react with
                 return false;
             }
@@ -52,40 +52,40 @@ namespace viva
             return true;
         }
 
-        private Loli.Animation GetAvailableSplashedReactAnim(bool sourceSide)
+        private Companion.Animation GetAvailableSplashedReactAnim(bool sourceSide)
         {
             switch (self.bodyState)
             {
                 case BodyState.STAND:
                     switch (self.currentAnim)
                     {
-                        case Loli.Animation.STAND_SPLASHED_START_RIGHT:
-                        case Loli.Animation.STAND_SPLASHED_START_LEFT:
-                            return Loli.Animation.STAND_SPLASHED_LOOP;
+                        case Companion.Animation.STAND_SPLASHED_START_RIGHT:
+                        case Companion.Animation.STAND_SPLASHED_START_LEFT:
+                            return Companion.Animation.STAND_SPLASHED_LOOP;
                         default:
                             if (sourceSide)
                             {
-                                return Loli.Animation.STAND_SPLASHED_START_RIGHT;
+                                return Companion.Animation.STAND_SPLASHED_START_RIGHT;
                             }
                             else
                             {
-                                return Loli.Animation.STAND_SPLASHED_START_LEFT;
+                                return Companion.Animation.STAND_SPLASHED_START_LEFT;
                             }
                     }
                 case BodyState.BATHING_IDLE:
                     if (sourceSide)
                     {
-                        return Loli.Animation.BATHTUB_SPLASH_REACT_RIGHT;
+                        return Companion.Animation.BATHTUB_SPLASH_REACT_RIGHT;
                     }
                     else
                     {
-                        return Loli.Animation.BATHTUB_SPLASH_REACT_LEFT;
+                        return Companion.Animation.BATHTUB_SPLASH_REACT_LEFT;
                     }
             }
-            return Loli.Animation.NONE;
+            return Companion.Animation.NONE;
         }
 
-        public override void OnAnimationChange(Loli.Animation oldAnim, Loli.Animation newAnim)
+        public override void OnAnimationChange(Companion.Animation oldAnim, Companion.Animation newAnim)
         {
             if (newAnim == initiateListenEntryAnim)
             {

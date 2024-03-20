@@ -80,10 +80,10 @@ namespace viva
             Character character = Tools.SearchTransformAncestors<Character>(collision.gameObject.transform);
             if (character)
             {
-                Loli loli = character as Loli;
-                if (loli)
+                Companion companion = character as Companion;
+                if (companion)
                 {
-                    loli.passive.environment.AttemptReactToSubstanceSpill(sourceSubstanceSpill.substance, transform.position);
+                    companion.passive.environment.AttemptReactToSubstanceSpill(sourceSubstanceSpill.substance, transform.position);
                 }
             }
         }

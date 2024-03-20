@@ -15,7 +15,7 @@ namespace viva
         public const float tiredSunPitchRadianStart = 4.3f;
         public const float tiredSunPitchRadianEnd = 5.0f;
 
-        public TiredBehavior(Loli _self) : base(_self, 0.0f)
+        public TiredBehavior(Companion _self) : base(_self, 0.0f)
         {
         }
 
@@ -35,7 +35,7 @@ namespace viva
             {
                 if (self.IsCurrentAnimationIdle())
                 {
-                    self.SetTargetAnimation(Loli.Animation.STAND_TO_STAND_TIRED);
+                    self.SetTargetAnimation(Companion.Animation.STAND_TO_STAND_TIRED);
                 }
             }
             else
@@ -59,11 +59,11 @@ namespace viva
                 {
                     if (self.rightHandState.heldItem != null)
                     {
-                        self.SetTargetAnimation(Loli.Animation.STAND_TIRED_RUB_EYES_RIGHT);
+                        self.SetTargetAnimation(Companion.Animation.STAND_TIRED_RUB_EYES_RIGHT);
                     }
                     else
                     {
-                        self.SetTargetAnimation(Loli.Animation.STAND_TIRED_RUB_EYES_LEFT);
+                        self.SetTargetAnimation(Companion.Animation.STAND_TIRED_RUB_EYES_LEFT);
                     }
                 }
             }
@@ -88,22 +88,22 @@ namespace viva
         //	if( tired ){
         //		self.ShiftHappiness(4);
         //		hasShownTired = false;
-        //		//self.OverrideIdleAnimations( BodyState.STAND, Loli.Animation.STAND_TIRED_LOCOMOTION, Loli.Animation.STAND_TIRED_LOCOMOTION );
+        //		//self.OverrideIdleAnimations( BodyState.STAND, Companion.Animation.STAND_TIRED_LOCOMOTION, Companion.Animation.STAND_TIRED_LOCOMOTION );
         //	}else{
-        //		// self.OverrideIdleAnimations( BodyState.STAND, Loli.Animation.STAND_HAPPY_IDLE1, Loli.Animation.STAND_ANGRY_IDLE1 );
+        //		// self.OverrideIdleAnimations( BodyState.STAND, Companion.Animation.STAND_HAPPY_IDLE1, Companion.Animation.STAND_ANGRY_IDLE1 );
         //	}
         //}
 
-        public override void OnAnimationChange(Loli.Animation oldAnim, Loli.Animation newAnim)
+        public override void OnAnimationChange(Companion.Animation oldAnim, Companion.Animation newAnim)
         {
 
             switch (newAnim)
             {
-                case Loli.Animation.STAND_TIRED_LOCOMOTION:
+                case Companion.Animation.STAND_TIRED_LOCOMOTION:
                     hasShownTired = true;
                     break;
-                case Loli.Animation.STAND_TIRED_RUB_EYES_RIGHT:
-                case Loli.Animation.STAND_TIRED_RUB_EYES_LEFT:
+                case Companion.Animation.STAND_TIRED_RUB_EYES_RIGHT:
+                case Companion.Animation.STAND_TIRED_RUB_EYES_LEFT:
                     rubEyesTimer = 45.0f + Random.value * 15.0f;
                     break;
             }

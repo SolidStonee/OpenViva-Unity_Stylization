@@ -153,7 +153,7 @@ namespace viva
             }
         }
 
-        private void ValidateEyeInfo(EyeballValidation editor, string suffix, Loli.Eye eye)
+        private void ValidateEyeInfo(EyeballValidation editor, string suffix, Companion.Eye eye)
         {
 
             bool hasBone = eye.lookAt.bone != null;
@@ -279,7 +279,7 @@ namespace viva
             SetActiveCoroutineAction(CreateCharacterCard(modelPreviewer.modelDefault), true);
         }
 
-        private IEnumerator CreateCharacterCard(Loli loli)
+        private IEnumerator CreateCharacterCard(Companion companion)
         {
 
             SetTab((int)Tab.CARD_RESULT);
@@ -298,7 +298,7 @@ namespace viva
                 characterBackground,
                 modelPreviewer.modelDefaultPoseAnim
             );
-            yield return GameDirector.instance.StartCoroutine(GameDirector.instance.RenderPhotoshoot(loli, photoshoot));
+            yield return GameDirector.instance.StartCoroutine(GameDirector.instance.RenderPhotoshoot(companion, photoshoot));
 
             //create character model card
             Steganography.PackLosslessDataRequest packRequest = new Steganography.PackLosslessDataRequest(
@@ -317,7 +317,7 @@ namespace viva
                 skinBackground,
                 modelPreviewer.modelDefaultPoseAnim
             );
-            yield return GameDirector.instance.StartCoroutine(GameDirector.instance.RenderPhotoshoot(loli, photoshoot));
+            yield return GameDirector.instance.StartCoroutine(GameDirector.instance.RenderPhotoshoot(companion, photoshoot));
 
             CardTextureSerializer serializer = new CardTextureSerializer(VivaModel.skinFormat);
             byte[] data = serializer.Serialize(

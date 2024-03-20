@@ -339,7 +339,7 @@ namespace viva
             {
                 return;
             }
-            Loli shinobu = splashedBody.gameObject.GetComponent(typeof(Loli)) as Loli;
+            Companion shinobu = splashedBody.gameObject.GetComponent(typeof(Companion)) as Companion;
 
             if (shinobu != null)
             {

@@ -26,10 +26,10 @@ namespace viva
             //{
             //    for (int i = 1; i < GameDirector.characters.objects.Count; i++)
             //    {
-            //        var loli = GameDirector.characters.objects[i] as Loli;
-            //        if (loli)
+            //        var companion = GameDirector.characters.objects[i] as Companion;
+            //        if (companion)
             //        {
-            //            loli.BeginRagdollMode(0.2f, Loli.Animation.FALLING_LOOP);
+            //            companion.BeginRagdollMode(0.2f, Companion.Animation.FALLING_LOOP);
             //        }
             //    }
 
@@ -49,10 +49,10 @@ namespace viva
             );
             resetOutfit.AdditiveClothingPiece(request.clothingPreset, request.clothingOverride);
 
-            (GameDirector.characters.objects[1] as Loli).SetOutfit(resetOutfit);
-            (GameDirector.characters.objects[2] as Loli).SetOutfit(resetOutfit);
-            (GameDirector.characters.objects[3] as Loli).SetOutfit(resetOutfit);
-            (GameDirector.characters.objects[4] as Loli).SetOutfit(resetOutfit);
+            (GameDirector.characters.objects[1] as Companion).SetOutfit(resetOutfit);
+            (GameDirector.characters.objects[2] as Companion).SetOutfit(resetOutfit);
+            (GameDirector.characters.objects[3] as Companion).SetOutfit(resetOutfit);
+            (GameDirector.characters.objects[4] as Companion).SetOutfit(resetOutfit);
         }
 
         public Vector3 GetRandomWaterFloorPoint()
@@ -76,16 +76,16 @@ namespace viva
             Gizmos.DrawMesh(waterFloorSampleMesh, 0, transform.position, transform.rotation);
         }
 
-        public override bool AttemptCommandUse(Loli targetLoli, Character commandSource)
+        public override bool AttemptCommandUse(Companion targetCompanion, Character commandSource)
         {
             var basket = changingRoom.GetNextEmptyBasket();
             if (basket == null)
             {
                 return false;
             }
-            targetLoli.active.onsenSwimming.swimmingSession.activePoolAsset = this;
-            targetLoli.active.onsenSwimming.swimmingSession.activeBasketAsset = basket;
-            targetLoli.active.SetTask(targetLoli.active.onsenSwimming);
+            targetCompanion.active.onsenSwimming.swimmingSession.activePoolAsset = this;
+            targetCompanion.active.onsenSwimming.swimmingSession.activeBasketAsset = basket;
+            targetCompanion.active.SetTask(targetCompanion.active.onsenSwimming);
             return true;
         }
 

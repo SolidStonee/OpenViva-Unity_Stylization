@@ -9,7 +9,7 @@ namespace viva
     public class CattailBehavior : ActiveBehaviors.ActiveTask
     {
 
-        public CattailBehavior(Loli _self) : base(_self, ActiveBehaviors.Behavior.CATTAIL, null)
+        public CattailBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.CATTAIL, null)
         {
         }
 
@@ -21,7 +21,7 @@ namespace viva
                 {
                     GameDirector.instance.postProcessing.DisplayScreenEffect(GamePostProcessing.Effect.HURT);
                     self.active.SetTask(self.active.idle, true);
-                    if (self.currentAnim == Loli.Animation.STAND_CATTAIL_SWING_RIGHT)
+                    if (self.currentAnim == Companion.Animation.STAND_CATTAIL_SWING_RIGHT)
                     {
                         AttemptPlaySmackSound(self.rightHandState);
                     }
@@ -30,7 +30,7 @@ namespace viva
                         AttemptPlaySmackSound(self.leftHandState);
                     }
                     GameDirector.player.CompleteAchievement(Player.ObjectiveType.WATER_REED_SMACK, new Achievement("WATER_REED_SMACK"));
-                    if (Random.value > 0.5f && self.happiness == Loli.Happiness.VERY_ANGRY)
+                    if (Random.value > 0.5f && self.happiness == Companion.Happiness.VERY_ANGRY)
                     {
                         self.ShiftHappiness(1);
                     }
@@ -90,15 +90,15 @@ namespace viva
                     switch (availableAttackMove)
                     {
                         case 1:
-                            self.SetTargetAnimation(Loli.Animation.STAND_CATTAIL_SWING_RIGHT);
+                            self.SetTargetAnimation(Companion.Animation.STAND_CATTAIL_SWING_RIGHT);
                             break;
                         case 2:
-                            self.SetTargetAnimation(Loli.Animation.STAND_CATTAIL_SWING_LEFT);
+                            self.SetTargetAnimation(Companion.Animation.STAND_CATTAIL_SWING_LEFT);
                             break;
                         case 3:
-                            float baseAnim = (float)Loli.Animation.STAND_CATTAIL_SWING_RIGHT;
+                            float baseAnim = (float)Companion.Animation.STAND_CATTAIL_SWING_RIGHT;
                             //increment to next SWING_LEFT if random value > 0.5
-                            self.SetTargetAnimation((Loli.Animation)(baseAnim + 0.5f + Random.value));
+                            self.SetTargetAnimation((Companion.Animation)(baseAnim + 0.5f + Random.value));
                             break;
                     }
                 }
@@ -127,10 +127,10 @@ namespace viva
             if (Vector3.SqrMagnitude(GameDirector.player.floorPos - self.floorPos) > 2.25f)
             {   //1.5f squared                
                 //self.active.follow.UpdateFollowRefresh( GameDirector.player.floorPos, 0.55f );
-                self.SetTargetAnimation(Loli.Animation.STAND_CHASE_LOCOMOTION);
-                if (!self.IsSpeakingAtAll() && self.currentAnim == Loli.Animation.STAND_CHASE_LOCOMOTION)
+                self.SetTargetAnimation(Companion.Animation.STAND_CHASE_LOCOMOTION);
+                if (!self.IsSpeakingAtAll() && self.currentAnim == Companion.Animation.STAND_CHASE_LOCOMOTION)
                 {
-                    self.SpeakAtRandomIntervals(Loli.VoiceLine.ANGRY_LONG, 2.5f, 5.0f);
+                    self.SpeakAtRandomIntervals(Companion.VoiceLine.ANGRY_LONG, 2.5f, 5.0f);
                 }
             }
             else

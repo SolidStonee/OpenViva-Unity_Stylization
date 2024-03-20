@@ -23,9 +23,9 @@ namespace viva
             public Vector2Int resolution;
             public CameraPose cameraPose;
             public Texture2D background;
-            public Loli.Animation pose;
+            public Companion.Animation pose;
 
-            public PhotoshootRequest(Vector2Int _resolution, CameraPose _cameraPose, Texture2D _background, Loli.Animation _pose)
+            public PhotoshootRequest(Vector2Int _resolution, CameraPose _cameraPose, Texture2D _background, Companion.Animation _pose)
             {
                 resolution = _resolution;
                 cameraPose = _cameraPose;
@@ -34,27 +34,27 @@ namespace viva
             }
         }
 
-        public IEnumerator RenderPhotoshoot(Loli loli, PhotoshootRequest request)
+        public IEnumerator RenderPhotoshoot(Companion companion, PhotoshootRequest request)
         {
 
             photoshootCamera.transform.localPosition = request.cameraPose.position;
             photoshootCamera.transform.localEulerAngles = request.cameraPose.rotation;
             photoshootCamera.fieldOfView = request.cameraPose.fov;
 
-            Vector3 oldPosition = loli.transform.position;
-            Quaternion oldRotation = loli.transform.rotation;
+            Vector3 oldPosition = companion.transform.position;
+            Quaternion oldRotation = companion.transform.rotation;
             Quaternion oldSunRotation = skyDirector.sun.transform.rotation;
 
-            //must make sure loli is in a proper behavior to override animations!
-            //frezee loli in place without logic momentarily to simulate clothing and hair
-            loli.Teleport(photoshootStage.transform.position, photoshootStage.transform.rotation);
-            characters.Remove(loli);
-            loli.puppetMaster.SetEnableGravity(false);
+            //must make sure companion is in a proper behavior to override animations!
+            //frezee companion in place without logic momentarily to simulate clothing and hair
+            companion.Teleport(photoshootStage.transform.position, photoshootStage.transform.rotation);
+            characters.Remove(companion);
+            companion.puppetMaster.SetEnableGravity(false);
 
             photoshootStage.SetActive(true);
 
-            loli.ResetEyeUniforms();
-            loli.ForceImmediatePose(request.pose);
+            companion.ResetEyeUniforms();
+            companion.ForceImmediatePose(request.pose);
             yield return new WaitForSeconds(0.5f);
             GameDirector.skyDirector.OverrideDayNightCycleLighting(GameDirector.skyDirector.defaultDayNightPhase, photoshootSun.rotation);
             GameDirector.skyDirector.sun.color = Color.black;
@@ -64,10 +64,10 @@ namespace viva
             GameDirector.skyDirector.RestoreDayNightCycleLighting();
 
             //restore unfrozen settings
-            characters.Add(loli);
-            loli.puppetMaster.SetEnableGravity(true);
-            loli.Teleport(oldPosition, oldRotation);
-            loli.ForceImmediatePose(loli.GetLastReturnableIdleAnimation());
+            characters.Add(companion);
+            companion.puppetMaster.SetEnableGravity(true);
+            companion.Teleport(oldPosition, oldRotation);
+            companion.ForceImmediatePose(companion.GetLastReturnableIdleAnimation());
 
             photoshootStage.SetActive(false);
         }

@@ -12,8 +12,8 @@ namespace viva
     public class AutonomyPlayAnimation : Autonomy.Task
     {
 
-        public Loli.Animation entryAnimation { get; private set; }
-        private Loli.Animation exitAnimation;
+        public Companion.Animation entryAnimation { get; private set; }
+        private Companion.Animation exitAnimation;
         private bool played = false;
         public float? playing { get; private set; } = null;
         public bool loop = false;
@@ -24,10 +24,10 @@ namespace viva
         public OnAnimationCallback onAnimationExit;
 
         public BodyState targetBodyState { get; private set; }
-        private List<Loli.Animation> transferAnims = new List<Loli.Animation>();
+        private List<Companion.Animation> transferAnims = new List<Companion.Animation>();
 
 
-        public AutonomyPlayAnimation(Autonomy _autonomy, string _name, Loli.Animation _entryAnimation) : base(_autonomy, _name)
+        public AutonomyPlayAnimation(Autonomy _autonomy, string _name, Companion.Animation _entryAnimation) : base(_autonomy, _name)
         {
             OverrideAnimations(_entryAnimation, _entryAnimation);
 
@@ -44,7 +44,7 @@ namespace viva
             onAnimationEnter += delegate
             {
                 //ensure enforce body state doesn't interfere with post bodystate
-                SetTargetBodyState(Loli.animationInfos[entryAnimation].newBodyState);
+                SetTargetBodyState(Companion.animationInfos[entryAnimation].newBodyState);
             };
 
             onUnregistered += delegate { self.OnBodyStateChanged -= OnBodyStateChanged; };
@@ -67,17 +67,17 @@ namespace viva
             RecalculateTransferAnims();
         }
 
-        public void OverrideAnimations(Loli.Animation _entryAnimation)
+        public void OverrideAnimations(Companion.Animation _entryAnimation)
         {
             OverrideAnimations(_entryAnimation, _entryAnimation);
         }
 
-        public void OverrideAnimations(Loli.Animation _entryAnimation, Loli.Animation _exitAnimation)
+        public void OverrideAnimations(Companion.Animation _entryAnimation, Companion.Animation _exitAnimation)
         {
             entryAnimation = _entryAnimation;
             exitAnimation = _exitAnimation;
 
-            SetTargetBodyState(Loli.animationInfos[entryAnimation].conditionBodyState);
+            SetTargetBodyState(Companion.animationInfos[entryAnimation].conditionBodyState);
         }
 
         public void SetupAnimationEvents(AutonomyAnimationEvent[] _animationEvents)
@@ -100,7 +100,7 @@ namespace viva
 
         private void RecalculateTransferAnims()
         {
-            if (!Loli.FindBodyStatePath(self, transferAnims, self.bodyState, targetBodyState))
+            if (!Companion.FindBodyStatePath(self, transferAnims, self.bodyState, targetBodyState))
             {
                 FlagForFailure();
             }
@@ -117,7 +117,7 @@ namespace viva
 
         public void OnFixedUpdate()
         {
-            if (entryAnimation == Loli.Animation.NONE)
+            if (entryAnimation == Companion.Animation.NONE)
             {
                 return;
             }
@@ -147,7 +147,7 @@ namespace viva
                 else if (self.IsCurrentAnimationIdle() && transferAnims.Count > 0)
                 {
                     var transferAnim = transferAnims[0];
-                    if (transferAnim != Loli.Animation.NONE)
+                    if (transferAnim != Companion.Animation.NONE)
                     {
                         self.SetTargetAnimation(transferAnim);
                     }
@@ -168,7 +168,7 @@ namespace viva
             }
         }
 
-        private void HandleAnimationChange(Loli.Animation oldAnim, Loli.Animation newAnim)
+        private void HandleAnimationChange(Companion.Animation oldAnim, Companion.Animation newAnim)
         {
             if (animationEventContext != null)
             {

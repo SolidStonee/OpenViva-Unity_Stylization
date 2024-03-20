@@ -9,11 +9,11 @@ namespace viva
     {
 
         public bool scared { get; private set; }
-        private List<Loli.Animation> oldHappyIdleAnimationSetList;
-        private List<Loli.Animation> oldTiredIdleAnimationSetList;
-        private List<Loli.Animation> oldAngryIdleAnimationSetList;
+        private List<Companion.Animation> oldHappyIdleAnimationSetList;
+        private List<Companion.Animation> oldTiredIdleAnimationSetList;
+        private List<Companion.Animation> oldAngryIdleAnimationSetList;
 
-        public ScaredBehaviour(Loli _self) : base(_self, 0.0f)
+        public ScaredBehaviour(Companion _self) : base(_self, 0.0f)
         {
         }
 
@@ -37,11 +37,11 @@ namespace viva
                     case BodyState.AWAKE_PILLOW_UP:
                     case BodyState.AWAKE_PILLOW_SIDE_RIGHT:
                     case BodyState.AWAKE_PILLOW_SIDE_LEFT:
-                        self.BeginRagdollMode(0.5f, Loli.Animation.FLOOR_CURL_LOOP);
+                        self.BeginRagdollMode(0.5f, Companion.Animation.FLOOR_CURL_LOOP);
                         break;
                     case BodyState.STAND:
                     case BodyState.STANDING_HUG:
-                        var playScareAnim = new AutonomyPlayAnimation(self.autonomy, "play scare anim", Loli.Animation.STAND_SCARED_STARTLE);
+                        var playScareAnim = new AutonomyPlayAnimation(self.autonomy, "play scare anim", Companion.Animation.STAND_SCARED_STARTLE);
                         scareTimer.AddRequirement(playScareAnim);
                         break;
                 }
@@ -53,9 +53,9 @@ namespace viva
                 oldTiredIdleAnimationSetList = bodyStateAnimationSet.GetAnimationSetList(AnimationSet.IDLE_TIRED);
                 oldAngryIdleAnimationSetList = bodyStateAnimationSet.GetAnimationSetList(AnimationSet.IDLE_ANGRY);
 
-                bodyStateAnimationSet.SetAnimationSetList(AnimationSet.IDLE_HAPPY, new List<Loli.Animation>() { Loli.Animation.STAND_SCARED_LOCOMOTION });
-                bodyStateAnimationSet.SetAnimationSetList(AnimationSet.IDLE_TIRED, new List<Loli.Animation>() { Loli.Animation.STAND_SCARED_LOCOMOTION });
-                bodyStateAnimationSet.SetAnimationSetList(AnimationSet.IDLE_ANGRY, new List<Loli.Animation>() { Loli.Animation.STAND_SCARED_LOCOMOTION });
+                bodyStateAnimationSet.SetAnimationSetList(AnimationSet.IDLE_HAPPY, new List<Companion.Animation>() { Companion.Animation.STAND_SCARED_LOCOMOTION });
+                bodyStateAnimationSet.SetAnimationSetList(AnimationSet.IDLE_TIRED, new List<Companion.Animation>() { Companion.Animation.STAND_SCARED_LOCOMOTION });
+                bodyStateAnimationSet.SetAnimationSetList(AnimationSet.IDLE_ANGRY, new List<Companion.Animation>() { Companion.Animation.STAND_SCARED_LOCOMOTION });
             }
         }
 

@@ -102,9 +102,9 @@ namespace viva
             UpdateTamedStatus();
         }
 
-        public override bool AttemptCommandUse(Loli targetLoli, Character commandSource)
+        public override bool AttemptCommandUse(Companion targetCompanion, Character commandSource)
         {
-            if (targetLoli == null)
+            if (targetCompanion == null)
             {
                 return false;
             }
@@ -112,7 +112,7 @@ namespace viva
             {
                 return false;
             }
-            return targetLoli.active.chickenChase.AttemptChaseChicken(this);
+            return targetCompanion.active.chickenChase.AttemptChaseChicken(this);
         }
 
         public override void EndUse(Character targetCharacter)

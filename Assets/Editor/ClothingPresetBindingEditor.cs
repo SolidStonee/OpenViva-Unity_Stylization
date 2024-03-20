@@ -19,11 +19,11 @@ public class ClothingPresetBindingEditor : Editor
         DrawDefaultInspector();
     }
 
-    private int FindDeformableTransformIndex(string name, Loli loli)
+    private int FindDeformableTransformIndex(string name, Companion companion)
     {
-        for (int i = 0; i < loli.bodySMRs[0].bones.Length; i++)
+        for (int i = 0; i < companion.bodySMRs[0].bones.Length; i++)
         {
-            Transform t = loli.bodySMRs[0].bones[i];
+            Transform t = companion.bodySMRs[0].bones[i];
             if (t.name == name)
             {
                 return i;
@@ -35,11 +35,11 @@ public class ClothingPresetBindingEditor : Editor
     private void GenerateBoneProfile()
     {
 
-        string loliPrefabPath = "Assets/Items/prefabs/loli.prefab";
-        Loli loli = AssetDatabase.LoadAssetAtPath(loliPrefabPath, typeof(Loli)) as Loli;
-        if (loli == null)
+        string loliPrefabPath = "Assets/Items/prefabs/companion.prefab";
+        Companion companion = AssetDatabase.LoadAssetAtPath(loliPrefabPath, typeof(Companion)) as Companion;
+        if (companion == null)
         {
-            Debug.LogError("Could not find loli asset");
+            Debug.LogError("Could not find companion asset");
             return;
         }
 
@@ -153,7 +153,7 @@ public class ClothingPresetBindingEditor : Editor
         for (int i = 0; i < smr.bones.Length; i++)
         {
             var element = boneBindingIndicesProp.GetArrayElementAtIndex(i);
-            element.intValue = FindDeformableTransformIndex(smr.bones[i].name, loli);
+            element.intValue = FindDeformableTransformIndex(smr.bones[i].name, companion);
         }
 
         sObj.ApplyModifiedProperties();

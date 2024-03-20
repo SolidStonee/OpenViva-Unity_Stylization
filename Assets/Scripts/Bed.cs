@@ -44,9 +44,9 @@ namespace viva
             // if( transform.parent.name == "futon (5)" ){
             // GameDirector.player.vivaControls.Keyboard.wave.performed += delegate{
             //     for( int i=1; i<GameDirector.characters.objects.Count; i++ ){
-            //         var loli = GameDirector.characters.objects[i] as Loli;
-            //         if( loli ){
-            //             AttemptCommandUse( loli, null );
+            //         var companion = GameDirector.characters.objects[i] as Companion;
+            //         if( companion ){
+            //             AttemptCommandUse( companion, null );
             //         }
             //     }
             // };
@@ -185,26 +185,26 @@ namespace viva
             forward = transform.rotation * Quaternion.Euler(0.0f, sleepingSpaceYaw, 0.0f) * Vector3.forward;
         }
 
-        public override bool AttemptCommandUse(Loli targetLoli, Character commandSource)
+        public override bool AttemptCommandUse(Companion targetCompanion, Character commandSource)
         {
-            if (targetLoli == null)
+            if (targetCompanion == null)
             {
                 return false;
             }
-            if (!CanHost(targetLoli))
+            if (!CanHost(targetCompanion))
             {
                 foreach (Bed bed in bedGroup)
                 {
-                    if (bed == this || !bed.CanHost(targetLoli))
+                    if (bed == this || !bed.CanHost(targetCompanion))
                     {
                         continue;
                     }
-                    return targetLoli.active.sleeping.AttemptBeginSleeping(bed);
+                    return targetCompanion.active.sleeping.AttemptBeginSleeping(bed);
                 }
             }
             else
             {
-                return targetLoli.active.sleeping.AttemptBeginSleeping(this);
+                return targetCompanion.active.sleeping.AttemptBeginSleeping(this);
             }
             return false;
         }

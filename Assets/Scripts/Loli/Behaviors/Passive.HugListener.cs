@@ -19,7 +19,7 @@ namespace viva
         private AutonomyEmpty hugLogic = null;
         private bool isHugging;
 
-        public HugListenerBehavior(Loli _self) : base(_self, Mathf.Infinity)
+        public HugListenerBehavior(Companion _self) : base(_self, Mathf.Infinity)
         {
         }
 
@@ -133,11 +133,11 @@ namespace viva
                 newHugAnimSide = Math.Sign(newHugAnimSide);
                 if (self.IsHappy())
                 {
-                    self.SpeakAtRandomIntervals(Loli.VoiceLine.RELIEF, 3.0f, 4.0f);
+                    self.SpeakAtRandomIntervals(Companion.VoiceLine.RELIEF, 3.0f, 4.0f);
                 }
                 else
                 {
-                    self.SpeakAtRandomIntervals(Loli.VoiceLine.ANGRY_GRUMBLE_LONG, 3.0f, 4.0f);
+                    self.SpeakAtRandomIntervals(Companion.VoiceLine.ANGRY_GRUMBLE_LONG, 3.0f, 4.0f);
                 }
             }
             hugAnimSide = Mathf.LerpUnclamped(hugAnimSide, newHugAnimSide, Time.deltaTime * 8.0f * hugStartSmooth.value);

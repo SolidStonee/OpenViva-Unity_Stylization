@@ -891,14 +891,14 @@ namespace viva
                 {
                     //impress nearby lolis
                     List<Character> characters = GameDirector.instance.FindCharactersInSphere(
-                        (int)Character.Type.LOLI,
+                        (int)Character.Type.COMPANION,
                         destCard.transform.position,
                         2.0f
                     );
                     foreach (Character character in characters)
                     {
-                        Loli loli = character as Loli;
-                        loli.active.idle.AttemptImpress();
+                        Companion companion = character as Companion;
+                        companion.active.idle.AttemptImpress();
                     }
                 }
 

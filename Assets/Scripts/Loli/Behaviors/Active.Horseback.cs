@@ -21,7 +21,7 @@ namespace viva
         public bool isOnHorse { get; private set; } = false;
 
 
-        public HorsebackBehavior(Loli _self) : base(_self, ActiveBehaviors.Behavior.HORSEBACK, new HorseSession())
+        public HorsebackBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.HORSEBACK, new HorseSession())
         {
         }
 
@@ -62,7 +62,7 @@ namespace viva
 
         private void ConfusedAndFinalizeHorseback()
         {
-            var playAnim = LoliUtility.CreateSpeechAnimation(self, AnimationSet.CONFUSED, SpeechBubble.INTERROGATION);
+            var playAnim = CompanionUtility.CreateSpeechAnimation(self, AnimationSet.CONFUSED, SpeechBubble.INTERROGATION);
             playAnim.onSuccess += delegate { self.active.SetTask(self.active.idle); };
             self.autonomy.SetAutonomy(playAnim);
         }
@@ -134,11 +134,11 @@ namespace viva
         private void OnReachHorseSide()
         {
             float horseSide = -Vector3.Dot(self.floorPos - horseSession.horse.spine1.position, horseSession.horse.spine1.forward);
-            Loli.Animation entryAnim = horseSide > 0.0f ? Loli.Animation.STAND_TO_HORSEBACK_IDLE_LEFT : Loli.Animation.STAND_TO_HORSEBACK_IDLE_RIGHT;
+            Companion.Animation entryAnim = horseSide > 0.0f ? Companion.Animation.STAND_TO_HORSEBACK_IDLE_LEFT : Companion.Animation.STAND_TO_HORSEBACK_IDLE_RIGHT;
 
             var overseeAnchor = new AutonomyEmpty(self.autonomy, "ride horse global", delegate { return null; });
 
-            var playJoyAnim = new AutonomyPlayAnimation(self.autonomy, "joy anim", Loli.Animation.HORSEBACK_JOY);
+            var playJoyAnim = new AutonomyPlayAnimation(self.autonomy, "joy anim", Companion.Animation.HORSEBACK_JOY);
             playJoyAnim.FlagForSuccess();
 
             var playJoyAnimInterval = new AutonomyWait(self.autonomy, "play joy anim", 20.0f);
@@ -185,8 +185,8 @@ namespace viva
             StabilizeBone(self.spine2.GetChild(0), stabilizeMount.value, 30.0f);
 
             //prepare hands for grabbing the horse IK
-            self.SetupArmIKForLateUpdate(self.rightLoliHandState, Loli.IKAnimation.HORSE_MOUNT_HOLD_RIGHT);
-            self.SetupArmIKForLateUpdate(self.leftLoliHandState, Loli.IKAnimation.HORSE_MOUNT_HOLD_LEFT);
+            self.SetupArmIKForLateUpdate(self.rightCompanionHandState, Companion.IKAnimation.HORSE_MOUNT_HOLD_RIGHT);
+            self.SetupArmIKForLateUpdate(self.leftCompanionHandState, Companion.IKAnimation.HORSE_MOUNT_HOLD_LEFT);
         }
 
         public void BeginMount()
@@ -240,7 +240,7 @@ namespace viva
 
         public void OnHardStop()
         {
-            self.SetTargetAnimation(Loli.Animation.HORSEBACK_HARD_STOP);
+            self.SetTargetAnimation(Companion.Animation.HORSEBACK_HARD_STOP);
         }
 
         private void StabilizeBone(Transform bone, float blend, float maxDegrees)
@@ -255,8 +255,8 @@ namespace viva
             if (horseSession.horse != null)
             {
                 self.BeginAnchorTransformAnimation(
-                    self.rootAnimationOffsets[(int)Loli.TransformOffsetAnimation.HORSE_IDLE].position,
-                    Quaternion.Euler(self.rootAnimationOffsets[(int)Loli.TransformOffsetAnimation.HORSE_IDLE].eulerRotation),
+                    self.rootAnimationOffsets[(int)Companion.TransformOffsetAnimation.HORSE_IDLE].position,
+                    Quaternion.Euler(self.rootAnimationOffsets[(int)Companion.TransformOffsetAnimation.HORSE_IDLE].eulerRotation),
                     0.0f
                 );
                 self.AnchorSpineUntilTransitionEnds(horseSession.horse.spine0);
@@ -275,14 +275,14 @@ namespace viva
                 self.onRagdollModeBegin += EndHorseLogic;
                 isOnHorse = true;
 
-                Loli.TransformOffsetAnimation offsetAnimation;
-                if (self.currentAnim == Loli.Animation.STAND_TO_HORSEBACK_IDLE_RIGHT)
+                Companion.TransformOffsetAnimation offsetAnimation;
+                if (self.currentAnim == Companion.Animation.STAND_TO_HORSEBACK_IDLE_RIGHT)
                 {
-                    offsetAnimation = Loli.TransformOffsetAnimation.HORSE_MOUNT_RIGHT;
+                    offsetAnimation = Companion.TransformOffsetAnimation.HORSE_MOUNT_RIGHT;
                 }
                 else
                 {
-                    offsetAnimation = Loli.TransformOffsetAnimation.HORSE_MOUNT_LEFT;
+                    offsetAnimation = Companion.TransformOffsetAnimation.HORSE_MOUNT_LEFT;
                 }
 
                 self.anchor.transform.SetParent(horseSession.horse.spine0, true);

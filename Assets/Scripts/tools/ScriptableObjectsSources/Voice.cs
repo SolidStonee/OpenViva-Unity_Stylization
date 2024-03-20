@@ -16,7 +16,7 @@ namespace viva
             MIGI
         }
 
-        public SoundSet[] voiceLines = new SoundSet[System.Enum.GetValues(typeof(Loli.VoiceLine)).Length];
+        public SoundSet[] voiceLines = new SoundSet[System.Enum.GetValues(typeof(Companion.VoiceLine)).Length];
         public VoiceType type;
     }
 

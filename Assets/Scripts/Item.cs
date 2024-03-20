@@ -267,7 +267,7 @@ namespace viva
         {
             return settings.playerHeldAnimation;
         }
-        public virtual Loli.HoldFormAnimation GetPreferredLoliHeldAnimation(LoliHandState loliHandState)
+        public virtual Companion.HoldFormAnimation GetPreferredLoliHeldAnimation(CompanionHandState companionHandState)
         {
             return settings.loliHeldAnimation;
         }

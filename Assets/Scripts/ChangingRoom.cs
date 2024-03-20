@@ -23,13 +23,13 @@ namespace viva
             return null;
         }
 
-        public override bool AttemptCommandUse(Loli targetLoli, Character commandSource)
+        public override bool AttemptCommandUse(Companion targetCompanion, Character commandSource)
         {
-            if (targetLoli == null)
+            if (targetCompanion == null)
             {
                 return false;
             }
-            return targetLoli.active.onsenSwimming.AttemptChangeOutOfSwimmingClothes();
+            return targetCompanion.active.onsenSwimming.AttemptChangeOutOfSwimmingClothes();
         }
 
         public override void EndUse(Character targetCharacter)

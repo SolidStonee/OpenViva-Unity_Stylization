@@ -13,28 +13,28 @@
 // 	private Item currentInterest = null;
 
 
-// 	public JealousBehavior( Loli _self ):base(_self,ActiveBehaviors.Behavior.JEALOUS,null){
+// 	public JealousBehavior( Companion _self ):base(_self,ActiveBehaviors.Behavior.JEALOUS,null){
 // 	}
 
 
 // 	public static void jobJealousCallback( Character self, Occupation occupation, OccupyType replace ){
 // 		Debug.Log("JEALOUS "+occupation+","+Time.frameCount+":"+replace);
-// 		Loli loli = self as Loli;
+// 		Companion companion = self as Companion;
 // 		switch( replace ){
 // 		case HoldType.OBJECT:
-// 			if( loli.currentAnim == Loli.Animation.STAND_ANGRY_TIP_TOE_REACH ){
-// 				if( loli.IsFaceYawAnimationEnabled()){	//if currently on floor
-// 					loli.AttemptChangeBodyState( Loli.BodyState.STAND );
-// 					loli.SetTargetAnimation(loli.GetLastReturnableIdleAnimation());
+// 			if( companion.currentAnim == Companion.Animation.STAND_ANGRY_TIP_TOE_REACH ){
+// 				if( companion.IsFaceYawAnimationEnabled()){	//if currently on floor
+// 					companion.AttemptChangeBodyState( Companion.BodyState.STAND );
+// 					companion.SetTargetAnimation(companion.GetLastReturnableIdleAnimation());
 // 				}else{
-// 					loli.OverrideClearAnimationPriority();
-// 					loli.SetTargetAnimation( Loli.Animation.STAND_ANGRY_TIP_TOE_REACH_END );
+// 					companion.OverrideClearAnimationPriority();
+// 					companion.SetTargetAnimation( Companion.Animation.STAND_ANGRY_TIP_TOE_REACH_END );
 // 				}
 // 			}
-// 			loli.active.pickup.SetPostPickupAnimationByItemType( loli.active.jealous.currentInterest.settings.itemType );
-// 			loli.SetLookAtTarget(null);
+// 			companion.active.pickup.SetPostPickupAnimationByItemType( companion.active.jealous.currentInterest.settings.itemType );
+// 			companion.SetLookAtTarget(null);
 
-// 			loli.active.SetTask( loli.active.idle, true );
+// 			companion.active.SetTask( companion.active.idle, true );
 // 			break;
 // 		}
 // 	}
@@ -58,9 +58,9 @@
 // 			self.SetViewAwarenessTimeout( 1.0f );
 
 // 			if( Random.value > 0.4f ){
-// 				self.SetTargetAnimation( Loli.Animation.STAND_ANGRY_JEALOUS );
+// 				self.SetTargetAnimation( Companion.Animation.STAND_ANGRY_JEALOUS );
 // 			}else{
-// 				self.SetTargetAnimation( Loli.Animation.STAND_LOCOMOTION_JEALOUS );
+// 				self.SetTargetAnimation( Companion.Animation.STAND_LOCOMOTION_JEALOUS );
 // 			}
 // 			return true;
 // 		}
@@ -73,8 +73,8 @@
 // 		self.locomotion.StopMoveTo();
 // 		//ensure she is not stuck looping in a job specific animation
 // 		switch( self.currentAnim ){
-// 		case Loli.Animation.STAND_LOCOMOTION_JEALOUS:
-// 		case Loli.Animation.STAND_ANGRY_TIP_TOE_REACH:
+// 		case Companion.Animation.STAND_LOCOMOTION_JEALOUS:
+// 		case Companion.Animation.STAND_ANGRY_TIP_TOE_REACH:
 // 			self.OverrideClearAnimationPriority();
 // 			self.SetTargetAnimation( self.GetLastReturnableIdleAnimation() );
 // 			break;
@@ -103,31 +103,31 @@
 // 			self.SetTargetAnimation( self.GetLastReturnableIdleAnimation() );
 // 			return;
 // 		}
-// 		if( self.currentAnim == Loli.Animation.STAND_ANGRY_JEALOUS_STEAL_RIGHT ||
-// 			self.currentAnim == Loli.Animation.STAND_ANGRY_JEALOUS_STEAL_LEFT ||
-// 			self.currentAnim == Loli.Animation.STAND_ANGRY_TIP_TOE_REACH ){
+// 		if( self.currentAnim == Companion.Animation.STAND_ANGRY_JEALOUS_STEAL_RIGHT ||
+// 			self.currentAnim == Companion.Animation.STAND_ANGRY_JEALOUS_STEAL_LEFT ||
+// 			self.currentAnim == Companion.Animation.STAND_ANGRY_TIP_TOE_REACH ){
 
 // 			if( self.rightHandState.IsCurrentlyRegistered( jobJealousCallback ) ){
-// 				Loli.LoliHandState rightHand = (Loli.LoliHandState)self.rightHandState;
-// 				self.rightLoliHandState.overrideRetargeting.SetupRetargeting(
+// 				Companion.CompanionHandState rightHand = (Companion.CompanionHandState)self.rightHandState;
+// 				self.rightCompanionHandState.overrideRetargeting.SetupRetargeting(
 // 					CalculateTipToeReachTarget( self.rightHandState ),
 // 					self.active.pickup.calculateTipToeReachArmPole( self.rightHandState ),
 // 					rightHand.armIK.ik.p1.rotation
 // 				);
 // 			}
 // 			if( self.leftHandState.IsCurrentlyRegistered( jobJealousCallback ) ){
-// 				Loli.LoliHandState leftHand = (Loli.LoliHandState)self.leftHandState;
-// 				self.leftLoliHandState.overrideRetargeting.SetupRetargeting(
-// 					CalculateTipToeReachTarget( self.leftLoliHandState ),
-// 					self.active.pickup.calculateTipToeReachArmPole( self.leftLoliHandState ),
+// 				Companion.CompanionHandState leftHand = (Companion.CompanionHandState)self.leftHandState;
+// 				self.leftCompanionHandState.overrideRetargeting.SetupRetargeting(
+// 					CalculateTipToeReachTarget( self.leftCompanionHandState ),
+// 					self.active.pickup.calculateTipToeReachArmPole( self.leftCompanionHandState ),
 // 					leftHand.armIK.ik.p1.rotation
 // 				);
 // 			}
-// 			if( self.currentAnim == Loli.Animation.STAND_ANGRY_TIP_TOE_REACH ){
+// 			if( self.currentAnim == Companion.Animation.STAND_ANGRY_TIP_TOE_REACH ){
 
 // 				if( self.IsFaceYawAnimationEnabled() ){	//is on floor with both feet
 // 					if( !IsInTipToeRange( currentInterest ) ){
-// 						self.SetTargetAnimation( Loli.Animation.STAND_LOCOMOTION_JEALOUS );
+// 						self.SetTargetAnimation( Companion.Animation.STAND_LOCOMOTION_JEALOUS );
 // 					}
 // 				}
 // 				self.SetRootFacingTarget( currentInterest.transform.position, 240.0f, 25.0f, 2.0f );
@@ -143,7 +143,7 @@
 // 				self.SetRootFacingTarget( currentInterest.transform.position, 240.0f, 35.0f, 15.0f );
 // 				if( Mathf.Abs( bearing ) < 35.0f ){
 // 					if( IsInTipToeRange( currentInterest ) ){
-// 						self.SetTargetAnimation( Loli.Animation.STAND_ANGRY_TIP_TOE_REACH );
+// 						self.SetTargetAnimation( Companion.Animation.STAND_ANGRY_TIP_TOE_REACH );
 // 					}else{
 // 						//set random steal hand
 // 						int stealHand = -1;
@@ -156,10 +156,10 @@
 // 						}
 // 						switch( stealHand ){
 // 						case 0:
-// 							self.SetTargetAnimation( Loli.Animation.STAND_ANGRY_JEALOUS_STEAL_RIGHT );
+// 							self.SetTargetAnimation( Companion.Animation.STAND_ANGRY_JEALOUS_STEAL_RIGHT );
 // 							break;
 // 						case 1:
-// 							self.SetTargetAnimation( Loli.Animation.STAND_ANGRY_JEALOUS_STEAL_LEFT );
+// 							self.SetTargetAnimation( Companion.Animation.STAND_ANGRY_JEALOUS_STEAL_LEFT );
 // 							break;
 // 						default:
 // 							break;
@@ -167,10 +167,10 @@
 
 // 						self.SetLookAtTarget( currentInterest.transform );
 // 					}
-// 					self.active.pickup.SetPostPickupAnimation( Loli.Animation.STAND_LOCOMOTION_JEALOUS );
+// 					self.active.pickup.SetPostPickupAnimation( Companion.Animation.STAND_LOCOMOTION_JEALOUS );
 // 				}
-// 			}else if( self.currentAnim == Loli.Animation.STAND_ANGRY_TIP_TOE_REACH ){
-// 				self.SetTargetAnimation( Loli.Animation.STAND_ANGRY_TIP_TOE_REACH_END);
+// 			}else if( self.currentAnim == Companion.Animation.STAND_ANGRY_TIP_TOE_REACH ){
+// 				self.SetTargetAnimation( Companion.Animation.STAND_ANGRY_TIP_TOE_REACH_END);
 // 			}else{
 // 				Vector3? nearest = self.locomotion.FindNearestWalkablePoint( currentInterest.transform.position, 0.45f, 0.0f, 2.0f, 0 );
 // 				if( nearest.HasValue ){
@@ -180,9 +180,9 @@
 // 						self.locomotion.FollowPath( newPath );
 // 					}
 // 				}
-// 				self.SetTargetAnimation( Loli.Animation.STAND_LOCOMOTION_JEALOUS );
-// 				if( !self.IsSpeakingAtAll() && self.currentAnim == Loli.Animation.STAND_LOCOMOTION_JEALOUS ){
-// 					self.SpeakAtRandomIntervals( Loli.VoiceLine.ANGRY_LONG, 2.5f, 5.0f );
+// 				self.SetTargetAnimation( Companion.Animation.STAND_LOCOMOTION_JEALOUS );
+// 				if( !self.IsSpeakingAtAll() && self.currentAnim == Companion.Animation.STAND_LOCOMOTION_JEALOUS ){
+// 					self.SpeakAtRandomIntervals( Companion.VoiceLine.ANGRY_LONG, 2.5f, 5.0f );
 // 				}
 // 			}
 // 		}
@@ -200,16 +200,16 @@
 
 // 	public override void OnLateUpdatePostIK(){
 
-// 		if( self.currentAnim == Loli.Animation.STAND_ANGRY_TIP_TOE_REACH ){
+// 		if( self.currentAnim == Companion.Animation.STAND_ANGRY_TIP_TOE_REACH ){
 // 			if( self.active.pickup.AttemptPhysicallyPickupItem( self.rightHandState, currentInterest, 0.45f ) ){
 // 				//endJobJealous();
 // 			}else if( self.active.pickup.AttemptPhysicallyPickupItem( self.leftHandState, currentInterest, 0.45f ) ){
 // 				//endJobJealous();
 // 			}
 // 		}else if( Time.time-stealCurrentFlagTime == 0.0f ){
-// 			if( self.currentAnim == Loli.Animation.STAND_ANGRY_JEALOUS_STEAL_RIGHT ){
+// 			if( self.currentAnim == Companion.Animation.STAND_ANGRY_JEALOUS_STEAL_RIGHT ){
 // 				AttemptStealItem( self.rightHandState );
-// 			}else if( self.currentAnim == Loli.Animation.STAND_ANGRY_JEALOUS_STEAL_LEFT ){
+// 			}else if( self.currentAnim == Companion.Animation.STAND_ANGRY_JEALOUS_STEAL_LEFT ){
 // 				AttemptStealItem( self.leftHandState );
 // 			}
 // 		}
@@ -243,7 +243,7 @@
 // 		if( Vector3.SqrMagnitude(currentInterest.transform.position-handState.fingerAnimator.hand.position) < 0.06f ){
 
 // 			handState.GrabItemRigidBody( currentInterest );
-// 			self.active.pickup.SetPostPickupAnimation( Loli.Animation.STAND_ANGRY_IDLE1 );
+// 			self.active.pickup.SetPostPickupAnimation( Companion.Animation.STAND_ANGRY_IDLE1 );
 // 		}
 // 		self.locomotion.PlayForce( Random.insideUnitSphere*Random.value*0.5f, 0.3f );
 // 	}

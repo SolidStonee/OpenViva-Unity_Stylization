@@ -16,7 +16,7 @@ namespace viva.console
         {
             Name = "Create Character";
             Command = "createcharacter";
-            Description = "Creates Loli's";
+            Description = "Creates Companion's";
             Help = "Syntax: createcharacter <card name> \n" +
                    $"<color={RequiredColor}><card name></color> is required!";
             Example = "createcharacter shinobu, createcharacter kyaru";

@@ -56,7 +56,7 @@ namespace viva
         public virtual void OnMechanismTriggerExit(MechanismCollisionCallback self, Collider collider)
         {
         }
-        public abstract bool AttemptCommandUse(Loli targetLoli, Character commandSource);
+        public abstract bool AttemptCommandUse(Companion targetCompanion, Character commandSource);
 
         public abstract void EndUse(Character targetCharacter);
 

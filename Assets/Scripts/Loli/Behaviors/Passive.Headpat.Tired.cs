@@ -5,11 +5,11 @@ namespace viva
     public partial class HeadpatBehavior : PassiveBehaviors.PassiveTask
     {
 
-        private Loli.Animation GetTiredHeadpatStartAnimation()
+        private Companion.Animation GetTiredHeadpatStartAnimation()
         {
-            return Loli.Animation.STAND_TIRED_HEADPAT_IDLE;
+            return Companion.Animation.STAND_TIRED_HEADPAT_IDLE;
         }
-        private Loli.Animation GetTiredHeadpatIdleAnimation()
+        private Companion.Animation GetTiredHeadpatIdleAnimation()
         {
             return GetTiredHeadpatStartAnimation(); //same animation
         }

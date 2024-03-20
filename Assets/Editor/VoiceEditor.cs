@@ -60,9 +60,9 @@ public class LoliEditor : EditorWindow
     {
 
         SerializedProperty listProperty = sObj.FindProperty("voiceLines");
-        if (listProperty.arraySize != System.Enum.GetValues(typeof(Loli.VoiceLine)).Length)
+        if (listProperty.arraySize != System.Enum.GetValues(typeof(Companion.VoiceLine)).Length)
         {
-            listProperty.arraySize = System.Enum.GetValues(typeof(Loli.VoiceLine)).Length;
+            listProperty.arraySize = System.Enum.GetValues(typeof(Companion.VoiceLine)).Length;
             return;
         }
         Voice sourceObject = sObj.targetObject as Voice;
@@ -74,7 +74,7 @@ public class LoliEditor : EditorWindow
             for (int i = 0; i < listProperty.arraySize; i++)
             {
                 SerializedProperty elementProperty = listProperty.GetArrayElementAtIndex(i);
-                string enumName = ((Loli.VoiceLine)i).ToString().ToLower();
+                string enumName = ((Companion.VoiceLine)i).ToString().ToLower();
                 string assetName = VOICES_ROOT + typeName + "/" + typeName + "_" + enumName + ".asset";
                 if (System.IO.File.Exists(assetName))
                 {
@@ -93,7 +93,7 @@ public class LoliEditor : EditorWindow
             SerializedProperty elementProperty = listProperty.GetArrayElementAtIndex(i);
             Rect drawZone = GUILayoutUtility.GetRect(300f, 18f, GUILayout.MaxWidth(300));
 
-            string enumName = ((Loli.VoiceLine)i).ToString().ToLower();
+            string enumName = ((Companion.VoiceLine)i).ToString().ToLower();
 
             //get state color
             bool incomplete = false;

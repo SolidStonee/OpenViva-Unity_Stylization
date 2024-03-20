@@ -34,7 +34,7 @@ MonoBehaviour:
   m_toggleHolding: 1
   m_iconEulerAngles: {x: 0, y: 0, z: 0}
   m_pickupAnimMaintainsYaw: 0
-  m_buoyancySphereRadius: 0
+  m_buoyancySphereRadius: 0.1
   m_buoyancyEuler: {x: 0, y: 0, z: 0}
   m_buoyancyStrength: 2
   m_splashSounds: {fileID: 11400000, guid: d33b59fa9556e442c9e5977a1389e3dd, type: 2}

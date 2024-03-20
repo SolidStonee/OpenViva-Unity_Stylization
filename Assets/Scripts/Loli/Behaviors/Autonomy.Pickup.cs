@@ -9,7 +9,7 @@ namespace viva
     {
 
         protected Item targetItem { get; private set; }
-        protected LoliHandState targetHandState { get; private set; }
+        protected CompanionHandState targetHandState { get; private set; }
         private BlendController lastRightBlendController;
         private BlendController lastLeftBlendController;
 
@@ -20,10 +20,10 @@ namespace viva
         private Vector3 begTargetPos = Vector3.zero;
         public bool begging { get; private set; } = false;
         private readonly bool allowBegging;
-        public Loli.BodyStateAnimationSet overrideAnimationSets;
+        public Companion.BodyStateAnimationSet overrideAnimationSets;
 
 
-        public AutonomyPickup(Autonomy _autonomy, string _name, Item _targetItem, LoliHandState _targetHandState, bool _allowBegging = true) : base(_autonomy, _name)
+        public AutonomyPickup(Autonomy _autonomy, string _name, Item _targetItem, CompanionHandState _targetHandState, bool _allowBegging = true) : base(_autonomy, _name)
         {
             targetItem = _targetItem;
 
@@ -45,7 +45,7 @@ namespace viva
             OnTargetItemOccupyStateChanged(null, targetItem.mainOccupyState);
         }
 
-        public void SetTargetHandState(LoliHandState newTargetHandState)
+        public void SetTargetHandState(CompanionHandState newTargetHandState)
         {
             targetHandState = newTargetHandState;
             maintainItem = targetItem.mainOccupyState == targetHandState;
@@ -119,7 +119,7 @@ namespace viva
             begging = true;
             if (playBegStartAnim == null)
             {
-                playBegStartAnim = new AutonomyPlayAnimation(self.autonomy, "play beg start anim", Loli.Animation.STAND_HAPPY_BEG_START);
+                playBegStartAnim = new AutonomyPlayAnimation(self.autonomy, "play beg start anim", Companion.Animation.STAND_HAPPY_BEG_START);
                 playBegStartAnim.AddPassive(new AutonomyFaceDirection(self.autonomy, "face beg item", delegate (TaskTarget target) { target.SetTargetItem(targetItem); }, 1.0f, 10.0f));
 
                 playBegStartAnim.onSuccess += BeginBegLogic;
@@ -127,11 +127,11 @@ namespace viva
 
                 if (!self.rightHandState.occupied)
                 {
-                    lastRightBlendController = new BlendController(self.rightLoliHandState, Loli.Animation.STAND_HAPPY_BEG_LOCOMOTION, OnBegIKControl, 0.7f);
+                    lastRightBlendController = new BlendController(self.rightCompanionHandState, Companion.Animation.STAND_HAPPY_BEG_LOCOMOTION, OnBegIKControl, 0.7f);
                 }
                 if (!self.leftHandState.occupied)
                 {
-                    lastLeftBlendController = new BlendController(self.leftLoliHandState, Loli.Animation.STAND_HAPPY_BEG_LOCOMOTION, OnBegIKControl, 0.7f);
+                    lastLeftBlendController = new BlendController(self.leftCompanionHandState, Companion.Animation.STAND_HAPPY_BEG_LOCOMOTION, OnBegIKControl, 0.7f);
                 }
                 PrependRequirement(playBegStartAnim);
             }
@@ -215,23 +215,23 @@ namespace viva
             return Mathf.Cos(t) * 0.5f + 0.5f;
         }
 
-        private Loli.Animation GetBegLocomotionAnimation()
+        private Companion.Animation GetBegLocomotionAnimation()
         {
 
             float sqDist = Vector3.SqrMagnitude(self.floorPos - targetItem.transform.position);
             if (sqDist < 6.0f)
             {
-                return Loli.Animation.STAND_HAPPY_BEG_LOCOMOTION;
+                return Companion.Animation.STAND_HAPPY_BEG_LOCOMOTION;
             }
             else
             {
-                return Loli.Animation.STAND_HAPPY_IDLE1;
+                return Companion.Animation.STAND_HAPPY_IDLE1;
             }
         }
 
         private void ValidateBegProximityAnimation(AutonomyPlayAnimation begAnim)
         {
-            Loli.Animation overrideAnim = GetBegLocomotionAnimation();
+            Companion.Animation overrideAnim = GetBegLocomotionAnimation();
             if (begAnim.entryAnimation != overrideAnim)
             {
                 begAnim.Reset();
@@ -250,13 +250,13 @@ namespace viva
             float sqDist = Vector3.SqrMagnitude(self.head.position - targetItem.transform.position);
             if (sqDist > 24.0f)
             {
-                var failAnim = new AutonomyPlayAnimation(self.autonomy, "fail beg distance", Loli.Animation.STAND_HAPPY_DISAPPOINTMENT);
+                var failAnim = new AutonomyPlayAnimation(self.autonomy, "fail beg distance", Companion.Animation.STAND_HAPPY_DISAPPOINTMENT);
                 self.autonomy.SetAutonomy(failAnim);
                 self.active.SetTask(self.active.idle);
             }
         }
 
-        public static float SetupReachIKControl(BlendController blendController, Vector3 targetPos, Loli self)
+        public static float SetupReachIKControl(BlendController blendController, Vector3 targetPos, Companion self)
         {
             float pickupHeight = targetPos.y - self.floorPos.y;
             pickupHeight = Mathf.Clamp01(pickupHeight);
@@ -348,16 +348,16 @@ namespace viva
             }
         }
 
-        public static Vector3 CalculatePickupPole(float sign, Loli self)
+        public static Vector3 CalculatePickupPole(float sign, Companion self)
         {
             return self.floorPos + self.transform.right * sign * 0.4f - self.transform.forward * 0.5f;
         }
 
-        protected override Loli.Animation GetTargetAnimation()
+        protected override Companion.Animation GetTargetAnimation()
         {
             if (targetHandState == null || targetItem == null)
             {
-                return Loli.Animation.NONE;
+                return Companion.Animation.NONE;
             }
             if (targetItem.mainOwner != self)
             {
@@ -369,14 +369,14 @@ namespace viva
             }
         }
 
-        private Loli.Animation GetFirstValidAnimationSet(AnimationSet animSet)
+        private Companion.Animation GetFirstValidAnimationSet(AnimationSet animSet)
         {
-            var animation = Loli.Animation.NONE;
+            var animation = Companion.Animation.NONE;
             if (overrideAnimationSets != null)
             {
                 animation = overrideAnimationSets.GetRandomAnimationSet(animSet);
             }
-            if (animation == Loli.Animation.NONE)
+            if (animation == Companion.Animation.NONE)
             {
                 animation = self.GetAnimationFromSet(animSet);
             }

@@ -155,7 +155,7 @@ Material:
     - _Refraction_Speed: 0.075
     - _Refraction_Strength: 0.05
     - _SecondaryScale: 0.0046
-    - _Smoothness: 0
+    - _Smoothness: 0.37
     - _SmoothnessTextureChannel: 0
     - _SpecSize: 1
     - _SpecStrength: 48

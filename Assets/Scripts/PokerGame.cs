@@ -113,9 +113,9 @@ namespace viva
             return true;
         }
 
-        public override bool AttemptCommandUse(Loli targetLoli, Character commandSource)
+        public override bool AttemptCommandUse(Companion targetCompanion, Character commandSource)
         {
-            int index = FindPlayerByCharacter(targetLoli);
+            int index = FindPlayerByCharacter(targetCompanion);
             if (index != -1)
             {
                 SendPlayerTurnAction(index);
@@ -285,12 +285,12 @@ namespace viva
             Debug.Log("[Poker Game] Ended game");
             foreach (Player player in players)
             {
-                if (player.character.characterType == Character.Type.LOLI)
+                if (player.character.characterType == Character.Type.COMPANION)
                 {
-                    Loli loli = player.character as Loli;
-                    if (loli.active.IsTaskActive(loli.active.poker))
+                    Companion companion = player.character as Companion;
+                    if (companion.active.IsTaskActive(companion.active.poker))
                     {
-                        loli.active.SetTask(loli.active.idle, true);
+                        companion.active.SetTask(companion.active.idle, true);
                     }
                 }
                 if (player.inGameIndicator)
@@ -418,10 +418,10 @@ namespace viva
 
         private void SendPokerGameAction(Character character, Action action)
         {
-            if (character.characterType == Character.Type.LOLI)
+            if (character.characterType == Character.Type.COMPANION)
             {
-                Loli loli = character as Loli;
-                loli.active.poker.OnPokerGameAction(action);
+                Companion companion = character as Companion;
+                companion.active.poker.OnPokerGameAction(action);
             }
             else
             {
@@ -514,7 +514,7 @@ namespace viva
                 Player player = players[index];
 
                 //prevent main player from peeking at cards
-                if (player.character.characterType == Character.Type.LOLI)
+                if (player.character.characterType == Character.Type.COMPANION)
                 {
                     baseCard.SetShowFrontValueModel(false);
                 }
@@ -567,10 +567,10 @@ namespace viva
 
             if (winner != null)
             {
-                Loli winnerLoli = winner.character as Loli;
-                if (winnerLoli)
+                Companion winnerCompanion = winner.character as Companion;
+                if (winnerCompanion)
                 {
-                    winnerLoli.active.poker.OnPokerGameAction(Action.WIN);
+                    winnerCompanion.active.poker.OnPokerGameAction(Action.WIN);
                 }
                 SetStatusMesh(Status.WINNER);
             }
@@ -584,10 +584,10 @@ namespace viva
                 {
                     continue;
                 }
-                Loli loserLoli = player.character as Loli;
-                if (loserLoli)
+                Companion loserCompanion = player.character as Companion;
+                if (loserCompanion)
                 {
-                    loserLoli.active.poker.OnPokerGameAction(Action.LOSE);
+                    loserCompanion.active.poker.OnPokerGameAction(Action.LOSE);
                 }
             }
 
@@ -614,7 +614,7 @@ namespace viva
             card.SetLastOwner(null);
 
             //restore main player peeking at card
-            if (player.character.characterType == Character.Type.LOLI)
+            if (player.character.characterType == Character.Type.COMPANION)
             {
                 card.SetShowFrontValueModel(true);
             }

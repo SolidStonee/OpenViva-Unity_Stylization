@@ -18,7 +18,7 @@ namespace viva
         private float coldWaterFill = 0.0f;
 
 
-        public override bool AttemptCommandUse(Loli targetLoli, Character commandSource)
+        public override bool AttemptCommandUse(Companion targetCompanion, Character commandSource)
         {
             return false;
         }

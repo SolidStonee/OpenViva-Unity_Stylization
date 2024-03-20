@@ -30,7 +30,7 @@ namespace viva
                 return true;    //default allows all
             }
 
-            public ActiveTask(Loli _self, Behavior _type, SerializedTaskData _session) : base(_self, JobType.ACTIVE)
+            public ActiveTask(Companion _self, Behavior _type, SerializedTaskData _session) : base(_self, JobType.ACTIVE)
             {
                 type = _type;
                 session = _session;
@@ -99,7 +99,7 @@ namespace viva
         private bool recursionLock = false;
 
 
-        public ActiveBehaviors(Loli _self, ActiveBehaviorSettings _settings) : base(_self, Job.JobType.ACTIVE)
+        public ActiveBehaviors(Companion _self, ActiveBehaviorSettings _settings) : base(_self, Job.JobType.ACTIVE)
         {
 
             settings = _settings;
@@ -260,7 +260,7 @@ namespace viva
         {
             currentTask.OnLateUpdatePostIK();
         }
-        public override void OnAnimationChange(Loli.Animation oldAnim, Loli.Animation newAnim)
+        public override void OnAnimationChange(Companion.Animation oldAnim, Companion.Animation newAnim)
         {
             currentTask.OnAnimationChange(oldAnim, newAnim);
         }
