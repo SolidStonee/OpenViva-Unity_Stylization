@@ -10,7 +10,7 @@ namespace viva
 
         public void OnTriggerEnter(Collider collider)
         {
-            Player player = collider.GetComponent<Player>();
+            Camera player = collider.GetComponent<Camera>();
             if (!player) return;
 
             if (exploreCounter == 0)
