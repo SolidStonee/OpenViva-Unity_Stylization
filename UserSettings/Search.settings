@@ -113,10 +113,9 @@ recentSearches = [
 searchItemFavorites = [
 ]
 savedSearchesSortOrder = 0
-showSavedSearchPanel = false
+showSavedSearchPanel = true
 hideTabs = false
-expandedQueries = [
-]
+expandedQueries = [-1765347274]
 queryBuilder = false
 ignoredProperties = "id;name;classname;imagecontentshash"
 helperWidgetCurrentArea = "all"
