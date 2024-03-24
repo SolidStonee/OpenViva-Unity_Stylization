@@ -75,12 +75,13 @@ namespace viva
         }
         public void CompleteAchievement(ObjectiveType objective, Achievement ach)
         {
-            ach.Trigger();
+            
 
             if (IsAchievementComplete(objective))
             {
                 return;
             }
+            ach.Trigger();
             objectives[(int)objective] = true;
             pauseMenu.DisplayHUDMessage(GetAchievementDescription(objective), true, PauseMenu.HintType.ACHIEVEMENT);
         }

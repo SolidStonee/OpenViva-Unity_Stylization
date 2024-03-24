@@ -3385,7 +3385,6 @@ GameObject:
   - component: {fileID: 350684851282601936}
   - component: {fileID: 350684851282601942}
   - component: {fileID: 350684851282601937}
-  - component: {fileID: 5019082437282195753}
   m_Layer: 0
   m_Name: window(Clone)
   m_TagString: Untagged
@@ -3459,16 +3458,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!41 &5019082437282195753
-OcclusionPortal:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 350684851282601939}
-  m_Open: 1
-  m_Center: {x: 0, y: 0, z: -0.00556398}
-  m_Size: {x: 0.1, y: 0.1, z: 0.057360675}
 --- !u!1 &350684851323533597
 GameObject:
   m_ObjectHideFlags: 0

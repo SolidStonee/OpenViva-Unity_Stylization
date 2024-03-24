@@ -310,7 +310,7 @@ MonoBehaviour:
       internalCollisionIgnores:
         ignoreAll: 0
         muscles: []
-        groups: 
+        groups: 0300000004000000010000000500000006000000
       animatedTargetChildren: []
     parentIndexes: 
     childIndexes: 
@@ -340,7 +340,7 @@ MonoBehaviour:
       internalCollisionIgnores:
         ignoreAll: 0
         muscles: []
-        groups: 
+        groups: 0300000004000000010000000500000006000000
       animatedTargetChildren: []
     parentIndexes: 
     childIndexes: 
@@ -370,7 +370,7 @@ MonoBehaviour:
       internalCollisionIgnores:
         ignoreAll: 0
         muscles: []
-        groups: 
+        groups: 0300000004000000010000000500000006000000
       animatedTargetChildren: []
     parentIndexes: 
     childIndexes: 
@@ -400,7 +400,7 @@ MonoBehaviour:
       internalCollisionIgnores:
         ignoreAll: 0
         muscles: []
-        groups: 
+        groups: 0300000004000000010000000500000006000000
       animatedTargetChildren: []
     parentIndexes: 
     childIndexes: 
@@ -430,7 +430,7 @@ MonoBehaviour:
       internalCollisionIgnores:
         ignoreAll: 0
         muscles: []
-        groups: 
+        groups: 0300000004000000010000000500000006000000
       animatedTargetChildren: []
     parentIndexes: 
     childIndexes: 
@@ -460,7 +460,7 @@ MonoBehaviour:
       internalCollisionIgnores:
         ignoreAll: 0
         muscles: []
-        groups: 
+        groups: 0300000004000000010000000500000006000000
       animatedTargetChildren: []
     parentIndexes: 
     childIndexes: 
