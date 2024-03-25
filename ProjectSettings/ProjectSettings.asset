@@ -836,11 +836,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 3431456a-ae5e-444e-9181-0792f1a2a30c
+  cloudProjectId: fb58ba4a-a1db-4f97-9e94-a7a5bb75ee27
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: ShinobuProject2
-  organizationId: sgthale
+  projectName: OpenViva
+  organizationId: dubes9643
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 1
   hmiLoadingImage: {fileID: 0}
