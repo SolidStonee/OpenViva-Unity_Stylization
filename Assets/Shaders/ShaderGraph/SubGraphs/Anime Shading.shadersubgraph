@@ -1036,7 +1036,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "Vector1_D271B9C0",
     "m_StageCapability": 3,
-    "m_Value": 0.5,
+    "m_Value": 0.8999999761581421,
     "m_DefaultValue": 0.0,
     "m_Labels": []
 }
@@ -3494,7 +3494,7 @@
     "m_StageCapability": 3,
     "m_BareResource": false,
     "m_Texture": {
-        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"a8c4120ceb35eeb4aa745bcdd9bc7688\",\"type\":3}}",
+        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"9e5a29a9a2d80ec4b86f332efe95b2e9\",\"type\":3}}",
         "m_Guid": ""
     },
     "m_DefaultType": 0

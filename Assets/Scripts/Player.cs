@@ -164,7 +164,7 @@ namespace viva
             vivaControls.Keyboard.keyboardAlt.canceled += ctx => keyboardAlt = ctx.ReadValueAsButton();
             vivaControls.Keyboard.mouseVelocity.performed += ctx => mouseVelocity = ctx.ReadValue<Vector2>();
             vivaControls.Keyboard.mousePosition.performed += ctx => mousePosition = ctx.ReadValue<Vector2>();
-            vivaControls.Keyboard.handScrolling.performed += ctx => handScrolling = ctx.ReadValue<Vector2>();
+            vivaControls.Keyboard.handScrolling.performed += ctx => OnInputScroll(ctx.ReadValue<Vector2>());
                 
             vivaControls.Keyboard.wave.performed += ctx => OnInputWaveRightHand();
             vivaControls.Keyboard.follow.performed += ctx => OnInputFollowRightHand();

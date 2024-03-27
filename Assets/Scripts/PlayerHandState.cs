@@ -513,7 +513,7 @@ namespace viva
                 //fingerAnimator.wrist.position = owner.head.TransformPoint(freezeKeyboardLocalPosition.Value);
                 //fingerAnimator.wrist.rotation = owner.head.rotation * freezeKeyboardLocalRotation;
             }
-
+            
             Vector3 targetRigidBodyPos = fingerAnimator.wrist.position;
             Quaternion targetRigidBodyRot = fingerAnimator.wrist.rotation;
             Vector3 posDelta = targetRigidBodyPos - selfItem.transform.position;
@@ -523,7 +523,7 @@ namespace viva
             }
             else
             {
-                selfItem.rigidBody.AddForce(posDelta * 64.0f * forceMultiplier, ForceMode.VelocityChange);
+                selfItem.rigidBody.AddForce(posDelta * 70.0f * forceMultiplier, ForceMode.VelocityChange);
             }
             Quaternion rotForce = targetRigidBodyRot * Quaternion.Inverse(selfItem.transform.rotation);
             float rotForceScalar = 128.0f * rotForce.w * forceMultiplier;

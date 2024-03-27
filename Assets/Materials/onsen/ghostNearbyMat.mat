@@ -94,7 +94,7 @@ Material:
     - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 5
-    - _Strength: -0.2
+    - _Strength: -0.8256742
     - _UVSec: 0
     - _ZWrite: 0
     m_Colors:

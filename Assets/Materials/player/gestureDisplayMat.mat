@@ -63,7 +63,7 @@ Material:
     m_Floats:
     - _Alpha: 0.7
     - _BumpScale: 1
-    - _ClockProgress: 0.1023233
+    - _ClockProgress: 0.3394009
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0

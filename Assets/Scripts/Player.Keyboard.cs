@@ -14,6 +14,7 @@ namespace viva
         public float keyboardTargetHeight = 1.4f;
         public float keyboardStandingHeight = 1.4f;
         public float keyboardFloorHeight = 0.5f;
+        public float keyboardArmatureZoom = 0.5f;
         private float keyboardMaxHeightOverride = 1.4f;
         private float enableMouseRotationMult = 1.0f;
         private Coroutine halfCrouchCoroutine = null;
@@ -75,7 +76,7 @@ namespace viva
 
         public void ApplyHeadTransformToArmature()
         {
-            armature.position = head.position + head.forward * 0.5f;
+            armature.position = head.position + head.forward * Mathf.Lerp(0.2f, 0.8f, keyboardArmatureZoom);
             armature.rotation = head.rotation * Quaternion.Euler(-90.0f, 0.0f, 0.0f);
         }
         public void UpdateGUIKeyboardShortcuts()
@@ -99,6 +100,22 @@ namespace viva
         public void SetKeyboardMouseRotationMult(float mult)
         {
             enableMouseRotationMult = mult;
+        }
+
+        public void OnInputScroll(Vector2 scroll)
+        {
+            Debug.Log("Scroll.X: " + scroll.x + " Scroll.Y: " + scroll.y);
+            if (scroll.y > 0)
+            {
+                keyboardArmatureZoom += 0.15f;
+            }
+            if(scroll.y < 0)
+            {
+                keyboardArmatureZoom -= 0.15f;
+            }
+
+            keyboardArmatureZoom = Mathf.Clamp(keyboardArmatureZoom, 0, 1);
+
         }
 
         public void OnInputTogglePresentHand(PlayerHandState handState)

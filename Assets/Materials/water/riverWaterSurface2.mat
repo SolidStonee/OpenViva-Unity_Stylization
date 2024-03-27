@@ -131,7 +131,7 @@ Material:
     - _FoamMax: 0.5
     - _FoamMin: 0
     - _FoamScale: 0.2
-    - _Foam_Amount: 0.69
+    - _Foam_Amount: 1
     - _Foam_Cutoff: 2
     - _Foam_Scale: 30
     - _Foam_Speed: 1
@@ -172,7 +172,7 @@ Material:
     - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
     - _Foam_Color: {r: 1, g: 1, b: 1, a: 1}
     - _PrimaryWaterColor: {r: 0.43787822, g: 0.45283014, b: 0.4508096, a: 0}
-    - _Refraction_Scale: {r: 3, g: 10, b: 0, a: 0}
+    - _Refraction_Scale: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _SecondaryColor: {r: 0.7161356, g: 0.72040015, b: 0.7264151, a: 0}
     - _SubsurfaceColor: {r: 0.6179246, g: 0.9597815, b: 1, a: 1}
     - _SurfColor: {r: 0, g: 0.7725491, b: 0.6627451, a: 0.2627451}
