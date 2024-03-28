@@ -12,7 +12,6 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _METALLICSPECGLOSSMAP
   - _NORMALMAP
   - _SPECULARHIGHLIGHTS_OFF
   m_InvalidKeywords: []
@@ -189,7 +188,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 24dd633937ec86f4ca07192d3b77a33c, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MirrorTex:
@@ -426,7 +425,7 @@ Material:
     - _BlendMode: 0
     - _BlendModePreserveSpecular: 1
     - _Brightness: 1
-    - _BumpScale: 1
+    - _BumpScale: 0
     - _ClampAdditive: 0
     - _ClearCoat: 0
     - _ClearCoatMask: 0
