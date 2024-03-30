@@ -125,10 +125,6 @@ namespace viva
             {
                 m_characters.objects[i].OnCharacterFixedUpdate();
             }
-            foreach (DynamicBone db in m_dynamicBones.objects)
-            {
-                db.StepPhysics();
-            }
         }
 
         private void Update()

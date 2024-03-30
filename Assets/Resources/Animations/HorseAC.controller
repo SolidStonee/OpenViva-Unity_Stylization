@@ -98,7 +98,7 @@ BlendTree:
   m_BlendType: 2
 --- !u!1102 &-6823225040712383508
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -125,7 +125,7 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1107 &-6563986473865859865
 AnimatorStateMachine:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -177,7 +177,7 @@ AnimatorStateMachine:
   m_DefaultState: {fileID: -152151302081784278}
 --- !u!1102 &-6416785077631019211
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -204,7 +204,7 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1102 &-6045197910109197143
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -230,7 +230,7 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1102 &-5613066796523334226
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -258,7 +258,7 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1102 &-4753742852047463557
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -392,7 +392,7 @@ BlendTree:
   m_BlendType: 0
 --- !u!1102 &-152151302081784278
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -452,7 +452,7 @@ AnimatorController:
     m_Controller: {fileID: 9100000}
 --- !u!1102 &36912149660751357
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -654,7 +654,7 @@ BlendTree:
   m_BlendType: 0
 --- !u!1102 &5030366367525004070
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -682,7 +682,7 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1102 &5326314526656110504
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -709,7 +709,7 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1102 &6609133970351118036
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -736,7 +736,7 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1102 &6684595822244606187
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -785,7 +785,7 @@ AnimatorStateTransition:
   m_CanTransitionToSelf: 1
 --- !u!1102 &6971871727411132737
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}

@@ -14,16 +14,17 @@ namespace viva
         private float pickupTimer = 0.0f;
         private float cachedElasticity = 0.0f;
 
-        public override void Collide(int particleIndex, ref Vector3 particlePosition, float particleRadius)
+        public override bool Collide(ref Vector3 particlePosition, float particleRadius)
         {
             if (targetIndex > 0.0f)
             {
-                float strength = Mathf.Clamp01(targetIndex - particleIndex);
-                strength *= Mathf.Clamp01(pickupTimer / 0.4f);
-
+                float strength = Mathf.Clamp01(targetIndex) * Mathf.Clamp01(pickupTimer / 0.4f);
                 particlePosition = Vector3.LerpUnclamped(particlePosition, grabTransform.position, strength);
+                return true;
             }
+            return false;
         }
+
 
         public void RecalculateGrabIndex()
         {
