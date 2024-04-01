@@ -752,8 +752,8 @@ namespace viva
             for (int i = 0; i < baseBones.Length; i++)
             {
                 Transform bone = baseBones[i];
-                bone.localPosition = GameDirector.instance.loliBasePose.positions[i];
-                bone.localRotation = GameDirector.instance.loliBasePose.quaternions[i];
+                bone.localPosition = GameDirector.instance.companionBasePose.positions[i];
+                bone.localRotation = GameDirector.instance.companionBasePose.quaternions[i];
             }
 
             //try to load the textures automatically

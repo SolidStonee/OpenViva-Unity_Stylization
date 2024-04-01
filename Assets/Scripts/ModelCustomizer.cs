@@ -243,9 +243,9 @@ namespace viva
                     EndActiveCoroutineAction("Could not deserialize Viva model!");
                     yield break;
                 }
-                var serializedLoli = new GameDirector.VivaFile.SerializedLoli(vivaModelFilePath, new GameDirector.VivaFile.SerializedAsset(vivaModelFilePath));
+                var serializedCompanion = new GameDirector.VivaFile.SerializedCompanion(vivaModelFilePath, new GameDirector.VivaFile.SerializedAsset(vivaModelFilePath));
                 bool finished = false;
-                GameDirector.instance.StartCoroutine(createModelRequest.result.InitializeLoli(serializedLoli, delegate
+                GameDirector.instance.StartCoroutine(createModelRequest.result.InitializeCompanion(serializedCompanion, delegate
                 {
                     finished = true;
                 }));

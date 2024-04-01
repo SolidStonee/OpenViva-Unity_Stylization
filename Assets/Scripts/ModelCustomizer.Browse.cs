@@ -75,10 +75,10 @@ namespace viva
                 EndActiveCoroutineAction(cardRequest.error);
                 yield break;
             }
-            var serializedLoli = new GameDirector.VivaFile.SerializedLoli(name, new GameDirector.VivaFile.SerializedAsset(name));
+            var serializedCompanion = new GameDirector.VivaFile.SerializedCompanion(name, new GameDirector.VivaFile.SerializedAsset(name));
 
             bool finished = false;
-            GameDirector.instance.StartCoroutine(modelDefault.InitializeLoli(serializedLoli, delegate
+            GameDirector.instance.StartCoroutine(modelDefault.InitializeCompanion(serializedCompanion, delegate
             {
                 finished = true;
             }));

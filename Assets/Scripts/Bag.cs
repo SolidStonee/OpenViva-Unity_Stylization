@@ -167,7 +167,7 @@ namespace viva
             switch (mainOwner.characterType)
             {
                 case Character.Type.COMPANION:
-                    LateUpdateLoliUsage(mainOwner as Companion);
+                    LateUpdateCompanionUsage(mainOwner as Companion);
                     break;
                 case Character.Type.PLAYER:
                     LateUpdatePlayerUsage(mainOwner as Player);
@@ -277,7 +277,7 @@ namespace viva
             return true;
         }
 
-        private void LateUpdateLoliUsage(Companion companion)
+        private void LateUpdateCompanionUsage(Companion companion)
         {
 
             if (isOnShoulder)
@@ -333,12 +333,12 @@ namespace viva
             }
         }
 
-        public void FlagWearOnLoliShoulder(bool side)
+        public void FlagWearOnCompanionShoulder(bool side)
         {
             flagAttachAfterIK = side;
         }
 
-        private void InitializeWearOnLoliShoulder(bool rightShoulder)
+        private void InitializeWearOnCompanionShoulder(bool rightShoulder)
         {
 
             Companion companion = mainOwner as Companion;
@@ -374,7 +374,7 @@ namespace viva
         {
             if (flagAttachAfterIK.HasValue)
             {
-                InitializeWearOnLoliShoulder(flagAttachAfterIK.Value);
+                InitializeWearOnCompanionShoulder(flagAttachAfterIK.Value);
                 flagAttachAfterIK = null;
             }
             ApplyHangOnHand();

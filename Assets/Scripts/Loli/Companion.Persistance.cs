@@ -62,30 +62,30 @@ namespace viva
                 Debug.LogError("[PERSISTANCE] Could not save companion " + name);
                 return;
             }
-            var selfAsset = new GameDirector.VivaFile.SerializedLoli(headModel.sourceCardFilename, serializedAsset);
+            var selfAsset = new GameDirector.VivaFile.SerializedCompanion(headModel.sourceCardFilename, serializedAsset);
             serializedAsset.transform.position = floorPos;
             serializedAsset.transform.rotation = Quaternion.LookRotation(Tools.FlatForward(spine1RigidBody.transform.forward), Vector3.up);
 
-            selfAsset.activeTaskSession = new GameDirector.VivaFile.SerializedLoli.SerializedTaskData(active.currentTask);
+            selfAsset.activeTaskSession = new GameDirector.VivaFile.SerializedCompanion.SerializedTaskData(active.currentTask);
             selfAsset.serviceIndex = Service.GetServiceIndex(this); //-1 if null
-            vivaFile.loliAssets.Add(selfAsset);
+            vivaFile.companionAssets.Add(selfAsset);
         }
 
         //applies all serialized properties and awakens companion scripts
-        public IEnumerator InitializeLoli(GameDirector.VivaFile.SerializedLoli serializedLoli, OnGenericCallback onFinish)
+        public IEnumerator InitializeCompanion(GameDirector.VivaFile.SerializedCompanion serializedCompanion, OnGenericCallback onFinish)
         {
 
-            if (serializedLoli == null)
+            if (serializedCompanion == null)
             {
-                Debug.LogError("[Companion] LoliAsset is null!");
+                Debug.LogError("[Companion] Companion Asset is null!");
                 yield break;
             }
 
             //apply serialized properties
             var cdm = new CoroutineDeserializeManager();
-            GameDirector.instance.StartCoroutine(SerializedVivaProperty.Deserialize(serializedLoli.propertiesAsset.properties, this, cdm));
-            transform.position = serializedLoli.propertiesAsset.transform.position;
-            transform.rotation = serializedLoli.propertiesAsset.transform.rotation;
+            GameDirector.instance.StartCoroutine(SerializedVivaProperty.Deserialize(serializedCompanion.propertiesAsset.properties, this, cdm));
+            transform.position = serializedCompanion.propertiesAsset.transform.position;
+            transform.rotation = serializedCompanion.propertiesAsset.transform.rotation;
 
             while (!cdm.finished)
             {
@@ -95,20 +95,20 @@ namespace viva
             gameObject.SetActive(true); //call character awake
 
             //employ into service if any
-            if (serializedLoli.serviceIndex >= 0 && serializedLoli.serviceIndex < GameDirector.instance.town.services.Count)
+            if (serializedCompanion.serviceIndex >= 0 && serializedCompanion.serviceIndex < GameDirector.instance.town.services.Count)
             {
-                var service = GameDirector.instance.town.services[serializedLoli.serviceIndex];
+                var service = GameDirector.instance.town.services[serializedCompanion.serviceIndex];
                 if (service.Employ(this))
                 {
                     //match task with service
-                    serializedLoli.activeTaskSession.taskIndex = (int)service.targetBehavior;
+                    serializedCompanion.activeTaskSession.taskIndex = (int)service.targetBehavior;
                 }
             }
             //apply active session if any
-            if (serializedLoli.activeTaskSession != null)
+            if (serializedCompanion.activeTaskSession != null)
             {
-                var task = active.GetTask((ActiveBehaviors.Behavior)serializedLoli.activeTaskSession.taskIndex);
-                GameDirector.instance.StartCoroutine(SerializedVivaProperty.Deserialize(serializedLoli.activeTaskSession.properties, task.session, cdm));
+                var task = active.GetTask((ActiveBehaviors.Behavior)serializedCompanion.activeTaskSession.taskIndex);
+                GameDirector.instance.StartCoroutine(SerializedVivaProperty.Deserialize(serializedCompanion.activeTaskSession.properties, task.session, cdm));
                 active.SetTask(task, null);
             }
 

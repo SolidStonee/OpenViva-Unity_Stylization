@@ -889,7 +889,7 @@ namespace viva
                 cardsAnimated++;
                 if (cardsAnimated > 20)
                 {
-                    //impress nearby lolis
+                    //impress nearby companions
                     List<Character> characters = GameDirector.instance.FindCharactersInSphere(
                         (int)Character.Type.COMPANION,
                         destCard.transform.position,

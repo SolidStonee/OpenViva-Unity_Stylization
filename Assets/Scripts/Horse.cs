@@ -66,28 +66,7 @@ namespace viva
         public Rigidbody rigidBody { get; private set; }
         private float hardStopTimer = 0;
         private bool horseHintPlayed = false;
-        private float[,] clopPaceFrames = {
-    {
-        9.0f/32.0f,
-        15.0f/32.0f,
-        25.0f/32.0f,
-        31.0f/32.0f,
-    },{
-        0.0f/24.0f,
-        0.1f/24.0f,
-        12.0f/24.0f,
-        12.1f/24.0f,
-    },{
-        3.0f/18.0f,
-        11.0f/18.0f,
-        14.0f/18.0f,
-        17.0f/18.0f,
-    },{
-        2.0f/16.0f,
-        11.0f/16.0f,
-        14.0f/16.0f,
-        17.0f/16.0f,
-    },};
+
 
         [SerializeField]
         private AudioClip[] neighSounds;
@@ -253,6 +232,7 @@ namespace viva
             realSpeed = Mathf.MoveTowards(realSpeed, targetSpeed, Time.deltaTime * turnSpeed);
             animator.SetFloat(sideID, smoothSide);
             animator.SetFloat(speedID, realSpeed);
+            Debug.Log("Speed: " + realSpeed);
             if (riderStates <= 0)
             {
                 targetSide = 0;
@@ -280,39 +260,45 @@ namespace viva
                     SoundManager.main.RequestHandle(mouthSource.position).PlayOneShot(noseSound);
                 }
             }
-            if (lastVelocity > 0.003f && averageFloorNormal.HasValue)
-            {
-                int clopPaceIndex = Mathf.Clamp(Mathf.RoundToInt(realSpeed), 1, 4) - 1;
-                if (paceCloppingFrame < lastPaceCloppingFrame)
-                {
-                    PlayClopPaceFrame(clopPaceIndex, lastPaceCloppingFrame, 1.0f);
-                    PlayClopPaceFrame(clopPaceIndex, 0.0f, paceCloppingFrame);
-                }
-                else
-                {
-                    PlayClopPaceFrame(clopPaceIndex, lastPaceCloppingFrame, paceCloppingFrame);
-                }
-            }
+            // if (lastVelocity > 0.003f && averageFloorNormal.HasValue)
+            // {
+            //     int clopPaceIndex = Mathf.Clamp(Mathf.RoundToInt(realSpeed), 1, 4) - 1;
+            //     if (paceCloppingFrame < lastPaceCloppingFrame)
+            //     {
+            //         PlayClopPaceFrame(clopPaceIndex, lastPaceCloppingFrame, 1.0f);
+            //         PlayClopPaceFrame(clopPaceIndex, 0.0f, paceCloppingFrame);
+            //     }
+            //     else
+            //     {
+            //         PlayClopPaceFrame(clopPaceIndex, lastPaceCloppingFrame, paceCloppingFrame);
+            //     }
+            // }
             lastPaceCloppingFrame = paceCloppingFrame;
         }
 
-        private void PlayClopPaceFrame(int clopPaceIndex, float prev, float next)
+        private int currentStep = 0;
+        private float lastPlayTime = 0.0f;
+
+        //Animation Event
+        private void PlayClopSound()
         {
-            for (int i = 0; i < 4; i++)
-            {
-                float clopPace = clopPaceFrames[clopPaceIndex, i];
-                AudioClip sound;
-                int index = i;
-                if (i % 2 == 1)
-                {
-                    index += 2;
-                }
-                sound = footstepInfo.sounds[(int)footstepInfo.currentType].sounds[i];
-                if (clopPace > prev && clopPace <= next)
-                {
-                    SoundManager.main.RequestHandle(hoovesSource.position).PlayOneShot(sound);
-                }
+            float currentTime = Time.time;
+            float realSpeed = animator.GetFloat(speedID);
+            
+            float maxSpeed = 4.0f;
+            float speedFactor = Mathf.Clamp01(realSpeed / maxSpeed);
+            float currentInterval = Mathf.Lerp(0.35f, 0.075f, speedFactor);
+            
+            if (lastVelocity > 0.003f && averageFloorNormal.HasValue && currentTime - lastPlayTime >= currentInterval) {
+                int soundIndex = currentStep % 2; //alternate between footstep sounds
+                AudioClip sound = footstepInfo.sounds[(int)footstepInfo.currentType].sounds[soundIndex];
+
+                SoundManager.main.RequestHandle(hoovesSource.position).PlayOneShot(sound);
+
+                lastPlayTime = currentTime;
+                currentStep++;
             }
+        
         }
 
         protected void PlayRandomClopSound()
@@ -436,8 +422,8 @@ namespace viva
             for (int x = -2; x <= 2; x++)
             {
                 RaycastHit? obstacleSample = SampleFloorNormal(
-                    transform.TransformPoint(obstacleSamplePos + Vector3.forward * x * 0.1f),
-                    transform.TransformDirection(obstacleSampleDir + Vector3.forward * x * 0.2f),
+                    transform.TransformPoint(obstacleSamplePos + Vector3.forward * (x * 0.1f)),
+                    transform.TransformDirection(obstacleSampleDir + Vector3.forward * (x * 0.2f)),
                     wallSampleDistance
                 );
                 if (obstacleSample.HasValue)

@@ -269,7 +269,7 @@ namespace viva
         }
         public virtual Companion.HoldFormAnimation GetPreferredLoliHeldAnimation(CompanionHandState companionHandState)
         {
-            return settings.loliHeldAnimation;
+            return settings.companionHeldAnimation;
         }
         public virtual void OnItemFixedUpdate()
         {

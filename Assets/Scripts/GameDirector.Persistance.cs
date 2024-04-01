@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace viva
 {
@@ -282,7 +283,7 @@ namespace viva
             public string languageName;
 
             [System.Serializable]
-            public class SerializedLoli
+            public class SerializedCompanion
             {
 
                 //defines assigned active task session data
@@ -312,7 +313,7 @@ namespace viva
                 public int serviceIndex = -1;
 
 
-                public SerializedLoli(string _sourceCardFilename, SerializedAsset _propertiesAsset)
+                public SerializedCompanion(string _sourceCardFilename, SerializedAsset _propertiesAsset)
                 {
                     sourceCardFilename = _sourceCardFilename;
                     propertiesAsset = _propertiesAsset;
@@ -350,7 +351,7 @@ namespace viva
             }
 
             public List<SerializedAsset> serializedAssets = new List<SerializedAsset>();
-            public List<SerializedLoli> loliAssets = new List<SerializedLoli>();
+            [FormerlySerializedAs("loliAssets")] public List<SerializedCompanion> companionAssets = new List<SerializedCompanion>();
         }
 
         public void Save()
@@ -431,17 +432,17 @@ namespace viva
             {
                 afterFirstLoadHints.SetActive(true);
 
-                //load lolis
+                // Load Companions
                 var cdm = new CoroutineDeserializeManager();
 
-                var toLoad = new List<Tuple<Companion, VivaFile.SerializedLoli>>();
-                foreach (var serializedLoli in file.loliAssets)
+                var toLoad = new List<Tuple<Companion, VivaFile.SerializedCompanion>>();
+                foreach (var serializedCompanion in file.companionAssets)
                 {
-                    var targetLoli = GameDirector.instance.GetLoliFromPool();
+                    var targetLoli = GameDirector.instance.GetCompanionFromPool();
                     cdm.waiting++;
-                    StartCoroutine(Companion.LoadLoliFromSerializedLoli(serializedLoli.sourceCardFilename, targetLoli, delegate
+                    StartCoroutine(Companion.LoadLoliFromSerializedLoli(serializedCompanion.sourceCardFilename, targetLoli, delegate
                     {
-                        toLoad.Add(new Tuple<Companion, VivaFile.SerializedLoli>(targetLoli, serializedLoli));
+                        toLoad.Add(new Tuple<Companion, VivaFile.SerializedCompanion>(targetLoli, serializedCompanion));
                         cdm.waiting--;
                     }
                     ));
@@ -468,7 +469,7 @@ namespace viva
                 foreach (var entry in toLoad)
                 {
                     cdm.waiting++;
-                    StartCoroutine(entry._1.InitializeLoli(entry._2, delegate
+                    StartCoroutine(entry._1.InitializeCompanion(entry._2, delegate
                     {
                         cdm.waiting--;
                     }));

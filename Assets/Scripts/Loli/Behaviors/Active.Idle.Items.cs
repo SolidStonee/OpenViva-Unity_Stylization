@@ -118,11 +118,11 @@ namespace viva
 
             if (self.rightHandState.heldItem && self.rightHandState.heldItem.settings.itemType == Item.Type.BAG)
             {
-                (self.rightHandState.heldItem as Bag).FlagWearOnLoliShoulder(false);
+                (self.rightHandState.heldItem as Bag).FlagWearOnCompanionShoulder(false);
             }
             else if (self.leftHandState.heldItem && self.leftHandState.heldItem.settings.itemType == Item.Type.BAG)
             {
-                (self.leftHandState.heldItem as Bag).FlagWearOnLoliShoulder(true);
+                (self.leftHandState.heldItem as Bag).FlagWearOnCompanionShoulder(true);
             }
         }
 

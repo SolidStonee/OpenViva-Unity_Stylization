@@ -105,7 +105,7 @@ namespace viva
 
             if (collision.gameObject.layer == WorldUtil.outofbounds)
             {
-                TeleportToSpawn(GameDirector.instance.loliRespawnPoint.transform.position, transform.rotation);
+                TeleportToSpawn(GameDirector.instance.companionRespawnPoint.transform.position, transform.rotation);
             }
 
             bool isNotFoot = ccc.collisionPart != CharacterCollisionCallback.Type.LEFT_FOOT && ccc.collisionPart != CharacterCollisionCallback.Type.RIGHT_FOOT;

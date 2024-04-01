@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e57c2093f279784aaca8507db96c180, type: 3}
-  m_Name: LoliSettings
+  m_Name: CompanionSettings
   m_EditorClassIdentifier: 
   m_bodyImpactSoftSound: {fileID: 11400000, guid: 1468827beb272e74cab1a4538f5c0e4d,
     type: 2}

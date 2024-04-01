@@ -23,17 +23,17 @@ namespace viva
         [SerializeField]
         private Player m_player;
         [SerializeField]
-        private GameObject loliPrefab;
+        private GameObject companionPrefab;
         [SerializeField]
-        private Transform loliPool;
+        private Transform companionPool;
         [SerializeField]
-        public Transform loliRespawnPoint;
+        public Transform companionRespawnPoint;
         [SerializeField]
-        private PoseCache m_loliBasePose;
-        public PoseCache loliBasePose { get { return m_loliBasePose; } }
+        private PoseCache m_companionBasePose;
+        public PoseCache companionBasePose { get { return m_companionBasePose; } }
         [FormerlySerializedAs("m_allLoliSettings")] [SerializeField]
-        private CompanionSettings mAllCompanionSettings;
-        public CompanionSettings companionSettings { get { return mAllCompanionSettings; } }
+        private CompanionSettings m_AllCompanionSettings;
+        public CompanionSettings companionSettings { get { return m_AllCompanionSettings; } }
         [SerializeField]
         private Texture2D[] speechBubbleTextures = new Texture2D[System.Enum.GetValues(typeof(SpeechBubble)).Length];
 
@@ -51,15 +51,15 @@ namespace viva
         }
 
 
-        public Companion GetLoliFromPool()
+        public Companion GetCompanionFromPool()
         {
-            if (loliPool.childCount == 0)
+            if (companionPool.childCount == 0)
             {
-                var container = GameObject.Instantiate(loliPrefab, Vector3.zero, Quaternion.identity);
+                var container = GameObject.Instantiate(companionPrefab, Vector3.zero, Quaternion.identity);
                 var newLoli = container.GetComponent<Companion>();
                 return newLoli;
             }
-            var result = loliPool.GetChild(0);
+            var result = companionPool.GetChild(0);
             result.transform.SetParent(null, true);
             return result.GetComponent<Companion>(); ;
         }

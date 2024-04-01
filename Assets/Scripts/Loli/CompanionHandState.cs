@@ -119,7 +119,7 @@ namespace viva
             //initialize animator layer
             Companion companion = owner as Companion;
             companion.animator.CrossFade(
-                Companion.holdAnimationStates[(int)heldItem.settings.loliHeldAnimation],
+                Companion.holdAnimationStates[(int)heldItem.settings.companionHeldAnimation],
                 0.0f,
                 GetAnimatorHandLayer(),
                 0.0f

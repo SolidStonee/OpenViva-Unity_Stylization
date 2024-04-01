@@ -6,7 +6,7 @@ using UnityEngine;
 namespace viva
 {
 
-    using LoliInit = Tuple<Companion, GameDirector.VivaFile.SerializedLoli>;
+    using CompanionInit = Tuple<Companion, GameDirector.VivaFile.SerializedCompanion>;
 
     public class Town : VivaSessionAsset
     {
@@ -43,13 +43,13 @@ namespace viva
             {
                 return;
             }
-            List<LoliInit> startingTownLolis = new List<LoliInit>();
+            List<CompanionInit> startingTownCompanions = new List<CompanionInit>();
             Debug.Log("[Town] Generating " + count + " companion residents...");
             for (int i = 0; i < count; i++)
             {
                 var cardFilename = cards[i % cards.Length] + ".png";                                                          
-                var serializedLoli = new GameDirector.VivaFile.SerializedLoli(cardFilename, new GameDirector.VivaFile.SerializedAsset(cardFilename));
-                var targetLoli = GameDirector.instance.GetLoliFromPool();
+                var serializedLoli = new GameDirector.VivaFile.SerializedCompanion(cardFilename, new GameDirector.VivaFile.SerializedAsset(cardFilename));
+                var targetLoli = GameDirector.instance.GetCompanionFromPool();
                 string path = ModelCustomizer.main.characterCardBrowser.cardFolder + "/" + cardFilename;
                 if (!File.Exists(path))
                 {
@@ -57,20 +57,20 @@ namespace viva
                 }   
                 GameDirector.instance.StartCoroutine(Companion.LoadLoliFromSerializedLoli(serializedLoli.sourceCardFilename, targetLoli, delegate ()
                 {
-                    startingTownLolis.Add(new LoliInit(targetLoli, serializedLoli));
-                    if (startingTownLolis.Count == count)
+                    startingTownCompanions.Add(new CompanionInit(targetLoli, serializedLoli));
+                    if (startingTownCompanions.Count == count)
                     {
-                        PrepareTownLolis(startingTownLolis, defaultSpawnPos);
+                        PrepareTownCompanions(startingTownCompanions, defaultSpawnPos);
                     }
                 }
                 ));
             }
         }
 
-        private void PrepareTownLolis(List<LoliInit> startingTownLolis, Vector3? defaultSpawnPos)
+        private void PrepareTownCompanions(List<CompanionInit> startingTownCompanions, Vector3? defaultSpawnPos)
         {
 
-            int loliIndex = startingTownLolis.Count;
+            int index = startingTownCompanions.Count;
             if (!defaultSpawnPos.HasValue)
             {
                 for (int i = 0; i < services.Count; i++)
@@ -78,18 +78,18 @@ namespace viva
                     var service = services[i];
 
                     int employeeInfosAvailable = service.employeeInfosAvailable;
-                    while (employeeInfosAvailable-- > 0 && loliIndex-- > 0)
+                    while (employeeInfosAvailable-- > 0 && index-- > 0)
                     {
                         var employeeSlot = service.GetEmployeeInfo(employeeInfosAvailable);
                         var worldSpawnPosition = service.transform.TransformPoint(employeeSlot.localPos);
                         var worldSpawnForward = service.transform.TransformDirection(employeeSlot.localRootFacePos);
-                        startingTownLolis[loliIndex]._2.serviceIndex = i;
-                        startingTownLolis[loliIndex]._2.propertiesAsset.transform.position = worldSpawnPosition;
-                        startingTownLolis[loliIndex]._2.propertiesAsset.transform.rotation = Quaternion.LookRotation(worldSpawnForward, Vector3.up);
+                        startingTownCompanions[index]._2.serviceIndex = i;
+                        startingTownCompanions[index]._2.propertiesAsset.transform.position = worldSpawnPosition;
+                        startingTownCompanions[index]._2.propertiesAsset.transform.rotation = Quaternion.LookRotation(worldSpawnForward, Vector3.up);
                     }
                 }
             }
-            while (loliIndex-- > 0)
+            while (index-- > 0)
             {
                 int nodeIndex = Random.Range(0, mainWaypoints.nodes.Length - 1);
                 Vector3 worldSpawnPosition;
@@ -101,12 +101,12 @@ namespace viva
                 {
                     worldSpawnPosition = transform.TransformPoint(mainWaypoints.nodes[nodeIndex].position);
                 }
-                startingTownLolis[loliIndex]._2.propertiesAsset.transform.position = worldSpawnPosition;
+                startingTownCompanions[index]._2.propertiesAsset.transform.position = worldSpawnPosition;
             }
 
-            foreach (var pair in startingTownLolis)
+            foreach (var pair in startingTownCompanions)
             {
-                GameDirector.instance.StartCoroutine(pair._1.InitializeLoli(pair._2, null));
+                GameDirector.instance.StartCoroutine(pair._1.InitializeCompanion(pair._2, null));
             }
         }
     }
