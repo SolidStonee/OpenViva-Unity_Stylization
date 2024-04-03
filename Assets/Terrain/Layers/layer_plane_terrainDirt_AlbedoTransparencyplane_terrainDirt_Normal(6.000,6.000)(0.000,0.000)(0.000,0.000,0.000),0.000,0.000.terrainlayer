@@ -7,16 +7,16 @@ TerrainLayer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: layer_plane_terrainDirt_AlbedoTransparencyplane_terrainDirt_Normal(6.000,6.000)(0.000,0.000)(0.000,0.000,0.000),0.000,0.000
-  m_DiffuseTexture: {fileID: 2800000, guid: 218936057c2fd974299d84dcad3ef976, type: 3}
-  m_NormalMapTexture: {fileID: 2800000, guid: 1ef4f28e7a696324a8531eeffbe1dc7a, type: 3}
-  m_MaskMapTexture: {fileID: 0}
+  m_DiffuseTexture: {fileID: 2800000, guid: fc9555b7c504bc840b953cc878ebf92d, type: 3}
+  m_NormalMapTexture: {fileID: 2800000, guid: 3e1e2b49440a0c746af218b54aa7285b, type: 3}
+  m_MaskMapTexture: {fileID: 2800000, guid: 989fd87ff1f743746ab770ba8ecf9197, type: 3}
   m_TileSize: {x: 8, y: 8}
   m_TileOffset: {x: 0, y: 0}
   m_Specular: {r: 0, g: 0, b: 0, a: 0}
   m_Metallic: 0
   m_Smoothness: 0
-  m_NormalScale: 0.31
+  m_NormalScale: 0.125
   m_DiffuseRemapMin: {x: 0, y: 0, z: 0, w: 0}
   m_DiffuseRemapMax: {x: 1, y: 1, z: 1, w: 1}
-  m_MaskMapRemapMin: {x: 0, y: 0, z: 0, w: 0}
-  m_MaskMapRemapMax: {x: 1, y: 1, z: 1, w: 1}
+  m_MaskMapRemapMin: {x: 0, y: 0.5, z: 0, w: 0}
+  m_MaskMapRemapMax: {x: 0, y: 1, z: 0, w: 0}
