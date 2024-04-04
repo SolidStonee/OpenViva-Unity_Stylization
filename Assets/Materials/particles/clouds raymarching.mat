@@ -129,8 +129,8 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _CloudColorA: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    - _CloudColorB: {r: 1, g: 1, b: 1, a: 1}
+    - _CloudColorA: {r: 0.4584353, g: 0.48204133, b: 0.46012193, a: 1}
+    - _CloudColorB: {r: 1, g: 0.9868701, b: 0.9670758, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorA: {r: 1, g: 1, b: 1, a: 1}
     - _ColorB: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 1}
