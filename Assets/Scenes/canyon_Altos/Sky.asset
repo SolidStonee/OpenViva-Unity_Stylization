@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9a6db46ea1f40743af6eb0ed0193136, type: 3}
+  m_Name: Sky
+  m_EditorClassIdentifier: 
+  environmentLightingExposure: 1
+  environmentLightingSaturation: 1
+  periodsOfDay:
+  - description: Night End
+    startTime: 5.5
+    horizonColor: {r: 0.011764706, g: 0.011764706, b: 0.02745098, a: 0}
+    zenithColor: {r: 0.011764706, g: 0.011764706, b: 0.043137256, a: 0}
+    groundColor: {r: 0.019607844, g: 0.015686275, b: 0.019607844, a: 0}
+  - description: Dawn
+    startTime: 6
+    horizonColor: {r: 0.4528302, g: 0.24195907, b: 0.087575644, a: 0}
+    zenithColor: {r: 0.103181764, g: 0.09021698, b: 0.262, a: 0}
+    groundColor: {r: 0.07008724, g: 0.07290534, b: 0.084905684, a: 0}
+  - description: Day
+    startTime: 9.1
+    horizonColor: {r: 0.48380208, g: 0.5967927, b: 0.6792453, a: 0}
+    zenithColor: {r: 0.06909563, g: 0.099198654, b: 0.23251227, a: 0}
+    groundColor: {r: 0.05660379, g: 0.045561332, b: 0.04026345, a: 0}
+  - description: Day End
+    startTime: 16.5
+    horizonColor: {r: 0.66180134, g: 0.6967497, b: 0.8301887, a: 1}
+    zenithColor: {r: 0.054512277, g: 0.13728885, b: 0.46226418, a: 0}
+    groundColor: {r: 0.056128494, g: 0.045186214, b: 0.04091521, a: 0}
+  - description: Evening
+    startTime: 17
+    horizonColor: {r: 0.6603774, g: 0.45372912, b: 0.3270737, a: 0}
+    zenithColor: {r: 0.6226415, g: 0.1967782, b: 0.38605088, a: 0}
+    groundColor: {r: 0.066037714, g: 0.040888004, b: 0.02953007, a: 0}
+  - description: Night
+    startTime: 20.54
+    horizonColor: {r: 0.011709091, g: 0.012727273, b: 0.027999999, a: 0}
+    zenithColor: {r: 0.013523999, g: 0.013523999, b: 0.042, a: 0}
+    groundColor: {r: 0.019, g: 0.017642858, b: 0.019, a: 0}
+  initialTime: 0
+  editorTime: 12
+  timeSystem: 12
+  dayNightCycleDuration: 1

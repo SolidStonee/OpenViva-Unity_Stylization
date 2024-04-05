@@ -283,7 +283,7 @@ namespace viva
                 case "left":
                     return GameDirector.player.leftPlayerHandState;
                 default:
-                    Debug.LogError("HandState was null from string! Did you spell it incorrectly?");
+                    Debug.LogError("HandState is null");
                     return null;
             }            
         }
@@ -484,6 +484,28 @@ namespace viva
             dist = Mathf.Sqrt(dist);
             return Mathf.Atan2(local.y, dist) * Mathf.Rad2Deg;
         }
+        
+        public static float Remap(float value, float iMin, float iMax, float oMin, float oMax)
+        {
+            value = Mathf.Clamp(value, iMin, iMax);
+            float a = Mathf.InverseLerp(iMin, iMax, value);
+            return Mathf.Lerp(oMin, oMax, a);
+        }
+        
+        public static float RemapFrom01(float value, float oMin, float oMax)
+        {
+            value = Mathf.Clamp01(value);
+            return oMin + (oMax - oMin) * value;
+        }
+        
+        public static float RemapTo01(float value, float iMin, float iMax)
+        {
+            // Ensure value is within the input range
+            value = Mathf.Clamp(value, iMin, iMax);
+
+            // Calculate the remapped value in the [0, 1] range
+            return (value - iMin) / (iMax - iMin);
+        }
 
         public static float EaseInOutCubic(float t)
         {
@@ -500,6 +522,102 @@ namespace viva
         public static float EaseOutQuad(float t)
         {
             return t * (2.0f - t);
+        }
+
+        public static float EaseIn(float x)
+        {
+            return x * x;
+        }
+
+        public static float EaseOut(float x)
+        {
+            return 1.0f - EaseIn(1.0f - x);
+        }
+        
+        public static float EaseInOut(float x)
+        {
+            float a = EaseIn(x);
+            float b = EaseOut(x);
+            return Mathf.Lerp(a, b, x);
+        }
+        
+        public static float Frac(float x)
+        {
+            return Mathf.Abs(x - (int)x);
+        }
+        
+        public static float Random(float x, float seed = 0.546f)
+        {
+            return Frac(Mathf.Sin((x + 0.3804f) * seed) * 143758.5453f);
+        }
+
+        public static float Smoothstep(float a, float b, float t)
+        {
+            float x = EaseInOut(t);
+            return RemapFrom01(x, a, b);
+        }
+        
+        public static float GradientNoise(float x)
+        {
+            float f = Frac(x);
+            float t = EaseInOut(f);
+
+            float previousInclination = (Random(Mathf.Floor(x)) * 2f) - 1f;
+            float previousPoint = previousInclination * f;
+
+            float nextInclination = (Random(Mathf.Ceil(x)) * 2f) - 1f;
+            float nextPoint = nextInclination * (f - 1f);
+            return Mathf.Lerp(previousPoint, nextPoint, t);
+        }
+
+        public static float GradientNoiseLayered(float x, float frequency, int octaves, float lacunarity, float gain)
+        {
+            float v = 0;
+            float amp = 1;
+            for (int i = 0; i < octaves; i++)
+            {
+                v += GradientNoise(x * frequency + i * 0.16291f) * amp;
+                x *= lacunarity;
+                amp *= gain;
+            }
+            return v;
+        }
+        
+        public static float GetDensityFromVisibilityDistance(float distance)
+        {
+            const float factor = 3.912023005f;
+            return factor / distance;
+        }
+
+        public static void ClearRenderTexture(RenderTexture textureToClear)
+        {
+            RenderTexture activeTexture = RenderTexture.active;
+            RenderTexture.active = textureToClear;
+            GL.Clear(true, true, new Color(0.0f, 0.0f, 0.0f, 1.0f));
+            RenderTexture.active = activeTexture;
+        }
+
+        public static Mesh CreateQuad(float width = 1f, float height = 1f)
+        {
+            Mesh mesh = new Mesh();
+
+            float w = width * 0.5f;
+            float h = height * 0.5f;
+
+            Vector3[] verts = new Vector3[4] { new Vector3(w, -h, 0), new Vector3(-w, -h, 0), new Vector3(w, h, 0), new Vector3(-w, h, 0) };
+
+            int[] tris = new int[6] { 0, 2, 1, 2, 3, 1 };
+
+            Vector3[] normals = new Vector3[4] { Vector3.forward, Vector3.forward, Vector3.forward, Vector3.forward, };
+
+            Vector2[] uvs = new Vector2[4] { new Vector2(0, 0), new Vector2(1, 0), new Vector2(0, 1), new Vector2(1, 1), };
+
+            mesh.vertices = verts;
+            mesh.triangles = tris;
+            mesh.normals = normals;
+            mesh.uv = uvs;
+
+            return mesh;
         }
 
         public static Vector3 ClampWithinSphere(Vector3 point, Vector3 center, float radius)
