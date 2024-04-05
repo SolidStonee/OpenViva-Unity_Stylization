@@ -9648,6 +9648,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 836676071618152067, guid: 5b2daad5228ceca4195bdd7e89ee1368,
         type: 3}
+      propertyPath: m_Range
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 836676071618152067, guid: 5b2daad5228ceca4195bdd7e89ee1368,
+        type: 3}
       propertyPath: m_BounceIntensity
       value: 0
       objectReference: {fileID: 0}
@@ -18933,8 +18938,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 836676071618152067, guid: 5b2daad5228ceca4195bdd7e89ee1368,
         type: 3}
+      propertyPath: m_Range
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 836676071618152067, guid: 5b2daad5228ceca4195bdd7e89ee1368,
+        type: 3}
       propertyPath: m_Intensity
-      value: 0.1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 836676071618152067, guid: 5b2daad5228ceca4195bdd7e89ee1368,
         type: 3}
