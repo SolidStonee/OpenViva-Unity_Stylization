@@ -60728,6 +60728,11 @@ PrefabInstance:
       propertyPath: m_CullingMask.m_Bits
       value: 41942839
       objectReference: {fileID: 0}
+    - target: {fileID: 3103189429344274814, guid: b124d9c00e413b5499c60dbca0277db0,
+        type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3687436907098291618, guid: b124d9c00e413b5499c60dbca0277db0,
         type: 3}
       propertyPath: m_Name
