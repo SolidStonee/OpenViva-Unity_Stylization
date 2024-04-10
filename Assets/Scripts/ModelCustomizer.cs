@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
+using Viva.Util;
 
 
-namespace viva
+namespace Viva
 {
 
     public class ModelBuildSettings
@@ -258,34 +260,34 @@ namespace viva
                 modelPreviewer.SetPreviewLoli(createModelRequest.result);
             }
             //load textures if applicable
-            Tools.FileTextureRequest[] requests;
+            FileTextureRequest[] requests;
             if (textureCount != 0)
             {
-                requests = new Tools.FileTextureRequest[textureCount];
+                requests = new FileTextureRequest[textureCount];
                 textureCount = 0;
                 foreach (string file in files)
                 {
                     if (file.ToLower().Split('.').Last() == "png")
                     {
-                        requests[textureCount++] = new Tools.FileTextureRequest(file);
+                        requests[textureCount++] = new FileTextureRequest(file);
                     }
                 }
             }
             else if (modelPreviewer.modelDefault != null)
             {  //if no texture files dropped, try to load all by model name
                 string headModelName = modelPreviewer.modelDefault.headModel.name;
-                requests = new Tools.FileTextureRequest[3];
-                requests[0] = new Tools.FileTextureRequest(
+                requests = new FileTextureRequest[3];
+                requests[0] = new FileTextureRequest(
                     headModelName + ".png",
                     new Vector2Int[] { new Vector2Int(1024, 1024) },
                     "Character texture must be 1024x1024!"
                 );
-                requests[1] = new Tools.FileTextureRequest(
+                requests[1] = new FileTextureRequest(
                     headModelName + "_pupil_r.png",
                     new Vector2Int[] { new Vector2Int(512, 512) },
                     "*_pupil_r.png must be 512x512!"
                 );
-                requests[2] = new Tools.FileTextureRequest(
+                requests[2] = new FileTextureRequest(
                     headModelName + "_pupil_l.png",
                     new Vector2Int[] { new Vector2Int(512, 512) },
                     "*_pupil_l.png must be 512x512!"
@@ -293,17 +295,17 @@ namespace viva
             }
             else
             {
-                requests = new Tools.FileTextureRequest[0];
+                requests = new FileTextureRequest[0];
             }
-            foreach (Tools.FileTextureRequest request in requests)
+            foreach (FileTextureRequest request in requests)
             {
-                yield return GameDirector.instance.StartCoroutine(Tools.LoadFileTexture(request));
+                yield return GameDirector.instance.StartCoroutine(LoadFileTexture(request));
             }
 
             if (modelPreviewer.modelDefault != null)
             {
                 //apply textures to model
-                foreach (Tools.FileTextureRequest request in requests)
+                foreach (FileTextureRequest request in requests)
                 {
                     if (request.result == null)
                     {
@@ -411,6 +413,79 @@ namespace viva
                 activeCoroutine = null;
             }
             StopLoadingCycle();
+        }
+
+        public class FileTextureRequest
+        {
+
+            public readonly string filename;
+            public Texture2D result;
+            public string error = null;
+            public readonly Vector2Int[] targetSizes;
+            public readonly string targetSizeError;
+            public int targetSizeIndex = -1;
+
+            public FileTextureRequest(string _filename, Vector2Int[] _targetSizes = null, string _targetSizeError = null)
+            {
+                filename = _filename;
+                targetSizes = _targetSizes;
+                targetSizeError = _targetSizeError;
+            }
+        }
+
+
+        public static IEnumerator LoadFileTexture(FileTextureRequest request)
+        {
+            Debug.Log("[FILE TEXTURE] " + request.filename);
+            using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(request.filename))
+            {
+                yield return uwr.SendWebRequest();
+                if (uwr.isNetworkError || uwr.isHttpError)
+                {
+                    Debug.Log("[FILE TEXTURE] Could not load [" + request.filename + "] " + uwr.error);
+                    yield break;
+                }
+                request.result = DownloadHandlerTexture.GetContent(uwr);
+                if (request.result == null)
+                {
+                    Debug.Log("[FILE TEXTURE] Could not read from handle [" + request.filename + "] " + uwr.error);
+                    yield break;
+                }
+                if (request.result.width == 8 && request.result.height == 8)
+                {
+                    GameDirector.Destroy(request.result);
+                    request.result = null;
+                    Debug.Log("[FILE TEXTURE] Could not load [" + request.filename + "] " + uwr.error);
+                    yield break;
+                }
+                request.result.name = request.filename.Split('/').Last().Split('\\').Last();
+                request.result.wrapMode = TextureWrapMode.Clamp;
+
+                if (request.targetSizes != null)
+                {
+                    for (int i = 0; i < request.targetSizes.Length; i++)
+                    {
+                        if (request.targetSizes[i] == new Vector2Int(request.result.width, request.result.height))
+                        {
+                            request.targetSizeIndex = i;
+                            break;
+                        }
+                    }
+                    if (request.targetSizeIndex == -1)
+                    {
+                        GameDirector.Destroy(request.result);
+                        request.result = null;
+                        if (request.targetSizeError != null)
+                        {
+                            request.error = request.targetSizeError;
+                        }
+                        else
+                        {
+                            request.error = "Invalid image size!";
+                        }
+                    }
+                }
+            }
         }
     }
 

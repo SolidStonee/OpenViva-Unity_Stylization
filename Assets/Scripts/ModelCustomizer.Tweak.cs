@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Viva.Util;
 
 
-namespace viva
+namespace Viva
 {
 
 
@@ -342,7 +343,7 @@ namespace viva
                 return;
             }
             VivaModel.DynamicBoneInfo targetInfo = modelPreviewer.modelDefault.headModel.dynamicBoneInfos[currentDynamicBoneIndex];
-            modelPreviewer.StartHighlightingBoneChain(viva.Tools.SearchTransformFamily(modelPreviewer.modelDefault.transform, targetInfo.rootBone));
+            modelPreviewer.StartHighlightingBoneChain(Tools.SearchTransformFamily(modelPreviewer.modelDefault.transform, targetInfo.rootBone));
         }
 
         private void UpdateProperty(VivaModelProperty property)

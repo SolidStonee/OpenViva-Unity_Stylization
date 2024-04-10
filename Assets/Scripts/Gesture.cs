@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace viva
+namespace Viva
 {
     [Serializable]
     public enum Gesture

@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Viva.Util;
 
-namespace viva
+namespace Viva
 {
 
 
@@ -225,13 +226,13 @@ namespace viva
 
             yield return GameDirector.instance.StartCoroutine(AnimationScale(dragFileVisualizer.transform as RectTransform, 0.5f, 2.0f, 0.15f));
             //attempt to load image
-            Tools.FileTextureRequest request = new Tools.FileTextureRequest(
+            ModelCustomizer.FileTextureRequest request = new ModelCustomizer.FileTextureRequest(
                 filepath,
                 new Vector2Int[] { new Vector2Int(Steganography.PACK_SIZE, Steganography.PACK_SIZE) },
                 "Image PNG must be 1024x1024"
             );
 
-            yield return GameDirector.instance.StartCoroutine(Tools.LoadFileTexture(request));
+            yield return GameDirector.instance.StartCoroutine(ModelCustomizer.LoadFileTexture(request));
             if (request.result == null)
             {
                 dragFileImage.sprite = dragFileImageFailIcon;

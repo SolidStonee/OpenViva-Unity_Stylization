@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace viva
+namespace Viva
 {
 
     public class UnderwaterMaterialChange : MonoBehaviour
@@ -26,56 +26,55 @@ namespace viva
 
         public void OnEnterUnderwater()
         {
-            if (GameDirector.instance.postProcessing.IncreaseScreenTextureUse(targetMRs, underwaterMaterial))
-            {
-                if (replaceMaterial != null)
-                {
-                    replaceMaterial.mainTexture = GameDirector.instance.postProcessing.screenTexture;
-                    for (int i = 0; i < cachedMaterials.Length; i++)
-                    {
-                        var mr = targetMRs[i];
-                        cachedMaterials[i] = mr.material;
-                        mr.material = replaceMaterial;
-                    }
-                }
-                else
-                {
-                    foreach (var mr in targetMRs)
-                    {
-                        mr.enabled = false;
-                    }
-                }
-                if (useFog)
-                {
-                    GameDirector.skyDirector.SetFogOverride(fog);
-                }
-            }
+
+            //    if (replaceMaterial != null)
+            //    {
+            //        replaceMaterial.mainTexture = GameDirector.instance.postProcessing.screenTexture;
+            //        for (int i = 0; i < cachedMaterials.Length; i++)
+            //        {
+            //            var mr = targetMRs[i];
+            //            cachedMaterials[i] = mr.material;
+            //            mr.material = replaceMaterial;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        foreach (var mr in targetMRs)
+            //        {
+            //            mr.enabled = false;
+            //        }
+            //    }
+            //    if (useFog)
+            //    {
+            //        GameDirector.skyDirector.SetFogOverride(fog);
+            //    }
+            //}
         }
 
         public void OnExitUnderwater()
         {
-            if (GameDirector.instance.postProcessing.DecreaseScreenTextureUse(targetMRs))
-            {
-                if (replaceMaterial != null)
-                {
-                    for (int i = 0; i < cachedMaterials.Length; i++)
-                    {
-                        var mr = targetMRs[i];
-                        mr.material = cachedMaterials[i];
-                    }
-                }
-                else
-                {
-                    foreach (var mr in targetMRs)
-                    {
-                        mr.enabled = true;
-                    }
-                }
-                if (useFog)
-                {
-                    GameDirector.skyDirector.SetFogOverride(null);
-                }
-            }
+            //if (GameDirector.instance.postProcessing.DecreaseScreenTextureUse(targetMRs))
+            //{
+            //    if (replaceMaterial != null)
+            //    {
+            //        for (int i = 0; i < cachedMaterials.Length; i++)
+            //        {
+            //            var mr = targetMRs[i];
+            //            mr.material = cachedMaterials[i];
+            //        }
+            //    }
+            //    else
+            //    {
+            //        foreach (var mr in targetMRs)
+            //        {
+            //            mr.enabled = true;
+            //        }
+            //    }
+            //    if (useFog)
+            //    {
+            //        GameDirector.skyDirector.SetFogOverride(null);
+            //    }
+            //}
         }
     }
 

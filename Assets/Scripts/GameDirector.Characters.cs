@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Viva.Util;
 
-namespace viva
+namespace Viva
 {
 
     public enum SpeechBubble

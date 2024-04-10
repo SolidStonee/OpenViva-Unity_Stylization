@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace viva
+namespace Viva
 {
 
-    public static class Util
+    public static class Utils
     {
 
         public static bool IsImmovable(Collider collider)

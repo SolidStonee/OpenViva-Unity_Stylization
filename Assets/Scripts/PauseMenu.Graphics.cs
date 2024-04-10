@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace viva
+namespace Viva
 {
     [System.Serializable]
     public class Resolution

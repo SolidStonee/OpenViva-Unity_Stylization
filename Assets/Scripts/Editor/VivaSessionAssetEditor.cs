@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-[CustomEditor(typeof(viva.VivaSessionAsset), true)]
+[CustomEditor(typeof(Viva.VivaSessionAsset), true)]
 [CanEditMultipleObjects]
 public class VivaSessionAssetEditor : Editor
 {

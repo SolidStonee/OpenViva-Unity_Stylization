@@ -46,10 +46,10 @@ MonoBehaviour:
   renderInSceneView: 1
   temporalDenoisingFactor: 0.03
   subpixelJitterEnabled: 0
-  castShadowsEnabled: 1
+  castShadowsEnabled: 0
   shadowStepCount: 16
   screenShadows: 1
-  shadowStrength: 0.1
+  shadowStrength: 0.3
   shadowResolution: 512
   shadowDistance: 10000
   extinctionCoefficient: 10
@@ -78,7 +78,7 @@ MonoBehaviour:
   detail1TextureID: 4
   detail1TextureQuality: 0
   detail1Texture: {fileID: 11700000, guid: d7a265a939136364981a58977d4e2554, type: 2}
-  detail1TextureInfluence: 0.3
+  detail1TextureInfluence: 0
   detail1TextureScale: {x: 15, y: 15, z: 15}
   detail1TextureTimescale: {x: 1, y: -1, z: -1}
   curlTexture: {fileID: 0}

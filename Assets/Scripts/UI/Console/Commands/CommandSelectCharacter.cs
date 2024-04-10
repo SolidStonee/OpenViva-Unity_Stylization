@@ -1,6 +1,6 @@
-﻿using static viva.console.DevConsole;
+﻿using static Viva.console.DevConsole;
 
-namespace viva.console
+namespace Viva.console
 {
     public class CommandSelectCharacter : ConsoleCommand
     {

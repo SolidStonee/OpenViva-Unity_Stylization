@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-[CustomEditor(typeof(viva.Fuse), true)]
+[CustomEditor(typeof(Viva.Fuse), true)]
 [CanEditMultipleObjects]
 public class FuseEditor : Editor
 {
@@ -23,7 +23,7 @@ public class FuseEditor : Editor
         if (fusePSys != null && fusePSys.objectReferenceValue != null && GUILayout.Button("Register Path Point at Particle System"))
         {
 
-            var fuse = (viva.Fuse)target;
+            var fuse = (Viva.Fuse)target;
             var pSys = (ParticleSystem)fusePSys.objectReferenceValue;
 
             SerializedProperty fusePath = sObj.FindProperty("localFusePath");

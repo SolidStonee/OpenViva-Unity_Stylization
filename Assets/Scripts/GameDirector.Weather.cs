@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.XR;
 
-namespace viva
+namespace Viva
 {
 
 

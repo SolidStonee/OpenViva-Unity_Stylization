@@ -1,8 +1,9 @@
 using Steamworks.Data;
 using UnityEngine;
+using Viva.Util;
 
 
-namespace viva
+namespace Viva
 {
 
 
@@ -64,12 +65,10 @@ namespace viva
 
             moveto.onSuccess += delegate
             {
-                Debug.Log("WTF");
             };
 
             empty.onSuccess += delegate
             {
-                Debug.Log("SUCESSSSSSSSS");
                 if (Mathf.Abs(Tools.Bearing(self.transform, GameDirector.player.floorPos)) < 35.0f &&
                 self.IsCurrentAnimationIdle())
                 {

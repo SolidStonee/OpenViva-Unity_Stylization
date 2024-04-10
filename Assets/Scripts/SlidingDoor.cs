@@ -2,7 +2,7 @@
 using UnityEngine.Events;
 
 
-namespace viva
+namespace Viva
 {
 
 

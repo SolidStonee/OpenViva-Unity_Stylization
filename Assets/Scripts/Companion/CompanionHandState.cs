@@ -1,9 +1,10 @@
 using Steamworks.Data;
 using UnityEngine;
+using Viva.Util;
 
 
 
-namespace viva
+namespace Viva
 {
 
     public class CompanionHandState : HandState

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-namespace viva
+namespace Viva
 {
 
     using LoliAnimationEvent = AnimationEvent<float[]>;

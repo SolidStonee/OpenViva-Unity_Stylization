@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace viva
+namespace Viva
 {
 
 
@@ -19,7 +19,7 @@ namespace viva
 
         private bool OnItemBeg(Item item)
         {
-            viva.DevTools.LogExtended("Begging for Item " + item, true, true);
+            Viva.DevTools.LogExtended("Begging for Item " + item, true, true);
             if (self.active.currentTask == this)
             {
                 return false;
@@ -79,7 +79,7 @@ namespace viva
 
         private void OnSucceedPickup()
         {
-            viva.DevTools.LogExtended("Pickup successful, targetItem: " + targetItem, true, true);
+            Viva.DevTools.LogExtended("Pickup successful, targetItem: " + targetItem, true, true);
             if (targetItem == null)
             {
                 return;

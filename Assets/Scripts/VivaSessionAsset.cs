@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-namespace viva
+namespace Viva
 {
 
     //is en extension of a monobehavior

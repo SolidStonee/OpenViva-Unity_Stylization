@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace viva
+namespace Viva
 {
 
     public static class MeshBufferUtil

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace viva
+namespace Viva
 {
     public class MenuTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {

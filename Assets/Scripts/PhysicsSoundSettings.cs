@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-namespace viva
+namespace Viva
 {
 
     [CreateAssetMenu(fileName = "Physics Sound Settings", menuName = "Logic/Physics Sound Settings", order = 1)]

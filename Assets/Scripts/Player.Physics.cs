@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace viva
+namespace Viva
 {
 
 
@@ -216,7 +216,7 @@ namespace viva
             {
                 return;
             }
-            //viva.DevTools.LogExtended("Companion Collider: " + companion.IdentifyCollider(collider), true, true);
+            //Viva.DevTools.LogExtended("Companion Collider: " + companion.IdentifyCollider(collider), true, true);
             switch (companion.IdentifyCollider(collider))
             {
                 case Companion.BodyPart.TUMMY_CC:
@@ -282,10 +282,10 @@ namespace viva
                         umc.OnExitUnderwater();
                     }
                 }
-                if (underwater != GameDirector.instance.postProcessing.usingUnderwater)
-                {
+                //if (underwater != GameDirector.instance.postProcessing.usingUnderwater)
+                //{
                     SetEnableUnderwaterEffects(underwater);
-                }
+                //}
                 yield return new WaitForFixedUpdate();
             }
         }
@@ -311,10 +311,10 @@ namespace viva
                 {
                     GameDirector.instance.StopCoroutine(waterBoxCoroutine);
                     waterBoxCoroutine = null;
-                    if (GameDirector.instance.postProcessing.usingUnderwater)
-                    {
+                    //if (GameDirector.instance.postProcessing.usingUnderwater)
+                    //{
                         SetEnableUnderwaterEffects(false);
-                    }
+                    //}
                 }
             }
         }
@@ -326,14 +326,14 @@ namespace viva
             lowPassFilter.enabled = enable;
             if (enable)
             {
-                GameDirector.instance.postProcessing.EnableUnderwaterEffect();
+                //GameDirector.instance.postProcessing.EnableUnderwaterEffect();
                 headSoundSource.clip = underwaterSoundLoop;
                 headSoundSource.loop = true;
                 headSoundSource.Play();
             }
             else
             {
-                GameDirector.instance.postProcessing.DisableUnderwaterEffect();
+                //GameDirector.instance.postProcessing.DisableUnderwaterEffect();
             }
 
             //fix a bug with Unity causing low pass filter from not working

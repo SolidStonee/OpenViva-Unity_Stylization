@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using viva;
+using Viva;
 
 
 [CustomEditor(typeof(ClothingPresetBinding))]

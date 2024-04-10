@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-namespace viva
+namespace Viva
 {
 
     [CreateAssetMenu(fileName = "Card Game One", menuName = "Logic/Card Game One", order = 1)]

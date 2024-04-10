@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using Viva.Util;
 
 
-namespace viva
+namespace Viva
 {
 
 
@@ -303,7 +304,7 @@ namespace viva
                         RemoveRequirement( setBegLocomotion );
                         RemoveRequirement( playBegStartAnim );
                     }
-                    viva.DevTools.LogExtended("begging successful, flagging for success", true, true);
+                    Viva.DevTools.LogExtended("begging successful, flagging for success", true, true);
                     FlagForSuccess();
                     playTargetAnim.FlagForSuccess();
                     if (setBegLocomotion != null)

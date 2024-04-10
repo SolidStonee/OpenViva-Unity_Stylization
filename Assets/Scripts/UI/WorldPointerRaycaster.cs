@@ -8,7 +8,7 @@
 
 
 
-//namespace viva{
+//namespace Viva {
 
         //ill have to implement this later or write one from scratch instead of using viva 0.9's worldpointer this is just here for reference
 

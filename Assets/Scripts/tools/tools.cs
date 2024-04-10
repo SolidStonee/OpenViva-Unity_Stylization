@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace viva
+namespace Viva.Util
 {
 
     public static class FlagField
@@ -274,42 +274,42 @@ namespace viva
             return reference.InverseTransformPoint(p).z > 0 ? 1 : -1;
         }
 
-        public static PlayerHandState GetPlayerHandStateFromString(string hand)
-        {
-            switch (hand)
-            {
-                case "right":
-                    return GameDirector.player.rightPlayerHandState;
-                case "left":
-                    return GameDirector.player.leftPlayerHandState;
-                default:
-                    Debug.LogError("HandState is null");
-                    return null;
-            }            
-        }
+        //public static PlayerHandState GetPlayerHandStateFromString(string hand)
+        //{
+        //    switch (hand)
+        //    {
+        //        case "right":
+        //            return GameDirector.player.rightPlayerHandState;
+        //        case "left":
+        //            return GameDirector.player.leftPlayerHandState;
+        //        default:
+        //            Debug.LogError("HandState is null");
+        //            return null;
+        //    }            
+        //}
 
-        public static T NearestCharacter<T>(List<T> list, Vector3 target) where T : Character
-        {
-            float leastSqDist = Mathf.Infinity;
-            T closest = null;
-            if (list != null)
-            {
-                foreach (var character in list)
-                {
-                    if (character == null)
-                    {
-                        continue;
-                    }
-                    float sqDist = Vector3.SqrMagnitude(character.floorPos - target);
-                    if (sqDist < leastSqDist)
-                    {
-                        leastSqDist = sqDist;
-                        closest = character;
-                    }
-                }
-            }
-            return closest;
-        }
+        //public static T NearestCharacter<T>(List<T> list, Vector3 target) where T : Character
+        //{
+        //    float leastSqDist = Mathf.Infinity;
+        //    T closest = null;
+        //    if (list != null)
+        //    {
+        //        foreach (var character in list)
+        //        {
+        //            if (character == null)
+        //            {
+        //                continue;
+        //            }
+        //            float sqDist = Vector3.SqrMagnitude(character.floorPos - target);
+        //            if (sqDist < leastSqDist)
+        //            {
+        //                leastSqDist = sqDist;
+        //                closest = character;
+        //            }
+        //        }
+        //    }
+        //    return closest;
+        //}
 
         public static bool RayIntersectsRectTransform(RectTransform transform, Ray ray, out Vector3 worldPosition, out float distance)
         {

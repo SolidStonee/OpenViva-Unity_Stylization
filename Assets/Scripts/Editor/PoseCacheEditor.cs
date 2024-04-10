@@ -1,20 +1,21 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Viva;
 
 
-[CustomEditor(typeof(viva.PoseCache))]
+[CustomEditor(typeof(PoseCache))]
 [CanEditMultipleObjects]
 public class PoseCacheEditor : Editor
 {
 
-    [FormerlySerializedAs("loli")] public viva.Companion companion;
+    public Companion companion;
 
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
-        companion = EditorGUILayout.ObjectField("Companion", companion, typeof(viva.Companion), true) as viva.Companion;
+        companion = EditorGUILayout.ObjectField("Companion", companion, typeof(Companion), true) as Companion;
 
         if (companion)
         {

@@ -1,10 +1,11 @@
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
+using Viva.Util;
 
 
 
-namespace viva
+namespace Viva
 {
 
     public partial class Steganography : MonoBehaviour

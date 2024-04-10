@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static viva.GameDirector;
+using Viva.Util;
 
-namespace viva
+namespace Viva
 {
 
 
@@ -317,7 +317,7 @@ namespace viva
                                 continue;
                             }
                             Companion companion = selectedLolis[index];
-                            viva.DevTools.LogExtended("Presenting " + sourceHand.playerHandState.heldItem + " to companion " + companion, true, true);
+                            DevTools.LogExtended("Presenting " + sourceHand.playerHandState.heldItem + " to companion " + companion, true, true);
                             companion.onGiftItemCallstack.Call(sourceHand.playerHandState.heldItem);
                         }
                     }
@@ -333,7 +333,7 @@ namespace viva
             Debug.Log("Gestured " + gesture);
         }
 
-        public T FindSpherecastCharacter<T>( Vector3 rayStart, Vector3 rayForward, float rayLength, BoolReturnCharacterFunc validate =null) where T: Character
+        public T FindSpherecastCharacter<T>( Vector3 rayStart, Vector3 rayForward, float rayLength, GameDirector.BoolReturnCharacterFunc validate =null) where T: Character
         {
             var rayEnd = rayStart+rayForward*rayLength;
             var mask = WorldUtil.characterMovementMask | WorldUtil.wallsMask | WorldUtil.itemsMask;
@@ -369,7 +369,7 @@ namespace viva
             float yawStep = yawAngle / 8;
             var rayLength = 10.0f;
             float currentYaw = yawStep * rayCount / -2;
-            var rayForward = player.head.transform.forward;
+            var rayForward = GameDirector.player.head.transform.forward;
 
             var seen = new List<Character>();
 

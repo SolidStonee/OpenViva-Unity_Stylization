@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace viva
+namespace Viva
 {
 
     public class VRController : InputController

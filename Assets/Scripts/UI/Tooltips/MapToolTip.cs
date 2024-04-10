@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace viva
+namespace Viva
 {
 
     public class MapToolTip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler

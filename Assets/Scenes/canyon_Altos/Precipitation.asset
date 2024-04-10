@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Precipitation
   m_EditorClassIdentifier: 
   precipitation: 0
-  dynamicPrecipitation: 0
+  dynamicPrecipitation: 1
   precipitationMin: -1
   precipitationMax: 1
   currentPrecipitation: 0

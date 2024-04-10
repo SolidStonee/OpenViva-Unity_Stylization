@@ -2,10 +2,11 @@ using Steamworks.Data;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Viva.Util;
 
 
 
-namespace viva
+namespace Viva
 {
 
     public class BathingBehavior : ActiveBehaviors.ActiveTask

@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 
 
-namespace viva
+namespace Viva
 {
 
     public class FileLoadStatus : MonoBehaviour
@@ -13,8 +13,7 @@ namespace viva
         [SerializeField]
         private Text title;
         [SerializeField]
-        private Text m_description;
-        public Text description { get { return m_description; } }
+        private Text description;
 
         private float dots = 0;
 
@@ -24,11 +23,17 @@ namespace viva
             imageLogo.transform.localScale = Vector3.one * Mathf.LerpUnclamped(0.45f, 0.5f, Mathf.Sin(Time.time * 4.0f) * 0.5f + 0.5f);
 
             dots += Time.deltaTime * 5.0f;
-            title.text = "Loading" + new System.String('.', ((int)dots) % 4);
+            title.text = "Loading" + new string('.', ((int)dots) % 4);
 
             transform.position = GameDirector.player.transform.position;
             transform.rotation = GameDirector.player.transform.rotation;
         }
+
+        public void SetText(string desc, string tle = null)
+        {
+            description.text = desc;
+        }
+
     }
 
 }

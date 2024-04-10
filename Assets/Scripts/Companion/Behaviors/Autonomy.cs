@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace viva
+namespace Viva
 {
 
     public class Autonomy : Job

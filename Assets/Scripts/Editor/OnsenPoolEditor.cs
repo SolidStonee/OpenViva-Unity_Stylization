@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-[CustomEditor(typeof(viva.OnsenPool), true)]
+[CustomEditor(typeof(Viva.OnsenPool), true)]
 [CanEditMultipleObjects]
 public class OnsenPoolEditor : Editor
 {

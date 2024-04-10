@@ -1,4 +1,6 @@
-﻿namespace viva
+﻿using Viva.Util;
+
+namespace Viva
 {
 
 

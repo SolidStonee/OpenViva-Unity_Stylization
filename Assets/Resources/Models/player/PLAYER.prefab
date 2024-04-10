@@ -1651,6 +1651,7 @@ MonoBehaviour:
   keyboardTargetHeight: 1.4
   keyboardStandingHeight: 1.4
   keyboardFloorHeight: 0.5
+  keyboardArmatureZoom: 0.5
   handRigidBodyPrefab: {fileID: 4593641065835188907, guid: 8a2089c73e2cb7c43a31a9410a580d0c,
     type: 3}
   lowPassFilter: {fileID: 5043715924624442236}
@@ -2758,11 +2759,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaf0fcd27f873441fa3c3bd7137206be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screenMaterials:
-  - {fileID: 2100000, guid: 11d80c68246a06843863f1fa550de270, type: 2}
-  playerHurtMat: {fileID: 2100000, guid: 96c3b54bd24c3409abc95d3139599bf2, type: 2}
-  playerSplashMat: {fileID: 2100000, guid: 7c8518cf265b19ba7bfd705fef1bff14, type: 2}
-  cloudCameraMaterial: {fileID: 2100000, guid: 59ec38f2fb8bfb746aba9d6ce57431ef, type: 2}
+  HurtScreen: {fileID: -3403770539973920601, guid: 983de87aa58b06c4188c608a983c5fc7,
+    type: 2}
+  SplashScreen: {fileID: -7382292691052397058, guid: 983de87aa58b06c4188c608a983c5fc7,
+    type: 2}
+  GhostScreen: {fileID: -4255186446054167466, guid: 983de87aa58b06c4188c608a983c5fc7,
+    type: 2}
 --- !u!114 &5922770914765990496
 MonoBehaviour:
   m_ObjectHideFlags: 0

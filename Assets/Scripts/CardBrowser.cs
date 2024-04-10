@@ -4,9 +4,10 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using Viva.Util;
 
 
-namespace viva
+namespace Viva
 {
 
     [System.Serializable]

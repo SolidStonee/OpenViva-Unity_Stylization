@@ -1,8 +1,9 @@
 using Steamworks.Data;
 using UnityEngine;
+using Viva.Util;
 using Color = UnityEngine.Color;
 
-namespace viva
+namespace Viva
 {
 
 

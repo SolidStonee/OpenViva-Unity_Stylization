@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace viva
+namespace Viva
 {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     public class VivaFileAttribute : System.Attribute
@@ -38,7 +38,7 @@ namespace viva
         public static DataStorage GetDataStorage(string variableType)
         {
             variableType = variableType.Replace("UnityEngine.", "");
-            variableType = variableType.Replace("viva.", "");
+            variableType = variableType.Replace("Viva.", "");
             variableType = variableType.Replace("System.", "");
             switch (variableType)
             {
@@ -51,7 +51,7 @@ namespace viva
         public static AssetStorage GetAssetStorage(string variableType)
         {
             variableType = variableType.Replace("UnityEngine.", "");
-            variableType = variableType.Replace("viva.", "");
+            variableType = variableType.Replace("Viva.", "");
             variableType = variableType.Replace("System.", "");
             switch (variableType)
             {

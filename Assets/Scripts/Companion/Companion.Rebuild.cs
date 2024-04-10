@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace viva
+namespace Viva
 {
 
 
@@ -81,7 +81,7 @@ namespace viva
                 Transform bone = bodySMRs[0].bones[bindingInfo.boneBindingIndices[i]];
                 if (bone == null)
                 {
-                    Debug.LogError("[Companion] Could not deform clothing bone to " + bindingInfo.modelSMR.bones[i].name);
+                    Debug.LogError("[COMPANION] Could not deform clothing bone to " + bindingInfo.modelSMR.bones[i].name);
                 }
                 rebindedBones[i] = bone;
             }

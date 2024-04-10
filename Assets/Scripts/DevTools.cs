@@ -1,4 +1,4 @@
-namespace viva
+namespace Viva
 {
 
     static class DevTools

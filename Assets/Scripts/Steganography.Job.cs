@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 
-namespace viva
+namespace Viva
 {
 
     public partial class Steganography : MonoBehaviour

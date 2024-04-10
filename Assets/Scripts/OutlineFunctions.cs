@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace viva
+namespace Viva
 {
 
     public delegate IEnumerator OutlineCoroutine(Outline.Entry outlineEntry, Color color);

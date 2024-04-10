@@ -4,7 +4,7 @@
 
 // using UnityEngine.XR;
 
-// namespace viva{
+// namespace Viva {
 
 // public enum Occupation{
 // 	HEAD,

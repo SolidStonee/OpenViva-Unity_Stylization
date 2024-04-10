@@ -1,8 +1,8 @@
-﻿using static viva.console.DevConsole;
+﻿using static Viva.console.DevConsole;
 using UnityEngine;
 using System.IO;
 
-namespace viva.console
+namespace Viva.console
 {
     public class CommandCreateCharacter : ConsoleCommand
     {

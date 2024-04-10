@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-namespace viva.console
+namespace Viva.console
 {
     public abstract class ConsoleCommand
     {

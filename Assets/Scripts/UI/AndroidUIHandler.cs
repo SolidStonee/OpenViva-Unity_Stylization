@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
-using static viva.ObjectFingerPointer;
+using Viva.Util;
 
-namespace viva
+namespace Viva
 {
     public class AndroidUIHandler : MonoBehaviour
     {
@@ -55,7 +55,7 @@ namespace viva
             GameDirector.player.objectFingerPointer.FireGesture(GetRandomGestureHand(), button.GestureToFire);
         }
 
-        public GestureHand GetRandomGestureHand()
+        public ObjectFingerPointer.GestureHand GetRandomGestureHand()
         {
             switch (Random.Range(0, 1))
             {
@@ -71,7 +71,7 @@ namespace viva
 
         public void PickupOrDropItem(string hand)
         {
-            PlayerHandState handState = Tools.GetPlayerHandStateFromString(hand);
+            PlayerHandState handState = GetPlayerHandStateFromString(hand);
             if (dropButton.buttonIsPressed)
             {
                 GameDirector.player.DoItemDrop(handState);
@@ -79,6 +79,20 @@ namespace viva
             else
             {
                 GameDirector.player.DoItemPickup(handState);
+            }
+        }
+
+        public static PlayerHandState GetPlayerHandStateFromString(string hand)
+        {
+            switch (hand)
+            {
+                case "right":
+                    return GameDirector.player.rightPlayerHandState;
+                case "left":
+                    return GameDirector.player.leftPlayerHandState;
+                default:
+                    Debug.LogError("HandState is null");
+                    return null;
             }
         }
 

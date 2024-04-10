@@ -1,8 +1,9 @@
 ﻿using Steamworks.Data;
 using UnityEngine;
+using Viva.Util;
 
 
-namespace viva
+namespace Viva
 {
 
 
@@ -19,7 +20,7 @@ namespace viva
         {
 
             //random but still bearing dependent animation variety
-            bool sourceSide = Tools.Bearing(self.transform, particlePosition) - 10.0f + UnityEngine.Random.value * 20.0f > 0.0f;
+            bool sourceSide = Tools.Bearing(self.transform, particlePosition) - 10.0f + Random.value * 20.0f > 0.0f;
             Companion.Animation reactAnim = GetAvailableSplashedReactAnim(sourceSide);
             if (reactAnim == Companion.Animation.NONE)
             {   //no available animation to react with

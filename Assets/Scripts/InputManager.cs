@@ -5,7 +5,7 @@ using System.IO;
 using UnityEngine.InputSystem;
 
 
-namespace viva{
+namespace Viva {
 
 public class InputManager{
 
@@ -52,7 +52,7 @@ public class InputManager{
         RefreshCursorLockCounter();
     }
     public static void RefreshCursorLockCounter(){
-        Util.RemoveNulls<MonoBehaviour>( cursorLockCounters );
+        Utils.RemoveNulls<MonoBehaviour>( cursorLockCounters );
         if( cursorLockCounters.Count > 0 ){
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

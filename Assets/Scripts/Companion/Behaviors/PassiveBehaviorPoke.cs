@@ -1,8 +1,9 @@
 using Steamworks.Data;
 using UnityEngine;
+using Viva.Util;
 
 
-namespace viva
+namespace Viva
 {
 
 
@@ -84,7 +85,7 @@ namespace viva
 
         public bool AttemptTummyPoke(Item sourceItem)
         {
-            //viva.DevTools.LogExtended("Attempting TummyPoke", true, true);
+            //Viva.DevTools.LogExtended("Attempting TummyPoke", true, true);
             //tummy poking supported only while standing
             if (self.bodyState != BodyState.STAND)
             {
@@ -417,9 +418,9 @@ namespace viva
             }
             /* simple laugh test
             if (pokeLaughTimer > 0f) {
-                viva.DevTools.LogExtended("Attempting FootPoke, already in progress", true, true);
+                Viva.DevTools.LogExtended("Attempting FootPoke, already in progress", true, true);
             }
-            viva.DevTools.LogExtended("Attempting FootPoke", true, true);
+            Viva.DevTools.LogExtended("Attempting FootPoke", true, true);
             if( Random.value > 0.85f ){
                 pokeLaughTimer = 1.3f;
                 self.Speak( Companion.VoiceLine.LAUGH_LONG );
@@ -429,8 +430,8 @@ namespace viva
             }
             return true;
             */
-            viva.DevTools.LogExtended("Attempting FootPoke");
-            viva.DevTools.LogExtended("self.currentAnim: " + self.currentAnim);
+            Viva.DevTools.LogExtended("Attempting FootPoke");
+            Viva.DevTools.LogExtended("self.currentAnim: " + self.currentAnim);
             /*//tummy poking supported only while standing
             if( self.bodyState != BodyState.STAND ){
                 return false;
@@ -451,7 +452,7 @@ namespace viva
             }
             else if (self.currentAnim == Companion.Animation.STAND_POKED_TUMMY_OUT)
             {
-                viva.DevTools.LogExtended("self.GetLayerAnimNormTime(1)" + self.GetLayerAnimNormTime(1));
+                Viva.DevTools.LogExtended("self.GetLayerAnimNormTime(1)" + self.GetLayerAnimNormTime(1));
                 if (self.GetLayerAnimNormTime(1) < 0.6f)
                 {
                     self.OverrideClearAnimationPriority();
@@ -489,7 +490,7 @@ namespace viva
                     // self.SetRootFacingTarget( ( GameDirector.player.transform.position+lastPokeSource.position )/2.0f, 160.0f, 5.0f, 10.0f );
                 }
             }
-            //viva.DevTools.LogExtended("", true, true);
+            //Viva.DevTools.LogExtended("", true, true);
             return true;
         }
     }

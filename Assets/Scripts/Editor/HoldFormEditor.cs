@@ -7,11 +7,11 @@
 // using System.IO;
 
 
-// [CustomEditor(typeof(viva.HoldForm))]
+// [CustomEditor(typeof(Viva.HoldForm))]
 // [CanEditMultipleObjects]
 // public class HoldFormEditor : Editor
 // {
-//     private viva.HoldForm copyHoldFormTarget;
+//     private Viva.HoldForm copyHoldFormTarget;
 //     private static GUIStyle boldStyle = new GUIStyle();
 
 //     private void OnEnable(){
@@ -22,7 +22,7 @@
 
 //         EditorGUILayout.Space();
 //         EditorGUILayout.LabelField("Utility", boldStyle );
-//         copyHoldFormTarget = EditorGUILayout.ObjectField( "Copy target:", copyHoldFormTarget, typeof(viva.HoldForm), false) as viva.HoldForm;
+//         copyHoldFormTarget = EditorGUILayout.ObjectField( "Copy target:", copyHoldFormTarget, typeof(Viva.HoldForm), false) as Viva.HoldForm;
 
 //         if( copyHoldFormTarget != null && GUILayout.Button("Copy") ){
 

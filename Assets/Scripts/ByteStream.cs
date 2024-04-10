@@ -1,8 +1,9 @@
 using System.IO;
 using UnityEngine;
+using Viva.Util;
 
 
-namespace viva
+namespace Viva
 {
 
     public class ByteStreamReader

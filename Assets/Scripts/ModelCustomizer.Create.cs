@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-namespace viva
+namespace Viva
 {
 
     public partial class ModelCustomizer : UITabMenu

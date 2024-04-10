@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-[CustomEditor(typeof(viva.FingerAnimator))]
+[CustomEditor(typeof(Viva.FingerAnimator))]
 [CanEditMultipleObjects]
 public class FingerAnimatorEditor : Editor
 {
@@ -23,7 +23,7 @@ public class FingerAnimatorEditor : Editor
             SerializedProperty fingersProp = sObj.FindProperty("fingers");
             fingersProp.arraySize = 15;
 
-            Transform transform = (target as viva.FingerAnimator).transform;
+            Transform transform = (target as Viva.FingerAnimator).transform;
             string suffix = transform.name.Split('_')[1];
             int buildIndex = 0;
             addTreeTransform(transform, fingersProp, ref buildIndex, "thumb1_" + suffix + "/thumb2_" + suffix + "/thumb3_" + suffix);

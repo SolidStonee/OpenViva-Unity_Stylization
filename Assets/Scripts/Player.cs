@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace viva
+namespace Viva
 {
 
 
@@ -217,8 +217,6 @@ namespace viva
 
         public override void OnCharacterFixedUpdate()
         {
-
-            Debug.Log(handScrolling);
             
             animator.Update(Time.fixedDeltaTime);
             FixedUpdateKeyboardHandAnimationEvents();

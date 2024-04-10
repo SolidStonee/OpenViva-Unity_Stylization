@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using viva;
+using Viva;
 
 
 [CustomEditor(typeof(Item))]
@@ -16,7 +16,7 @@ public class ItemInspector : Editor
 
         if (GUILayout.Button("Build Collider list"))
         {
-            var newColliders = ((viva.Item)target).gameObject.GetComponentsInChildren<Collider>();
+            var newColliders = ((Viva.Item)target).gameObject.GetComponentsInChildren<Collider>();
             var validColliders = new List<Collider>();
             foreach (var c in newColliders)
             {

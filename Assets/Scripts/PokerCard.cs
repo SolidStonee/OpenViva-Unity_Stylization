@@ -2,8 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Viva.Util;
 
-namespace viva
+namespace Viva
 {
 
 
@@ -71,7 +72,7 @@ namespace viva
         private static readonly int highlightedID = Shader.PropertyToID("_Highlighted");
 
         private List<PokerCard> fanGroupChildren = new List<PokerCard>();
-        private List<Tuple<int, TransformBlend>> newCardParentingBlends = new List<Tuple<int, TransformBlend>>();
+        private List<Util.Tuple<int, TransformBlend>> newCardParentingBlends = new List<Util.Tuple<int, TransformBlend>>();
 
         public bool isFanGroupParent { get { return fanGroupChildren.Count > 0; } }
         private PokerGame m_parentGame = null;
@@ -922,7 +923,7 @@ namespace viva
 
             var parentingBlend = new TransformBlend();
             parentingBlend.SetTarget(true, card.transform, true, true, 0.0f, 1.0f, 0.5f);
-            newCardParentingBlends.Add(new Tuple<int, TransformBlend>(0, parentingBlend));
+            newCardParentingBlends.Add(new Util.Tuple<int, TransformBlend>(0, parentingBlend));
         }
 
         private void PlayFanGroupAnimationBlends()
@@ -933,7 +934,7 @@ namespace viva
             //add self fan card
             var selfBlend = new TransformBlend();
             selfBlend.SetTarget(true, transform, true, true, 0.0f, 1.0f, 0.5f);
-            newCardParentingBlends.Add(new Tuple<int, TransformBlend>(slotIndexHalf, selfBlend));
+            newCardParentingBlends.Add(new Util.Tuple<int, TransformBlend>(slotIndexHalf, selfBlend));
 
             for (int i = 0; i < fanGroupChildren.Count; i++)
             {
@@ -946,11 +947,11 @@ namespace viva
                 {
                     fanGroupIndex -= 2;
                 }
-                newCardParentingBlends.Add(new Tuple<int, TransformBlend>(fanGroupIndex, parentingBlend));
+                newCardParentingBlends.Add(new Util.Tuple<int, TransformBlend>(fanGroupIndex, parentingBlend));
             }
         }
 
-        private bool UpdateParentingBlend(Tuple<int, TransformBlend> parentingBlend)
+        private bool UpdateParentingBlend(Util.Tuple<int, TransformBlend> parentingBlend)
         {
 
             //ensure target is still active

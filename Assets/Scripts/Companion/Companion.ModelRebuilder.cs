@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Viva.Util;
 
-namespace viva
+namespace Viva
 {
 
 
@@ -92,7 +93,7 @@ namespace viva
 
             if (_outfit == null)
             {
-                Debug.LogError("[Companion] Outfit cannot be null!");
+                Debug.LogError("[COMPANION] Outfit cannot be null!");
             }
             outfit = _outfit;
 
@@ -163,7 +164,7 @@ namespace viva
         public void RebuildDynamicBoneColliders()
         {
 
-            DynamicBoneCollider collider = viva.Tools.EnsureComponent<DynamicBoneCollider>(head.gameObject);
+            DynamicBoneCollider collider = Tools.EnsureComponent<DynamicBoneCollider>(head.gameObject);
             if (headModel.headCollisionWorldSphere.w == 0.0f)
             {
                 collider.m_Radius = 0.128f;
@@ -183,7 +184,7 @@ namespace viva
             }
             dynamicBoneColliders[(int)VivaModel.DynamicBoneInfo.Collision.HEAD] = collider;
 
-            collider = viva.Tools.EnsureComponent<DynamicBoneCollider>(spine3.gameObject);
+            collider = Tools.EnsureComponent<DynamicBoneCollider>(spine3.gameObject);
             collider.m_Radius = 0.31f;
             collider.m_Center = new Vector3(0.0f, 0.09f, 0.24f);
             collider.m_Height = 0.83f;
@@ -204,10 +205,10 @@ namespace viva
                 Transform rootBone = Tools.SearchTransformFamily(bodyArmature, info.rootBone);
                 if (rootBone == null)
                 {
-                    Debug.LogError("[Companion] Could not find bone " + info.rootBone + " for DynamicBone");
+                    Debug.LogError("[COMPANION] Could not find bone " + info.rootBone + " for DynamicBone");
                     continue;
                 }
-                DynamicBone dynamicBone = viva.Tools.EnsureComponent<DynamicBone>(rootBone.gameObject);
+                DynamicBone dynamicBone = Tools.EnsureComponent<DynamicBone>(rootBone.gameObject);
 
                 ApplyDynamicBoneInfo(info, dynamicBone);
                 if (info.canRelax)
@@ -245,7 +246,7 @@ namespace viva
                 dynBoneItem.InitializeDynamicBoneItem(dynamicBone);
 
                 bone.gameObject.layer = WorldUtil.bodyPartItemsLayer;
-                SphereCollider itemCollider = viva.Tools.EnsureComponent<SphereCollider>(bone.gameObject);
+                SphereCollider itemCollider = Tools.EnsureComponent<SphereCollider>(bone.gameObject);
                 itemCollider.radius = 0.03f;
                 itemCollider.isTrigger = true;
             } while (bone.childCount > 0);

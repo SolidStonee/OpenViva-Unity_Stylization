@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace viva
+namespace Viva
 {
 
     public class Rein : Item

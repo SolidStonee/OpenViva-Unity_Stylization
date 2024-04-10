@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-namespace viva.profiler
+namespace Viva.Util
 {
     public class PerformanceUI : MonoBehaviour
     {

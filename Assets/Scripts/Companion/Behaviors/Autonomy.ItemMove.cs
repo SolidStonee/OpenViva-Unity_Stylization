@@ -1,4 +1,4 @@
-﻿namespace viva
+﻿namespace Viva
 {
 
 
@@ -34,7 +34,7 @@
 
             onFlagForSuccess += delegate
             {
-                viva.DevTools.LogExtended("running onFlagForSuccess", true, true);
+                Viva.DevTools.LogExtended("running onFlagForSuccess", true, true);
                 waitForIdle.FlagForSuccess();
                 moveTo.FlagForSuccess();
                 faceTarget.FlagForSuccess();

@@ -4,7 +4,7 @@
 // using UnityEngine.AI;
 
 
-// namespace viva{
+// namespace Viva {
 
 
 // public class JealousBehavior : ActiveBehaviors.ActiveTask {

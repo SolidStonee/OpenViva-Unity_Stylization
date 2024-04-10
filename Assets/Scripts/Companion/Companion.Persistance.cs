@@ -1,7 +1,8 @@
 using System.Collections;
 using UnityEngine;
+using Viva.Util;
 
-namespace viva
+namespace Viva
 {
 
 
@@ -16,7 +17,7 @@ namespace viva
 
             if (targetCompanion == null)
             {
-                Debug.LogError("[Companion] targetCompanion is null!");
+                Debug.LogError("[COMPANION] targetCompanion is null!");
                 yield break;
             }
             ModelCustomizer.LoadLoliFromCardRequest cardRequest = new ModelCustomizer.LoadLoliFromCardRequest(cardFilename, targetCompanion);
@@ -31,7 +32,7 @@ namespace viva
                 yield break;
             }
 
-            Debug.Log("[Companion] Loaded " + cardFilename);
+            Debug.Log("[COMPANION] Loaded " + cardFilename);
             if (onFinish != null)
             {
                 onFinish();
@@ -77,7 +78,7 @@ namespace viva
 
             if (serializedCompanion == null)
             {
-                Debug.LogError("[Companion] Companion Asset is null!");
+                Debug.LogError("[COMPANION] Companion Asset is null!");
                 yield break;
             }
 

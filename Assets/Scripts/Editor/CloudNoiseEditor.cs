@@ -1,6 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
-using viva;
+using Viva;
 
 
 public class CloudNoiseEditor : EditorWindow

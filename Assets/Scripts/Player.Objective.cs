@@ -1,6 +1,6 @@
 ﻿using Steamworks.Data;
 
-namespace viva
+namespace Viva
 {
 
 

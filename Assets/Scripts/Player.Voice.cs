@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine.Windows.Speech;
 
-namespace viva
+namespace Viva
 {
     public partial class Player : Character
     {

@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-namespace viva
+namespace Viva
 {
 
     public abstract class UITabMenu : UIMenu

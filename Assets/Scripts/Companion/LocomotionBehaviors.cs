@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using Viva.Util;
 
 
-namespace viva
+namespace Viva
 {
 
 

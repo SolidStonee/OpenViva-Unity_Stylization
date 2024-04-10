@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using Viva;
 
 
-[CustomEditor(typeof(viva.Container), true)]
+[CustomEditor(typeof(Container), true)]
 [CanEditMultipleObjects]
 public class ContainerEditor : Editor
 {
@@ -31,17 +32,17 @@ public class ContainerEditor : Editor
 
             if (keyboardMixAnimProp.arraySize == 0)
             {
-                keyboardMixAnimProp.arraySize = System.Enum.GetValues(typeof(viva.Container.PlayerKeyboardMixAnimType)).Length;
+                keyboardMixAnimProp.arraySize = System.Enum.GetValues(typeof(Container.PlayerKeyboardMixAnimType)).Length;
                 sObj.ApplyModifiedProperties();
             }
 
             for (int i = 0; i < keyboardMixAnimProp.arraySize; i++)
             {
-                viva.Container.PlayerKeyboardMixAnimType enumVal = (viva.Container.PlayerKeyboardMixAnimType)i;
+                Container.PlayerKeyboardMixAnimType enumVal = (Container.PlayerKeyboardMixAnimType)i;
 
                 SerializedProperty subProp = keyboardMixAnimProp.GetArrayElementAtIndex(i);
-                var oldSel = (viva.Player.Animation)subProp.enumValueIndex;
-                var newSel = (viva.Player.Animation)EditorGUILayout.EnumPopup(enumVal.ToString(), oldSel);
+                var oldSel = (Player.Animation)subProp.enumValueIndex;
+                var newSel = (Player.Animation)EditorGUILayout.EnumPopup(enumVal.ToString(), oldSel);
                 if (newSel != oldSel)
                 {
                     subProp.enumValueIndex = (int)newSel;
@@ -60,11 +61,11 @@ public class ContainerEditor : Editor
 
         if (GUILayout.Button("Build Collider list"))
         {
-            var newColliders = ((viva.Container)target).gameObject.GetComponentsInChildren<Collider>();
+            var newColliders = ((Container)target).gameObject.GetComponentsInChildren<Collider>();
             var validColliders = new List<Collider>();
             foreach (var c in newColliders)
             {
-                if (c.gameObject.layer == viva.WorldUtil.itemsLayer && !c.isTrigger)
+                if (c.gameObject.layer == WorldUtil.itemsLayer && !c.isTrigger)
                 {
                     validColliders.Add(c);
                 }

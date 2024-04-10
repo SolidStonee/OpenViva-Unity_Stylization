@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 
-namespace viva
+namespace Viva
 {
 
     using AutonomyAnimationEvent = AnimationEvent<OnAnimationCallback>;

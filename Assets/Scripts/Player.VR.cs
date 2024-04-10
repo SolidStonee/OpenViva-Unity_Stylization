@@ -4,7 +4,7 @@ using UnityEngine.XR;
 using UnityEngine.XR.Management;
 
 
-namespace viva
+namespace Viva
 {
 
 

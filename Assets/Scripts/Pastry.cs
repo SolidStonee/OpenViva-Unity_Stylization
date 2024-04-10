@@ -2,7 +2,7 @@
 using UnityEngine;
 using Color = UnityEngine.Color;
 
-namespace viva
+namespace Viva
 {
 
 

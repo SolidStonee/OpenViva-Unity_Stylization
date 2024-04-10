@@ -4,8 +4,9 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
+using Viva.Util;
 
-namespace viva
+namespace Viva
 {
     //TODO: Cleanup all this cause its kinda messy
     [System.Serializable]
@@ -384,7 +385,7 @@ namespace viva
                 stream.Write(data, 0, data.Length);
                 stream.Close();
             }
-            Debug.Log("[Persistance] Saved File!");
+            Debug.Log("[PERSISTANCE] Saved File!");
         }
 
         protected void AttemptLoadVivaFile()
@@ -398,7 +399,7 @@ namespace viva
                 file = JsonUtility.FromJson(data, typeof(VivaFile)) as VivaFile;
                 if (file == null)
                 {
-                    Debug.LogError("[Persistance] ERROR Could not load VivaFile!");
+                    Debug.LogError("[PERSISTANCE] ERROR Could not load VivaFile!");
                 }
                 else
                 {
@@ -455,17 +456,16 @@ namespace viva
                 {
                     if(cardsAvailable.Length > 0)
                     {
-                        fileLoadStatus.description.text = "Unpacking " + cdm.waiting + " asset(s)";
+                        fileLoadStatus.SetText("Processing Assets: " + cdm.waiting);
                     }
                     else
                     {
-                        fileLoadStatus.description.text = "No Cards Found!";
+                        fileLoadStatus.SetText("No Cards Found!");
                     }                   
                     yield return null;
                 }
-                Debug.Log("[Persistance] Loaded storage variables...");
+                Debug.Log("[PERSISTANCE] Loaded assets...");
 
-                //initialize lolis
                 foreach (var entry in toLoad)
                 {
                     cdm.waiting++;
@@ -479,15 +479,15 @@ namespace viva
                 {
                     if (cardsAvailable.Length > 0)
                     {
-                        fileLoadStatus.description.text = "Initializing " + cdm.waiting + " character(s)";
+                        fileLoadStatus.SetText("Processing Companions: " + cdm.waiting);
                     }
                     else
                     {
-                        fileLoadStatus.description.text = "No Cards Found!";
+                        fileLoadStatus.SetText("No Cards Found!");
                     }
                     yield return null;
                 }
-                Debug.Log("[Persistance] Loaded file!");
+                Debug.Log("[PERSISTANCE] Loaded file!");
             }
             onFinishLoadingVivaFile();
 

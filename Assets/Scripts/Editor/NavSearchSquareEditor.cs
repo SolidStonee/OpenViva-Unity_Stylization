@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-[CustomEditor(typeof(viva.NavSearchSquare), true)]
+[CustomEditor(typeof(Viva.NavSearchSquare), true)]
 [CanEditMultipleObjects]
 public class NavSearchSquareEditor : Editor
 {

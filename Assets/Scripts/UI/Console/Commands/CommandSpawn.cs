@@ -1,9 +1,9 @@
-﻿using static viva.console.DevConsole;
+﻿using static Viva.console.DevConsole;
 using UnityEngine;
 using System.IO;
 using System.Globalization;
 
-namespace viva.console
+namespace Viva.console
 {
     public class CommandSpawn : ConsoleCommand
     {

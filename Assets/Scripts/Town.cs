@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using Viva.Util;
 
 
-namespace viva
+namespace Viva
 {
 
     using CompanionInit = Tuple<Companion, GameDirector.VivaFile.SerializedCompanion>;

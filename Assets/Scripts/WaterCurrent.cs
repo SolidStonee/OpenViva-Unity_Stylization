@@ -2,7 +2,7 @@
 
 
 
-namespace viva
+namespace Viva
 {
 
     public class WaterCurrent : MonoBehaviour

@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using Viva.Util;
 
 
-namespace viva
+namespace Viva
 {
 
 
@@ -376,7 +377,7 @@ namespace viva
                 if (CheckPlayerWon())
                 {
                     self.SetTargetAnimation(Companion.Animation.FLOOR_SIT_CHOPSTICKS_LOSE);
-                    // GameDirector.player.CompleteAchievement(Player.ObjectiveType.BEAT_AT_CHOPSTICKS);
+                    //GameDirector.player.CompleteAchievement(Player.ObjectiveType.BEAT_AT_CHOPSTICKS);
                     FinishGame();
                 }
                 else

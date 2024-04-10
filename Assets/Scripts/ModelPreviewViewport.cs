@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Viva.Util;
 
-namespace viva
+namespace Viva
 {
 
 

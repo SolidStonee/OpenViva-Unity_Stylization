@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace viva
+namespace Viva
 {
 
     using LoliAnimationEvent = AnimationEvent<float[]>;

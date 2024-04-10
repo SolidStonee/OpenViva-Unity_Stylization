@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace viva
+namespace Viva
 {  
     public class CustomButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {

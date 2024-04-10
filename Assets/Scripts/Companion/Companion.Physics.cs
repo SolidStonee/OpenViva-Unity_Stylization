@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace viva
+namespace Viva
 {
 
 
@@ -140,17 +140,17 @@ namespace viva
                         }
                         break;
                     case CharacterCollisionCallback.Type.TORSO:
-                        //viva.DevTools.LogExtended("Torso Poke!", true, true);
+                        //Viva.DevTools.LogExtended("Torso Poke!", true, true);
                         passive.poke.AttemptTummyPoke(item);
                         break;
                     // just a test, redirected to face poke
                     case CharacterCollisionCallback.Type.LEFT_FOOT:
-                        //viva.DevTools.LogExtended("Left Foot Poke from " + item.mainOwner + ", Source is player: " + sourceIsPlayer, true, true);
+                        //Viva.DevTools.LogExtended("Left Foot Poke from " + item.mainOwner + ", Source is player: " + sourceIsPlayer, true, true);
                         passive.poke.AttemptFootPoke(item);
                         break;
                     // just a test, redirected to face poke
                     case CharacterCollisionCallback.Type.RIGHT_FOOT:
-                        //viva.DevTools.LogExtended("Right Foot Poke from " + item.mainOwner + ", Source is player: " + sourceIsPlayer, true, true);
+                        //Viva.DevTools.LogExtended("Right Foot Poke from " + item.mainOwner + ", Source is player: " + sourceIsPlayer, true, true);
                         passive.poke.AttemptFootPoke(item);
                         break;
                 }

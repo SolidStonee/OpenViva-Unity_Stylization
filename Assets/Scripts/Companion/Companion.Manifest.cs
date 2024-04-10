@@ -2,7 +2,7 @@
 
 
 
-namespace viva
+namespace Viva
 {
 
 

@@ -1,0 +1,22 @@
+{
+    "name": "Viva",
+    "rootNamespace": "Viva",
+    "references": [
+        "GUID:7976626f7621df24b9a328c2c3982a17",
+        "GUID:715891e033e85614c8b52b6557033104",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:ba171b3dd2a51234ab864770f99741a5",
+        "GUID:eec0964c48f6f4e40bc3ec2257ccf8c5",
+        "GUID:e40ba710768534012815d3193fa296cb",
+        "GUID:15fc0a57446b3144c949da3e2b9737a9"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

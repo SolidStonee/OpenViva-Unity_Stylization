@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Viva.Util;
 
 
-namespace viva
+namespace Viva
 {
 
     public class OnsenGhostMiniGame : MonoBehaviour
@@ -46,7 +47,8 @@ namespace viva
         private AudioClip winGame;
 
         private static readonly MeshRenderer[] dummyMRs = new MeshRenderer[0];
-        private int strengthID = Shader.PropertyToID("_Strength");
+        private int alphaID = Shader.PropertyToID("_Alpha");
+        private int distortionID = Shader.PropertyToID("_Distortion");
         private float timeStarted = 0.0f;
         private bool playedTimeOutSound = false;
         private bool checkedFinalState = false;
@@ -70,8 +72,9 @@ namespace viva
             {
                 bloodDoor.CheckClosedState();
             }
-            GameDirector.instance.postProcessing.AddToQueue(ghostNearbyMat);
-            ghostNearbyMat.SetFloat(strengthID, -0.2f);
+            GameDirector.instance.postProcessing.GhostScreen.SetActive(true);
+            ghostNearbyMat.SetFloat(alphaID, 0f);
+            ghostNearbyMat.SetFloat(distortionID, 0f);
             timeStarted = Time.time;
 
             blockPath.SetActive(true);
@@ -79,7 +82,7 @@ namespace viva
             playedTimeOutSound = false;
             alternateWin = false;
 
-            //scare all lolis
+            //scare all companions
             var lolis = GameDirector.instance.FindCharactersInSphere((int)Character.Type.COMPANION, transform.position, 30.0f);
             foreach (var loli in lolis)
             {
@@ -92,9 +95,8 @@ namespace viva
             GameDirector.instance.LockMusic(false);
             GameDirector.instance.SetMusic(GameDirector.instance.GetDefaultMusic(), 3.0f);
             GameDirector.skyDirector.SetSkyMaterial(null);    //restore
+            GameDirector.instance.postProcessing.GhostScreen.SetActive(false);
             GameDirector.skyDirector.enabled = true;
-            GameDirector.instance.postProcessing.RemoveFromQueue(ghostNearbyMat);
-            GameDirector.instance.postProcessing.DisableGhostEffect();
             nekoTimer.SetLookMode(true);
             nekoTimer.clockSpeed = 1.0f;
 
@@ -138,12 +140,19 @@ namespace viva
         {
             if (ghost.gameObject.activeSelf)
             {
-                float dist = Vector3.Distance(GameDirector.instance.mainCamera.transform.position, ghost.transform.position);
+                float dist = Vector3.Distance(ghost.transform.position, GameDirector.instance.mainCamera.transform.position);
 
-                float distClamp = Tools.GetClampedRatio(0.0f, 12.0f, dist);
-                float closeby = -1.0f + distClamp * 0.8f;
-                ghostNearbyMat.SetFloat(strengthID, closeby);
-                if (closeby < 1.0f)
+                float distClamp = Tools.GetClampedRatio(2f, 7.0f, dist);
+                float invertedDistClamp = 1.0f - distClamp;
+
+                float curve = invertedDistClamp * invertedDistClamp;
+
+                float alpha = curve * 0.95f;
+                float distortion = curve * 0.3f;
+                Debug.Log("Closeby var: " + alpha);
+                ghostNearbyMat.SetFloat(alphaID, alpha);
+                ghostNearbyMat.SetFloat(distortionID, distortion);
+                if (alpha < 1.0f)
                 {
                     if (!ghostNearbyGlobal.isPlaying)
                     {

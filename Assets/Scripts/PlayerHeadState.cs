@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SpatialTracking;
 
 
-namespace viva
+namespace Viva
 {
 
     public class PlayerHeadState : HeadState
