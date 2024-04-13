@@ -21,49 +21,20 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: barrel2
-  m_Shader: {fileID: 4800000, guid: 6459b2db96a08ca41b0f9b39dc7ad59e, type: 3}
+  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - N_F_EAL_ON
-  - N_F_O_ON
-  - N_F_RDC_ON
-  - N_F_RELGI_ON
-  - N_F_SS_ON
-  - N_F_TRANSAFFSHA_ON
-  - _NORMALMAP
-  m_InvalidKeywords:
-  - _CUSTOMLIGHTDIRECTIONFOLLOWOBJECTROTATION_OFF
-  - _GIFLATSHADE_OFF
-  - _GLOSSTEXTUREFOLLOWOBJECTROTATION_OFF
-  - _LIGHTAFFECTOUTLINECOLOR_OFF
-  - _LIGHTAFFECTRIMLIGHTCOLOR_OFF
-  - _LIGHTAFFECTSHADOW_OFF
-  - _LIGHTFALLOFFAFFECTSHADOWT_OFF
-  - _LIGIGNOYNORDIR_OFF
-  - _MCIALO_OFF
-  - _METALLICGLOSSMAP
   - _METALLICSPECGLOSSMAP
-  - _MIXMAINTEXTOOUTLINE_OFF
-  - _MVCOL_OFF
+  - _NORMALMAP
   - _OCCLUSIONMAP
-  - _OUTLINEWIDTHAFFECTEDBYVIEWDISTANCE_OFF
-  - _PSGLOTEX_OFF
-  - _SELFSHADOWAFFECTEDBYLIGHTSHADOWSTRENGTH_OFF
-  - _SELFSHADOWSHADOWTATVIEWDIRECTION_OFF
-  - _SHOWNORMAL_OFF
-  - _SPECMODE_OFF
-  - _STIL_OFF
-  - _TEXTUREPATTERNSTYLE_OFF
-  - _USESECONDARYCUTOUT_OFF
-  - _VERTEXCOLORBLUEAFFECTOUTLINEWITDH_OFF
-  - _VERTEXCOLORGREENCONTROLSELFSHADOWTHRESHOLD_OFF
-  - _VERTEXCOLORREDCONTROLSMOOTHOBJECTNORMAL_OFF
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_LockedProperties: _Smoothness
   m_SavedProperties:
@@ -268,7 +239,7 @@ Material:
     - _N_F_RL: 0
     - _N_F_SCT: 0
     - _N_F_SL: 0
-    - _N_F_SON: 0
+    - _N_F_SON: 1
     - _N_F_SS: 1
     - _N_F_ST: 0
     - _N_F_STIAL: 0
@@ -325,11 +296,11 @@ Material:
     - _ShadowTShadowThreshold: 0
     - _ShowInAmbientLightShadowIntensity: 1
     - _ShowInAmbientLightShadowThreshold: 0.4
-    - _ShowNormal: 0
+    - _ShowNormal: 1
     - _SideMultiplier: 1
     - _SimTrans: 0
     - _SkinMatrixIndex: 0
-    - _SmoothObjectNormal: 0
+    - _SmoothObjectNormal: 1
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -369,5 +340,5 @@ Material:
     - _SelfShadowRealTimeShadowColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShadowTColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _XYZPosition: {r: 0, g: 0, b: 0, a: 0}
+    - _XYZPosition: {r: 0.00032726277, g: -0, b: 0.00048040913, a: 0}
   m_BuildTextureStacks: []
