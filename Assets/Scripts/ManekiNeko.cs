@@ -28,7 +28,6 @@ namespace Viva
         private static int pupilShrinkID = Shader.PropertyToID("_PupilShrink");
         public bool lookMode = false;
 
-        public List<PlayerHeadState> visibleItems = new List<PlayerHeadState>();
         private float tickTock = 0.0f;
         private int tickTockSecond = 0;
         private Material eyeMaterial
@@ -46,24 +45,6 @@ namespace Viva
             }
         }
 
-
-        private void OnTriggerEnter(Collider collider)
-        {
-            var item = collider.transform.GetComponent<PlayerHeadState>();
-            if (item && !visibleItems.Contains(item))
-            {
-                visibleItems.Add(item);
-            }
-        }
-
-        private void OnTriggerExit(Collider collider)
-        {
-            var item = collider.transform.GetComponent<PlayerHeadState>();
-            if (item && visibleItems.Contains(item))
-            {
-                visibleItems.Remove(item);
-            }
-        }
 
         public void SetLookMode(bool on)
         {
@@ -159,11 +140,11 @@ namespace Viva
             Vector3 directionToPlayer = (GameDirector.player.head.position - transform.position).normalized;
             float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer);
             if (angleToPlayer <= FOV / 2) {
-                float bearing = Tools.Bearing(transform, visibleItems[0].transform.position);
+                float bearing = Tools.Bearing(transform, GameDirector.player.head.transform.position);
 
                 float scalingFactor = 0.4f / (FOV / 2);
                 float right = Mathf.Clamp(bearing * scalingFactor, -0.4f, 0.4f);
-                Vector3 local = transform.InverseTransformPoint(visibleItems[0].transform.position);
+                Vector3 local = transform.InverseTransformPoint(GameDirector.player.head.transform.position);
                 float up = Mathf.Clamp(local.y / local.z, -0.2f, 0.08f) * 0.5f;
                 
                 eyeMaterial.SetFloat(pupilRightID, right);

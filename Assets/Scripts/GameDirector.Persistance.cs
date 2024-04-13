@@ -501,7 +501,6 @@ namespace Viva
             LoadLanguage();
             GameDirector.skyDirector.enabled = true;
             InitMusic();
-            RebuildCloudRendering();
         }
     }
 

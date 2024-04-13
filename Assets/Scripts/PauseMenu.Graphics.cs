@@ -135,7 +135,7 @@ namespace Viva
             Text text = GetRightPageUIByMenu(Menu.GRAPHICS).transform.Find("Toggle Clouds").GetChild(0).GetComponent(typeof(Text)) as Text;
             GameSettings.main.toggleClouds = !GameSettings.main.toggleClouds;
             text.text = GameSettings.main.toggleClouds ? "Turn Off Clouds" : "Turn On Clouds";
-            GameDirector.instance.RebuildCloudRendering();
+            //GameDirector.instance.RebuildCloudRendering();
         }
 
         private void UpdateFpsLimitText()

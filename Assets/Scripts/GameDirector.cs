@@ -120,11 +120,27 @@ namespace Viva
             physicsFrame = true;
             for (int i = 0; i < mechanisms.objects.Count; i++)
             {
+                if (m_mechanisms.objects[i] == null)
+                {
+                    m_mechanisms.objects.RemoveAt(i);
+                } 
                 m_mechanisms.objects[i].OnMechanismFixedUpdate();
             }
             for (int i = 0; i < m_characters.objects.Count; i++)
             {
+                if (m_characters.objects[i] == null)
+                {
+                    m_characters.objects.RemoveAt(i);
+                } 
                 m_characters.objects[i].OnCharacterFixedUpdate();
+            }
+            for (int i = 0; i < m_items.objects.Count; i++)
+            {
+                if (m_items.objects[i] == null)
+                {
+                    m_items.objects.RemoveAt(i);
+                } 
+                m_items.objects[i].OnItemFixedUpdate(); //moved to lateupdate so it runs every frame, item bug keeps making them fly away when dropped?
             }
         }
 
@@ -159,12 +175,7 @@ namespace Viva
             {
                 m_items.objects[i].OnItemLateUpdatePostIK();    //items postIK always goes after characters postIK
             }
-            for (int i = 0; i < m_items.objects.Count; i++)
-            {
-                m_items.objects[i].OnItemFixedUpdate(); //moved to lateupdate so it runs every frame, item bug keeps making them fly away when dropped?
-            }
-
-            LateUpdateWeatherRendering();
+            
 
             physicsFrame = false;
         }

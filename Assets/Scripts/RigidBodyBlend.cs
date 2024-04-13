@@ -73,8 +73,8 @@ namespace Viva
                 configJoint.yMotion = ConfigurableJointMotion.Limited;
                 configJoint.zMotion = ConfigurableJointMotion.Limited;
                 var drive = configJoint.xDrive;
-                drive.positionSpring = 100000.0f;
-                drive.positionDamper = 10.0f;
+                drive.positionSpring = 1000000.0f;
+                drive.positionDamper = 15.0f;
                 configJoint.xDrive = drive;
                 configJoint.yDrive = drive;
                 configJoint.zDrive = drive;

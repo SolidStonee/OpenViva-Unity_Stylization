@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18db65be426b91641bb3a5f35c97df40, type: 3}
   m_Name: Doorknob
   m_EditorClassIdentifier: 
+  m_usePickupAnimation: 1
   m_playerHeldAnimation: 16
-  m_loliHeldAnimation: 0
+  m_CompanionHeldAnimation: 0
   m_IKHoldTarget: {x: 0.12, y: 0.06, z: 0.17}
   m_IKHoldPole: {x: 0.18, y: 0.06, z: -0.45}
   m_IKHoldEuler: {x: 177.28, y: -99.4, z: -61.8}
   m_ikBlendStrength: 0.65
+  m_inertia: {x: 0.1, y: 0.1, z: 0.1}
+  m_centerMass: {x: 0, y: 0, z: 0}
   m_allowMultipleOwners: 0
-  m_dynamicShapeHold: 0
   m_heldMassScale: 0.15
   m_holdRotationOffset: {x: 0, y: -90, z: -90}
   m_allowChangeOwner: 1
@@ -32,6 +34,7 @@ MonoBehaviour:
   m_toggleHolding: 1
   m_iconEulerAngles: {x: 0, y: 0, z: 0}
   m_pickupAnimMaintainsYaw: 0
+  m_usesFixedJoint: 0
   m_buoyancySphereRadius: 0
   m_buoyancyEuler: {x: 0, y: 0, z: 0}
   m_buoyancyStrength: 2

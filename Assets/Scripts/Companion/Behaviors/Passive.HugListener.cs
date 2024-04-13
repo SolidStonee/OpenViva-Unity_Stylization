@@ -40,7 +40,6 @@ namespace Viva
                 return;
             }
             isHugging = IsAttemptingToHug(player);
-            Debug.Log("isHugging: " + isHugging + "huglogic: " + hugLogic);
             if (hugLogic == null)
             {
 

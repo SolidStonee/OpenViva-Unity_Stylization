@@ -293,8 +293,6 @@ namespace Viva
             sunMaterial.SetFloat(exposureID, Mathf.LerpUnclamped(prev.exposure, curr.exposure, blend));
             sunMaterial.SetColor(skyTintID, Color.LerpUnclamped(prev.skyTint, curr.skyTint, blend));
             sunMaterial.SetColor(nightSkyID, Color.LerpUnclamped(prev.nightSky, curr.nightSky, blend));
-            GameDirector.instance.raymarchingCloudsMat.SetColor(cloudColorAID, Color.LerpUnclamped(prev.cloudColorA, curr.cloudColorA, blend));
-            GameDirector.instance.raymarchingCloudsMat.SetColor(cloudColorBID, Color.LerpUnclamped(prev.cloudColorB, curr.cloudColorB, blend));
             baseToonAmbience = Color.LerpUnclamped(prev.toonAmbience, curr.toonAmbience, blend);
 
             float nightBlend = Tools.GetClampedRatio(5.0f, 6.0f, phaseIndex) - Tools.GetClampedRatio(9.0f, 10.0f, phaseIndex);

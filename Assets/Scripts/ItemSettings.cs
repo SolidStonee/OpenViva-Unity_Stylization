@@ -82,6 +82,9 @@ namespace Viva
         [SerializeField]
         private bool m_pickupAnimMaintainsYaw = false;
         public bool pickupAnimMaintainsYaw { get { return m_pickupAnimMaintainsYaw; } }
+        [SerializeField]
+        private bool m_usesFixedJoint = true;
+        public bool usesFixedJoint { get { return m_usesFixedJoint; } }
         [Header("Water")]
         [SerializeField]
         private float m_buoyancySphereRadius = 0.0f;
