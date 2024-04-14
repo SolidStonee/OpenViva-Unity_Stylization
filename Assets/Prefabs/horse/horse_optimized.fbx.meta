@@ -7,10 +7,30 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: body
+    second: {fileID: 2100000, guid: 99235a025f35fa145933d53fab1c0780, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eyes
+    second: {fileID: 2100000, guid: 1ef53a4706793b1408da24b2782a6677, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: horse hair
+    second: {fileID: 2100000, guid: 9ae30a50af53e51479ce60c9c2039946, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: horseMain
     second: {fileID: 2100000, guid: 48a3ff7d81b735a47aaa910a8a1df49f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: saddle and reins
+    second: {fileID: 2100000, guid: 50cacdade73d4394b86512354f4f6ea7, type: 2}
   materials:
-    materialImportMode: 1
+    materialImportMode: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 1

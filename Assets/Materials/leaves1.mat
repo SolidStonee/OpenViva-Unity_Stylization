@@ -13,14 +13,16 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _ALPHAPREMULTIPLY_ON
   - _ALPHATEST_ON
+  - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2550
   stringTagMap:
-    RenderType: TransparentCutout
+    RenderType: Transparent
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
@@ -75,10 +77,18 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 92438e660593e8641b91a6f214c933e3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_5db42a46c3dd451cb0d85c0e1d91639c_Texture_1_Texture2D:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_a1044262f8be4c8682f23c3c921924cc_Texture_1_Texture2D:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -97,7 +107,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 1
-    - _AlphaToMask: 1
+    - _AlphaClipThreshold: 0.5
+    - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpFlipMode: 0
@@ -106,13 +117,14 @@ Material:
     - _Cull: 0
     - _Cutoff: 0.471
     - _DetailNormalMapScale: 1
-    - _DstBlend: 0
+    - _DstBlend: 10
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
     - _LocalSize: 0.05
     - _Metallic: 0
     - _Mode: 1
+    - _NormalStrength: 1
     - _OcclusionStrength: 1
     - _OutSizeMax: 0.001
     - _OutSizeMin: 0.001
@@ -127,7 +139,7 @@ Material:
     - _SquashAmount: 1
     - _SrcBlend: 1
     - _SunShineThrough: 0
-    - _Surface: 0
+    - _Surface: 1
     - _TranslucencyViewDependency: 0.7
     - _UVSec: 0
     - _UseMetallicMap: 0
@@ -136,7 +148,7 @@ Material:
     - _WorkflowMode: 1
     - _ZTest: 4
     - _ZWrite: 1
-    - _ZWriteControl: 0
+    - _ZWriteControl: 1
     - _ZigZag: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}

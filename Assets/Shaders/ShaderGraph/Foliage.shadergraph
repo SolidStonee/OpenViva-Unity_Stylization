@@ -17,6 +17,9 @@
         },
         {
             "m_Id": "6924edd1e58c41b98ae504e333856779"
+        },
+        {
+            "m_Id": "5a4b8f2e5e144bb2a71238a61c9b558f"
         }
     ],
     "m_Keywords": [],
@@ -97,20 +100,6 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
-                    "m_Id": "3d383cec026b4774b94188225a8d253b"
-                },
-                "m_SlotId": 3
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "de64b3f0c6e6448e9921cd31f211b537"
-                },
-                "m_SlotId": 2
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
                     "m_Id": "5173d5ccd27244ffb3e36f5b5b1a0d19"
                 },
                 "m_SlotId": 0
@@ -167,6 +156,20 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
+                    "m_Id": "b272ea58244f4e77a108e2db73088bbd"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "3d383cec026b4774b94188225a8d253b"
+                },
+                "m_SlotId": 2
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
                     "m_Id": "c8607f116eb24b58b45760e4169351b2"
                 },
                 "m_SlotId": 1
@@ -204,20 +207,6 @@
                     "m_Id": "c8607f116eb24b58b45760e4169351b2"
                 },
                 "m_SlotId": -894284049
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
-                    "m_Id": "d76940f253ef430baef29bd97d52cdff"
-                },
-                "m_SlotId": 0
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "3d383cec026b4774b94188225a8d253b"
-                },
-                "m_SlotId": 2
             }
         },
         {
@@ -740,10 +729,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -768.9999389648438,
-            "y": 209.0,
-            "width": 172.0,
-            "height": 142.0
+            "x": -1251.9998779296875,
+            "y": 4.76837158203125e-7,
+            "width": 208.0,
+            "height": 326.0
         }
     },
     "m_Slots": [
@@ -766,7 +755,7 @@
         "else"
     ],
     "m_Precision": 0,
-    "m_PreviewExpanded": false,
+    "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
     "m_CustomColors": {
@@ -915,10 +904,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1271.9998779296875,
-            "y": -35.00000762939453,
+            "x": -1769.9998779296875,
+            "y": 58.999996185302737,
             "width": 147.0,
-            "height": 34.00001525878906
+            "height": 34.0000114440918
         }
     },
     "m_Slots": [
@@ -940,17 +929,45 @@
 }
 
 {
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
+    "m_ObjectId": "5a4b8f2e5e144bb2a71238a61c9b558f",
+    "m_Guid": {
+        "m_GuidSerialized": "0f4555ef-9794-47cc-843e-7f2a791c0f0a"
+    },
+    "m_Name": "Alpha Clip Threshold",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "Alpha Clip Threshold",
+    "m_DefaultReferenceName": "_Alpha_Clip_Threshold",
+    "m_OverrideReferenceName": "_AlphaClipThreshold",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": 0.0,
+    "m_FloatType": 1,
+    "m_RangeValues": {
+        "x": 0.0,
+        "y": 1.0
+    }
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Internal.Texture2DShaderProperty",
     "m_ObjectId": "5c07e074a4c24f20909b66aae0d22767",
     "m_Guid": {
         "m_GuidSerialized": "f2437c8f-4917-4681-814f-263623a706fa"
     },
-    "m_Name": "MainTex",
+    "m_Name": "Albedo",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "MainTex",
-    "m_DefaultReferenceName": "_MainTex",
-    "m_OverrideReferenceName": "",
+    "m_RefNameGeneratedByDisplayName": "Albedo",
+    "m_DefaultReferenceName": "_Albedo",
+    "m_OverrideReferenceName": "_MainTex",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
@@ -1141,10 +1158,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -571.9999389648438,
-            "y": 228.99998474121095,
-            "width": 128.99993896484376,
-            "height": 34.00001525878906
+            "x": -1027.0,
+            "y": 292.0,
+            "width": 121.0,
+            "height": 34.0
         }
     },
     "m_Slots": [
@@ -1373,6 +1390,9 @@
             "m_Id": "5c07e074a4c24f20909b66aae0d22767"
         },
         {
+            "m_Id": "5a4b8f2e5e144bb2a71238a61c9b558f"
+        },
+        {
             "m_Id": "3761d969429446aa864f51fd70fc78e1"
         },
         {
@@ -1414,10 +1434,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1271.9998779296875,
-            "y": -95.0,
+            "x": -1769.9998779296875,
+            "y": -0.9999988675117493,
             "width": 149.9998779296875,
-            "height": 33.99999237060547
+            "height": 34.00001525878906
         }
     },
     "m_Slots": [
@@ -1465,9 +1485,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -913.9999389648438,
-            "y": 246.00001525878907,
-            "width": 113.99993896484375,
+            "x": -1381.9998779296875,
+            "y": 4.76837158203125e-7,
+            "width": 114.0,
             "height": 34.00001525878906
         }
     },
@@ -1528,7 +1548,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Texture2DMaterialSlot",
     "m_ObjectId": "c0d13f95e6c744c5899d85da25e6e542",
     "m_Id": 0,
-    "m_DisplayName": "MainTex",
+    "m_DisplayName": "Albedo",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -1608,9 +1628,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1122.0,
-            "y": -127.00000762939453,
-            "width": 239.00006103515626,
+            "x": -1620.0,
+            "y": -0.9999988675117493,
+            "width": 239.0,
             "height": 327.0
         }
     },
@@ -1715,10 +1735,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1271.9998779296875,
-            "y": -64.99999237060547,
-            "width": 134.9998779296875,
-            "height": 33.99999237060547
+            "x": -1769.9998779296875,
+            "y": 29.000017166137697,
+            "width": 135.0,
+            "height": 33.999977111816409
         }
     },
     "m_Slots": [
@@ -1775,10 +1795,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1137.0,
-            "y": 263.0,
-            "width": 208.00006103515626,
-            "height": 313.0
+            "x": -1620.0,
+            "y": 326.0,
+            "width": 208.0,
+            "height": 313.00006103515627
         }
     },
     "m_Slots": [
@@ -1824,12 +1844,12 @@
     },
     "m_Name": "Sample Texture 2D",
     "m_DrawState": {
-        "m_Expanded": false,
+        "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -418.0,
-            "y": 200.0,
-            "width": 208.00001525878907,
+            "x": -906.0,
+            "y": 292.0,
+            "width": 208.0,
             "height": 435.0
         }
     },
@@ -1863,7 +1883,7 @@
         "tex2d"
     ],
     "m_Precision": 0,
-    "m_PreviewExpanded": true,
+    "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
     "m_CustomColors": {
