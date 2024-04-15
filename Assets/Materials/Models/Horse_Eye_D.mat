@@ -274,7 +274,7 @@ Material:
     - _PointSpotlightIntensity: 0
     - _PupilRight: 0.01
     - _PupilShrink: 1.535
-    - _PupilUp: 0.12
+    - _PupilUp: 0
     - _QueueOffset: 0
     - _RELG: 1
     - _ReceiveShadows: 1
