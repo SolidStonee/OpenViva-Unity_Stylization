@@ -332,25 +332,6 @@ namespace Viva
             LateUpdatePostIKTasks();
         }
 
-        public void ApplyToonAmbience(Vector3 cameraPosition, Color toonAmbience)
-        {
-
-            float sqDist = Vector3.SqrMagnitude(spine2.position - cameraPosition);
-            float ease = Tools.EaseInOutQuad(Mathf.Clamp01(1.0f - sqDist * 0.001f));
-            Color proximityAmbience = Color.LerpUnclamped(Color.black, toonAmbience, ease);
-            foreach (Material mat in toonMaterials.objects)
-            {
-                mat.SetColor(WorldUtil.toonProximityAmbienceID, proximityAmbience);
-            }
-            foreach (OutfitInstance.AttachmentInstance attachment in outfitInstance.attachmentInstances)
-            {
-                foreach (Renderer renderer in attachment.activeRenderers)
-                {
-                    renderer.material.SetColor(WorldUtil.toonProximityAmbienceID, proximityAmbience);
-                }
-            }
-        }
-
         public override bool IsSittingOnFloor()
         {
             return bodyState == BodyState.FLOOR_SIT;

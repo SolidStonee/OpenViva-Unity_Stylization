@@ -17,31 +17,37 @@ MonoBehaviour:
   periodsOfDay:
   - description: Night End
     startTime: 5.5
+    daySegment: 2
     horizonColor: {r: 0.011764706, g: 0.011764706, b: 0.02745098, a: 0}
     zenithColor: {r: 0.011764706, g: 0.011764706, b: 0.043137256, a: 0}
     groundColor: {r: 0.019607844, g: 0.015686275, b: 0.019607844, a: 0}
   - description: Dawn
     startTime: 6
+    daySegment: 0
     horizonColor: {r: 0.4528302, g: 0.24195907, b: 0.087575644, a: 0}
     zenithColor: {r: 0.8867924, g: 0.32084104, b: 0.11294055, a: 0}
     groundColor: {r: 0.07008724, g: 0.07290534, b: 0.084905684, a: 0}
   - description: Day
     startTime: 9.1
+    daySegment: 1
     horizonColor: {r: 0.48380208, g: 0.5967927, b: 0.6792453, a: 0}
     zenithColor: {r: 0.06909563, g: 0.099198654, b: 0.23251227, a: 0}
     groundColor: {r: 0.29411766, g: 0.26300654, b: 0.22745098, a: 0}
   - description: Day End
     startTime: 16.5
+    daySegment: 1
     horizonColor: {r: 0.66180134, g: 0.6967497, b: 0.8301887, a: 1}
     zenithColor: {r: 0.054512277, g: 0.13728885, b: 0.46226418, a: 0}
     groundColor: {r: 0.29, g: 0.257085, b: 0.22416998, a: 0}
   - description: Evening
-    startTime: 17
+    startTime: 18.6
+    daySegment: 2
     horizonColor: {r: 0.6603774, g: 0.45372912, b: 0.3270737, a: 0}
     zenithColor: {r: 0.6226415, g: 0.1967782, b: 0.38605088, a: 0}
     groundColor: {r: 0.066037714, g: 0.040888004, b: 0.02953007, a: 0}
   - description: Night
     startTime: 20.54
+    daySegment: 2
     horizonColor: {r: 0.011709091, g: 0.012727273, b: 0.027999999, a: 0}
     zenithColor: {r: 0.013523999, g: 0.013523999, b: 0.042, a: 0}
     groundColor: {r: 0.019, g: 0.017642858, b: 0.019, a: 0}

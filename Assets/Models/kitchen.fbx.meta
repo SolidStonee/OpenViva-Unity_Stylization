@@ -56,7 +56,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["kitchen_exterior","kitchen_interior.004","kitchen_interior.001","kitchen_interior.005","kitchen_interior","kitchen_interior.003","cupula","kitchen_interior.002"],"padding":[74,185,136,143,162,255,125,224],"unwrapper":[0,0,0,0,0,0,0,0]}'
+    - '#BAKERY{"meshName":["kitchen_interior.005","kitchen_interior.004","kitchen_interior.003","kitchen_interior.001","kitchen_interior","kitchen_exterior.001","kitchen_exterior","cupula","kitchen_interior.002"],"padding":[38,49,68,36,43,35,19,33,59],"unwrapper":[0,0,0,0,0,0,0,0,0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

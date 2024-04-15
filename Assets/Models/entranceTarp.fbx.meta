@@ -30,7 +30,8 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties: []
+    extraUserProperties:
+    - '#BAKERY{"meshName":["entrance_tarp_cloth","entrance_tarp_cloth.001"],"padding":[256,153],"unwrapper":[0,0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

@@ -8,6 +8,7 @@ Deck/*
 
 # Ignore 3rd Party Files
 Assets/3rd Party/Paid
+Assets/3rd Party/Paid/*.rar //Stop this cause im stupid
 Assets/3rd Party/Chicken
 Assets/3rd Party/Common
 Assets/3rd Party/Horse AnimSet Pro

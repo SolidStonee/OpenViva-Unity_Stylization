@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4d7d9f4206ca7504a9245e9ec4f275c2
+guid: 7f170b9ed2fe5e94fb879f33639fe541
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["rockHuge1_lod0"],"padding":[43],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["rockHuge1_lod1"],"padding":[21],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

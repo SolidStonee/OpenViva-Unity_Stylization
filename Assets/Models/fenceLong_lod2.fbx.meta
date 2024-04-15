@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["fenceLong_lod2"],"padding":[132],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["fenceLong_lod2"],"padding":[37],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

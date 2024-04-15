@@ -56,7 +56,8 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties: []
+    extraUserProperties:
+    - '#BAKERY{"meshName":["pot2"],"padding":[168],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

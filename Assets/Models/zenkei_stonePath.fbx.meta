@@ -30,7 +30,8 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties: []
+    extraUserProperties:
+    - '#BAKERY{"meshName":["zenkei_stonePath.006","zenkei_stonePath.001","zenkei_stonePath.002","zenkei_stonePath.003","zenkei_stonePath.004","zenkei_stonePath.005"],"padding":[23,28,26,29,31,26],"unwrapper":[0,0,0,0,0,0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

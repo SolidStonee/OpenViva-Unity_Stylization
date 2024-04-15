@@ -2,21 +2,22 @@
 // using System.Collections.Generic;
 // using UnityEngine;
 // using UnityEngine.AI;
-
-
+// using Viva.Util;
+//
+//
 // namespace Viva {
-
-
+//
+//
 // public class JealousBehavior : ActiveBehaviors.ActiveTask {
-
+//
 // 	private float stealCurrentFlagTime = -1.0f;
 // 	private Item currentInterest = null;
-
-
+//
+//
 // 	public JealousBehavior( Companion _self ):base(_self,ActiveBehaviors.Behavior.JEALOUS,null){
 // 	}
-
-
+//
+//
 // 	public static void jobJealousCallback( Character self, Occupation occupation, OccupyType replace ){
 // 		Debug.Log("JEALOUS "+occupation+","+Time.frameCount+":"+replace);
 // 		Companion companion = self as Companion;
@@ -33,12 +34,12 @@
 // 			}
 // 			companion.active.pickup.SetPostPickupAnimationByItemType( companion.active.jealous.currentInterest.settings.itemType );
 // 			companion.SetLookAtTarget(null);
-
+//
 // 			companion.active.SetTask( companion.active.idle, true );
 // 			break;
 // 		}
 // 	}
-
+//
 // 	public bool AttemptJobJealous( Item item ){
 // 		if( item == null ){
 // 			return false;
@@ -49,14 +50,14 @@
 // 		}
 // 		if( self.rightHandState.holdType == HoldType.NULL || 
 // 			self.leftHandState.holdType == HoldType.NULL ){
-
+//
 // 			self.active.SetTask( self.active.jealous, null );
 // 			currentInterest = item;
 // 			self.active.pickup.SetPostPickupAnimation( self.GetLastReturnableIdleAnimation() );
 // 			self.SetRootFacingTarget( item.transform.position, 120.0f, 20.0f, 10.0f );
 // 			self.SetLookAtTarget( item.transform, 1.3f );
 // 			self.SetViewAwarenessTimeout( 1.0f );
-
+//
 // 			if( Random.value > 0.4f ){
 // 				self.SetTargetAnimation( Companion.Animation.STAND_ANGRY_JEALOUS );
 // 			}else{
@@ -66,9 +67,9 @@
 // 		}
 // 		return false;
 // 	}
-
+//
 // 	public override void OnDeactivate(){
-
+//
 // 		self.IgnoreItem( currentInterest, 1.0f );
 // 		self.locomotion.StopMoveTo();
 // 		//ensure she is not stuck looping in a job specific animation
@@ -80,9 +81,9 @@
 // 			break;
 // 		}
 // 	}
-
+//
 // 	public override void OnUpdate(){
-
+//
 // 		if( currentInterest == null ){
 // 			self.active.SetTask( self.active.idle, false );
 // 			self.SetTargetAnimation( self.GetLastReturnableIdleAnimation() );
@@ -97,7 +98,7 @@
 // 		//if can pickup or is already registered
 // 		bool canPickupWithRight = self.rightHandState.heldItem == null;
 // 		bool canPickupWithLeft = self.leftHandState.heldItem == null;
-
+//
 // 		if( !canPickupWithRight && !canPickupWithLeft ){
 // 			self.active.SetTask( self.active.idle, false );
 // 			self.SetTargetAnimation( self.GetLastReturnableIdleAnimation() );
@@ -106,7 +107,7 @@
 // 		if( self.currentAnim == Companion.Animation.STAND_ANGRY_JEALOUS_STEAL_RIGHT ||
 // 			self.currentAnim == Companion.Animation.STAND_ANGRY_JEALOUS_STEAL_LEFT ||
 // 			self.currentAnim == Companion.Animation.STAND_ANGRY_TIP_TOE_REACH ){
-
+//
 // 			if( self.rightHandState.IsCurrentlyRegistered( jobJealousCallback ) ){
 // 				Companion.CompanionHandState rightHand = (Companion.CompanionHandState)self.rightHandState;
 // 				self.rightCompanionHandState.overrideRetargeting.SetupRetargeting(
@@ -124,7 +125,7 @@
 // 				);
 // 			}
 // 			if( self.currentAnim == Companion.Animation.STAND_ANGRY_TIP_TOE_REACH ){
-
+//
 // 				if( self.IsFaceYawAnimationEnabled() ){	//is on floor with both feet
 // 					if( !IsInTipToeRange( currentInterest ) ){
 // 						self.SetTargetAnimation( Companion.Animation.STAND_LOCOMOTION_JEALOUS );
@@ -136,7 +137,7 @@
 // 			}
 // 		}else if( Time.time-self.active.follow.followRefreshTime > 0.4f ){
 // 			self.active.follow.followRefreshTime = Time.time;
-
+//
 // 			//check if can steal object
 // 			float bearing = Tools.Bearing( self.transform, currentInterest.transform.position );
 // 			if( self.active.pickup.IsAtArmsLengthOfItem( Tools.CalculateCenterAndBoundingHeight( currentInterest.gameObject, 0.04f ), PickupBehavior.minFarPickupDistance ) ){
@@ -164,7 +165,7 @@
 // 						default:
 // 							break;
 // 						}
-
+//
 // 						self.SetLookAtTarget( currentInterest.transform );
 // 					}
 // 					self.active.pickup.SetPostPickupAnimation( Companion.Animation.STAND_LOCOMOTION_JEALOUS );
@@ -174,7 +175,7 @@
 // 			}else{
 // 				Vector3? nearest = self.locomotion.FindNearestWalkablePoint( currentInterest.transform.position, 0.45f, 0.0f, 2.0f, 0 );
 // 				if( nearest.HasValue ){
-
+//
 // 					Vector3[] newPath = self.locomotion.GetNavMeshPath( nearest.Value );
 // 					if( newPath != null ){
 // 						self.locomotion.FollowPath( newPath );
@@ -187,7 +188,7 @@
 // 			}
 // 		}
 // 	}
-
+//
 // 	private bool IsInTipToeRange( Item item ){
 // 		if( currentInterest.transform.position.y-self.head.position.y < 0.4f ){
 // 			return false;
@@ -197,9 +198,9 @@
 // 		}
 // 		return true;
 // 	}
-
+//
 // 	public override void OnLateUpdatePostIK(){
-
+//
 // 		if( self.currentAnim == Companion.Animation.STAND_ANGRY_TIP_TOE_REACH ){
 // 			if( self.active.pickup.AttemptPhysicallyPickupItem( self.rightHandState, currentInterest, 0.45f ) ){
 // 				//endJobJealous();
@@ -214,11 +215,11 @@
 // 			}
 // 		}
 // 	}
-
+//
 // 	private Vector3 CalculateTipToeReachTarget( OccupyState handState ){
-
+//
 // 		float sign = -1.0f+(float)System.Convert.ToInt32( handState == self.rightHandState )*2.0f;
-
+//
 // 		float varyX = 1.0f+Mathf.Sin( Time.time*11.0f+sign );
 // 		Vector3 local = currentInterest.transform.position;
 // 		local += self.transform.right*0.035f*sign*varyX;
@@ -231,7 +232,7 @@
 // 		local.z = Mathf.Max( 0.05f, local.z );
 // 		return self.spine2.transform.TransformPoint( local );
 // 	}
-
+//
 // 	public void FlagStealCurrentInterest(){
 // 		stealCurrentFlagTime = Time.time;
 // 	}
@@ -241,12 +242,12 @@
 // 			return;
 // 		}
 // 		if( Vector3.SqrMagnitude(currentInterest.transform.position-handState.fingerAnimator.hand.position) < 0.06f ){
-
+//
 // 			handState.GrabItemRigidBody( currentInterest );
 // 			self.active.pickup.SetPostPickupAnimation( Companion.Animation.STAND_ANGRY_IDLE1 );
 // 		}
 // 		self.locomotion.PlayForce( Random.insideUnitSphere*Random.value*0.5f, 0.3f );
 // 	}
 // }
-
+//
 // }

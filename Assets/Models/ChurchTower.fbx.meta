@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["ChurchTower.001"],"padding":[42],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["ChurchTower.001"],"padding":[11],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

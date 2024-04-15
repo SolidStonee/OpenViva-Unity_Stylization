@@ -191,7 +191,6 @@ namespace Viva
             }
 
             UpdateCameraTransform();
-            modelDefault.ApplyToonAmbience(modelDefault.transform.position, Color.white);
 
             switch (previewMode)
             {

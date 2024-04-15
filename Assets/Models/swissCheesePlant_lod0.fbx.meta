@@ -30,7 +30,8 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties: []
+    extraUserProperties:
+    - '#BAKERY{"meshName":["swissCheese_lod0"],"padding":[75],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

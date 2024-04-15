@@ -45,7 +45,8 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties: []
+    extraUserProperties:
+    - '#BAKERY{"meshName":["zenkei_onsen1_roof_lod0.001","zenkei_onsen1_roof_lod1","zenkei_onsen1_roof_lod2"],"padding":[8,8,9],"unwrapper":[0,0,0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

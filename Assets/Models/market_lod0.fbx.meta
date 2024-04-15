@@ -71,7 +71,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Market_bl_lod0","Market_tr_lod0","Market_front_lod0","Market_br_lod0","Market_tl_lod0"],"padding":[29,28,35,29,29],"unwrapper":[0,0,0,0,0]}'
+    - '#BAKERY{"meshName":["Market_front_lod0"],"padding":[3],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

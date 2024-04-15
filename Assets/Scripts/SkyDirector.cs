@@ -309,16 +309,7 @@ namespace Viva
                     environmentMapProbe.customBakedTexture = curr.environmentMap;
                 }
             }
-
-            //update characters ambience
-            for (int i = 0; i < GameDirector.characters.objects.Count; i++)
-            {
-                Companion companion = GameDirector.characters.objects[i] as Companion;
-                if (companion)
-                {
-                    companion.ApplyToonAmbience(GameDirector.instance.mainCamera.transform.position, baseToonAmbience);
-                }
-            }
+            
         }
 
         public void OverrideDayNightCycleLighting(DayNightCycle.Phase phase, Quaternion sunRotation)
@@ -340,16 +331,6 @@ namespace Viva
 
             sunMaterial.SetFloat(nightBlendID, 0.0f);
             sun.transform.localRotation = sunRotation;
-
-            //update characters ambience
-            for (int i = 0; i < GameDirector.characters.objects.Count; i++)
-            {
-                Companion companion = GameDirector.characters.objects[i] as Companion;
-                if (companion)
-                {
-                    companion.ApplyToonAmbience(GameDirector.instance.mainCamera.transform.position, baseToonAmbience);
-                }
-            }
         }
 
         public void SetSkyMaterial(Material material)

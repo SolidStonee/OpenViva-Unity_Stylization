@@ -30,7 +30,8 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties: []
+    extraUserProperties:
+    - '#BAKERY{"meshName":["blueberryBush_lod1"],"padding":[138],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

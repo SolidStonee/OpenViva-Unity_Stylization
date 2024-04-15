@@ -53,7 +53,8 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties: []
+    extraUserProperties:
+    - '#BAKERY{"meshName":["bathroom_windowFrame"],"padding":[123],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

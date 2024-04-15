@@ -1242,7 +1242,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["homeBridge"],"padding":[58],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["homeBridge"],"padding":[14],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

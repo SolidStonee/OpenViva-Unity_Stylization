@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["rockMedium3_lod2"],"padding":[50],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["rockMedium3_lod2"],"padding":[13],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

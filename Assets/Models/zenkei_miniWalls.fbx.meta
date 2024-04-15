@@ -30,7 +30,8 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties: []
+    extraUserProperties:
+    - '#BAKERY{"meshName":["zenkei_miniWall.001","zenkei_miniWall.003","zenkei_miniWall2"],"padding":[21,30,33],"unwrapper":[0,0,0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

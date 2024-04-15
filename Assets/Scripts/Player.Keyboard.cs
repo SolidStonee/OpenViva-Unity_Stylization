@@ -104,7 +104,6 @@ namespace Viva
 
         public void OnInputScroll(Vector2 scroll)
         {
-            Debug.Log("Scroll.X: " + scroll.x + " Scroll.Y: " + scroll.y);
             if (scroll.y > 0)
             {
                 keyboardArmatureZoom += 0.15f;

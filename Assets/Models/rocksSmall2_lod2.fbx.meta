@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["rocksSmall2_lod2"],"padding":[157],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["rocksSmall2_lod2"],"padding":[42],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

@@ -75,13 +75,19 @@ namespace Viva
         }
         public void CompleteAchievement(ObjectiveType objective, Achievement ach)
         {
-            
 
+            
+            
             if (IsAchievementComplete(objective))
             {
                 return;
             }
-            ach.Trigger();
+            
+            if (SteamSetup.main.initalized)
+            {
+                ach.Trigger();
+            }
+            
             objectives[(int)objective] = true;
             pauseMenu.DisplayHUDMessage(GetAchievementDescription(objective), true, PauseMenu.HintType.ACHIEVEMENT);
         }
