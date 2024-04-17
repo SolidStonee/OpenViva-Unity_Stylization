@@ -10,7 +10,7 @@ namespace Viva
 
         public void OnTriggerEnter(Collider collider)
         {
-            Camera player = collider.GetComponent<Camera>();
+            Player player = collider.GetComponent<Player>();
             if (!player) return;
 
             if (exploreCounter == 0)
@@ -22,8 +22,8 @@ namespace Viva
 
         public void OnTriggerExit(Collider collider)
         {
-            Camera camera = collider.GetComponent<Camera>();
-            if (!camera) return;
+            Player player = collider.GetComponent<Player>();
+            if (!player) return;
 
             --exploreCounter;
             if (exploreCounter == 0)

@@ -35,10 +35,10 @@ namespace Viva
         [Range(-0.2f, 0.2f)]
         [SerializeField]
         private float floorStandOffset = 1.0f;
-        [SerializeField]
-        private FootstepInfo footstepInfo;
-        [SerializeField]
-        private CapsuleCollider bodyCC;
+
+        [SerializeField] private FootstepInfo footstepInfo;
+        public CapsuleCollider bodyCC;
+        public Collider[] ignoreColliders;
         [SerializeField]
         private Vector3 groundRotationOffset = new Vector3(-90.0f, 90.0f, 90.0f);
         [SerializeField]
@@ -209,7 +209,11 @@ namespace Viva
             lastPos = null;
             driver.rigidBody.isKinematic = false;
             driver.transform.gameObject.layer = WorldUtil.playerMovementLayer;
-
+            
+            foreach(Collider ignored in ignoreColliders)
+            {
+                Physics.IgnoreCollision(ignored, driver.characterCC, false);
+            }
             driver.rightHandState.selfItem.ClearAttribute(Item.Attributes.DO_NOT_LOOK_AT);
             driver.leftHandState.selfItem.ClearAttribute(Item.Attributes.DO_NOT_LOOK_AT);
 

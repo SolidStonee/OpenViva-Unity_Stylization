@@ -10350,7 +10350,7 @@ GameObject:
   - component: {fileID: 5704314608519111126}
   - component: {fileID: 5685563734843661657}
   - component: {fileID: 590572301690835471}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: ONSENMUSIC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33278,7 +33278,7 @@ GameObject:
   - component: {fileID: 301064576920094390}
   - component: {fileID: 8859781964127733583}
   - component: {fileID: 3312928256359918013}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: indoors
   m_TagString: Untagged
   m_Icon: {fileID: 0}

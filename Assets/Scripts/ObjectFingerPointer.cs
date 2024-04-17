@@ -555,7 +555,7 @@ namespace Viva
 
         private IEnumerator ValidateLastPointing()
         {
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForEndOfFrame();
             if (pointedCompanion)
             {
                 if (!selectedLolis.Contains(pointedCompanion))
@@ -616,6 +616,7 @@ namespace Viva
                 return;
             }
             Transform newRoot = GamePhysics.result().collider.transform;
+            Debug.Log("HIT: " + newRoot.gameObject.name);
             pointedPos = GamePhysics.result().point;
             pointedCompanion = Tools.SearchTransformAncestors<Companion>(newRoot);
             if (!pointedCompanion)

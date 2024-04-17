@@ -20,7 +20,8 @@ namespace Viva
             EXPLORING_NIGHT,
             SUSPENSE,
             ONSEN,
-            TOWN
+            TOWN,
+            BEACH
         }
 
         [Header("Music")]
@@ -44,6 +45,7 @@ namespace Viva
         private bool m_userIsIndoors = false;
         public bool userIsIndoors { get { return m_userIsIndoors; } }
         private bool userIsExploring = false;
+        private bool userIsInBeach = false;
         private bool userInOnsen = false;
         private bool userInTown = false;
         private Music? overrideMusic = null;
@@ -122,6 +124,12 @@ namespace Viva
             userIsExploring = exploring;
             SetMusic(GetDefaultMusic());
         }
+        
+        public void SetUserIsInBeach(bool beach)
+        {
+            userIsInBeach = beach;
+            SetMusic(GetDefaultMusic());
+        }
 
         public Music GetDefaultMusic()
         {
@@ -142,6 +150,10 @@ namespace Viva
                     if (userInTown)
                     {
                         return Music.TOWN;
+                    }
+                    if (userIsInBeach)
+                    {
+                        return Music.BEACH;
                     }
                     if (userIsIndoors)
                     {

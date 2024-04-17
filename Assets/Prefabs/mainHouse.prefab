@@ -2957,7 +2957,7 @@ GameObject:
   - component: {fileID: 7000758586924742624}
   - component: {fileID: 6837480434267850432}
   - component: {fileID: 4435922600646517709}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: indoors
   m_TagString: Untagged
   m_Icon: {fileID: 0}

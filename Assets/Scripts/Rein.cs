@@ -35,10 +35,13 @@ namespace Viva
         {
             restPos = transform.localPosition;
             restRot = transform.localRotation;
+            Player player = mainOwner as Player;
             StopRestPoseAnimation();
-            mainOwner.gameObject.layer = WorldUtil.noneLayer;
-
-            horse.AddDriverHand(mainOwner as Player);
+            foreach(Collider ignored in horse.ignoreColliders)
+            {
+                Physics.IgnoreCollision(ignored, player.characterCC, true);
+            }
+            horse.AddDriverHand(player);
         }
 
         private void StopRestPoseAnimation()

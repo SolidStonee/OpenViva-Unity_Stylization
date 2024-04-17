@@ -39,7 +39,7 @@ namespace Viva.console
                 
                 foreach (GameObject prefabToSpawn in GameDirector.instance.spawnablePrefabs)
                 {
-                    if (commandParameter == prefabToSpawn.name)
+                    if (commandParameter.ToLower() == prefabToSpawn.name.ToLower())
                     {
                         GameObject prefab;
 

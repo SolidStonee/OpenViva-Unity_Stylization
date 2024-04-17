@@ -146,9 +146,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.28
-  m_Height: 0.791107
+  m_Height: 0.56
   m_Direction: 0
-  m_Center: {x: -0.10444884, y: 0.07987725, z: 0}
+  m_Center: {x: 0.06334157, y: 0.079211965, z: -0.00018959495}
 --- !u!1 &654680743314289352
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +550,7 @@ SpringJoint:
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.87287086, y: 1.5550766, z: -0.14968711}
+  m_ConnectedAnchor: {x: -0.87286377, y: 1.5550766, z: -0.14968872}
   serializedVersion: 2
   m_Spring: 1000
   m_Damper: 10
@@ -681,7 +681,7 @@ SpringJoint:
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.8725977, y: 1.5549927, z: 0.15155481}
+  m_ConnectedAnchor: {x: -0.8725891, y: 1.5549927, z: 0.15155792}
   serializedVersion: 2
   m_Spring: 1000
   m_Damper: 10
@@ -2258,7 +2258,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5432410424594554072}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: a01d7871a3c6bd94a86a6e01e19fc9fe, type: 3}
+  m_Avatar: {fileID: 9000000, guid: c1b48c4af3d6bcc4799c44ee6f30d2c8, type: 3}
   m_Controller: {fileID: 9100000, guid: 655f3fc75875f97418a0c4a8564ca41f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 1
@@ -2303,6 +2303,11 @@ MonoBehaviour:
   floorStandOffset: 0.046
   footstepInfo: {fileID: 5729416000202220547}
   bodyCC: {fileID: 7570133758828470326}
+  ignoreColliders:
+  - {fileID: 8488597272694207202}
+  - {fileID: 9087306446141658576}
+  - {fileID: 9087306446141658575}
+  - {fileID: 7570133758828470326}
   groundRotationOffset: {x: -90, y: 90, z: 90}
   floorSampleFrontOffset: {x: -1, y: 0.4, z: 0}
   floorSampleBackOffset: {x: 0, y: 0.4, z: 0}
