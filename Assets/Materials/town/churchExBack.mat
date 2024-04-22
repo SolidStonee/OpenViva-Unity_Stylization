@@ -13,6 +13,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - N_F_EAL_ON
+  - N_F_NM_ON
   - N_F_O_ON
   - N_F_RDC_ON
   - N_F_RELGI_ON
@@ -120,7 +121,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 605d0e357467c4a468cb36bb31791b41, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -245,7 +246,7 @@ Material:
     - _N_F_MSSOLTFO: 0
     - _N_F_NFD: 0
     - _N_F_NLASOBF: 0
-    - _N_F_NM: 0
+    - _N_F_NM: 1
     - _N_F_O: 1
     - _N_F_OFLMB: 0
     - _N_F_PT: 0
@@ -260,7 +261,7 @@ Material:
     - _N_F_STIAL: 0
     - _N_F_STIS: 0
     - _NoisyOutlineIntensity: 0
-    - _NormalMapIntensity: 1
+    - _NormalMapIntensity: 0.2
     - _OcclusionStrength: 1
     - _Opacity: 1
     - _Oper: 0
@@ -297,9 +298,9 @@ Material:
     - _SelfLitIntensity: 0
     - _SelfLitPower: 2
     - _SelfShadowAffectedByLightShadowStrength: 0
-    - _SelfShadowHardness: 1
+    - _SelfShadowHardness: 0.928
     - _SelfShadowRealTimeShadowColorPower: 1
-    - _SelfShadowRealtimeShadowIntensity: 1
+    - _SelfShadowRealtimeShadowIntensity: 0.906
     - _SelfShadowShadowTAtViewDirection: 0
     - _SelfShadowThreshold: 0.93
     - _ShadowColorTexturePower: 0

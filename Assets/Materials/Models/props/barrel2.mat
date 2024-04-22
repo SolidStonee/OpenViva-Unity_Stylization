@@ -339,5 +339,5 @@ Material:
     - _SelfShadowRealTimeShadowColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShadowTColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _XYZPosition: {r: 0.00032314612, g: 0.000013051393, b: 0.00048304908, a: 0}
+    - _XYZPosition: {r: 0.00032726277, g: -0, b: 0.00048040913, a: 0}
   m_BuildTextureStacks: []

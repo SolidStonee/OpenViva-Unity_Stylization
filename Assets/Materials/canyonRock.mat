@@ -22,7 +22,6 @@ Material:
   - _CUSTOMLIGHTDIRECTIONFOLLOWOBJECTROTATION_OFF
   - _GIFLATSHADE_OFF
   - _GLOSSTEXTUREFOLLOWOBJECTROTATION_OFF
-  - _LIGHTAFFECTOUTLINECOLOR_OFF
   - _LIGHTAFFECTRIMLIGHTCOLOR_OFF
   - _LIGHTAFFECTSHADOW_OFF
   - _LIGHTFALLOFFAFFECTSHADOWT_OFF
@@ -210,7 +209,7 @@ Material:
     - _Glow_Edge_Width: 1
     - _HighlightColorPower: 1
     - _LigIgnoYNorDir: 0
-    - _LightAffectOutlineColor: 0
+    - _LightAffectOutlineColor: 1
     - _LightAffectRimLightColor: 0
     - _LightAffectShadow: 0
     - _LightFalloffAffectShadowT: 0
@@ -341,7 +340,7 @@ Material:
     - _Glow_Color: {r: 1, g: 1, b: 1, a: 1}
     - _HighlightColor: {r: 1, g: 1, b: 1, a: 1}
     - _MainColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 0.066037714, g: 0.066037714, b: 0.066037714, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineOffset: {r: 0, g: 0, b: 0, a: 1}
     - _OverallShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _PTCol: {r: 0, g: 0, b: 0, a: 1}

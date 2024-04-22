@@ -11,7 +11,7 @@
 ////////////////////////////////////////
 
 
-Shader "Hidden/Terrain 0 0_Base-856888236"
+Shader "Hidden/Terrain 0 0_Base-1817776493"
 {
    Properties
    {
@@ -131,6 +131,7 @@ Shader "Hidden/Terrain 0 0_Base-856888236"
       #define _MAX8TEXTURES 1
       #define _PERPIXNORMAL 1
       #define _PERTEXUVSCALEOFFSET 1
+      #define _PERTEXNORMSTR 1
       #define _BRANCHSAMPLES 1
       #define _TERRAINBLENDING 1
       #define _TBNOISE 1
@@ -4302,6 +4303,7 @@ float3 GetTessFactors ()
       #define _MAX8TEXTURES 1
       #define _PERPIXNORMAL 1
       #define _PERTEXUVSCALEOFFSET 1
+      #define _PERTEXNORMSTR 1
       #define _BRANCHSAMPLES 1
       #define _TERRAINBLENDING 1
       #define _TBNOISE 1
@@ -8410,6 +8412,7 @@ float3 GetTessFactors ()
       #define _MAX8TEXTURES 1
       #define _PERPIXNORMAL 1
       #define _PERTEXUVSCALEOFFSET 1
+      #define _PERTEXNORMSTR 1
       #define _BRANCHSAMPLES 1
       #define _TERRAINBLENDING 1
       #define _TBNOISE 1
@@ -12433,6 +12436,7 @@ float3 GetTessFactors ()
       #define _MAX8TEXTURES 1
       #define _PERPIXNORMAL 1
       #define _PERTEXUVSCALEOFFSET 1
+      #define _PERTEXNORMSTR 1
       #define _BRANCHSAMPLES 1
       #define _TERRAINBLENDING 1
       #define _TBNOISE 1
@@ -16452,6 +16456,7 @@ float3 GetTessFactors ()
       #define _MAX8TEXTURES 1
       #define _PERPIXNORMAL 1
       #define _PERTEXUVSCALEOFFSET 1
+      #define _PERTEXNORMSTR 1
       #define _BRANCHSAMPLES 1
       #define _TERRAINBLENDING 1
       #define _TBNOISE 1
@@ -20475,6 +20480,7 @@ float3 GetTessFactors ()
       #define _MAX8TEXTURES 1
       #define _PERPIXNORMAL 1
       #define _PERTEXUVSCALEOFFSET 1
+      #define _PERTEXNORMSTR 1
       #define _BRANCHSAMPLES 1
       #define _TERRAINBLENDING 1
       #define _TBNOISE 1

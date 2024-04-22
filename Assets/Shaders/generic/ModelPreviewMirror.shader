@@ -64,9 +64,8 @@
 			{
 				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i)
 
-                fixed3 gradient = lerp( _BGA, _BGB, i.uv.y );
 				fixed4 c = tex2D( _MainTex, i.uv );
-				return fixed4( lerp( gradient, c.rgb, c.a ), 1.0 );
+				return fixed4(  c.rgb, c.a );
 			}
 			ENDCG
 		}
