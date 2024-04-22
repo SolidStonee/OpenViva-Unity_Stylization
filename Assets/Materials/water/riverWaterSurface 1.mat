@@ -123,7 +123,7 @@ Material:
     - _DirtMax: 0.212
     - _DirtMin: 0
     - _DirtScale: 0.15
-    - _Distance: 5
+    - _Distance: 4.64
     - _DstBlend: 0
     - _FlowSpeed: 0.12
     - _FoamAmount: 0.3
@@ -153,7 +153,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Refraction_Speed: 0.025
-    - _Refraction_Strength: 0.16
+    - _Refraction_Strength: 0.17
     - _SecondaryScale: 0.0046
     - _Smoothness: 0.37
     - _SmoothnessTextureChannel: 0
