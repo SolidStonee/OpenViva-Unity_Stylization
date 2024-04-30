@@ -336,7 +336,7 @@ namespace Viva
                     break;
                 case (int)AnimationEventName.FOOTSTEP_SOUND:
                     DebugAssert(animEvent, -1);
-                    if (locomotion.isMoveToActive())
+                    if (locomotion.isMoveToActive() && velTracker.velocity.magnitude > 0.3)
                     {
                         PlayFootstep();
                     }

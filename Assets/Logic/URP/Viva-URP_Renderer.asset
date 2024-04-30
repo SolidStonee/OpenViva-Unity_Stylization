@@ -108,7 +108,8 @@ MonoBehaviour:
   - {fileID: -3403770539973920601}
   - {fileID: -4255186446054167466}
   - {fileID: -3789186993131621832}
-  m_RendererFeatureMap: 62a95a7d5987dbf2fefddb19e9d38c99a738ea53ba60c3d0566ce2e5788af2c438f2db76811a6acb
+  - {fileID: 172726506325762108}
+  m_RendererFeatureMap: 62a95a7d5987dbf2fefddb19e9d38c99a738ea53ba60c3d0566ce2e5788af2c438f2db76811a6acb3c60d7a4d7a56502
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -151,3 +152,16 @@ MonoBehaviour:
   m_CopyDepthMode: 0
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 1
+--- !u!114 &172726506325762108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b72f3a84ed6147c18134fe9455e0f85, type: 3}
+  m_Name: HiZURP
+  m_EditorClassIdentifier: 
+  m_Active: 1

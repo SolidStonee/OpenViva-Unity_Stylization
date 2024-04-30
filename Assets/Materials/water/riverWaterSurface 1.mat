@@ -123,7 +123,7 @@ Material:
     - _DirtMax: 0.212
     - _DirtMin: 0
     - _DirtScale: 0.15
-    - _Distance: 4.64
+    - _Distance: 1.54
     - _DstBlend: 0
     - _FlowSpeed: 0.12
     - _FoamAmount: 0.3
@@ -132,8 +132,8 @@ Material:
     - _FoamMin: 0
     - _FoamScale: 0.2
     - _Foam_Amount: 0.54
-    - _Foam_Cutoff: 2.2
-    - _Foam_Scale: 500
+    - _Foam_Cutoff: 1
+    - _Foam_Scale: 1026.48
     - _Foam_Speed: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -144,7 +144,7 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _NormalStrength: 0.15
-    - _Normal_Strength: 0.33
+    - _Normal_Strength: 0.41
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _PupilRight: 0
@@ -153,7 +153,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Refraction_Speed: 0.025
-    - _Refraction_Strength: 0.17
+    - _Refraction_Strength: 0.39
     - _SecondaryScale: 0.0046
     - _Smoothness: 0.37
     - _SmoothnessTextureChannel: 0
@@ -173,7 +173,7 @@ Material:
     - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
     - _Foam_Color: {r: 1, g: 1, b: 1, a: 1}
     - _PrimaryWaterColor: {r: 0.43787822, g: 0.45283014, b: 0.4508096, a: 0}
-    - _Refraction_Scale: {r: -21, g: -30, b: 0, a: 0}
+    - _Refraction_Scale: {r: 30, g: 10, b: 0, a: 0}
     - _SecondaryColor: {r: 0.7161356, g: 0.72040015, b: 0.7264151, a: 0}
     - _SubsurfaceColor: {r: 0.6179246, g: 0.9597815, b: 1, a: 1}
     - _SurfColor: {r: 0, g: 0.7725491, b: 0.6627451, a: 1}

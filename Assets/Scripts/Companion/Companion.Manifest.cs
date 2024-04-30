@@ -79,7 +79,6 @@ namespace Viva
             NONE,
             STAND_HAPPY_IDLE1,
             STAND_HAPPY_IDLE2,
-            STAND_HAPPY_IDLE3,
             STAND_ANGRY_IDLE1,
             STAND_CONFUSED,
             STAND_HAPPY_SOCIAL1,

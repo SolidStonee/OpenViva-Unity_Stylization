@@ -1621,6 +1621,7 @@ MonoBehaviour:
   assetName: PLAYER
   m_characterType: 2
   m_headItem: {fileID: 9193422362776629246}
+  m_velTracker: {fileID: 54432781452509964}
   m_head: {fileID: 1166237715339763929}
   m_occupyStates:
   - {fileID: 0}

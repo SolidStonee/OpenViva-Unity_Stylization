@@ -163,6 +163,8 @@ namespace Viva
         {
             UpdateIdleRootFacingTargetTimer();
 
+            Debug.Log(nextIdleVariationTime);
+            
             //update shoulder items lolic
             if (self.rightShoulderState.occupied)
             {
@@ -293,7 +295,7 @@ namespace Viva
         {
             if (self.IsHappy() && !self.IsTired())
             {
-                idleVersion = (idleVersion + 1) % 3;    //cycle
+                idleVersion = (idleVersion + 1) % 2;    //cycle
                 switch (self.bodyState)
                 {
                     case BodyState.STAND:
@@ -303,8 +305,6 @@ namespace Viva
                                 return Companion.Animation.NONE;
                             case 1:
                                 return Companion.Animation.STAND_HAPPY_IDLE2;
-                            case 2:
-                                return Companion.Animation.STAND_HAPPY_IDLE3;
                         }
                         break;
                 }
@@ -314,16 +314,18 @@ namespace Viva
 
         private void UpdateIdleVariations()
         {
-
+            
             //allow only if not holding anything (disables with items and handholding)
             if (self.rightHandState.heldItem != null || self.leftHandState.heldItem != null)
             {
                 return;
             }
-            if (nextIdleVariationTime - Time.time < 0.0f)
+            Debug.Log(nextIdleVariationTime);
+            if (Time.time >= nextIdleVariationTime)
             {
                 nextIdleVariationTime = Time.time + 10.0f + Random.value * 15.0f;   //10~25 sec. wait
-
+                Debug.Log("IdleAnimVar Update");
+                
                 var anim = GetAvailableIdleAnimation();
                 if (anim != Companion.Animation.NONE)
                 {

@@ -84,6 +84,7 @@ MonoBehaviour:
   assetName: loli
   m_characterType: 1
   m_headItem: {fileID: 5072886701335289187}
+  m_velTracker: {fileID: 1295932093887620273}
   m_head: {fileID: 992372336743010909}
   m_occupyStates:
   - {fileID: 8463027842217756943}

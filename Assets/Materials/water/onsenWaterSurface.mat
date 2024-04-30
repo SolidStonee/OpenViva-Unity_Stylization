@@ -106,11 +106,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Vector1_1: 1
-    - Vector1_2: 1
-    - Vector1_2be7601ab99d430c8525266edef302b4: 2
-    - Vector1_3331e4b5780d4a149d159f68f55a7e32: 142.5
-    - Vector1_48aa5dff7d664a229bdd4ca9b62f08de: 0.255
+    - Vector1_1: 1.84
+    - Vector1_2: 1.18
+    - Vector1_2be7601ab99d430c8525266edef302b4: 1.5
+    - Vector1_3331e4b5780d4a149d159f68f55a7e32: 142
+    - Vector1_48aa5dff7d664a229bdd4ca9b62f08de: 0.08
     - Vector1_86030992a0d049fab14057b7dfffae81: 0.71
     - _BumpScale: 1
     - _Cutoff: 0.5
@@ -121,7 +121,7 @@ Material:
     - _DirtMin: 0
     - _DirtScale: 0.15
     - _DstBlend: 0
-    - _EdgeAlphaFalloff: 0.57
+    - _EdgeAlphaFalloff: 0.32
     - _EdgeColorFalloff: 0.61
     - _EdgeFalloff: 0.776
     - _FlowSpeed: 0.16

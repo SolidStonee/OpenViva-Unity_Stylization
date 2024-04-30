@@ -521,19 +521,9 @@ namespace Viva
             }
         }
 
-        private static Material CreateModelMaterial(ModelBuildSettings mis, string materialName)
+        private static Material CreateModelMaterial(ModelBuildSettings mbs, string materialName)
         {
-            Shader materialShader;
-            if (materialName == "pupil_r" || materialName == "pupil_l")
-            {
-                materialShader = mis.pupil;
-            }
-            else
-            {
-                materialName = "skin";
-                materialShader = mis.skin;
-            }
-            Material newMaterial = new Material(materialShader);
+            Material newMaterial = new Material(mbs.modelShader);
             newMaterial.name = materialName;
             return newMaterial;
         }
@@ -549,7 +539,7 @@ namespace Viva
             if (materialTable.Length == 0)
             {
                 Debug.Log("[VIVA MODEL MATERIAL] No materials found! Creating default material...");
-                Material newMaterial = new Material(mbs.skin);
+                Material newMaterial = new Material(mbs.modelShader);
                 materialTable = new Material[] { newMaterial };
                 newMaterial.name = "skin";
             }

@@ -25,7 +25,7 @@ namespace Viva
             {
                 return;
             }
-
+            Debug.Log("Velocity Mgn: " + velTracker.velocity.magnitude);
             if (Vector3.SqrMagnitude(floorPos - footstepInfo.lastFloorPos) > 1.0f)
             {
                 footstepInfo.lastFloorPos = floorPos;

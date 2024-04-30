@@ -139,27 +139,27 @@ MonoBehaviour:
   active: 1
   numberOfSamples:
     m_OverrideState: 1
-    m_Value: 8
+    m_Value: 10
   fogDensity:
     m_OverrideState: 1
-    m_Value: 1.37
+    m_Value: 1.15
   maxRayDistance:
     m_OverrideState: 1
     m_Value: 0.2
   tint:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_Value: {r: 0.8962264, g: 0.8962264, b: 0.8962264, a: 1}
   softenScreenEdges:
-    m_OverrideState: 1
-    m_Value: 1
+    m_OverrideState: 0
+    m_Value: 0
   animateSamplingOffset:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0
   lightMustBeOnScreen:
     m_OverrideState: 0
     m_Value: 0
   falloffBasis:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0
 --- !u!114 &11400000
 MonoBehaviour:

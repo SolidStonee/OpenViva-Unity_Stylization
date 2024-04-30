@@ -589,6 +589,8 @@ namespace Viva
                 pointedMechanism = null;
             }
 
+            yield return new WaitForSeconds(0.3f);
+            
             pointingCoroutine = null;
             pointedShort = false;
         }
@@ -616,7 +618,6 @@ namespace Viva
                 return;
             }
             Transform newRoot = GamePhysics.result().collider.transform;
-            Debug.Log("HIT: " + newRoot.gameObject.name);
             pointedPos = GamePhysics.result().point;
             pointedCompanion = Tools.SearchTransformAncestors<Companion>(newRoot);
             if (!pointedCompanion)

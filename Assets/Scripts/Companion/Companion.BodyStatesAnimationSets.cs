@@ -147,7 +147,6 @@ namespace Viva
             bodyStateAnimationSets[(int)BodyState.STAND] = stand;
             stand.AddAnimation(AnimationSet.IDLE_HAPPY, Companion.Animation.STAND_HAPPY_IDLE1);
             stand.AddAnimation(AnimationSet.IDLE_HAPPY, Companion.Animation.STAND_HAPPY_IDLE2);
-            stand.AddAnimation(AnimationSet.IDLE_HAPPY, Companion.Animation.STAND_HAPPY_IDLE3);
             stand.AddAnimation(AnimationSet.IDLE_TIRED, Companion.Animation.STAND_TIRED_LOCOMOTION);
             stand.AddAnimation(AnimationSet.IDLE_ANGRY, Companion.Animation.STAND_ANGRY_IDLE1);
             stand.AddAnimation(AnimationSet.AGREE, Companion.Animation.STAND_AGREE);

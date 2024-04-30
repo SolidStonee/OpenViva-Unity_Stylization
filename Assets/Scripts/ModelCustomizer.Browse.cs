@@ -155,9 +155,7 @@ namespace Viva
 
             //Decode card data into viva model data (model and settings)
             ModelBuildSettings mbs = new ModelBuildSettings(
-                skinShader,
-                clothingShader,
-                pupilShader,
+                modelShader,
                 new string[] { "skin", "pupil_r", "pupil_l" }
             );
             mbs.modelTexture = modelTextures[0];

@@ -23,6 +23,9 @@ namespace Viva
         private Item m_headItem;
         public Item headItem { get { return m_headItem; } }
         [SerializeField]
+        private Rigidbody m_velTracker;
+        public Rigidbody velTracker { get { return m_velTracker; } }
+        [SerializeField]
         private Transform m_head;
         public Transform head { get { return m_head; } }
         [SerializeField]

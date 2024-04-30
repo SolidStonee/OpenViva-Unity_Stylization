@@ -12,9 +12,8 @@ namespace Viva
 
     public class ModelBuildSettings
     {
-        public readonly Shader skin;
-        public readonly Shader clothing;
-        public readonly Shader pupil;
+        public readonly Shader modelShader;
+
         public string[] requiredMaterials;
         public Texture2D modelTexture;
         public Texture2D rightEyeTexture;
@@ -46,11 +45,9 @@ namespace Viva
         public Vector4 headpatWorldSphere = Vector4.zero;
         public Vector4 headCollisionWorldSphere = Vector4.zero;
 
-        public ModelBuildSettings(Shader _skin, Shader _clothing, Shader _pupil, string[] _requiredMaterials)
+        public ModelBuildSettings(Shader _modelShader, string[] _requiredMaterials)
         {
-            skin = _skin;
-            clothing = _clothing;
-            pupil = _pupil;
+            modelShader = _modelShader;
             requiredMaterials = _requiredMaterials;
         }
     }
@@ -73,12 +70,10 @@ namespace Viva
         private GameObject browseTab;
 
         [Header("Import Variables")]
+
         [SerializeField]
-        private Shader pupilShader;
-        [SerializeField]
-        private Shader skinShader;
-        [SerializeField]
-        private Shader clothingShader;
+        private Shader modelShader;
+
         [SerializeField]
         private RectTransform tabsButtonsContainer;
         [SerializeField]
@@ -233,9 +228,7 @@ namespace Viva
             {
                 PlaySpawnSound();
                 ModelBuildSettings mbs = new ModelBuildSettings(
-                    skinShader,
-                    clothingShader,
-                    pupilShader,
+                    modelShader,
                     new string[] { "skin", "pupil_r", "pupil_l" }
                 );
                 VivaModel.CreateLoliRequest createModelRequest = new VivaModel.CreateLoliRequest(modelDefault, vivaModelFilePath, mbs);

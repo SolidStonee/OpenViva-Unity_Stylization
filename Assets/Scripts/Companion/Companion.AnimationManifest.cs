@@ -582,20 +582,8 @@ namespace Viva
                 new LoliAnimationEvent[]{
                 new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
                 new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
-                },
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
-            ));
-
-            RegisterAnimation(Companion.Animation.STAND_HAPPY_IDLE3,
-                new Companion.AnimationInfo(new Companion.DefaultTransition(Companion.Animation.STAND_HAPPY_IDLE1),
-                "stand_happy_idle3", "stand_locomotion_spine_stable", "stand_happy_idle3",
-                Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
-                0.1f, new Companion.AnimLogicInfo(1, 0.3f, 0.5f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
-                new LoliAnimationEvent( 0.6f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.9f, 1.1f } ),
-                new LoliAnimationEvent( 0.99f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 0.3f, 1.1f } ),
+                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.THINKING_LONG, 0.0f } ),
+                new LoliAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.THINKING_SHORT, 0.0f } ),
                 },
                 (int)Companion.AnimationInfo.Flag.IDLE_STATE
             ));
