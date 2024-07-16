@@ -19,3 +19,4 @@ MonoBehaviour:
   nightIndoor: {fileID: 8300000, guid: a24e45b9711b5d644ad4b3a89fd2f0ba, type: 3}
   nightOutdoor: {fileID: 8300000, guid: 0b0206ffdafd54d40b611b9b050f298c, type: 3}
   randomSounds: {fileID: 11400000, guid: 10e4dc89fb5377f42b107b273064e4e1, type: 2}
+  priority: 1

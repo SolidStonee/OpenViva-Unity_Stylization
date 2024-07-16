@@ -25,8 +25,11 @@ namespace Viva
         private float cameraPrepared = 0.0f;
         private bool stillTimerHasReset = true;
 
-        public CameraUseBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.CAMERA_USE, null)
+        public CameraUseBehavior(Companion _self) : base("Using Camera", _self, ActiveBehaviors.Behavior.CAMERA_USE, null)
         {
+            
+            
+            
         }
 
         public override void OnActivate(){

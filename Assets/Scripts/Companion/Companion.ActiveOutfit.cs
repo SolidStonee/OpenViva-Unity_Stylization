@@ -34,7 +34,7 @@ namespace Viva
             }
             if (newHighLOD != lodLevel)
             {
-                lodLevel = newHighLOD;
+                //lodLevel = newHighLOD;
 
                 bool enableClothSim = lodLevel == 0;
                 foreach (var clothingInstance in outfitInstance.attachmentInstances)

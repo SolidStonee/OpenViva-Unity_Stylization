@@ -10,7 +10,7 @@ namespace Viva
     public class CattailBehavior : ActiveBehaviors.ActiveTask
     {
 
-        public CattailBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.CATTAIL, null)
+        public CattailBehavior(Companion _self) : base("Holding a Cattail", _self, ActiveBehaviors.Behavior.CATTAIL, null)
         {
         }
 

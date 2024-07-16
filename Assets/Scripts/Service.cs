@@ -76,8 +76,8 @@ namespace Viva
             if (success)
             {
                 targetCompanion.active.SetTask(targetCompanion.active.GetTask(targetBehavior));
-                GameDirector.player.objectFingerPointer.selectedLolis.Remove(targetCompanion);
-                targetCompanion.characterSelectionTarget.OnUnselected();
+                GameDirector.player.objectFingerPointer.selectedCompanions.Remove(targetCompanion);
+                targetCompanion.OnUnselected();
             }
             else
             {

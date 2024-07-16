@@ -2,7 +2,7 @@
 {
 
 
-    public partial class AutonomyEmpty : Autonomy.Task
+    public class AutonomyEmpty : Autonomy.Task
     {
 
         public delegate bool? ProgressCallback();

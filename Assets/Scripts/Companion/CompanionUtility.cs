@@ -8,7 +8,7 @@ namespace Viva
 
         public static AutonomyPlayAnimation CreateSpeechAnimation(Companion companion, AnimationSet animationSet, SpeechBubble bubble)
         {
-            var playConfuseAnim = new AutonomyPlayAnimation(companion.autonomy, "confused", companion.GetAnimationFromSet(animationSet));
+            var playConfuseAnim = new AutonomyPlayAnimation(companion.autonomy, "speech", companion.GetAnimationFromSet(animationSet));
             playConfuseAnim.onAnimationEnter += delegate
             {
                 companion.speechBubbleDisplay.DisplayBubble(GameDirector.instance.GetSpeechBubbleTexture(bubble));

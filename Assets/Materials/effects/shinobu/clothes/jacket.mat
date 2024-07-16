@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6447351414541933329
+--- !u!114 &-4177048121792767324
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -25,12 +25,15 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - N_F_CO_ON
   - N_F_EAL_ON
+  - N_F_GLOT_ON
   - N_F_O_ON
   - N_F_RDC_ON
   - N_F_RELGI_ON
   - N_F_SS_ON
   - N_F_TRANSAFFSHA_ON
+  - N_F_TRANS_ON
   m_InvalidKeywords:
   - _CUSTOMLIGHTDIRECTIONFOLLOWOBJECTROTATION_OFF
   - _GIFLATSHADE_OFF
@@ -66,6 +69,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _Bump:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -126,8 +133,12 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MetallicTex:
+        m_Texture: {fileID: 2800000, guid: 00f01610f6503344aa36e5534ddf674c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: fbd1d3a2fbde241bfbd1c0522b68ef76, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -152,6 +163,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2DLOD_7d4a30285cc145cab486e24fabe60a6e_Texture_1_Texture2D:
         m_Texture: {fileID: 2800000, guid: a8c4120ceb35eeb4aa745bcdd9bc7688, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_42acc25c6a89493ca767b55c1d9c70d2_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: fb3e5ad6953b584428a49ecc64c58c6e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SecondaryCutout:
@@ -194,17 +209,17 @@ Material:
     - _BumpScale: 1
     - _Compa: 4
     - _ComputeMeshIndex: 0
-    - _Culling: 2
+    - _Culling: 0
     - _CustomLightDirectionFollowObjectRotation: 0
     - _CustomLightDirectionIntensity: 0
     - _Cutoff: 0.5
-    - _Cutout: 0
+    - _Cutout: 0.5
     - _DepthThreshold: 900
     - _DetailNormalMapScale: 1
     - _DirectionalLightIntensity: 0
     - _Dirt: 0
     - _DoubleSidedOutline: 1
-    - _DstBlend: 10
+    - _DstBlend: 0
     - _DynamicNoisyOutline: 0
     - _EnvironmentalLightingIntensity: 1
     - _FarDistanceMaxWidth: 10
@@ -218,7 +233,7 @@ Material:
     - _GlossTextureFollowObjectRotation: 0
     - _GlossTextureRotate: 0
     - _GlossTextureSoftness: 0
-    - _Glossiness: 0.675
+    - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Glow_Edge_Width: 1
     - _HighlightColorPower: 1
@@ -238,10 +253,10 @@ Material:
     - _Metallic: 0
     - _MinFadDistance: 0
     - _MixMainTexToOutline: 0
-    - _Mode: 3
+    - _Mode: 0
     - _N_F_CA: 0
     - _N_F_CLD: 0
-    - _N_F_CO: 0
+    - _N_F_CO: 1
     - _N_F_COEDGL: 0
     - _N_F_DCS: 0
     - _N_F_DDMD: 0
@@ -249,7 +264,7 @@ Material:
     - _N_F_ESSAO: 0
     - _N_F_FR: 0
     - _N_F_GLO: 0
-    - _N_F_GLOT: 0
+    - _N_F_GLOT: 1
     - _N_F_HDLS: 0
     - _N_F_HPSS: 0
     - _N_F_MC: 0
@@ -276,7 +291,7 @@ Material:
     - _Opacity: 1
     - _Oper: 0
     - _OutSizeMax: 0.0005
-    - _OutSizeMin: 0.000069
+    - _OutSizeMin: 0
     - _OutlineExtrudeMethod: 0
     - _OutlineWidth: 0.5
     - _OutlineWidthAffectedByViewDistance: 0
@@ -310,11 +325,11 @@ Material:
     - _SelfLitIntensity: 0
     - _SelfLitPower: 2
     - _SelfShadowAffectedByLightShadowStrength: 0
-    - _SelfShadowHardness: 0.85
+    - _SelfShadowHardness: 1
     - _SelfShadowRealTimeShadowColorPower: 1
-    - _SelfShadowRealtimeShadowIntensity: 1
+    - _SelfShadowRealtimeShadowIntensity: 0.9
     - _SelfShadowShadowTAtViewDirection: 0
-    - _SelfShadowThreshold: 0.93
+    - _SelfShadowThreshold: 0.83
     - _ShadowColorTexturePower: 0
     - _ShadowHardness: 0
     - _ShadowTColorPower: 1
@@ -334,7 +349,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _TEXMCOLINT: 1
-    - _TRANSMODE: 0
+    - _TRANSMODE: 1
     - _TexturePatternStyle: 0
     - _TransAffSha: 1
     - _TransparentThreshold: 0
@@ -345,9 +360,9 @@ Material:
     - _VertexColorBlueAffectOutlineWitdh: 0
     - _VertexColorGreenControlSelfShadowThreshold: 0
     - _VertexColorRedControlSmoothObjectNormal: 0
-    - _ZWrite: 0
+    - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0, g: 0.9150943, b: 0.2131147, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _CustomLightDirection: {r: 0, g: 0, b: 10, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FingerNailColor: {r: 1, g: 0.7647059, b: 0.7411765, a: 0}
@@ -359,14 +374,13 @@ Material:
     - _OutlineOffset: {r: 0, g: 0, b: 0, a: 1}
     - _OverallShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _PTCol: {r: 0, g: 0, b: 0, a: 1}
-    - _PhotoDataColor: {r: 0, g: 0, b: 0, a: 1}
+    - _PhotoDataColor: {r: 1, g: 0, b: 0, a: 1}
     - _RimLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _SSAOColor: {r: 0, g: 0, b: 0, a: 0}
     - _SelfLitColor: {r: 1, g: 1, b: 1, a: 1}
     - _SelfShadowRealTimeShadowColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShadowTColor: {r: 1, g: 1, b: 1, a: 1}
     - _SkinColor: {r: 1, g: 0.86, b: 0.82, a: 0}
-    - _SpecColor: {r: 0.6415094, g: 0.6263795, b: 0.6263795, a: 1}
     - _ToeNailColor: {r: 1, g: 0.62352943, b: 0.5882353, a: 0}
     - _ToonProximityAmbience: {r: 1, g: 1, b: 1, a: 1}
     - _XYZPosition: {r: 0, g: 0, b: 0, a: 0}

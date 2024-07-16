@@ -159,7 +159,7 @@ namespace Viva
             if (liquidColor.HasValue)
             {
                 SetFillingScoop(liquidColor.Value);
-                SoundManager.main.RequestHandle(transform.position).PlayOneShot(jellyScoopSound);
+                SoundManager.main.RequestHandle(transform.position, transform).PlayOneShot(jellyScoopSound);
             }
         }
 
@@ -177,7 +177,7 @@ namespace Viva
 
         public void PlayJellyApplySound()
         {
-            SoundManager.main.RequestHandle(transform.position).PlayOneShot(jellyApplySound);
+            SoundManager.main.RequestHandle(transform.position, transform).PlayOneShot(jellyApplySound);
         }
 
         public void SetFillingScoop(Color? newFillingColor)

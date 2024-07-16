@@ -9,7 +9,7 @@ namespace Viva
 
 
         [SerializeField]
-        public Vector3 centerLocalPos;
+        public Transform approachLocation;
 
         private static List<KitchenFacilities> facilities = new List<KitchenFacilities>();
 
@@ -19,7 +19,7 @@ namespace Viva
             KitchenFacilities nearest = null;
             foreach (KitchenFacilities facility in facilities)
             {
-                float sqDst = Vector3.SqrMagnitude(pos - facility.centerLocalPos);
+                float sqDst = Vector3.SqrMagnitude(pos - facility.approachLocation.position);
                 if (sqDst < least)
                 {
                     least = sqDst;
@@ -36,10 +36,12 @@ namespace Viva
 
         public override bool AttemptCommandUse(Companion targetCompanion, Character commandSource)
         {
+            Debug.Log("Start Cookin");
             if (targetCompanion == null)
             {
                 return false;
             }
+            
             return targetCompanion.active.cooking.AttemptBeginCooking(this);
         }
 
@@ -50,7 +52,7 @@ namespace Viva
         public void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.TransformPoint(centerLocalPos), 0.2f);
+            Gizmos.DrawWireSphere(transform.TransformPoint(approachLocation.position), 0.2f);
         }
     }
 

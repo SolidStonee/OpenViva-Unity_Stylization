@@ -6,7 +6,7 @@ using Viva.Util;
 namespace Viva
 {
 
-    using LoliAnimationEvent = AnimationEvent<float[]>;
+    using CompanionAnimationEvent = AnimationEvent<float[]>;
 
     public partial class Companion : Character
     {
@@ -14,13 +14,14 @@ namespace Viva
 
         private Animation m_lastAnim = Animation.NONE;
         public Animation lastAnim { get { return m_lastAnim; } }
+        [SerializeField]
         private Animation m_currentAnim = Animation.NONE;
         public Animation currentAnim { get { return m_currentAnim; } }
         private Animation m_targetAnim = Animation.NONE;
         public Animation targetAnim { get { return m_targetAnim; } }
         private Priority currentAnimPriority = Priority.NONE;
         private Priority highestTargetAnimPriority = Priority.NONE;
-        private LoliAnimationEvent.Context animationEventContext;
+        private CompanionAnimationEvent.Context animationEventContext;
         public bool currentAnimationLoops { get; private set; }
         public BodyStateAnimationSet[] bodyStateAnimationSets { get; private set; } = null;
 
@@ -46,6 +47,7 @@ namespace Viva
         public void ShiftHappiness(int amount)
         {
             happiness = (Happiness)Mathf.Clamp((int)happiness + amount, (int)Happiness.VERY_ANGRY, (int)Happiness.VERY_HAPPY);
+            onMoodChange?.Invoke(happiness);
         }
         public bool FeelsAtLeast(Happiness minimum)
         {
@@ -102,7 +104,7 @@ namespace Viva
 
             bodyStateAnimationSets = GenerateBodyStateAnimationSets();
             animator.Update(0.1f);  //remove Tposing when spawned
-            animationEventContext = new LoliAnimationEvent.Context(HandleAnimationEvent);
+            animationEventContext = new CompanionAnimationEvent.Context(HandleAnimationEvent);
             lastPos = floorPos;
 
             OverrideBodyState(bodyState);

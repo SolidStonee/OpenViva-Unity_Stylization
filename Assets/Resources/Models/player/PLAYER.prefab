@@ -1619,9 +1619,12 @@ MonoBehaviour:
   disablePersistance: 0
   targetsSceneAsset: 1
   assetName: PLAYER
+  uniqueID: 
+  characterName: Character
   m_characterType: 2
   m_headItem: {fileID: 9193422362776629246}
   m_velTracker: {fileID: 54432781452509964}
+  groundTerrain: {fileID: 0}
   m_head: {fileID: 1166237715339763929}
   m_occupyStates:
   - {fileID: 0}
@@ -1629,7 +1632,7 @@ MonoBehaviour:
   - {fileID: 6783437384754274149}
   - {fileID: 0}
   - {fileID: 0}
-  m_footstepInfo: {fileID: 6879042615719282586}
+  footstepInfo: {fileID: 6879042615719282586}
   m_controls: 0
   walkSpeed: 0.24
   moveVel: {x: 0, y: 0, z: 0}
@@ -1652,6 +1655,7 @@ MonoBehaviour:
   keyboardStandingHeight: 1.4
   keyboardFloorHeight: 0.5
   keyboardArmatureZoom: 0.5
+  surfaceCollider: {fileID: 0}
   handRigidBodyPrefab: {fileID: 4593641065835188907, guid: 8a2089c73e2cb7c43a31a9410a580d0c,
     type: 3}
   lowPassFilter: {fileID: 5043715924624442236}
@@ -2040,7 +2044,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4312165014809180}
   - component: {fileID: 65764728679761986}
-  - component: {fileID: 114007059156566068}
   - component: {fileID: 1676269416055896978}
   - component: {fileID: 6879042615719282586}
   m_Layer: 15
@@ -2084,22 +2087,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.4, y: 0.4, z: 0.4}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114007059156566068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1934220690598010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1dade12b138043e2a4f1f3934c05eab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_owner: {fileID: 114905459291063156}
-  m_collisionPart: 5
+  m_Size: {x: 0.1, y: 0.25602874, z: 0.1}
+  m_Center: {x: 7.0192532e-12, y: -0.078014374, z: 4.8167377e-12}
 --- !u!114 &1676269416055896978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2114,6 +2103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_owner: {fileID: 114905459291063156}
   m_collisionPart: 5
+  callTriggerStay: 1
 --- !u!114 &6879042615719282586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2350,6 +2340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_owner: {fileID: 114905459291063156}
   m_collisionPart: 0
+  callTriggerStay: 1
 --- !u!135 &8169555076658448136
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2452,7 +2443,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.02
-  far clip plane: 1400
+  far clip plane: 994.96
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -2486,6 +2477,7 @@ MonoBehaviour:
   disablePersistance: 1
   targetsSceneAsset: 0
   assetName: 
+  uniqueID: 
   m_settings: {fileID: 11400000, guid: a04e58bc091c4874dad41596c69f60ae, type: 2}
   m_rigidBody: {fileID: 663834502}
   m_owners:
@@ -2739,6 +2731,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_owner: {fileID: 114905459291063156}
   m_collisionPart: 6
+  callTriggerStay: 1
 --- !u!114 &3564560353666677549
 MonoBehaviour:
   m_ObjectHideFlags: 0

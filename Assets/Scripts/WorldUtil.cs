@@ -42,9 +42,9 @@ namespace Viva
         public static readonly int itemsMask = LayerMask.GetMask(new string[] { "items", "items2", "bodyPartItems" });
         public static readonly int itemsOnlyMask = LayerMask.GetMask(new string[] { "items", "items2" });
         public static readonly int characterMovementMask = LayerMask.GetMask("characterMovement");
-        public static readonly int wallsMask = LayerMask.GetMask(new string[] { "wallsStatic", "wallsStaticForLoliOnly" });
+        public static readonly int wallsMask = LayerMask.GetMask(new string[] { "wallsStatic", "wallsStaticForCompanionOnly" });
         public static readonly int wallsStaticForCharactersMask = LayerMask.GetMask("wallsStaticForCharacters");
-        public static readonly int wallsStaticForLoliOnlyMask = LayerMask.GetMask("wallsStaticForLoliOnly");
+        public static readonly int wallsStaticForCompanionOnlyMask = LayerMask.GetMask("wallsStaticForCompanionOnly");
         public static readonly float speedToAnim = 1.4f;
         public static readonly int uiMask = LayerMask.GetMask("UI");
         public static readonly int offscreenSpecialMask = LayerMask.GetMask("offscreenSpecial");

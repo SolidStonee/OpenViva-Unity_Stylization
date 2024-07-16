@@ -131,7 +131,6 @@ namespace Viva
             Debug.Log("[PAUSEMENU] Closed");
             PlayBookAnimation("close", OnCloseBookFinished);
             GameDirector.instance.PlayGlobalSound(closeSound);
-
             SetMenuActive(Menu.NONE, false);
             lastMenu = Menu.NONE;
             StopCalibration();

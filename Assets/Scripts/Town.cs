@@ -49,16 +49,16 @@ namespace Viva
             for (int i = 0; i < count; i++)
             {
                 var cardFilename = cards[i % cards.Length] + ".png";                                                          
-                var serializedLoli = new GameDirector.VivaFile.SerializedCompanion(cardFilename, new GameDirector.VivaFile.SerializedAsset(cardFilename));
-                var targetLoli = GameDirector.instance.GetCompanionFromPool();
+                var serializedCompanion = new GameDirector.VivaFile.SerializedCompanion(cardFilename, new GameDirector.VivaFile.SerializedAsset(cardFilename));
+                var targetCompanion = GameDirector.instance.GetCompanionFromPool();
                 string path = ModelCustomizer.main.characterCardBrowser.cardFolder + "/" + cardFilename;
                 if (!File.Exists(path))
                 {
                     return;
                 }   
-                GameDirector.instance.StartCoroutine(Companion.LoadLoliFromSerializedLoli(serializedLoli.sourceCardFilename, targetLoli, delegate ()
+                GameDirector.instance.StartCoroutine(Companion.LoadCompanionFromSerializedCompanion(serializedCompanion.sourceCardFilename, targetCompanion, delegate ()
                 {
-                    startingTownCompanions.Add(new CompanionInit(targetLoli, serializedLoli));
+                    startingTownCompanions.Add(new CompanionInit(targetCompanion, serializedCompanion));
                     if (startingTownCompanions.Count == count)
                     {
                         PrepareTownCompanions(startingTownCompanions, defaultSpawnPos);

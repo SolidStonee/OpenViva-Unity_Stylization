@@ -1,4 +1,5 @@
 ﻿using RootMotion.Dynamics;
+using System.Collections.Generic;
 using UnityEngine;
 using Viva.Util;
 
@@ -80,6 +81,8 @@ namespace Viva
         [VivaFileAttribute]
         public Outfit outfit { get { return m_outfit; } private set { m_outfit = value; } }
 
+        [SerializeField] 
+        private bool debuggingCharacter = false;
 
         private LookAtBone headLookAt = null;
         private LookAtBone spine2LookAt = null;
@@ -91,12 +94,14 @@ namespace Viva
         private static readonly int dirtID = Shader.PropertyToID("_Dirt");
         private int lowLODstep = 0;
         private bool previewMode = false;
-        private static int loliIDCounter = 0;
-        private int loliID = 0;
+        private static int companionIDCounter = 0;
+        private int companionID = 0;
         private float animationSpeed = 1.0f;
         public float animationDelta { get; protected set; } = 0.0f;
         public float lastPhysicsStepMult { get; protected set; } = 1.0f;
         private Vector3 lastFloorPos;
+        
+        public List<Outline.Entry> companionOutlines = new List<Outline.Entry>();
 
 
         protected override Vector3 CalculateFloorPosition()
@@ -124,11 +129,13 @@ namespace Viva
             SetFloatParameter(dirtID, dirt * 0.05f);
         }
 
+
+
         protected override void OnFootstep()
         {
             bool isBathing = active.bathing.GetBathingPhase() != BathingBehavior.BathingPhase.NONE || active.onsenSwimming.isSwimming;
-            bool touchingDirtyWater = !isBathing && footstepInfo.currentType == FootstepInfo.Type.WATER;
-            if (footstepInfo.currentType == FootstepInfo.Type.DIRT || touchingDirtyWater)
+            bool touchingDirtyWater = !isBathing && footstepInfo.CurrentFootStepType == FootstepInfo.FootStepType.WATER;
+            if (footstepInfo.CurrentFootStepType == FootstepInfo.FootStepType.DIRT || touchingDirtyWater)
             {
 
                 //increase dirt amount
@@ -156,8 +163,8 @@ namespace Viva
             InitPuppet();
 
             name = sessionReferenceName;
-            loliID = loliIDCounter++;
-            worldMask = WorldUtil.wallsMask | WorldUtil.wallsStaticForCharactersMask | WorldUtil.wallsStaticForLoliOnlyMask;
+            companionID = companionIDCounter++;
+            worldMask = WorldUtil.wallsMask | WorldUtil.wallsStaticForCharactersMask | WorldUtil.wallsStaticForCompanionOnlyMask;
             lastFloorPos = CalculateCurrentFloorPosition();
         }
 
@@ -212,6 +219,14 @@ namespace Viva
 
             FixedUpdateViewAwareness();
             FixedUpdateLOD();
+
+            leftFootSurfaceCollider = null;
+            rightFootSurfaceCollider = null;
+        }
+
+        public override void OnCharacterSplashed(Vector3 sourcePos)
+        {
+            passive.environment.AttemptReactToSubstanceSpill(SubstanceSpill.Substance.WATER, sourcePos);
         }
 
         public void SetPreviewMode(bool enable)
@@ -263,7 +278,7 @@ namespace Viva
                 maxPhysicsLOD = 0;
             }
             int lodMult = Mathf.Min(maxPhysicsLOD * maxPhysicsLOD + 1, 4);  //1, 2, 4
-            lastPhysicsStepMult = System.Convert.ToInt32((lowLODstep++ + loliID) % lodMult == 0) * lodMult;
+            lastPhysicsStepMult = System.Convert.ToInt32((lowLODstep++ + companionID) % lodMult == 0) * lodMult;
 
             lastFloorPos = CalculateCurrentFloorPosition();
 
@@ -277,7 +292,7 @@ namespace Viva
                 UpdateRootTransform();
                 onModifyAnimations?.Invoke();
                 FixedUpdateLookAtLogic();
-                // DebugIK();
+                //DebugIK();
                 puppetMaster.VisualizeTargetPose();
 
                 RecalculateGroundHeight();
@@ -387,52 +402,67 @@ namespace Viva
             Gizmos.DrawSphere(leftCompanionHandState.holdRetargeting.pole, 0.05f);
         }
 
-        public void OnGUI()
+        public void OnSelected()
         {
-
-            return;
-            GUIStyle debugStyle = new GUIStyle();
-            debugStyle.normal.textColor = Color.yellow;
-            debugStyle.fontSize = 18;
-            string extra = " " + rightHandState.holdType + ":" + leftHandState.holdType;
-            //extra += " r:"+rightHandHoldState.holdEaseBlend.value+"/"+rightHandHoldState.cachedPoseEaseBlend.value;
-            extra += " ACTIVE:" + active.debugMsg;
-            GUI.Label(new Rect(35.0f, 40.0f, 100.0f, 30.0f), "REG: " + extra, debugStyle);
-            GUI.Label(new Rect(35.0f, 60.0f, 100.0f, 30.0f), "" + m_currentAnim, debugStyle);
-            GUI.Label(new Rect(35.0f, 80.0f, 100.0f, 30.0f), "" + m_targetAnim, debugStyle);
-            string lookAtStr = "" + changeLookAtSpeed + " (" + viewItems.objects.Count + " VU) ";
-            if (m_currentLookAtTransform != null)
-            {
-                lookAtStr += m_currentLookAtTransform.gameObject.name;
-            }
-            else
-            {
-                lookAtStr += "null";
-            }
-            if (randomViewTimer <= 0.0f)
-            {
-                GUI.Label(new Rect(25.0f, 100.0f, 100.0f, 30.0f), lookAtStr, debugStyle);
-            }
-            else
-            {
-                if (currentLookAtItem != null)
-                {
-                    GUI.Label(new Rect(25.0f, 100.0f, 100.0f, 30.0f), Mathf.FloorToInt(randomViewTimer * 10.0f) / 10 + "," + currentLookAtItem.name, debugStyle);
-                }
-            }
-            int bodyFlags = Mathf.Min(1, (int)(spine2LookAt.easeBlend.value + 0.99f)) * 2 + Mathf.Min(1, (int)(headLookAt.easeBlend.value + 0.99f));
-            GUI.Label(new Rect(25.0f, 120.0f, 100.0f, 30.0f), "BF: " + bodyFlags + " " + (bodyFlagPercent * 100.0f) + "% -->" + headLookAt.easeBlend.getDuration() + "s", debugStyle);
-            GUI.Label(new Rect(25.0f, 140.0f, 100.0f, 30.0f), "h: " + (int)(headLookAt.easeBlend.value * 100.0f) + "%", debugStyle);
-            GUI.Label(new Rect(25.0f, 160.0f, 100.0f, 30.0f), "s2: " + (int)(spine2LookAt.easeBlend.value * 100.0f) + "%", debugStyle);
-            GUI.Label(new Rect(25.0f, 180.0f, 100.0f, 30.0f), "eF: " + eyeFlags + " -->" + Mathf.Floor(leftEye.lookAt.easeBlend.getDuration() * 100.0f) / 100.0f + "s " + awarenessMode, debugStyle);
-            GUI.Label(new Rect(25.0f, 200.0f, 100.0f, 30.0f), "e: " + (int)(rightEye.lookAt.easeBlend.value * 100.0f) + "% t-" + randomViewTimer, debugStyle);
-            GUI.Label(new Rect(25.0f, 220.0f, 100.0f, 30.0f), "body: " + bodyState + " HAP:" + happiness, debugStyle);
-            if (randomViewTimer > 0.0f)
-            {
-                debugStyle.normal.textColor = Color.red;
-            }
-            GUI.Label(new Rect(25.0f, 240.0f, 100.0f, 30.0f), "eye: " + randomViewTimer, debugStyle);
+            companionOutlines.Add(Outline.StartOutlining(bodySMRs[0], new Color(0.5f, 1, 0.5f, 1), Outline.Constant));
+            companionOutlines.Add(Outline.StartOutlining(bodySMRs[1], new Color(0.5f, 1, 0.5f, 1), Outline.Constant));
+            companionOutlines.Add(Outline.StartOutlining(headSMR, new Color(0.5f, 1, 0.5f, 1), Outline.Constant));
         }
+
+        public void OnUnselected()
+        {
+            foreach (var characterOutline in companionOutlines)
+            {
+                Outline.StopOutlining(characterOutline);
+            }
+            companionOutlines.Clear();
+        }
+
+        // public void OnGUI()
+        // {
+        //
+        //     GUIStyle debugStyle = new GUIStyle();
+        //     debugStyle.normal.textColor = Color.yellow;
+        //     debugStyle.fontSize = 18;
+        //     string extra = " " + rightHandState.holdType + ":" + leftHandState.holdType;
+        //     //extra += " r:"+rightHandHoldState.holdEaseBlend.value+"/"+rightHandHoldState.cachedPoseEaseBlend.value;
+        //     extra += " ACTIVE:" + active.debugMsg;
+        //     GUI.Label(new Rect(35.0f, 40.0f, 100.0f, 30.0f), "REG: " + extra, debugStyle);
+        //     GUI.Label(new Rect(35.0f, 60.0f, 100.0f, 30.0f), "" + m_currentAnim, debugStyle);
+        //     GUI.Label(new Rect(35.0f, 80.0f, 100.0f, 30.0f), "" + m_targetAnim, debugStyle);
+        //     string lookAtStr = "" + changeLookAtSpeed + " (" + viewItems.objects.Count + " VU) ";
+        //     if (m_currentLookAtTransform != null)
+        //     {
+        //         lookAtStr += m_currentLookAtTransform.gameObject.name;
+        //     }
+        //     else
+        //     {
+        //         lookAtStr += "null";
+        //     }
+        //     if (randomViewTimer <= 0.0f)
+        //     {
+        //         GUI.Label(new Rect(25.0f, 100.0f, 100.0f, 30.0f), lookAtStr, debugStyle);
+        //     }
+        //     else
+        //     {
+        //         if (currentLookAtItem != null)
+        //         {
+        //             GUI.Label(new Rect(25.0f, 100.0f, 100.0f, 30.0f), Mathf.FloorToInt(randomViewTimer * 10.0f) / 10 + "," + currentLookAtItem.name, debugStyle);
+        //         }
+        //     }
+        //     int bodyFlags = Mathf.Min(1, (int)(spine2LookAt.easeBlend.value + 0.99f)) * 2 + Mathf.Min(1, (int)(headLookAt.easeBlend.value + 0.99f));
+        //     GUI.Label(new Rect(25.0f, 120.0f, 100.0f, 30.0f), "BF: " + bodyFlags + " " + (bodyFlagPercent * 100.0f) + "% -->" + headLookAt.easeBlend.getDuration() + "s", debugStyle);
+        //     GUI.Label(new Rect(25.0f, 140.0f, 100.0f, 30.0f), "h: " + (int)(headLookAt.easeBlend.value * 100.0f) + "%", debugStyle);
+        //     GUI.Label(new Rect(25.0f, 160.0f, 100.0f, 30.0f), "s2: " + (int)(spine2LookAt.easeBlend.value * 100.0f) + "%", debugStyle);
+        //     GUI.Label(new Rect(25.0f, 180.0f, 100.0f, 30.0f), "eF: " + eyeFlags + " -->" + Mathf.Floor(leftEye.lookAt.easeBlend.getDuration() * 100.0f) / 100.0f + "s " + awarenessMode, debugStyle);
+        //     GUI.Label(new Rect(25.0f, 200.0f, 100.0f, 30.0f), "e: " + (int)(rightEye.lookAt.easeBlend.value * 100.0f) + "% t-" + randomViewTimer, debugStyle);
+        //     GUI.Label(new Rect(25.0f, 220.0f, 100.0f, 30.0f), "body: " + bodyState + " HAP:" + happiness, debugStyle);
+        //     if (randomViewTimer > 0.0f)
+        //     {
+        //         debugStyle.normal.textColor = Color.red;
+        //     }
+        //     GUI.Label(new Rect(25.0f, 240.0f, 100.0f, 30.0f), "eye: " + randomViewTimer, debugStyle);
+        // }
 
         [SerializeField]
         public Vector3 debugVar;

@@ -27,7 +27,7 @@ namespace Viva
         private float lastBeginSellingTime;
 
 
-        public MerchantBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.MERCHANT, new MerchantSession())
+        public MerchantBehavior(Companion _self) : base("Merchant", _self, ActiveBehaviors.Behavior.MERCHANT, new MerchantSession())
         {
         }
 

@@ -111,7 +111,7 @@ namespace Viva
         private BagItemDetector bagItemDetector;
 
         private BagItemCategory nextItemTakeOutTarget = null;
-        private float waitToWearTimer = 0.0f;
+        private float waitToWearTimer = 2.0f;
 
         private List<BagItemCategory> m_storedItems = new List<BagItemCategory>();
         public List<BagItemCategory> storedItems { get { return m_storedItems; } }
@@ -293,24 +293,24 @@ namespace Viva
             }
 
             //ensure bag is fully parented before triggering animation so blends look right
-            //if (!companion.active.IsTaskActive(companion.active.give))
-            //{
-            //    if (companion.leftHandState.heldItem == this && !companion.rightShoulderState.occupied)
-            //    {
+            // if (!companion.active.IsTaskActive(companion.active.give))
+            // {
+                if (companion.leftHandState.heldItem == this && !companion.rightShoulderState.occupied)
+                {
 
-            //        if (companion.leftHandState.finishedBlending)
-            //        {
-            //            companion.SetTargetAnimation(Companion.Animation.STAND_WEAR_BAG_RIGHT);
-            //        }
-            //    }
-            //    else if (!companion.leftShoulderState.occupied)
-            //    {
-            //        if (companion.rightHandState.finishedBlending)
-            //        {
-            //            companion.SetTargetAnimation(Companion.Animation.STAND_WEAR_BAG_LEFT);
-            //        }
-            //    }
-            //}
+                    if (companion.leftHandState.finishedBlending)
+                    {
+                        companion.SetTargetAnimation(Companion.Animation.STAND_WEAR_BAG_RIGHT);
+                    }
+                }
+                else if (!companion.leftShoulderState.occupied)
+                {
+                    if (companion.rightHandState.finishedBlending)
+                    {
+                        companion.SetTargetAnimation(Companion.Animation.STAND_WEAR_BAG_LEFT);
+                    }
+                }
+//            }
         }
 
         public override bool ShouldPickupWithRightHand(Character source)
@@ -375,6 +375,7 @@ namespace Viva
         {
             if (flagAttachAfterIK.HasValue)
             {
+                Debug.Log("Attaching Bag");
                 InitializeWearOnCompanionShoulder(flagAttachAfterIK.Value);
                 flagAttachAfterIK = null;
             }

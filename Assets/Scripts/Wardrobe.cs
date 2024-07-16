@@ -56,7 +56,7 @@ namespace Viva
             }
             FileDragAndDrop.EnableDragAndDrop(OnDropFile);
 
-            lolisSelected.text = GameDirector.player.objectFingerPointer.selectedLolis.Count + " lolis selected";
+            lolisSelected.text = GameDirector.player.objectFingerPointer.selectedCompanions.Count + " lolis selected";
         }
 
         public override void OnExitUIInput()
@@ -130,7 +130,7 @@ namespace Viva
         private void ResetClothing()
         {
 
-            foreach (var loli in GameDirector.player.objectFingerPointer.selectedLolis)
+            foreach (var loli in GameDirector.player.objectFingerPointer.selectedCompanions)
             {
                 Outfit resetOutfit = Outfit.Create(
                     new string[]{

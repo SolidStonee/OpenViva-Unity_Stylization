@@ -17,7 +17,7 @@ namespace Viva
         private bool selectedFromRightCard = false;
         public bool isInGame { get { return activeGame != null; } }
 
-        public PokerBehavior(Companion companion) : base(companion, ActiveBehaviors.Behavior.POKER, null)
+        public PokerBehavior(Companion companion) : base("Playing Poker", companion, ActiveBehaviors.Behavior.POKER, null)
         {
         }
 
@@ -52,15 +52,14 @@ namespace Viva
                 return false;
             }
             activeGame = pokerGame;
-            GameDirector.player.objectFingerPointer.selectedLolis.Remove(self);
             return true;
         }
 
         public override void OnActivate()
         {
 
-            GameDirector.player.objectFingerPointer.selectedLolis.Remove(self);
-            self.characterSelectionTarget.OnUnselected();
+            GameDirector.player.objectFingerPointer.selectedCompanions.Remove(self);
+            self.OnUnselected();
         }
 
         private void QuitPokerGame()

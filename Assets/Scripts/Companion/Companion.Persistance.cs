@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using Viva.Util;
@@ -12,7 +13,7 @@ namespace Viva
         public delegate void OnLoadFinish();
 
 
-        public static IEnumerator LoadLoliFromSerializedLoli(string cardFilename, Companion targetCompanion, OnLoadFinish onFinish)
+        public static IEnumerator LoadCompanionFromSerializedCompanion(string cardFilename, Companion targetCompanion, OnLoadFinish onFinish)
         {
 
             if (targetCompanion == null)
@@ -20,7 +21,7 @@ namespace Viva
                 Debug.LogError("[COMPANION] targetCompanion is null!");
                 yield break;
             }
-            ModelCustomizer.LoadLoliFromCardRequest cardRequest = new ModelCustomizer.LoadLoliFromCardRequest(cardFilename, targetCompanion);
+            ModelCustomizer.LoadCompanionFromCardRequest cardRequest = new ModelCustomizer.LoadCompanionFromCardRequest(cardFilename, targetCompanion);
             yield return GameDirector.instance.StartCoroutine(ModelCustomizer.main.LoadVivaModelCard(cardRequest));
             if (cardRequest.target == null)
             {
@@ -108,9 +109,13 @@ namespace Viva
             //apply active session if any
             if (serializedCompanion.activeTaskSession != null)
             {
-                var task = active.GetTask((ActiveBehaviors.Behavior)serializedCompanion.activeTaskSession.taskIndex);
-                GameDirector.instance.StartCoroutine(SerializedVivaProperty.Deserialize(serializedCompanion.activeTaskSession.properties, task.session, cdm));
-                active.SetTask(task, null);
+                var task = active.GetTask(
+                        (ActiveBehaviors.Behavior)serializedCompanion.activeTaskSession.taskIndex);
+                    GameDirector.instance.StartCoroutine(
+                        SerializedVivaProperty.Deserialize(serializedCompanion.activeTaskSession.properties,
+                            task.session, cdm));
+                    active.SetTask(task, null);
+
             }
 
             while (!cdm.finished)

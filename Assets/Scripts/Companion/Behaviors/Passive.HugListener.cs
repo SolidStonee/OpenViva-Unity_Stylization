@@ -45,7 +45,7 @@ namespace Viva
 
                 if (isHugging)
                 {
-                    var hugAnim = new AutonomyEnforceBodyState(self.autonomy, "hug", BodyState.STANDING_HUG);
+                    var hugAnim = new AutonomyEnforceBodyState(self.autonomy, "hug", BodyState.STAND);
                     hugAnim.onSuccess += delegate
                     {
                         if (IsAttemptingToHug(player))
@@ -198,8 +198,13 @@ namespace Viva
         private void ReturnToIdle()
         {
             var returnToIdle = new AutonomyEnforceBodyState(self.autonomy, "idle", BodyState.STAND);
-            self.autonomy.Interrupt(returnToIdle);
 
+            var returnAnim = new AutonomyPlayAnimation(self.autonomy, "return to idle", self.GetLastReturnableIdleAnimation());
+
+            returnToIdle.AddRequirement(returnAnim);
+
+            self.autonomy.Interrupt(returnToIdle);
+            
         }
 
         private bool IsAttemptingToHug(Player player)

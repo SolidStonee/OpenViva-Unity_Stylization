@@ -8,7 +8,7 @@ namespace Viva
     {
 
         [SerializeField]
-        private FootstepInfo.Type type;
+        private FootstepInfo.FootStepType footStepType;
 
 
         public void OnTriggerEnter(Collider collider)
@@ -18,7 +18,7 @@ namespace Viva
             {
                 return;
             }
-            footstepInfo.AddtoFootstepRegion(type);
+            footstepInfo.AddtoFootstepRegion(footStepType);
         }
 
         public void OnTriggerExit(Collider collider)
@@ -28,7 +28,7 @@ namespace Viva
             {
                 return;
             }
-            footstepInfo.RemoveFromFootstepRegion(type);
+            footstepInfo.RemoveFromFootstepRegion(footStepType);
         }
     }
 

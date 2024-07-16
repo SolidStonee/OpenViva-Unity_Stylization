@@ -176,12 +176,46 @@ namespace Viva
         // holdStates[(int)Occupation.SHOULDER_RIGHT] = ReloadShoulderState( shoulder_r, Occupation.SHOULDER_RIGHT );
         // holdStates[(int)Occupation.SHOULDER_LEFT] = ReloadShoulderState( shoulder_l, Occupation.SHOULDER_LEFT );
 
+        public bool disableLeftIK = false;
+        public bool disableRightIK = false;
+        public bool disableBothIK = false;
 
+
+        //For Holding IK Updates
         private void ApplyAnimationIK()
         {
+            AnimationInfo info = animationInfos[currentAnim];
+            disableBothIK = info.HasFlag(AnimationInfo.Flag.DISABLE_HOLDIK_BOTH);
+            disableLeftIK = info.HasFlag(AnimationInfo.Flag.DISABLE_HOLDIK_LEFT);
+            disableRightIK = info.HasFlag(AnimationInfo.Flag.DISABLE_HOLDIK_RIGHT);
 
-            rightCompanionHandState.ApplyIK();
-            leftCompanionHandState.ApplyIK();
+            if (disableBothIK)
+            {
+                animator.SetLayerWeight(rightCompanionHandState.GetAnimatorHandLayer(), 0.0f);
+                animator.SetLayerWeight(leftCompanionHandState.GetAnimatorHandLayer(), 0.0f);
+            }
+            else
+            {
+                // Disable right hand IK if the RIGHT flag is set
+                if (disableRightIK)
+                {
+                    animator.SetLayerWeight(rightCompanionHandState.GetAnimatorHandLayer(), 0.0f);
+                }
+                else
+                {
+                    rightCompanionHandState.ApplyIK();
+                }
+
+                // Disable left hand IK if the LEFT flag is set
+                if (disableLeftIK)
+                {
+                    animator.SetLayerWeight(leftCompanionHandState.GetAnimatorHandLayer(), 0.0f);
+                }
+                else
+                {
+                    leftCompanionHandState.ApplyIK();
+                }
+            }
         }
 
         public void SetupArmIKForLateUpdate(CompanionHandState targetHandstate, IKAnimation ikAnim)

@@ -40,6 +40,12 @@ scopes = {
 	"last_search.956173E0" = "h:#skydefinition="
 	"OpenInspectorPreview.956173E0" = "0"
 	"currentGroup.956173E0" = "all"
+	"last_search.C8308F20" = "b608e30e-184b-46fc-b47e-e139e70b3a9a"
+	"OpenInspectorPreview.C8308F20" = "0"
+	"currentGroup.C8308F20" = "scene"
+	"last_search.FD7A1EDD" = "ref=\"Assets/3rd Party/Free/TextMesh Pro/Shaders/TMP_Bitmap.shader\""
+	"OpenInspectorPreview.FD7A1EDD" = "0"
+	"currentGroup.FD7A1EDD" = "all"
 }
 providers = {
 	at = {
@@ -111,6 +117,10 @@ providers = {
 objectSelectors = {
 }
 recentSearches = [
+	"p:"
+	"h: ref=\"Assets/Textures/props/cactus1.psd\""
+	""
+	"b608e30e-184b-46fc-b47e-e139e70b3a9a"
 	"p"
 ]
 searchItemFavorites = [
@@ -118,8 +128,8 @@ searchItemFavorites = [
 savedSearchesSortOrder = 0
 showSavedSearchPanel = true
 hideTabs = false
-expandedQueries = [-1765347274]
-queryBuilder = false
+expandedQueries = [961552606]
+queryBuilder = true
 ignoredProperties = "id;name;classname;imagecontentshash"
 helperWidgetCurrentArea = "all"
 disabledIndexers = ""

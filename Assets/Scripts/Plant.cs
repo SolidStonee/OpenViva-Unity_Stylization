@@ -9,7 +9,7 @@ public class Plant : MonoBehaviour
     [SerializeField]
     private GameObject fruitPrefab;
 
-    private int spikesActive = 0;
+    private int fruitsActive = 0;
     private float growthPercent = 0.0f;
 
     public void Grow(float percent)
@@ -21,19 +21,19 @@ public class Plant : MonoBehaviour
             return;
         }
 
-        if (spikesActive == fruitSpawnTransforms.Length)
+        if (fruitsActive == fruitSpawnTransforms.Length)
         {
             return;
         }
-        int randomGrowths = Random.Range(0, fruitSpawnTransforms.Length - 1 - spikesActive);
+        int randomGrowths = Random.Range(0, fruitSpawnTransforms.Length - 1 - fruitsActive);
 
         for (int i = 0; i < randomGrowths; i++)
         {
-            Transform targetSpikeTransform = fruitSpawnTransforms[spikesActive + i];
+            Transform targetFruitTransform = fruitSpawnTransforms[fruitsActive + i];
 
-            GameObject wheatSpike = GameObject.Instantiate(fruitPrefab, targetSpikeTransform.position, targetSpikeTransform.rotation);
+            GameObject plant = GameObject.Instantiate(fruitPrefab, targetFruitTransform.position, targetFruitTransform.rotation);
         }
 
-        spikesActive += randomGrowths;
+        fruitsActive += randomGrowths;
     }
 }

@@ -19,7 +19,7 @@ namespace Viva
         public bool hasSaidGoodMorning = true;
         private float lastYummyReactTime = 0.0f;
 
-        public IdleBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.IDLE, null)
+        public IdleBehavior(Companion _self) : base("Idling", _self, ActiveBehaviors.Behavior.IDLE, null)
         {
 
             enableFaceTargetTimer = true;
@@ -162,8 +162,6 @@ namespace Viva
         public override void OnUpdate()
         {
             UpdateIdleRootFacingTargetTimer();
-
-            Debug.Log(nextIdleVariationTime);
             
             //update shoulder items lolic
             if (self.rightShoulderState.occupied)
@@ -286,6 +284,11 @@ namespace Viva
                 {
                     return;
                 }
+
+                if (self.GetPreferredHandState(closest) == null)
+                {
+                    return;
+                }
                 self.autonomy.SetAutonomy(new AutonomyPickup(self.autonomy, "pickup interest", closest, self.GetPreferredHandState(closest), true));
                 //self.active.pickup.AttemptGoAndPickup( closest, self.active.pickup.FindPreferredHandState( closest ) );
             }
@@ -320,12 +323,9 @@ namespace Viva
             {
                 return;
             }
-            Debug.Log(nextIdleVariationTime);
             if (Time.time >= nextIdleVariationTime)
             {
                 nextIdleVariationTime = Time.time + 10.0f + Random.value * 15.0f;   //10~25 sec. wait
-                Debug.Log("IdleAnimVar Update");
-                
                 var anim = GetAvailableIdleAnimation();
                 if (anim != Companion.Animation.NONE)
                 {

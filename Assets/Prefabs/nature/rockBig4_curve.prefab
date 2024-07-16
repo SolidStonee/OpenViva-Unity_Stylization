@@ -307,7 +307,7 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 3198698868078921193}
-  - screenRelativeHeight: 0.029097421
+  - screenRelativeHeight: 0.06536355
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 3198698868382459493}
@@ -319,7 +319,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6865142496865958196}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 588d3d8443cad194bbffa36db3a912f3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

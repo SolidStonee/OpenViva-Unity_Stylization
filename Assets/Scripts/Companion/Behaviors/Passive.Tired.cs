@@ -12,8 +12,8 @@ namespace Viva
         public bool tired { get { return self.Tired; } }
         private bool hasShownTired = false;
         private float rubEyesTimer = 10.0f;
-        public const float tiredSunPitchRadianStart = 4.3f;
-        public const float tiredSunPitchRadianEnd = 5.0f;
+        public const float tiredTimeStart = 18.0f;
+        public const float tiredTimeEnd = 4.0f;
 
         public TiredBehavior(Companion _self) : base(_self, 0.0f)
         {
@@ -24,11 +24,11 @@ namespace Viva
 
             if (!tired)
             {
-                if (GameDirector.skyDirector.sunPitchRadian < tiredSunPitchRadianStart && GameDirector.skyDirector.sunPitchRadian > tiredSunPitchRadianEnd)
+                float currentTime = GameDirector.newSkyDirector.skyDefinition.CurrentTime;
+                if (currentTime >= tiredTimeStart || currentTime < tiredTimeEnd)
                 {
-                    //SetTired( true );
+                    // SetTired(true);
                     BecomeTired();
-
                 }
             }
             else if (!hasShownTired)
@@ -80,19 +80,6 @@ namespace Viva
             self.Tired = true;
             hasShownTired = false;
         }
-        //public void SetTired( bool _tired ){
-        //	if( tired == _tired ){
-        //		return;
-        //	}
-        //	self.Tired = _tired;
-        //	if( tired ){
-        //		self.ShiftHappiness(4);
-        //		hasShownTired = false;
-        //		//self.OverrideIdleAnimations( BodyState.STAND, Companion.Animation.STAND_TIRED_LOCOMOTION, Companion.Animation.STAND_TIRED_LOCOMOTION );
-        //	}else{
-        //		// self.OverrideIdleAnimations( BodyState.STAND, Companion.Animation.STAND_HAPPY_IDLE1, Companion.Animation.STAND_ANGRY_IDLE1 );
-        //	}
-        //}
 
         public override void OnAnimationChange(Companion.Animation oldAnim, Companion.Animation newAnim)
         {

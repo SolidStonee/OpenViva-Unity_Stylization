@@ -172,12 +172,12 @@ namespace Viva
 
         public void clickDeselectAll()
         {
-            foreach (Companion loli in GameDirector.player.objectFingerPointer.selectedLolis.ToList())
+            foreach (Companion companion in GameDirector.player.objectFingerPointer.selectedCompanions.ToList())
             {
-                loli.characterSelectionTarget.OnUnselected();
-                GameDirector.player.objectFingerPointer.selectedLolis.Remove(loli);
+                companion.OnUnselected();
+                GameDirector.player.objectFingerPointer.selectedCompanions.Remove(companion);
             }
-            selectedLolisText.text = GameDirector.player.objectFingerPointer.selectedLolis.Count + " " + LocalizationManager.GetLocalizedStringFromTable("OtherUI", "CharactersSelected");
+            selectedLolisText.text = GameDirector.player.objectFingerPointer.selectedCompanions.Count + " " + LocalizationManager.GetLocalizedStringFromTable("OtherUI", "CharactersSelected");
         }
 
         public override void OnBeginUIInput()
@@ -185,7 +185,7 @@ namespace Viva
             FileDragAndDrop.EnableDragAndDrop(OnDropFile);
             this.enabled = true;
             SetTab(lastValidTabIndex);
-            selectedLolisText.text = GameDirector.player.objectFingerPointer.selectedLolis.Count + " " + LocalizationManager.GetLocalizedStringFromTable("OtherUI", "CharactersSelected");
+            selectedLolisText.text = GameDirector.player.objectFingerPointer.selectedCompanions.Count + " " + LocalizationManager.GetLocalizedStringFromTable("OtherUI", "CharactersSelected");
         }
 
         public override void OnExitUIInput()
@@ -231,7 +231,7 @@ namespace Viva
                     modelShader,
                     new string[] { "skin", "pupil_r", "pupil_l" }
                 );
-                VivaModel.CreateLoliRequest createModelRequest = new VivaModel.CreateLoliRequest(modelDefault, vivaModelFilePath, mbs);
+                VivaModel.CreateCompanionRequest createModelRequest = new VivaModel.CreateCompanionRequest(modelDefault, vivaModelFilePath, mbs);
                 yield return GameDirector.instance.StartCoroutine(VivaModel.DeserializeVivaModel(createModelRequest));
                 if (createModelRequest.result == null)
                 {
@@ -250,7 +250,7 @@ namespace Viva
                 }
                 createModelRequest.result.spine1RigidBody.isKinematic = true;
                 createModelRequest.result.SetOutfit(Outfit.Create(new string[0], false));
-                modelPreviewer.SetPreviewLoli(createModelRequest.result);
+                modelPreviewer.SetPreviewCompanion(createModelRequest.result);
             }
             //load textures if applicable
             FileTextureRequest[] requests;
@@ -335,9 +335,9 @@ namespace Viva
             GameDirector.instance.StopUIInput();
             if (modelDefault.gameObject.activeSelf)
             {
-                if (GameDirector.player.objectFingerPointer.selectedLolis.Count > 0)
+                if (GameDirector.player.objectFingerPointer.selectedCompanions.Count > 0)
                 {
-                    foreach (var loli in GameDirector.player.objectFingerPointer.selectedLolis)
+                    foreach (var loli in GameDirector.player.objectFingerPointer.selectedCompanions)
                     {
                         loli.SetHeadModel(modelDefault.headModel, lastMBS);
                     }
@@ -347,7 +347,7 @@ namespace Viva
                     GameDirector.instance.town.BuildTownLolis(new string[] { modelDefault.headModel.name }, 1, loliPlaySpawnTransform.position);
                 }
                 modelDefault.gameObject.SetActive(false);
-                modelPreviewer.SetPreviewLoli(null);
+                modelPreviewer.SetPreviewCompanion(null);
             }
         }
 

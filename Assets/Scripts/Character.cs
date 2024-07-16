@@ -5,6 +5,7 @@ namespace Viva
 {
 
     public delegate void OnGenericCallback();
+    public delegate void OnGestureCallback();
 
 
     public abstract partial class Character : VivaSessionAsset
@@ -15,7 +16,9 @@ namespace Viva
             COMPANION = 1,
             PLAYER = 2
         }
-
+        
+        [VivaFileAttribute]
+        public string characterName = "Character";
         [SerializeField]
         private Type m_characterType;
         public Type characterType { get { return m_characterType; } private set { m_characterType = value; } }
@@ -25,6 +28,7 @@ namespace Viva
         [SerializeField]
         private Rigidbody m_velTracker;
         public Rigidbody velTracker { get { return m_velTracker; } }
+        public Terrain groundTerrain;
         [SerializeField]
         private Transform m_head;
         public Transform head { get { return m_head; } }
@@ -37,6 +41,7 @@ namespace Viva
         public HandState leftHandState { get { return occupyStates[(int)Occupation.HAND_LEFT] as HandState; } }
         public ShoulderState rightShoulderState { get { return occupyStates[(int)Occupation.SHOULDER_RIGHT] as ShoulderState; } }
         public ShoulderState leftShoulderState { get { return occupyStates[(int)Occupation.SHOULDER_LEFT] as ShoulderState; } }
+        
         public OnGenericCallback onModifyAnimations = null;
 
         public void AddModifyAnimationCallback(OnGenericCallback callback)
@@ -85,6 +90,16 @@ namespace Viva
             }
             return null;
         }
+        
+        public T GetItemIfHeldByEitherHand<T>() where T : Item
+        {
+            T item = rightHandState.GetItemIfHeld<T>();
+            if (item == null)
+            {
+                item = leftHandState.GetItemIfHeld<T>();
+            }
+            return item;
+        }
 
         protected abstract Vector3 CalculateFloorPosition();
         public Vector3 floorPos { get { return CalculateFloorPosition(); } }
@@ -94,6 +109,7 @@ namespace Viva
         public abstract void OnCharacterFixedUpdate();
         public abstract void OnCharacterUpdate();
         public abstract void OnCharacterLateUpdatePostIK();
+        public abstract void OnCharacterSplashed(Vector3 sourcePos);
 
         public virtual void OnCharacterCollisionEnter(CharacterCollisionCallback ccc, Collision collision)
         {

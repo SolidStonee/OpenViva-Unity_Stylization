@@ -239,11 +239,11 @@ namespace Viva
 
             //check if daySegment changed
             DaySegment currentDaySegment = CalculateCurrentDayNightSegment();
-            if (currentDaySegment != this.m_currentDaySegment)
-            {
-                this.m_currentDaySegment = currentDaySegment;
-                OnDaySegmentChange();
-            }
+            // if (currentDaySegment != this.m_currentDaySegment)
+            // {
+            //     this.m_currentDaySegment = currentDaySegment;
+            //     OnDaySegmentChange();
+            // }
             //call back registered callbacks
             //TODO: Sort by usage
             int day = GetCurrentDay();

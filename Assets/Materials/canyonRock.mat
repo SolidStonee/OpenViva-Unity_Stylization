@@ -12,22 +12,20 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - N_F_DNO_ON
   - N_F_EAL_ON
   - N_F_O_ON
   - N_F_RDC_ON
   - N_F_RELGI_ON
-  - N_F_SON_ON
+  - N_F_RL_ON
+  - N_F_R_ON
   - N_F_TRANSAFFSHA_ON
   m_InvalidKeywords:
   - _CUSTOMLIGHTDIRECTIONFOLLOWOBJECTROTATION_OFF
-  - _GIFLATSHADE_OFF
   - _GLOSSTEXTUREFOLLOWOBJECTROTATION_OFF
-  - _LIGHTAFFECTRIMLIGHTCOLOR_OFF
-  - _LIGHTAFFECTSHADOW_OFF
   - _LIGHTFALLOFFAFFECTSHADOWT_OFF
   - _LIGIGNOYNORDIR_OFF
   - _MCIALO_OFF
-  - _METALLICGLOSSMAP
   - _MIXMAINTEXTOOUTLINE_OFF
   - _MVCOL_OFF
   - _OUTLINEWIDTHAFFECTEDBYVIEWDISTANCE_OFF
@@ -191,30 +189,30 @@ Material:
     - _DoubleSidedOutline: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _DynamicNoisyOutline: 0
+    - _DynamicNoisyOutline: 1
     - _EnvironmentReflections: 1
     - _EnvironmentalLightingIntensity: 1
-    - _FarDistanceMaxWidth: 10
-    - _GIFlatShade: 0
-    - _GIShadeThreshold: 0
-    - _GlossColorPower: 10
-    - _GlossIntensity: 1
+    - _FarDistanceMaxWidth: 7.79
+    - _GIFlatShade: 1
+    - _GIShadeThreshold: 0.01
+    - _GlossColorPower: 0.61
+    - _GlossIntensity: 0.153
     - _GlossMapScale: 0.5
-    - _GlossSoftness: 0
+    - _GlossSoftness: 1
     - _GlossTextureFollowLight: 0
     - _GlossTextureFollowObjectRotation: 0
     - _GlossTextureRotate: 0
     - _GlossTextureSoftness: 0
-    - _Glossiness: 0.5
+    - _Glossiness: 0.67
     - _GlossyReflections: 1
     - _Glow_Edge_Width: 1
-    - _HighlightColorPower: 1
+    - _HighlightColorPower: 0.97
     - _LigIgnoYNorDir: 0
     - _LightAffectOutlineColor: 1
-    - _LightAffectRimLightColor: 0
-    - _LightAffectShadow: 0
+    - _LightAffectRimLightColor: 1
+    - _LightAffectShadow: 1
     - _LightFalloffAffectShadowT: 0
-    - _LightFalloffSoftness: 0.5
+    - _LightFalloffSoftness: 0.518
     - _LightIntensity: 1
     - _MCIALO: 0
     - _MCapIntensity: 1
@@ -246,22 +244,22 @@ Material:
     - _N_F_O: 1
     - _N_F_OFLMB: 0
     - _N_F_PT: 0
-    - _N_F_R: 0
+    - _N_F_R: 1
     - _N_F_RDC: 1
-    - _N_F_RL: 0
+    - _N_F_RL: 1
     - _N_F_SCT: 0
     - _N_F_SL: 0
-    - _N_F_SON: 1
+    - _N_F_SON: 0
     - _N_F_SS: 0
     - _N_F_ST: 0
     - _N_F_STIAL: 0
     - _N_F_STIS: 0
-    - _NoisyOutlineIntensity: 0
+    - _NoisyOutlineIntensity: 0.577
     - _NormalMapIntensity: 1
     - _OcclusionStrength: 1
     - _Opacity: 1
     - _Oper: 0
-    - _OutlineExtrudeMethod: 0
+    - _OutlineExtrudeMethod: 1
     - _OutlineWidth: 1
     - _OutlineWidthAffectedByViewDistance: 0
     - _OutlineZPostionInCamera: 0
@@ -276,16 +274,16 @@ Material:
     - _QueueOffset: 0
     - _RELG: 1
     - _ReceiveShadows: 1
-    - _ReduSha: 0.5
-    - _RefMetallic: 0
+    - _ReduSha: 0.57
+    - _RefMetallic: 0.354
     - _RefVal: 0
-    - _ReflectionIntensity: 0
+    - _ReflectionIntensity: 0.383
     - _ReflectionRoughtness: 0
     - _RimLigInt: 1
-    - _RimLightColorPower: 10
+    - _RimLightColorPower: 0.02
     - _RimLightInLight: 1
     - _RimLightSoftness: 1
-    - _RimLightUnfill: 1.5
+    - _RimLightUnfill: 1.63
     - _SPECIN: 1
     - _SPECMODE: 0
     - _STIL: 0
@@ -296,11 +294,11 @@ Material:
     - _SelfShadowAffectedByLightShadowStrength: 0
     - _SelfShadowHardness: 1
     - _SelfShadowRealTimeShadowColorPower: 1
-    - _SelfShadowRealtimeShadowIntensity: 0.893
+    - _SelfShadowRealtimeShadowIntensity: 0.972
     - _SelfShadowShadowTAtViewDirection: 1
     - _SelfShadowThreshold: 0.874
     - _ShadowColorTexturePower: 0
-    - _ShadowHardness: 0.215
+    - _ShadowHardness: 0
     - _ShadowTColorPower: 1
     - _ShadowTHardness: 1
     - _ShadowTIntensity: 1

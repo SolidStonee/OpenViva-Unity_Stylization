@@ -23,6 +23,10 @@ namespace Viva
                     float blendDuration)
         {
 
+            var comp = owner as Companion;
+            BeginRigidBodyGrab(item.rigidBody, comp.rightArmMuscle.rigidbody, false, HoldType.OBJECT, blendDuration);
+            Pickup(item);
+            
             // OnPickup(
             // 	item,
             // 	_holdtype,

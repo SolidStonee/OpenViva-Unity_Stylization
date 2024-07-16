@@ -12,14 +12,19 @@ Material:
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _ALPHAPREMULTIPLY_ON
+  - _SPECULAR_SETUP
+  - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
+  stringTagMap:
+    RenderType: Transparent
+  disabledShaderPasses:
+  - DepthOnly
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -110,9 +115,15 @@ Material:
     - Vector1_2: 1.18
     - Vector1_2be7601ab99d430c8525266edef302b4: 1.5
     - Vector1_3331e4b5780d4a149d159f68f55a7e32: 142
-    - Vector1_48aa5dff7d664a229bdd4ca9b62f08de: 0.08
-    - Vector1_86030992a0d049fab14057b7dfffae81: 0.71
+    - Vector1_48aa5dff7d664a229bdd4ca9b62f08de: 0.14
+    - Vector1_86030992a0d049fab14057b7dfffae81: 0.86
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
+    - _Blend: 0
+    - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
+    - _CastShadows: 1
+    - _Cull: 2
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DirtAmount: 0
@@ -120,9 +131,9 @@ Material:
     - _DirtMax: 0.212
     - _DirtMin: 0
     - _DirtScale: 0.15
-    - _DstBlend: 0
-    - _EdgeAlphaFalloff: 0.32
-    - _EdgeColorFalloff: 0.61
+    - _DstBlend: 10
+    - _EdgeAlphaFalloff: 0.31
+    - _EdgeColorFalloff: 0.89
     - _EdgeFalloff: 0.776
     - _FlowSpeed: 0.16
     - _FoamAmount: 0.3
@@ -144,6 +155,7 @@ Material:
     - _Parallax: 0.02
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _ReceiveShadows: 1
     - _SecondaryScale: 0.0046
     - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
@@ -153,9 +165,13 @@ Material:
     - _SrcBlend: 1
     - _SubsurfaceLength: 2
     - _SubsurfaceStart: 0.091
+    - _Surface: 1
     - _UVSec: 0
     - _VisibleDepth: 4.3
-    - _ZWrite: 1
+    - _WorkflowMode: 0
+    - _ZTest: 4
+    - _ZWrite: 0
+    - _ZWriteControl: 0
     m_Colors:
     - Color_d6dfceb43a6f4ae3be47deffbf0693c9: {r: 0.6650944, g: 1, b: 0.89755833,
         a: 0.8862745}

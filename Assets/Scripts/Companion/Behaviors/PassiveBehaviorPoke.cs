@@ -136,7 +136,7 @@ namespace Viva
                 {
                     target.SetTargetPosition(GameDirector.player.transform.position + lastPokeSource.position / 2.0f);
                 }));
-                // self.SetRootFacingTarget( ( GameDirector.player.transform.position+lastPokeSource.position )/2.0f, 160.0f, 5.0f, 10.0f );
+
             }
             return true;
         }

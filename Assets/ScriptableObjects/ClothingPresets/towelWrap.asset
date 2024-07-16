@@ -16,6 +16,6 @@ MonoBehaviour:
   wearType: 8
   attribute: 1
   enable: 1
-  preview: {fileID: 21300000, guid: acd5c250379f8fb448f15a90076cff44, type: 3}
-  clothePieceName: sandals 1
+  preview: {fileID: 21300000, guid: e18e2d0b28abf7547ba85ae555ba3777, type: 3}
+  clothePieceName: towelwrap
   photoshootPose: {fileID: 11400000, guid: 6165b638a568a974499e08b1b2328c9f, type: 2}

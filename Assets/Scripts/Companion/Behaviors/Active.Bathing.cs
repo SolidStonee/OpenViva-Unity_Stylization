@@ -44,7 +44,7 @@ namespace Viva
 
         private List<GameObject> activeDynBoneBubbles = new List<GameObject>();
 
-        public BathingBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.BATHING, null)
+        public BathingBehavior(Companion _self) : base("Bathing", _self, ActiveBehaviors.Behavior.BATHING, null)
         {
         }
 

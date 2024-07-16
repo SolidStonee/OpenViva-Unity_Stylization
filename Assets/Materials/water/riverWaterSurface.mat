@@ -25,14 +25,18 @@ Material:
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _ALPHAPREMULTIPLY_ON
+  - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
+  stringTagMap:
+    RenderType: Transparent
+  disabledShaderPasses:
+  - DepthOnly
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -90,7 +94,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal_Map:
-        m_Texture: {fileID: 2800000, guid: b2efe058776170f42ba6b0e3151bc297, type: 3}
+        m_Texture: {fileID: 2800000, guid: c344e31d07ab2e040b321a50bd74d6af, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -115,7 +119,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
+    - _Blend: 0
+    - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
+    - _CastShadows: 1
+    - _CloseDistance: 0
+    - _Cull: 0
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DirtAmount: 0
@@ -124,7 +135,7 @@ Material:
     - _DirtMin: 0
     - _DirtScale: 0.15
     - _Distance: 4.67
-    - _DstBlend: 0
+    - _DstBlend: 10
     - _FlowSpeed: 0.12
     - _FoamAmount: 0.3
     - _FoamDistortion: 0.018
@@ -133,7 +144,7 @@ Material:
     - _FoamScale: 0.2
     - _Foam_Amount: 1.18
     - _Foam_Cutoff: 1
-    - _Foam_Scale: 4.7
+    - _Foam_Scale: 11.8
     - _Foam_Speed: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -144,7 +155,7 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _NormalStrength: 0.15
-    - _Normal_Strength: 1
+    - _Normal_Strength: 0.93
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _PupilRight: 0
@@ -152,10 +163,11 @@ Material:
     - _PupilUp: 0
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _ReceiveShadows: 1
     - _Refraction_Speed: 0.025
-    - _Refraction_Strength: 0.39
+    - _Refraction_Strength: 0.06
     - _SecondaryScale: 0.0046
-    - _Smoothness: 0.37
+    - _Smoothness: 1.61
     - _SmoothnessTextureChannel: 0
     - _SpecSize: 1
     - _SpecStrength: 48
@@ -163,9 +175,13 @@ Material:
     - _SrcBlend: 1
     - _SubsurfaceLength: 2
     - _SubsurfaceStart: 0.091
+    - _Surface: 1
     - _UVSec: 0
     - _VisibleDepth: 4.3
-    - _ZWrite: 1
+    - _WorkflowMode: 1
+    - _ZTest: 2
+    - _ZWrite: 0
+    - _ZWriteControl: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
@@ -177,6 +193,6 @@ Material:
     - _SubsurfaceColor: {r: 0.6179246, g: 0.9597815, b: 1, a: 1}
     - _SurfColor: {r: 0, g: 0.77254903, b: 0.6627451, a: 0.2627451}
     - _UV: {r: 0, g: 0, b: 0, a: 0}
-    - _UnderColor: {r: 0.01960784, g: 0.27843118, b: 0.49411762, a: 0.5058824}
+    - _UnderColor: {r: 0.01960784, g: 0.2784311, b: 0.49411762, a: 0.5529412}
     - _UnderwaterColor: {r: 0.338928, g: 0.52082795, b: 0.614, a: 0}
   m_BuildTextureStacks: []

@@ -1,24 +1,26 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 
 
 namespace Viva
 {
-
-    //is en extension of a monobehavior
     public abstract class VivaSessionAsset : SealedMonoBehavior
     {
-        [HideInInspector]
+        
+        private static Dictionary<string, VivaSessionAsset> assetRegistry = new Dictionary<string, VivaSessionAsset>();
+
+        
         [SerializeField]
         private bool disablePersistance = false;
-        [HideInInspector]
         [SerializeField]
         public bool targetsSceneAsset = false;
-        [HideInInspector]
         [SerializeField]
         public string assetName;
+        [SerializeField]
+        public string uniqueID;
 
         public string sessionReferenceName { get; protected set; } = null;
         protected static int sessionReferenceCounter = 1;
@@ -47,6 +49,8 @@ namespace Viva
                 Debug.LogError("[PERSISTANCE] ERROR Cannot load null VivaFile!");
                 yield break;
             }
+
+            assetRegistry.Clear(); //ensure the registry is cleared before loading new assets
 
             //Load all serialized assets
             VivaSessionAsset[] toBeAwakened = new VivaSessionAsset[file.serializedAssets.Count];
@@ -91,17 +95,20 @@ namespace Viva
 
         protected static VivaSessionAsset InitializeVivaSessionAsset(GameDirector.VivaFile.SerializedAsset serializedAsset)
         {
-
             GameObject targetAsset = null;
             if (serializedAsset.targetsSceneAsset)
             {
                 targetAsset = GameObject.Find(serializedAsset.assetName);
+                if (targetAsset == null)
+                {
+                    Debug.LogError("[ITEM] Could not find scene asset named " + serializedAsset.assetName);
+                    return null;
+                }
             }
             else
             {
                 if (serializedAsset.assetName == "")
                 {
-                    //ignore silently assets not setup
                     return null;
                 }
                 autoAwake = false;
@@ -119,34 +126,70 @@ namespace Viva
                 return null;
             }
 
-            return targetAsset.GetComponent<VivaSessionAsset>();
+            var vivaSessionAsset = targetAsset.GetComponent<VivaSessionAsset>();
+            if (vivaSessionAsset != null)
+            {
+                vivaSessionAsset.uniqueID = serializedAsset.uniqueID;
+                vivaSessionAsset.sessionReferenceName = serializedAsset.sessionReferenceName;
+                RegisterAsset(vivaSessionAsset);
+            }
+            return vivaSessionAsset;
         }
 
         protected override sealed void Awake()
         {
-            if (sessionReferenceName == null)
+            if (string.IsNullOrEmpty(uniqueID))
             {
+                uniqueID = Guid.NewGuid().ToString();
+            }
 
-                if (targetsSceneAsset || disablePersistance)
-                {
-                    sessionReferenceName = name + "_" + sessionReferenceCounter++;
-                    name = sessionReferenceName;
-                    assetName = sessionReferenceName;
-                }
-                else
-                {
-                    sessionReferenceName = assetName + "_" + sessionReferenceCounter++;
-                }
-            }
-            else
+            if (string.IsNullOrEmpty(sessionReferenceName))
             {
-                Debug.LogError(sessionReferenceName);
+                sessionReferenceName = uniqueID;
             }
+
+            RegisterAsset(this);
+
+            if (targetsSceneAsset || disablePersistance)
+            {
+                assetName = name;
+            }
+
             if (autoAwake)
             {
                 OnAwake();
             }
         }
+        
+        protected override sealed void OnDestroy()
+        {
+            DeregisterAsset(this);
+            OnStartDestroy();
+            base.OnDestroy();
+        }
+
+        private static void RegisterAsset(VivaSessionAsset asset)
+        {
+            if (!string.IsNullOrEmpty(asset.uniqueID))
+            {
+                assetRegistry[asset.uniqueID] = asset;
+            }
+        }
+
+        private static void DeregisterAsset(VivaSessionAsset asset)
+        {
+            if (!string.IsNullOrEmpty(asset.uniqueID))
+            {
+                assetRegistry.Remove(asset.uniqueID);
+            }
+        }
+
+        public static VivaSessionAsset FindAssetByID(string uniqueID)
+        {
+            assetRegistry.TryGetValue(uniqueID, out VivaSessionAsset asset);
+            return asset;
+        }
+
 
         protected override sealed void Start()
         {
@@ -154,15 +197,18 @@ namespace Viva
         }
 
         protected virtual void OnAwake() { }
+        
+        protected virtual void OnStartDestroy() { }
         public virtual void Save(GameDirector.VivaFile vivaFile)
         {
-
             var serializedAsset = new GameDirector.VivaFile.SerializedAsset(this);
             if (serializedAsset == null)
             {
                 Debug.LogError("[PERSISTANCE] Could not save " + name);
                 return;
             }
+            serializedAsset.uniqueID = uniqueID;
+            serializedAsset.sessionReferenceName = sessionReferenceName;
             vivaFile.serializedAssets.Add(serializedAsset);
         }
     }

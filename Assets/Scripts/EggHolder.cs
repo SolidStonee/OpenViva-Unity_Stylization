@@ -34,6 +34,7 @@ namespace Viva
                 slots[index] = egg;
                 GameDirector.instance.StartCoroutine(PlaceEggAnimation(localSlotPos, egg));
             }
+            Debug.Log("Adding Egg To Slot");
         }
 
         public Vector3 FindNearestFreeSlotLocalPos(Vector3 localPos, ref int index)

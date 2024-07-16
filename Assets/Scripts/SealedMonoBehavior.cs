@@ -29,7 +29,7 @@ namespace Viva
         public virtual void OnDisable()
         {
         }
-        public virtual void OnDestroy()
+        protected virtual void OnDestroy()
         {
         }
     }

@@ -78,13 +78,10 @@ namespace Viva
                 button = player.leftPlayerHandState.actionState;
                 SetEnableCursor(true);
                 m_controlsAllowed = ControlsAllowed.NONE;
-
-                if (lastMenu.KeyboardModeBringsHandDown(true))
+                
+                if (lastMenu.KeyboardModeBringsHandDown())
                 {
                     sourcePlayer.rightPlayerHandState.animSys.SetTargetAndIdleOverrideAnimation(Player.Animation.KEYBOARD_HANDS_DOWN);
-                }
-                if (lastMenu.KeyboardModeBringsHandDown(false))
-                {
                     sourcePlayer.leftPlayerHandState.animSys.SetTargetAndIdleOverrideAnimation(Player.Animation.KEYBOARD_HANDS_DOWN);
                 }
 

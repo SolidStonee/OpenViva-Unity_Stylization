@@ -344,7 +344,7 @@ namespace Viva
             }
 
             acceptButton.interactable = true;
-            modelPreviewer.SetPreviewLoli(null);
+            modelPreviewer.SetPreviewCompanion(null);
 
             EndActiveCoroutineAction(null);
             ValidateAllowTweakTab();

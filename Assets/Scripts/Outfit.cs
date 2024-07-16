@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ namespace Viva
 
 
 
+    [Serializable]
     public class Outfit : SerializedTaskData
     {
 
@@ -23,6 +25,7 @@ namespace Viva
             }
         }
 
+        [SerializeField]
         private List<ClothingPreset> clothingPieces = new List<ClothingPreset>();
         public Dictionary<ClothingPreset, Outfit.ClothingOverride> clothingOverrides = new Dictionary<ClothingPreset, Outfit.ClothingOverride>();
         public Color fingerNailColor = new Color(1.0f, 0.76f, 0.74f);

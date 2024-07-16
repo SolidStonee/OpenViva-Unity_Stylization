@@ -8,8 +8,6 @@ namespace Viva
     public class Autonomy : Job
     {
 
-        public delegate void AutonomyChangeCalback();
-
         public new abstract class Task
         {
 
@@ -99,30 +97,30 @@ namespace Viva
                 requirements.Add(requirement);
             }
 
-            public void PrependRequirement(Task requirement)
+            public void PrependRequirement(Task task)
             {
-                if (requirement == null || requirement.isAPassive || requirement.isARequirement || requirement == this)
+                if (task == null || task.isAPassive || task.isARequirement || task == this)
                 {
                     Debug.LogError("[Task] Task not eligible for requirement");
                     return;
                 }
-                requirement.isARequirement = true;
-                requirements.Insert(0, requirement);
+                task.isARequirement = true;
+                requirements.Insert(0, task);
             }
 
-            public void RemoveRequirement(Task requirement)
+            public void RemoveRequirement(Task task)
             {
-                if (requirement == null || !requirement.isARequirement)
+                if (task == null || !task.isARequirement)
                 {
                     Debug.LogError("[Task] Task not a requirement");
                     return;
                 }
-                int index = requirements.IndexOf(requirement);
+                int index = requirements.IndexOf(task);
                 if (index > -1)
                 {
                     requirements.RemoveAt(index);
-                    requirement.isARequirement = false;
-                    requirement.RemovedFromQueue();
+                    task.isARequirement = false;
+                    task.RemovedFromQueue();
                 }
                 else
                 {
@@ -188,8 +186,11 @@ namespace Viva
             public Companion.OnAnimationChangeCallback onAnimationChange;
             public Companion.OnCharacterCollisionCallback onCharacterCollisionEnter;
             public Companion.OnCharacterTriggerCallback onCharacterTriggerEnter;
+            public Companion.OnMoodChange onMoodChange;
+
             public OnGenericCallback onRegistered;
             public OnGenericCallback onUnregistered;
+            public OnGenericCallback onInterrupted;
             public OnGenericCallback onFlagForSuccess;
             public OnGenericCallback onReset;
 
@@ -202,6 +203,8 @@ namespace Viva
             public void AnimationChange(Companion.Animation oldAnim, Companion.Animation newAnim) { onAnimationChange?.Invoke(oldAnim, newAnim); }
             public void CharacterCollisionEnter(CharacterCollisionCallback ccc, Collision collision) { onCharacterCollisionEnter?.Invoke(ccc, collision); }
             public void CharacterTriggerEnter(CharacterTriggerCallback ccc, Collider collider) { onCharacterTriggerEnter?.Invoke(ccc, collider); }
+            public void MoodChange(Companion.Happiness happiness) { onMoodChange?.Invoke(happiness); }
+
             public void RemovedFromQueue()
             {
                 foreach (var requirement in requirements)
@@ -342,7 +345,7 @@ namespace Viva
         private bool hintBreakValidation = false;
 
 
-        public Autonomy(Companion _self) : base(_self, Job.JobType.AUTONOMY)
+        public Autonomy(Companion _self) : base(_self, JobType.AUTONOMY)
         {
         }
 
@@ -368,6 +371,16 @@ namespace Viva
             // Debug.LogError("[Autonomy] "+self.name+" set to "+task.name);
         }
 
+        public Task FindTask(string taskName)
+        {
+            foreach (var queuedTask in queue)
+            {
+                if (queuedTask.name == taskName) return queuedTask;
+            }
+
+            return null;
+        }
+
         public void RestartValidationHierarchy()
         {
             hintBreakValidation = true;
@@ -383,10 +396,41 @@ namespace Viva
                     task.RemovedFromQueue();
                     queue.RemoveAt(i);
                     return;
-                }
+                } 
             }
+            
         }
 
+        // public bool RemoveTask(string name)
+        // {
+        //     var task = FindTask(name);
+        //
+        //     if (task != null)
+        //     {
+        //         RemoveTask(task);
+        //         return true;
+        //     }
+        //     return false;
+        // }
+        //
+        // public void RemoveTask(Task task)
+        // {
+        //     if (task == null)
+        //     {
+        //         Debug.LogError("[Autonomy] Cannot Remove a null task");
+        //         return;
+        //     }
+        //     var index = queue.IndexOf( task );
+        //
+        //     task.RemovedFromQueue();
+        //     queue.RemoveAt(index);
+        //
+        // }
+
+        /// <summary>
+        /// This allows you to interrupt the active task (DO NOT USE IN A UPDATE METHOD)
+        /// </summary>
+        /// <param name="task"></param>
         public void Interrupt(Task task)
         {
             if (task == null)
@@ -402,10 +446,12 @@ namespace Viva
                 }
             }
             // Debug.LogError("[Autonomy] Interrupted with "+task.name);
+            
             queue.Insert(0, task);
 
             if (inProgress != null)
             {
+                inProgress.onInterrupted?.Invoke();
                 UnregisterTask(inProgress);
                 inProgress = null;
             }
@@ -499,6 +545,7 @@ namespace Viva
             self.onLateUpdate += task.LateUpdate;
             self.onCharacterCollisionEnter += task.CharacterCollisionEnter;
             self.onCharacterTriggerEnter += task.CharacterTriggerEnter;
+            self.onMoodChange += task.MoodChange;
             self.AddModifyAnimationCallback(task.ModifyAnimation);
             task.FireOnRegistered();
         }

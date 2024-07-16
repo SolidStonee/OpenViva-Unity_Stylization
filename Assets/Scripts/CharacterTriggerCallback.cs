@@ -27,20 +27,50 @@ namespace Viva
         private Type m_collisionPart;
         public Type collisionPart { get { return m_collisionPart; } }
 
+        public bool callTriggerStay = true;
+
 
         private void OnTriggerEnter(Collider collider)
         {
             owner.OnCharacterTriggerEnter(this, collider);
         }
 
-        // private void OnTriggerStay(Collider collider)
-        // {
-        //     owner.OnCharacterTriggerStay(this, collider);
-        // }
-
         private void OnTriggerExit(Collider collider)
         {
             owner.OnCharacterTriggerExit(this, collider);
+        }
+        private void OnEnable()
+        {
+            if (callTriggerStay)
+            {
+                gameObject.AddComponent<CharacterTriggerStayHandler>().Initialize(this);
+            }
+        }
+
+        private void OnDisable()
+        {
+            var handler = gameObject.GetComponent<CharacterTriggerStayHandler>();
+            if (handler != null)
+            {
+                Destroy(handler);
+            }
+        }
+
+        
+    }
+    
+    public class CharacterTriggerStayHandler : MonoBehaviour
+    {
+        private CharacterTriggerCallback parent;
+
+        public void Initialize(CharacterTriggerCallback parent)
+        {
+            this.parent = parent;
+        }
+
+        private void OnTriggerStay(Collider collider)
+        {
+            parent.owner.OnCharacterTriggerStay(parent, collider);
         }
     }
 

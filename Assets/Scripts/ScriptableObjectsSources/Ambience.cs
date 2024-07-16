@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using OccaSoftware.Altos.Runtime;
+using UnityEngine;
 
 namespace Viva
 {
@@ -17,18 +18,19 @@ namespace Viva
 
         public SoundSet randomSounds;
 
+        public int priority;
 
-        public AudioClip GetAudio(SkyDirector.DaySegment daySegment, bool indoor)
+        public AudioClip GetAudio(DaySegment daySegment, bool indoor)
         {
             if (indoor)
             {
                 switch (daySegment)
                 {
-                    case SkyDirector.DaySegment.MORNING:
+                    case DaySegment.MORNING:
                         return morningIndoor;
-                    case SkyDirector.DaySegment.DAY:
+                    case DaySegment.DAY:
                         return eveningIndoor;
-                    case SkyDirector.DaySegment.NIGHT:
+                    case DaySegment.NIGHT:
                         return nightIndoor;
                 }
             }
@@ -36,11 +38,11 @@ namespace Viva
             {
                 switch (daySegment)
                 {
-                    case SkyDirector.DaySegment.MORNING:
+                    case DaySegment.MORNING:
                         return morningOutdoor;
-                    case SkyDirector.DaySegment.DAY:
+                    case DaySegment.DAY:
                         return eveningOutdoor;
-                    case SkyDirector.DaySegment.NIGHT:
+                    case DaySegment.NIGHT:
                         return nightOutdoor;
                 }
             }

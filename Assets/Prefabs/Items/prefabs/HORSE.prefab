@@ -503,6 +503,7 @@ MonoBehaviour:
   disablePersistance: 1
   targetsSceneAsset: 0
   assetName: 
+  uniqueID: 
   m_settings: {fileID: 11400000, guid: 6e7141e190c365efe9031ae2626f5642, type: 2}
   m_rigidBody: {fileID: 2909456102079497702}
   m_owners: []
@@ -634,6 +635,7 @@ MonoBehaviour:
   disablePersistance: 1
   targetsSceneAsset: 0
   assetName: 
+  uniqueID: 
   m_settings: {fileID: 11400000, guid: 6e7141e190c365efe9031ae2626f5642, type: 2}
   m_rigidBody: {fileID: 314780832469774611}
   m_owners: []
@@ -2285,6 +2287,7 @@ MonoBehaviour:
   disablePersistance: 0
   targetsSceneAsset: 1
   assetName: HORSE
+  uniqueID: 
   m_highlightMesh: {fileID: -773171106598919105, guid: 22962981af491ce46bd6e55fcca247f9,
     type: 3}
   m_highlightTransformOverride: {fileID: 0}
@@ -2364,6 +2367,7 @@ GameObject:
   m_Component:
   - component: {fileID: 855523501564668928}
   - component: {fileID: 7570133758828470326}
+  - component: {fileID: 2864606080006332193}
   m_Layer: 20
   m_Name: RootMotionFix
   m_TagString: Untagged
@@ -2410,6 +2414,22 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 0
   m_Center: {x: -0.6, y: 0.6, z: 0}
+--- !u!208 &2864606080006332193
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6212940939002873922}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.985, y: 0.5, z: 0.22}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.72, y: 0.5, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &6402431951079361261
 GameObject:
   m_ObjectHideFlags: 0
@@ -2512,5 +2532,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 40b3f72b766e2fa47a7953cc3a49bed0, type: 2}
   - {fileID: 11400000, guid: 71a72d67e6fe6974d84be01d5b6ff0a2, type: 2}
   - {fileID: 11400000, guid: 1d05bc2f05a258e4eaf35f76592092ae, type: 2}
+  - {fileID: 11400000, guid: 40b3f72b766e2fa47a7953cc3a49bed0, type: 2}
+  - {fileID: 11400000, guid: 71a72d67e6fe6974d84be01d5b6ff0a2, type: 2}
   - {fileID: 11400000, guid: 71a72d67e6fe6974d84be01d5b6ff0a2, type: 2}
   lastFloorPos: {x: 0, y: 0, z: 0}

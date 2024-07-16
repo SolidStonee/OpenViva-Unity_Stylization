@@ -133,8 +133,8 @@ MonoBehaviour:
     diffuse: {fileID: 2800000, guid: b01d68fb28abdc84e86ad42b16e63722, type: 3}
     height: {fileID: 2800000, guid: e09d5a9b7fb3ef64b8d857d5834cecc4, type: 3}
     heightChannel: 2
-    normal: {fileID: 2800000, guid: 1bf42cf19599a404d95797407aac9fff, type: 3}
-    smoothness: {fileID: 0}
+    normal: {fileID: 0}
+    smoothness: {fileID: 2800000, guid: 078d6c73e88ebd342bc025eef686e6e0, type: 3}
     smoothnessChannel: 3
     isRoughness: 0
     ao: {fileID: 0}

@@ -1,10 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using Viva.Util;
+using ShadowResolution = UnityEngine.Rendering.Universal.ShadowResolution;
 
 namespace Viva
 {
@@ -16,7 +20,7 @@ namespace Viva
 
         public float mouseSensitivity = 240.0f;
         public float musicVolume = 0.5f;
-        public int dayNightCycleSpeedIndex = 0;
+        public int dayNightCycleSpeedIndex = 2;
         public bool disableGrabToggle = true;
         public bool pressToTurn = false;
         public Player.VRControlType vrControls = Player.VRControlType.TRACKPAD;
@@ -34,24 +38,20 @@ namespace Viva
         public bool toggleTooltips = true;
         public bool toggleClouds = false;
 
-        private string[] dayNightCycleSpeedDesc = new string[]{
-        "12 minutes",
-        "24 minutes",
-        "40 minutes",
-        "2 hour",
-        "Never Change"
+        private string[] dayNightCycleSpeedDesc = new string[]
+        { 
+            "Never Change",
+            "5 minutes",
+            "12 minutes",
+            "24 minutes",
+            "45 minutes",
+            "1 hour",
+            "2 hour"
         };
 
         public void Apply()
         {
-            int currQuality = GameSettings.main.qualityLevel;
             QualitySettings.SetQualityLevel(qualityLevel);
-            bool enableRealtimeReflections = currQuality >= 1;
-            float refreshTimeout = currQuality >= 1 ? 0 : 1;
-            float maxRefreshTimeout = currQuality >= 1 ? 0 : 8;
-            int resolution = currQuality <= 1 ? 16 : 64;
-
-
             QualitySettings.antiAliasing = antiAliasing;
             QualitySettings.vSyncCount = vSync ? 1 : 0;     
             QualitySettings.lodBias = lodDistance;
@@ -85,31 +85,46 @@ namespace Viva
 
         public void ApplyShadowSettings()
         {
-            switch (shadowLevel){
+            var urpAsset = GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset;
+            if (urpAsset == null)
+            {
+                Debug.LogError("URP Asset not found");
+                return;
+            }
+
+            switch (shadowLevel)
+            {
                 default:
-                    QualitySettings.shadowCascades = 0;
-                    QualitySettings.shadowDistance = 0;
-                    QualitySettings.shadowResolution = ShadowResolution.Low;
+                    urpAsset.shadowCascadeCount = 1;
+                    urpAsset.shadowDistance = 0f;
+                    UnityGraphicsBullshit.MainLightShadowResolution = ShadowResolution._256;
+                    UnityGraphicsBullshit.AdditionalLightShadowResolution = ShadowResolution._256;
                     break;
                 case 1:
-                    QualitySettings.shadowDistance = 50;
+                    urpAsset.shadowDistance = 50f;
                     break;
                 case 2:
-                    QualitySettings.shadowDistance = 75;
-                    QualitySettings.shadowCascades = 2;
+                    urpAsset.shadowDistance = 75f;
+                    urpAsset.shadowCascadeCount = 2;
+                    UnityGraphicsBullshit.MainLightShadowResolution = ShadowResolution._512;
+                    UnityGraphicsBullshit.AdditionalLightShadowResolution = ShadowResolution._512;
                     break;
                 case 3:
-                    QualitySettings.shadowDistance = 100;
-                    QualitySettings.shadowResolution = ShadowResolution.Medium;
+                    urpAsset.shadowDistance = 100f;
+                    urpAsset.shadowCascadeCount = 3;
+                    UnityGraphicsBullshit.MainLightShadowResolution = ShadowResolution._1024;
+                    UnityGraphicsBullshit.AdditionalLightShadowResolution = ShadowResolution._1024;
                     break;
                 case 4:
-                    QualitySettings.shadowDistance = 150;
-                    QualitySettings.shadowResolution = ShadowResolution.High;
+                    urpAsset.shadowDistance = 150f;
+                    urpAsset.shadowCascadeCount = 4;
+                    UnityGraphicsBullshit.MainLightShadowResolution = ShadowResolution._2048;
+                    UnityGraphicsBullshit.AdditionalLightShadowResolution = ShadowResolution._2048;
                     break;
                 case 5:
-                    QualitySettings.shadowDistance = 200;
-                    QualitySettings.shadowCascades = 4;
-                    QualitySettings.shadowResolution = ShadowResolution.VeryHigh;
+                    urpAsset.shadowDistance = 200f;
+                    UnityGraphicsBullshit.MainLightShadowResolution = ShadowResolution._4096;
+                    UnityGraphicsBullshit.AdditionalLightShadowResolution = ShadowResolution._4096;
                     break;
             }
         }
@@ -151,18 +166,16 @@ namespace Viva
         }
         public void ShiftWorldTime(float timeAmount)
         {
-            GameDirector.skyDirector.worldTime += timeAmount;
-            GameDirector.skyDirector.ApplyDayNightCycle();
+            GameDirector.newSkyDirector.skyDefinition.timeSystem += timeAmount;
         }
         public void SetWorldTime(float newTime)
         {
-            GameDirector.skyDirector.worldTime = newTime;
-            GameDirector.skyDirector.ApplyDayNightCycle();
+            GameDirector.newSkyDirector.skyDefinition.timeSystem = newTime;
         }
         public string AdjustDayTimeSpeedIndex(int direction)
         {
             SetDayNightCycleSpeedIndex(dayNightCycleSpeedIndex + direction);
-            GameDirector.skyDirector.UpdateDayNightCycleSpeed();
+            GameDirector.newSkyDirector.skyDefinition.ApplyDaySpeed();
             return dayNightCycleSpeedDesc[dayNightCycleSpeedIndex];
         }
         public void SetDayNightCycleSpeedIndex(int index)
@@ -331,6 +344,7 @@ namespace Viva
                 public string sessionReferenceName;
                 public List<SerializedVivaProperty> properties;
                 public TransformSave transform;
+                public string uniqueID;
 
                 public SerializedAsset(VivaSessionAsset target)
                 {
@@ -338,7 +352,8 @@ namespace Viva
                     assetName = target.assetName;
                     transform = new TransformSave(target.transform);
                     sessionReferenceName = target.sessionReferenceName;
-
+                    uniqueID = target.uniqueID;
+                    
                     properties = SerializedVivaProperty.Serialize(target);
                 }
 
@@ -348,6 +363,7 @@ namespace Viva
                     assetName = "";
                     transform = new TransformSave();
                     sessionReferenceName = _sessionReferenceName;
+                    uniqueID = Guid.NewGuid().ToString();
                 }
             }
 
@@ -423,8 +439,7 @@ namespace Viva
             if (file == null)
             {
                 //defaults if no file present
-                GameSettings.main.SetWorldTime(GameDirector.skyDirector.firstLoadDayOffset);
-                GameSettings.main.SetDayNightCycleSpeedIndex(1);
+                GameSettings.main.SetWorldTime(GameDirector.newSkyDirector.skyDefinition.initialTime);
                 StartCoroutine(FirstLoadTutorial());
 
                 yield return null;
@@ -436,14 +451,14 @@ namespace Viva
                 // Load Companions
                 var cdm = new CoroutineDeserializeManager();
 
-                var toLoad = new List<Tuple<Companion, VivaFile.SerializedCompanion>>();
+                var toLoad = new List<Util.Tuple<Companion, VivaFile.SerializedCompanion>>();
                 foreach (var serializedCompanion in file.companionAssets)
                 {
-                    var targetLoli = GameDirector.instance.GetCompanionFromPool();
+                    var targetCompanion = GameDirector.instance.GetCompanionFromPool();
                     cdm.waiting++;
-                    StartCoroutine(Companion.LoadLoliFromSerializedLoli(serializedCompanion.sourceCardFilename, targetLoli, delegate
+                    StartCoroutine(Companion.LoadCompanionFromSerializedCompanion(serializedCompanion.sourceCardFilename, targetCompanion, delegate
                     {
-                        toLoad.Add(new Tuple<Companion, VivaFile.SerializedCompanion>(targetLoli, serializedCompanion));
+                        toLoad.Add(new Util.Tuple<Companion, VivaFile.SerializedCompanion>(targetCompanion, serializedCompanion));
                         cdm.waiting--;
                     }
                     ));
@@ -500,6 +515,7 @@ namespace Viva
         {
             LoadLanguage();
             GameDirector.skyDirector.enabled = true;
+            //GameDirector.newSkyDirector.enabled = true;
             InitMusic();
         }
     }

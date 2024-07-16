@@ -1,4 +1,5 @@
 using System.Collections;
+using OccaSoftware.Altos.Runtime;
 using UnityEngine;
 
 namespace Viva
@@ -93,6 +94,7 @@ namespace Viva
             {
                 newMusic = Music.NONE;
             }
+            
             queuedMusic = newMusic;
             if (currentMusic == newMusic)
             {
@@ -134,10 +136,10 @@ namespace Viva
         public Music GetDefaultMusic()
         {
             if (overrideMusic.HasValue) return overrideMusic.Value;
-            switch (GameDirector.skyDirector.daySegment)
+            switch (GameDirector.newSkyDirector.skyDefinition.currentSegment)
             {
-                case SkyDirector.DaySegment.MORNING:
-                case SkyDirector.DaySegment.DAY:
+                case DaySegment.MORNING:
+                case DaySegment.DAY:
 
                     if (userIsExploring)
                     {
@@ -172,7 +174,7 @@ namespace Viva
                     }
                 //case SkyDirector.DaySegment.MORNING:
                 //	return Music.NONE;
-                case SkyDirector.DaySegment.NIGHT:
+                case DaySegment.NIGHT:
 
                     if (userIsExploring)
                     {

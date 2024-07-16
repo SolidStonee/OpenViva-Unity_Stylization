@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using Viva.Util;
@@ -22,6 +23,11 @@ namespace Viva
         public Vector3[] path { get; private set; } = null; //path must always be > 0
         public int lastPathID { get; protected set; } = 0;
         public int currCorner { get; private set; } = 0;
+
+        public float stuckTimer = 0.0f;
+        public Vector3 lastNonstuckPos = Vector3.zero;
+        public bool tryingToUnStuck = false;
+
         private Vector3 targetVelocity = Vector3.zero;
         private float currSpeed = 0.0f;
         private Tools.EaseBlend brakeBlend = new Tools.EaseBlend();
@@ -29,6 +35,8 @@ namespace Viva
         private Companion.LocomotionInfo zeroLocomotionInfo = new Companion.LocomotionInfo(0.0f, 0.0f, 0.0f, 0.0f);
         private Companion.LocomotionInfo locomotionInfo = null;
         private LocomotionCallback onFollowPathStart;
+        private LocomotionCallback onCheckStuck;
+        
         private Coroutine impulseCoroutine = null;
 
         public static float minCornerDist { get; private set; } = 0.2f;
@@ -53,7 +61,6 @@ namespace Viva
         }
 
 
-
         private void initBrake()
         {
             brakeBlend.reset(currSpeed);
@@ -68,6 +75,7 @@ namespace Viva
 
         public void ApplyMovement(bool finishPath)
         {
+            //Debug.Log("IsStuck: " + tryingToUnStuck);
             if (!self.groundHeight.HasValue)
             {
                 return;
@@ -76,6 +84,8 @@ namespace Viva
             {
                 Vector3 nextCorner = path[currCorner];
 
+                Debug.Log(path.ToString());
+                
                 //start facing targetFaceYaw if close enough
                 Vector3 cornerDiff = nextCorner - self.floorPos;
                 bool heightInRange = Mathf.Abs(cornerDiff.y) < 0.3f;
@@ -94,6 +104,7 @@ namespace Viva
                 if (currentCornerSqDist < successDist * successDist && heightInRange)
                 {
                     currCorner++;
+                    stuckTimer = 0;
                     if (currCorner >= path.Length)
                     {
                         if (onPathComplete != null)
@@ -105,6 +116,10 @@ namespace Viva
                 }
                 else
                 {   //if hasn't reached corner yet
+                    if (!tryingToUnStuck)
+                    {
+                        onCheckStuck.Invoke();
+                    }
 
                     float currentVelAngle = Mathf.Atan2(-self.spine1RigidBody.velocity.z, self.spine1RigidBody.velocity.x);
                     Vector3 planeVel = self.spine1RigidBody.velocity;
@@ -132,15 +147,21 @@ namespace Viva
 
             if (impulseCoroutine == null)
             {
-                //apply forces
-                Vector3 setVel = targetVelocity * currSpeed * 2.0f;
-                setVel *= 0.5f * self.puppetMaster.pinWeight;
-                self.spine1RigidBody.AddForce(setVel * self.lastPhysicsStepMult, ForceMode.VelocityChange);
+                if (!tryingToUnStuck)
+                {
+                    //apply forces
+                    Vector3 setVel = targetVelocity * currSpeed * 2.0f;
+                    setVel *= 0.5f * self.puppetMaster.pinWeight;
+                    self.spine1RigidBody.AddForce(setVel * self.lastPhysicsStepMult, ForceMode.VelocityChange);
+                }
             }
         }
 
         public override void OnUpdate()
         {
+            
+            
+            
             if (path != null && path.Length > 0)
             {
                 for (int i = 1, j = 0; i < path.Length; j = i++)
@@ -152,6 +173,7 @@ namespace Viva
 
         public void StopMoveTo()
         {
+            Debug.Log("Stopping MoveTo");
             path = null;
             initBrake();
         }
@@ -202,7 +224,7 @@ namespace Viva
             return NavMesh.SamplePosition(pos, out navTest, minCornerDist * 2.0f, NavMesh.AllAreas);
         }
 
-        public void FollowPath(Vector3[] newPath, LocomotionCallback _onPathComplete = null, PathCache pathID = null)
+        public void FollowPath(Vector3[] newPath, LocomotionCallback _onPathComplete = null, LocomotionCallback _onCheckStuck = null, PathCache pathID = null)
         {
             if (self.passive.handhold.anyHandBeingHeld)
             {
@@ -231,6 +253,7 @@ namespace Viva
             Tools.DrawCross(path[0] + Vector3.up * 0.2f, Color.magenta, 0.1f);
             currCorner = 0;
             onPathComplete = _onPathComplete;
+            onCheckStuck = _onCheckStuck;
 
             lastPathID++;
             if (pathID != null)

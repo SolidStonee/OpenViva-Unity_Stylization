@@ -31,7 +31,7 @@ namespace Viva
         private float returnToEmploymentTimer = 0.0f;
 
 
-        public SocialBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.SOCIAL, null)
+        public SocialBehavior(Companion _self) : base("Socializing", _self, ActiveBehaviors.Behavior.SOCIAL, null)
         {
         }
 

@@ -84,15 +84,15 @@ namespace Viva
             }
         }
 
-        private int GetAnimatorHandLayer()
+        public int GetAnimatorHandLayer()
         {
             return rightSide ? 3 : 4;
         }
 
         public void ApplyIK()
         {
-
             Companion companion = owner as Companion;
+                
             companion.animator.SetLayerWeight(GetAnimatorHandLayer(), Mathf.Clamp01(blendProgress * 4.0f));
 
             if (heldItem != null)
@@ -164,7 +164,7 @@ namespace Viva
             if (targetItem != null)
             {
                 companion.animator.SetLayerWeight(GetAnimatorHandLayer(), 1.0f);
-                companion.SetHandAnimationImmediate(GetAnimatorHandLayer(), targetItem.GetPreferredLoliHeldAnimation(this));
+                companion.SetHandAnimationImmediate(GetAnimatorHandLayer(), targetItem.GetPreferredCompanionHeldAnimation(this));
                 companion.puppetMaster.ApplyCurrentPose();
             }
             else

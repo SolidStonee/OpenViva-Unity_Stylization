@@ -22,6 +22,8 @@ namespace Viva
         public class ActiveTask : Task
         {
 
+            //We only really need the name for active tasks not passives
+            public string taskName { get; protected set; }
             public Behavior type { get; protected set; }
             public readonly SerializedTaskData session;
 
@@ -30,15 +32,20 @@ namespace Viva
                 return true;    //default allows all
             }
 
-            public ActiveTask(Companion _self, Behavior _type, SerializedTaskData _session) : base(_self, JobType.ACTIVE)
+            public ActiveTask(string _taskName, Companion _self, Behavior _type, SerializedTaskData _session) : base(_self, JobType.ACTIVE)
             {
+                taskName = _taskName;
                 type = _type;
                 session = _session;
 
             }
 
             public virtual void OnRefresh() { }
-            public virtual void OnActivate() { }
+            public virtual void OnActivate() 
+            { 
+                GameDirector.player.objectFingerPointer.selectedCompanions.Remove(self);
+                self.OnUnselected(); 
+            }
             public virtual void OnDeactivate() { }
             public virtual void OnCharacterCollisionEnter(CharacterCollisionCallback ccc, Collision collision) { }
             public virtual bool OnReturnPollTaskResult(ActiveTask returnSource, bool succeeded)

@@ -166,6 +166,11 @@ namespace Viva
                     break;
             }
         }
+
+        public override void OnCharacterSplashed(Vector3 sourcePos)
+        {
+            GameDirector.instance.postProcessing.DisplayScreenEffect(GamePostProcessing.Effect.SPLASH);
+        }
     }
 
 }

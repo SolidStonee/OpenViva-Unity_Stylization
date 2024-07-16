@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Entities.UniversalDelegates;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using Viva.Util;
 
 namespace Viva
@@ -243,7 +245,7 @@ namespace Viva
         private GestureHand[] gestureHands = new GestureHand[2];
         public GestureHand rightGestureHand { get { return gestureHands[0]; } }
         public GestureHand leftGestureHand { get { return gestureHands[1]; } }
-        public List<Companion> selectedLolis { get; private set; } = new List<Companion>();       
+        public List<Companion> selectedCompanions { get; private set; } = new List<Companion>();       
         private Coroutine pointingCoroutine = null;
         private List<VivaSessionAsset> pointedAssets = new List<VivaSessionAsset>();
         private Coroutine gestureDisplayCoroutine = null;
@@ -290,10 +292,6 @@ namespace Viva
             switch (gesture)
             {
                 case Gesture.FOLLOW:
-                    foreach (Companion loli in selectedLolis)
-                    {
-                        loli.active.OnGesture(sourceHand.playerHandState.selfItem, gesture);
-                    }
                     GameDirector.player.pauseMenu.ContinueTutorial(PauseMenu.MenuTutorial.WAIT_TO_COME_HERE);
                     SendGestureToVisibleCharacters(sourceHand, gesture);
                     break;
@@ -302,25 +300,15 @@ namespace Viva
                     SendGestureToVisibleCharacters(sourceHand, gesture);
                     GameDirector.player.pauseMenu.ContinueTutorial(PauseMenu.MenuTutorial.WAIT_TO_WAVE);
                     break;
+                case Gesture.STOP:
+                    SendGestureToVisibleCharacters(sourceHand, gesture);
+                    break;
 
                 case Gesture.MECHANISM:
                     break;
 
                 case Gesture.PRESENT_START:
-                    if (sourceHand.playerHandState.heldItem != null)
-                    {
-                        int index = selectedLolis.Count;
-                        while (--index >= 0)
-                        {
-                            if (index >= selectedLolis.Count)
-                            {
-                                continue;
-                            }
-                            Companion companion = selectedLolis[index];
-                            DevTools.LogExtended("Presenting " + sourceHand.playerHandState.heldItem + " to companion " + companion, true, true);
-                            companion.onGiftItemCallstack.Call(sourceHand.playerHandState.heldItem);
-                        }
-                    }
+                    SendGestureToVisibleCharacters(sourceHand, gesture);
                     GameDirector.player.pauseMenu.ContinueTutorial(PauseMenu.MenuTutorial.WAIT_TO_PRESENT);
                     break;
 
@@ -333,7 +321,7 @@ namespace Viva
             Debug.Log("Gestured " + gesture);
         }
 
-        public T FindSpherecastCharacter<T>( Vector3 rayStart, Vector3 rayForward, float rayLength, GameDirector.BoolReturnCharacterFunc validate =null) where T: Character
+        public T FindSpherecastCharacter<T>( Vector3 rayStart, Vector3 rayForward, float rayLength, GameDirector.BoolReturnCharacterFunc validate = null) where T: Character
         {
             var rayEnd = rayStart+rayForward*rayLength;
             var mask = WorldUtil.characterMovementMask | WorldUtil.wallsMask | WorldUtil.itemsMask;
@@ -373,12 +361,6 @@ namespace Viva
 
             var seen = new List<Character>();
 
-            //Call if selected
-            foreach (Companion loli in selectedLolis)
-            {
-                loli.active.OnGesture(gestureHand.playerHandState.selfItem, gesture);
-            }
-
             for (int i = 0; i < rayCount; i++)
             {
                 currentYaw += yawStep;
@@ -387,7 +369,8 @@ namespace Viva
                 var character = FindSpherecastCharacter<Character>(rayStart, currentRayForward, rayLength, delegate (Character character) {
                     //ignore character being grabbed by player
                     var candidate = character as Companion;
-                    //if (candidate.isConstrained) return false;
+                    if(candidate != null)
+                        if (candidate.isConstrained) return false;
 
                     return candidate;
                 });
@@ -396,25 +379,38 @@ namespace Viva
 
             foreach (var character in seen)
             {
-                var loli = character as Companion;
-                //companion.onGesture.Invoke(gesture, player.character);
-                if (!selectedLolis.Contains(loli))
+                var companion = character as Companion;
+                if (!selectedCompanions.Contains(companion))
                 {
-                    Outline.StartOutlining(loli, Color.white, Outline.Flash);
-                    loli.active.OnGesture(gestureHand.playerHandState.selfItem, gesture);
+                    Outline.StartOutlining(companion.bodySMRs[0], Color.white, Outline.Flash);
+                    Outline.StartOutlining(companion.bodySMRs[1], Color.white, Outline.Flash);
+                    Outline.StartOutlining(companion.headSMR, Color.white, Outline.Flash);
+                }
+                
+                if (gesture == Gesture.PRESENT_START) 
+                {
+                    
+                    if (gestureHand.playerHandState.heldItem != null)
+                    {
+                        DevTools.LogExtended("Presenting " + gestureHand.playerHandState.heldItem.assetName + " to companion " + companion, true, true);
+                        companion.onGiftItemCallstack.Call(gestureHand.playerHandState.heldItem);
+                    }
+                }
+                else
+                {
+                    companion.active.OnGesture(gestureHand.playerHandState.selfItem, gesture);
                 }
             }
-            //player.character.onSendGesture.Invoke(gesture);
 
         }
 
         public void ClearSelection()
         {
-            foreach (Companion loli in selectedLolis)
+            foreach (Companion companion in selectedCompanions)
             {
-                loli.characterSelectionTarget.OnUnselected();
+                companion.OnUnselected();
             }
-            selectedLolis.Clear();
+            selectedCompanions.Clear();
         }
 
         private void UpdateGestureDisplayRotation(float bias = 2.0f)
@@ -531,21 +527,30 @@ namespace Viva
                 DisplayGestureStatic(pointedPos, clockProgress, 0.7f, Gesture.WAIT, size);
                 yield return null;
             }
-            foreach (var loli in selectedLolis)
+            
+            foreach (var companion in selectedCompanions)
             {
-                if (!loli.IsHappy())
+
+                if (!companion.IsHappy())
                 {
-                    loli.active.idle.PlayAvailableRefuseAnimation();
+                    companion.active.idle.PlayAvailableRefuseAnimation();
                     yield break;
                 }
-                var waitAtPosition = new AutonomyMoveTo(loli.autonomy, "wait at command", delegate (TaskTarget target)
+                var waitEmpty = new AutonomyEmpty(companion.autonomy, "wait Empty");
+
+                var moveTo = new AutonomyMoveTo(companion.autonomy, "wait at command", delegate (TaskTarget target)
                 {
                     target.SetTargetPosition(pointedPos);
-                }, selectedLolis.Count * 0.2f, BodyState.STAND, delegate (TaskTarget target)
+                }, selectedCompanions.Count * 0.2f, BodyState.STAND);
+
+                waitEmpty.AddRequirement(moveTo);
+                waitEmpty.AddPassive(new AutonomyFaceDirection(companion.autonomy, "look at player", delegate (TaskTarget target)
                 {
-                    target.SetTargetPosition(GameDirector.instance.mainCamera.transform.position);
-                });
-                loli.autonomy.SetAutonomy(waitAtPosition);
+                    companion.SetLookAtTarget(GameDirector.player.head, 1f);
+                    target.SetTargetPosition(GameDirector.player.head.position);
+                }, 0.5f));
+
+                companion.autonomy.SetAutonomy(waitEmpty);
             }
             PlayDisplayCoroutine(pointedPos, null, Gesture.WAIT);
 
@@ -558,28 +563,31 @@ namespace Viva
             yield return new WaitForEndOfFrame();
             if (pointedCompanion)
             {
-                if (!selectedLolis.Contains(pointedCompanion))
+                if (!selectedCompanions.Contains(pointedCompanion))
                 {
-                    pointedCompanion.characterSelectionTarget.OnSelected();
-                    selectedLolis.Add(pointedCompanion);
+                    //pointedCompanion.characterSelectionTarget.OnSelected();
+
+                    pointedCompanion.OnSelected();
+                    selectedCompanions.Add(pointedCompanion);
                     GameDirector.instance.PlayGlobalSound(newSelectionSound);
                 }
                 else
                 {
-                    pointedCompanion.characterSelectionTarget.OnUnselected();
-                    selectedLolis.Remove(pointedCompanion);
+                    
+                    pointedCompanion.OnUnselected();
+                    selectedCompanions.Remove(pointedCompanion);
                 }
                 pointedCompanion = null;
             }
             else if (pointedMechanism)
             {
-                PlayDisplayCoroutine(pointedPos, null, Gesture.MECHANISM);
+                //PlayDisplayCoroutine(pointedPos, null, Gesture.MECHANISM);
                 bool succeededAtLeastOnce = false;
                 int index = 0;
-                while (index < selectedLolis.Count)
+                while (index < selectedCompanions.Count)
                 {
-                    var loli = selectedLolis[index];
-                    succeededAtLeastOnce |= pointedMechanism.AttemptCommandUse(loli, GameDirector.player);
+                    var companion = selectedCompanions[index];
+                    succeededAtLeastOnce |= pointedMechanism.AttemptCommandUse(companion, GameDirector.player);
                     index++;
                 }
                 if (succeededAtLeastOnce)

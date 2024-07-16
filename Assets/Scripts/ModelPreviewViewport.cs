@@ -259,7 +259,7 @@ namespace Viva
             gameObject.SetActive(false);
         }
 
-        public void SetPreviewLoli(Companion newCompanion)
+        public void SetPreviewCompanion(Companion newCompanion)
         {
             if (newCompanion == null)
             {

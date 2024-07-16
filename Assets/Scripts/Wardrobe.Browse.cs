@@ -126,7 +126,7 @@ namespace Viva
                 yield break;
             }
 
-            foreach (var loli in GameDirector.player.objectFingerPointer.selectedLolis)
+            foreach (var loli in GameDirector.player.objectFingerPointer.selectedCompanions)
             {
                 if (clothingPreset.clothePieceName == "cat ears" || clothingPreset.clothePieceName.Contains("glasses"))
                 {

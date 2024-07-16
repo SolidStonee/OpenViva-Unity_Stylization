@@ -9,9 +9,10 @@ namespace Viva
     public partial class Player : Character
     {
 
-        private Rigidbody handLeftPhysics;
         private List<BoxCollider> waterBoxColliders = new List<BoxCollider>();
         private Coroutine waterBoxCoroutine = null;
+
+        public Collider surfaceCollider;
 
         [SerializeField]
         private GameObject handRigidBodyPrefab;
@@ -97,6 +98,17 @@ namespace Viva
         {
             if (ccc.collisionPart == CharacterTriggerCallback.Type.ROOT)
             {
+                if (collider.gameObject.layer == WorldUtil.wallsStatic)
+                {
+                    if(collider.gameObject.GetComponent<Terrain>())
+                        groundTerrain = collider.gameObject.GetComponent<Terrain>();
+                    else
+                        groundTerrain = null;
+
+                    surfaceCollider = collider;
+                    
+                }
+                    
                 UpdateFootstepCheck();
             }
         }

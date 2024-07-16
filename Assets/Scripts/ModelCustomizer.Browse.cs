@@ -23,14 +23,14 @@ namespace Viva
 
         private ModelBuildSettings lastMBS = null;
 
-        public class LoadLoliFromCardRequest
+        public class LoadCompanionFromCardRequest
         {
 
             public readonly string filename;
             public readonly Companion target;
             public string error;
 
-            public LoadLoliFromCardRequest(string _filename, Companion _target)
+            public LoadCompanionFromCardRequest(string _filename, Companion _target)
             {
                 filename = _filename;
                 target = _target;
@@ -68,7 +68,7 @@ namespace Viva
         private IEnumerator HandlePreviewVivaModel(string name)
         {
 
-            LoadLoliFromCardRequest cardRequest = new LoadLoliFromCardRequest(name, modelDefault);
+            LoadCompanionFromCardRequest cardRequest = new LoadCompanionFromCardRequest(name, modelDefault);
             yield return GameDirector.instance.StartCoroutine(LoadVivaModelCard(cardRequest));
             if (cardRequest.error != null)
             {
@@ -90,11 +90,11 @@ namespace Viva
             modelDefault.spine1RigidBody.isKinematic = true;
             modelDefault.SetOutfit(Outfit.Create(new string[0], false));
 
-            modelPreviewer.SetPreviewLoli(cardRequest.target);
+            modelPreviewer.SetPreviewCompanion(cardRequest.target);
             ValidateAllInfoProperties();
         }
 
-        public IEnumerator LoadVivaModelCard(LoadLoliFromCardRequest cardRequest)
+        public IEnumerator LoadVivaModelCard(LoadCompanionFromCardRequest cardRequest)
         {
             if (cardRequest.target == null)
             {
@@ -103,16 +103,16 @@ namespace Viva
                 yield break;
             }
             //Find matching model texture if it exists
-            CardBrowser.LoadCardTextureRequest modelTextureRequest = new CardBrowser.LoadCardTextureRequest(cardRequest.filename);
-            yield return GameDirector.instance.StartCoroutine(characterCardBrowser.LoadCardTexture(modelTextureRequest));
-            if (modelTextureRequest.result == null)
+            CardBrowser.LoadCardTextureRequest cardDataRequest = new CardBrowser.LoadCardTextureRequest(cardRequest.filename);
+            yield return GameDirector.instance.StartCoroutine(characterCardBrowser.LoadCardTexture(cardDataRequest));
+            if (cardDataRequest.result == null)
             {
-                cardRequest.error = modelTextureRequest.error;
-                EndActiveCoroutineAction(modelTextureRequest.error);
+                cardRequest.error = cardDataRequest.error;
+                EndActiveCoroutineAction(cardDataRequest.error);
                 yield break;
             }
 
-            Steganography.UnpackLosslessDataRequest modelCardDataRequest = new Steganography.UnpackLosslessDataRequest(modelTextureRequest.result, true);
+            Steganography.UnpackLosslessDataRequest modelCardDataRequest = new Steganography.UnpackLosslessDataRequest(cardDataRequest.result, true);
             yield return GameDirector.instance.StartCoroutine(Steganography.main.ExecuteUnpackCharacter(modelCardDataRequest));
 
             if (modelCardDataRequest.result == null)
@@ -123,7 +123,7 @@ namespace Viva
             }
 
             //Find matching skin texture if it exists
-            CardBrowser.LoadCardTextureRequest skinRequest = new CardBrowser.LoadCardTextureRequest(modelTextureRequest.result.name);
+            CardBrowser.LoadCardTextureRequest skinRequest = new CardBrowser.LoadCardTextureRequest(cardDataRequest.result.name);
             yield return GameDirector.instance.StartCoroutine(skinCardBrowser.LoadCardTexture(skinRequest));
 
             if (skinRequest.result == null)
@@ -162,15 +162,15 @@ namespace Viva
             mbs.rightEyeTexture = modelTextures[1];
             mbs.leftEyeTexture = modelTextures[2];
 
-            VivaModel.CreateLoliRequest createLoliRequest = new VivaModel.CreateLoliRequest(cardRequest.filename, cardRequest.target, modelCardDataRequest.result, mbs);
-            yield return GameDirector.instance.StartCoroutine(VivaModel.DeserializeVivaModel(createLoliRequest));
-            if (createLoliRequest.error != null)
+            VivaModel.CreateCompanionRequest createCompanionRequest = new VivaModel.CreateCompanionRequest(cardRequest.filename, cardRequest.target, modelCardDataRequest.result, mbs);
+            yield return GameDirector.instance.StartCoroutine(VivaModel.DeserializeVivaModel(createCompanionRequest));
+            if (createCompanionRequest.error != null)
             {
-                cardRequest.error = createLoliRequest.error;
+                cardRequest.error = createCompanionRequest.error;
                 EndActiveCoroutineAction("Could not create Viva model!");
                 yield break;
             }
-            lastMBS = createLoliRequest.mbs;
+            lastMBS = createCompanionRequest.mbs;
             EndActiveCoroutineAction(null);
         }
     }

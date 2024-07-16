@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using OccaSoftware.Altos.Runtime;
 using UnityEngine;
+using UnityEngine.XR.Management;
 using Viva.Util;
 
 namespace Viva
@@ -14,6 +16,7 @@ namespace Viva
 
         public static GameDirector instance;
         public static SkyDirector skyDirector;
+        public static AltosSkyDirector newSkyDirector;
         public static LampDirector lampDirector;
         public static Transform utilityTransform;
         private static Set<DynamicBone> m_dynamicBones = new Set<DynamicBone>();
@@ -35,6 +38,8 @@ namespace Viva
         public AmbienceDirector ambienceDirector { get { return m_ambienceDirector; } }
         [SerializeField]
         private SkyDirector m_skyDirector;
+        [SerializeField]
+        private AltosSkyDirector m_newSkyDirector;
         [SerializeField]
         private LampDirector m_lampDirector;
         [SerializeField]
@@ -81,6 +86,7 @@ namespace Viva
             instance = this;
             input = new InputManager();
             skyDirector = m_skyDirector;
+            newSkyDirector = m_newSkyDirector;
             lampDirector = m_lampDirector;
             utilityTransform = new GameObject("UTILITY").transform;
             player = m_player;
@@ -103,6 +109,13 @@ namespace Viva
 
         public void OnDestroy()
         {
+            // if (XRGeneralSettings.Instance.Manager.isInitializationComplete)
+            // {
+            //     Debug.LogError("#VR Disabled " + XRGeneralSettings.Instance.Manager.isInitializationComplete);
+            //     XRGeneralSettings.Instance.Manager.StopSubsystems();
+            //     Camera.main.ResetAspect();
+            //     XRGeneralSettings.Instance.Manager.DeinitializeLoader();
+            // }
             Tools.SaveJson(GameSettings.main, true, System.IO.Path.GetFullPath(System.IO.Directory.GetParent(Application.dataPath) + "/settings.cfg"));
         }
 

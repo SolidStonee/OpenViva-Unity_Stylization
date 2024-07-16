@@ -35,7 +35,7 @@ namespace Viva
         private Vector3 sleepPos;
 
 
-        public SleepingBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.SLEEPING, null)
+        public SleepingBehavior(Companion _self) : base("Sleeping", _self, ActiveBehaviors.Behavior.SLEEPING, null)
         {
         }
 
@@ -63,18 +63,16 @@ namespace Viva
             bed = _bed;
             bed.filterUse.SetOwner(self);
             self.active.SetTask(this, null);
-            GameDirector.player.objectFingerPointer.selectedLolis.Remove(self);
             GoToBed();
             return true;
         }
 
         public override void OnActivate()
         {
+            base.OnActivate();
             saidGoodnight = false;
             getUpTimer = 16.0f;
             bothersUntilWakeUp = botherResistanceCount;
-            GameDirector.player.objectFingerPointer.selectedLolis.Remove(self);
-            self.characterSelectionTarget.OnUnselected();
         }
 
         public override void OnDeactivate()
@@ -110,7 +108,7 @@ namespace Viva
                 }
                 else if (phase == SleepingPhase.WALKING_TO_BED || phase == SleepingPhase.SLEEPING)
                 {
-                    self.active.follow.AttemptFollow(source);
+                    self.active.follow.AttemptFollow(source.mainOwner);
                 }
             }
             return false;
@@ -232,7 +230,10 @@ namespace Viva
            
             var playSleepAnim = new AutonomyPlayAnimation(self.autonomy, "play sleep anim", sleepAnim);;
             playSleepAnim.AddRequirement(GenerateEnsureNearBed());
-            sleepTimeStart = GameDirector.skyDirector.worldTime;
+            sleepTimeStart = GameDirector.newSkyDirector.skyDefinition.CurrentTime;
+            
+            
+            
             self.autonomy.SetAutonomy(playSleepAnim);
 
             phase = SleepingPhase.SLEEPING;
@@ -257,14 +258,14 @@ namespace Viva
         private void WaitForMorning()
         {
             //wake up in morning
-            float timeSlept = GameDirector.skyDirector.worldTime - sleepTimeStart;
-            float PI_2 = Mathf.PI * 2.0f;
-            if (timeSlept > PI_2 - TiredBehavior.tiredSunPitchRadianEnd &&
-                GameDirector.skyDirector.sunPitchRadian < TiredBehavior.tiredSunPitchRadianStart &&
-                GameDirector.skyDirector.sunPitchRadian > 0.15f)
-            {
-                self.Tired = false;
-            }
+            // float timeSlept = GameDirector.skyDirector.worldTime - sleepTimeStart;
+            // float PI_2 = Mathf.PI * 2.0f;
+            // if (timeSlept > PI_2 - TiredBehavior.tiredSunPitchRadianEnd &&
+            //     GameDirector.skyDirector.sunPitchRadian < TiredBehavior.tiredSunPitchRadianStart &&
+            //     GameDirector.skyDirector.sunPitchRadian > 0.15f)
+            // {
+            //     self.Tired = false;
+            // }
             if (!self.Tired)
             {
                 WakeUp();
@@ -288,23 +289,23 @@ namespace Viva
         {
             self.active.idle.hasSaidGoodMorning = false;
             var standup = new AutonomyPlayAnimation(self.autonomy, "stand up", Companion.Animation.CRAWL_BED_TO_STAND);
-            //self.autonomy.SetAutonomy(standup);
 
             standup.onSuccess += delegate
             {
                 self.active.SetTask(self.active.idle, true);
             };
+            self.autonomy.SetAutonomy(standup);
         }
 
         private bool CheckIfShouldWakeUpFromBother()
         {
             bothersUntilWakeUp--;
-            //if (bothersUntilWakeUp <= 0)
-            //{
-                //self.Tired = false;
-                //Debug.Log("Wake up");
-            //    return true;
-            //}
+            if (bothersUntilWakeUp <= 0)
+            {
+                self.Tired = false;
+                Debug.Log("Wake up");
+                return true;
+            }
             return false;
         }
 
@@ -389,7 +390,7 @@ namespace Viva
                     Debug.Log("on right side");
                     break;
                 case Companion.Animation.SLEEP_PILLOW_SIDE_IDLE_LEFT:
-                    sleepTimeStart = GameDirector.skyDirector.worldTime;
+                    sleepTimeStart = GameDirector.newSkyDirector.skyDefinition.CurrentTime;
                     layingOnRightSide = false;
                     Debug.Log("on left side");
                     break;
@@ -402,12 +403,12 @@ namespace Viva
                     Debug.Log("on right side");
                     break;
                 case Companion.Animation.SLEEP_PILLOW_SIDE_IDLE_RIGHT:
-                    sleepTimeStart = GameDirector.skyDirector.worldTime;
+                    sleepTimeStart = GameDirector.newSkyDirector.skyDefinition.CurrentTime;
                     layingOnRightSide = true;
                     Debug.Log("on right side");
                     break;
                 case Companion.Animation.SLEEP_PILLOW_UP_IDLE:
-                    sleepTimeStart = GameDirector.skyDirector.worldTime;
+                    sleepTimeStart = GameDirector.newSkyDirector.skyDefinition.CurrentTime;
                     layingOnRightSide = null;
                     break;
                 case Companion.Animation.SLEEP_PILLOW_SIDE_TO_SLEEP_PILLOW_UP_RIGHT:

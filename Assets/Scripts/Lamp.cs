@@ -8,12 +8,9 @@ namespace Viva
     public class Lamp : MonoBehaviour
     {
 
-        [SerializeField]
-        private MeshRenderer[] targetMeshRenderers;
-        [SerializeField]
-        private GameObject lightContainer;
-        [SerializeField]
-        private bool invert;
+        [SerializeField] private MeshRenderer[] targetMeshRenderers;
+        [SerializeField] private GameObject lightContainer;
+        [SerializeField] private bool invert;
 
         private static int emissionColorID = Shader.PropertyToID("_EmissionColor");
 
@@ -43,6 +40,7 @@ namespace Viva
             {
                 on = !on;
             }
+
             if (lightContainer == null)
             {
                 Debug.LogError("[Lamp] Has no container! " + name);
@@ -50,26 +48,19 @@ namespace Viva
                 {
                     Debug.LogError("...from " + transform.parent.name);
                 }
+
                 return;
             }
+
             lightContainer.SetActive(on);
 
-            if (on)
+            foreach (var mr in targetMeshRenderers)
             {
-                foreach (var mr in targetMeshRenderers)
-                {
-                    mr.material.SetColor(emissionColorID, Color.white);
-                }
-            }
-            else
-            {
-                foreach (var mr in targetMeshRenderers)
-                {
-                    mr.material.SetColor(emissionColorID, Color.black);
-                }
+                if(on)
+                    mr.material.EnableKeyword("_EMISSION");
+                else
+                    mr.material.DisableKeyword("_EMISSION");
             }
         }
-
     }
-
 }

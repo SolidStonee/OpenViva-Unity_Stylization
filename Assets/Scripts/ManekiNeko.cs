@@ -80,7 +80,7 @@ namespace Viva
             {
                 tickTockSecond = newTickTockSecond;
 
-                var handle = SoundManager.main.RequestHandle(transform.position);
+                var handle = SoundManager.main.RequestHandle(transform.position, transform);
                 handle.PlayOneShot(tickTockSecond % 1 == 0 ? tickSound : tockSound);
                 handle.maxDistance = 12.0f;
                 handle.volume = 0.4f;

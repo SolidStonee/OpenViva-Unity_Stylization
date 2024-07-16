@@ -11,10 +11,6 @@ namespace Viva.console
         public sealed override string Help { get; protected set; }
         public sealed override string Example { get; protected set; }
 
-        public Text ConsoleTextRef { get; set; }
-
-        public string ConsoleStartingInfo { get; set; }
-
         public CommandClearConsole()
         {
             Name = "Clear console terminal";
@@ -34,7 +30,7 @@ namespace Viva.console
 
                 if (type == "clear")
                 {
-                    ConsoleTextRef.text = ConsoleStartingInfo;
+                    DevConsole.Instance._consoleText.text = "Cleared";
                 }
                 else
                 {

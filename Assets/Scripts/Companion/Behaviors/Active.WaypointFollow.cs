@@ -15,7 +15,7 @@ namespace Viva
         private bool hasReachedNextWaypoint = false;
         private LocomotionBehaviors.PathCache employmentPathID = new LocomotionBehaviors.PathCache();
 
-        public WaypointFollowBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.WAYPOINT_FOLLOW, null)
+        public WaypointFollowBehavior(Companion _self) : base("Following Waypoint", _self, ActiveBehaviors.Behavior.WAYPOINT_FOLLOW, null)
         {
 
         }
@@ -112,7 +112,7 @@ namespace Viva
                     }
                     else
                     {
-                        self.locomotion.FollowPath(path, OnReachWaypoint, employmentPathID);
+                        self.locomotion.FollowPath(path, OnReachWaypoint, pathID: employmentPathID);
                     }
                 }
             }

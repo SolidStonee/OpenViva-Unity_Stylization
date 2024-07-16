@@ -52,6 +52,7 @@ namespace Viva
 
         private IEnumerator AnimateSplashMaterial()
         {
+            SplashScreen.SetActive(true);
             float timerLength = 2.0f;
             float timer = 0.0f;
             while (timer < timerLength)
@@ -61,7 +62,7 @@ namespace Viva
                 timer += Time.deltaTime;
                 yield return null;
             }
-
+            SplashScreen.SetActive(false);
         }
 
         private IEnumerator AnimateHurtMaterial()

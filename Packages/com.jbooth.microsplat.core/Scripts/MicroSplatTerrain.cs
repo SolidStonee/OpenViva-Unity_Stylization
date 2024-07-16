@@ -29,22 +29,14 @@ namespace JBooth.MicroSplat
       // unity asset bundles/addressables do not handle base map shaders correctly
       // and will not load it because there is no hard reference to it. So we do it here.
       public Shader baseMapShader;
-
-      [HideInInspector]
+      
       public Texture2D customControl0;
-      [HideInInspector]
       public Texture2D customControl1;
-      [HideInInspector]
       public Texture2D customControl2;
-      [HideInInspector]
       public Texture2D customControl3;
-      [HideInInspector]
       public Texture2D customControl4;
-      [HideInInspector]
       public Texture2D customControl5;
-      [HideInInspector]
       public Texture2D customControl6;
-      [HideInInspector]
       public Texture2D customControl7;
 
       // used to expand tessellation bounds.

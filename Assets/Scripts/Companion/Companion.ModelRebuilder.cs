@@ -64,6 +64,8 @@ namespace Viva
 
             newHeadModel.Build(this, mbs);
 
+            
+
             ForceImmediatePose(Companion.Animation.NONE);
 
             RebuildToonMaterialList();
@@ -93,7 +95,13 @@ namespace Viva
 
             if (_outfit == null)
             {
-                Debug.LogError("[COMPANION] Outfit cannot be null!");
+                Debug.LogError("[COMPANION] Outfit was null resetting to default");
+                _outfit = Outfit.Create(
+                    new string[]{
+                        "skirt 1",
+                    },
+                    false
+                );
             }
             outfit = _outfit;
 
@@ -278,6 +286,8 @@ namespace Viva
                 Debug.LogError("ERROR Could not apply Dynamic Bone Info to null");
                 return;
             }
+
+            dynamicBone.m_UpdateMode = DynamicBone.UpdateMode.AnimatePhysics; // Run in fixed update otherwise causes some wierd visual bugs
             dynamicBone.m_Root = dynamicBone.transform;
             dynamicBone.m_Damping = info.damping;
             dynamicBone.m_Elasticity = info.elasticity;

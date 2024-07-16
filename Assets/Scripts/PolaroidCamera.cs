@@ -67,15 +67,15 @@ namespace Viva
             }
 
             //present camera for posing
-            List<Character> lolis = GameDirector.instance.FindCharactersInSphere((int)Character.Type.COMPANION, player.head.position, 5.0f);
-            if (lolis.Count == 0)
+            List<Character> companions = GameDirector.instance.FindCharactersInSphere((int)Character.Type.COMPANION, player.head.position, 5.0f);
+            if (companions.Count == 0)
             {
                 return;
             }
             Transform camera = gameObject.transform;
-            for (int i = 0; i < lolis.Count; i++)
+            for (int i = 0; i < companions.Count; i++)
             {
-                Companion companion = lolis[i] as Companion;
+                Companion companion = companions[i] as Companion;
                 //if camera is visible for Shinobu and bearing is small
                 if (!companion.CanSeePoint(camera.position) ||
                     Mathf.Abs(Tools.Bearing(player.head, companion.head.position)) > 50.0f)
@@ -134,7 +134,7 @@ namespace Viva
             return false;
         }
 
-        public override void OnItemUsed()
+        public override void OnItemUsed(PlayerHandState handState)
         {
             SnapPhoto();
         }

@@ -10,7 +10,6 @@ namespace Viva
         NONE,
         OFFBALANCE, //Do not change order
         STAND,
-        STANDING_HUG,
         FLOOR_SIT,
         BATHING_RELAX,
         BATHING_IDLE,
@@ -33,6 +32,9 @@ namespace Viva
         IDLE_HAPPY,
         IDLE_TIRED,
         IDLE_ANGRY,
+        HUGGING_HAPPY,
+        HUGGING_TIRED,
+        HUGGING_ANGRY,
         AGREE,
         REFUSE,
         IMPRESSED,
@@ -149,6 +151,9 @@ namespace Viva
             stand.AddAnimation(AnimationSet.IDLE_HAPPY, Companion.Animation.STAND_HAPPY_IDLE2);
             stand.AddAnimation(AnimationSet.IDLE_TIRED, Companion.Animation.STAND_TIRED_LOCOMOTION);
             stand.AddAnimation(AnimationSet.IDLE_ANGRY, Companion.Animation.STAND_ANGRY_IDLE1);
+            stand.AddAnimation(AnimationSet.HUGGING_HAPPY, Companion.Animation.STAND_HUG_HAPPY_LOOP);
+            stand.AddAnimation(AnimationSet.HUGGING_TIRED, Companion.Animation.STAND_HUG_HAPPY_LOOP);
+            stand.AddAnimation(AnimationSet.HUGGING_ANGRY, Companion.Animation.STAND_HUG_ANGRY_LOOP);
             stand.AddAnimation(AnimationSet.AGREE, Companion.Animation.STAND_AGREE);
             stand.AddAnimation(AnimationSet.REFUSE, Companion.Animation.STAND_REFUSE);
             stand.AddAnimation(AnimationSet.IMPRESSED, Companion.Animation.STAND_IMPRESSED1);
@@ -186,23 +191,14 @@ namespace Viva
             stand.propertyValues[PropertyValue.PICKUP_DISTANCE] = 0.42f;
             stand.bodyStateConnections[BodyState.FLOOR_SIT] = Animation.STAND_TO_SIT_FLOOR;
             stand.bodyStateConnections[BodyState.SQUAT] = Animation.STAND_TO_SQUAT;
-            stand.bodyStateConnections[BodyState.STANDING_HUG] = Animation.STAND_TO_STAND_HUG_FAR_HAPPY;
-
-
-            var standingHug = new BodyStateAnimationSet(true);
-            bodyStateAnimationSets[(int)BodyState.STANDING_HUG] = standingHug;
-            standingHug.AddAnimation(AnimationSet.IDLE_HAPPY, Companion.Animation.STAND_HUG_HAPPY_LOOP);
-            standingHug.AddAnimation(AnimationSet.IDLE_TIRED, Companion.Animation.STAND_HUG_HAPPY_LOOP);
-            standingHug.AddAnimation(AnimationSet.IDLE_ANGRY, Companion.Animation.STAND_HUG_ANGRY_LOOP);
-            standingHug.bodyStateConnections[BodyState.STAND] = Animation.STAND_HAPPY_IDLE1;
-
 
             var floorSit = new BodyStateAnimationSet(true);
             bodyStateAnimationSets[(int)BodyState.FLOOR_SIT] = floorSit;
             floorSit.AddAnimation(AnimationSet.IDLE_HAPPY, Companion.Animation.FLOOR_SIT_LOCOMOTION_HAPPY);
             floorSit.AddAnimation(AnimationSet.IDLE_HAPPY, Companion.Animation.FLOOR_SIT_LOCOMOTION_HAPPY);
-            //Create an Animation for this
-            //floorSit.AddAnimation( AnimationSet.IDLE_HAPPY, Companion.Animation.FLOOR_SIT_LOCOMOTION_TIRED );
+            //TODO: we need an animation for this for now we'll use regular 
+            //floorSit.AddAnimation( AnimationSet.IDLE_TIRED, Companion.Animation.FLOOR_SIT_LOCOMOTION_TIRED );
+            floorSit.AddAnimation(AnimationSet.IDLE_TIRED, Companion.Animation.FLOOR_SIT_LOCOMOTION_HAPPY); 
             floorSit.AddAnimation(AnimationSet.IDLE_ANGRY, Companion.Animation.FLOOR_SIT_LOCOMOTION_ANGRY);
             floorSit.AddAnimation(AnimationSet.REFUSE, Companion.Animation.FLOOR_SIT_REFUSE);
             floorSit.AddAnimation(AnimationSet.AGREE, Companion.Animation.FLOOR_SIT_AGREE);

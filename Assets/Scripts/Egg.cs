@@ -171,23 +171,11 @@ namespace Viva
             Destroy(gameObject, 2.0f);
         }
 
-        public override void OnItemLateUpdate()
+        public override void OnItemUsed(PlayerHandState handState)
         {
+            Crack();
 
-            Player player = mainOwner as Player;
-            if (player != null)
-            {
-                PlayerHandState handState = mainOccupyState as PlayerHandState;
-                if (handState.actionState.isDown)
-                {
-                    handState.gripState.Consume();
-                    handState.actionState.Consume();
-
-                    Crack();
-
-                    handState.animSys.SetTargetAnimation(Player.Animation.EGG_CRACK);
-                }
-            }
+            handState.animSys.SetTargetAnimation(Player.Animation.EGG_CRACK);
         }
 
         protected override void OnItemDestroy()

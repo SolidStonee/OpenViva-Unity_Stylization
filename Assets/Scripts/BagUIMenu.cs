@@ -32,7 +32,7 @@ namespace Viva
             gameObject.SetActive(false);
         }
 
-        public override bool KeyboardModeBringsHandDown(bool rightHand)
+        public override bool KeyboardModeBringsHandDown()
         {
             return false;
         }

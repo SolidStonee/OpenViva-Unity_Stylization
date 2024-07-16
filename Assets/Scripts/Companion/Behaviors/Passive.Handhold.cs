@@ -154,8 +154,8 @@ namespace Viva
         {
 
             float playerSpeed = GameDirector.player.rigidBody.velocity.sqrMagnitude;
-            float loliSpeed = self.animator.GetFloat(WorldUtil.speedID);
-            if (loliSpeed > 4.0f || playerSpeed > 4.0f)
+            float companionSpeed = self.animator.GetFloat(WorldUtil.speedID);
+            if (companionSpeed > 4.0f || playerSpeed > 4.0f)
             {   //immediately cancel match walking speed
                 if (slowHandholdTimer != 0.0f)
                 {
@@ -163,7 +163,7 @@ namespace Viva
                     matchWalkEase.StartBlend(0.0f, 0.3f);
                 }
             }
-            else if (loliSpeed > 1.5f && loliSpeed < 3.5f)
+            else if (companionSpeed > 1.5f && companionSpeed < 3.5f)
             {
                 //only increase if GameDirector.player isn't walking backwards
                 if (GameDirector.player.head.InverseTransformDirection(GameDirector.player.rigidBody.velocity).z > 0.0f)

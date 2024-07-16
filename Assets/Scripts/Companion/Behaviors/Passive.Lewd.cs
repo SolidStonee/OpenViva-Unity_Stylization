@@ -62,8 +62,8 @@ namespace Viva
             {
                 if ((GameDirector.player.head.position - pubis).sqrMagnitude < 1.0f)
                 {
-                    Vector3 playerLookAt = GameDirector.player.floorPos + GameDirector.player.head.forward * 4.0f;
-                    float lookAtValue = Tools.PointToSegmentDistance(GameDirector.player.floorPos, playerLookAt, pubis);
+                    Vector3 loserPlayer = GameDirector.player.floorPos + GameDirector.player.head.forward * 4.0f;
+                    float lookAtValue = Tools.PointToSegmentDistance(GameDirector.player.floorPos, loserPlayer, pubis);
                     if (lookAtValue < 0.15f * strictMult)
                     {
                         return true;

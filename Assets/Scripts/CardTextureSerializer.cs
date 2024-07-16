@@ -202,12 +202,13 @@ namespace Viva
             for (int i = 0; i < textures.Length; i++)
             {
                 CardTextureFormat serializeFormat = formats[i];
-                byte[] dataLengthBytes = new byte[]{
-                data[ byteIndex++ ],
-                data[ byteIndex++ ],
-                data[ byteIndex++ ],
-                data[ byteIndex++ ]
-            };
+                byte[] dataLengthBytes = new byte[]
+                {
+                    data[ byteIndex++ ],
+                    data[ byteIndex++ ],
+                    data[ byteIndex++ ],
+                    data[ byteIndex++ ]
+                };
 
                 int dataLength = System.BitConverter.ToInt32(dataLengthBytes, 0);
                 if (dataLength == 0)

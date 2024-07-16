@@ -121,12 +121,15 @@ namespace Viva
 
         public void Speak(VoiceLine voiceEnum, bool bindToCurrentAnim = false)
         {
-
+            if(debuggingCharacter)
+                Debug.Log("Speak");
             AudioClip voiceLine = GetNextVoiceLine(voiceEnum);
             if (voiceLine == null)
             {
                 return;
             }
+            if(debuggingCharacter)
+                Debug.Log("Speak 1");
 
             if (stopVoiceCoroutine != null)
             {
@@ -135,9 +138,11 @@ namespace Viva
                 voiceSource.volume = 1.0f;
                 stopVoiceCoroutine = null;
             }
-
+            if(debuggingCharacter)
+                Debug.Log("Speak 2");
             bindVoiceToCurrentAnim = bindToCurrentAnim;
-
+            if(debuggingCharacter)
+                Debug.Log("Speak 3");
             voiceSource.clip = voiceLine;
             voiceSource.Play();
         }

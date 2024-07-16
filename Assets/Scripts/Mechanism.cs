@@ -19,6 +19,12 @@ namespace Viva
             enabled = false;
             OnMechanismAwake();
         }
+
+        protected override void OnStartDestroy()
+        {
+            OnMechanismDestroy();
+        }
+
         //prevent usage of Monobehavior functions
         public override sealed void FixedUpdate()
         {
@@ -36,6 +42,9 @@ namespace Viva
         {
         }
         public virtual void OnMechanismAwake()
+        {
+        }
+        public virtual void OnMechanismDestroy()
         {
         }
         public virtual void OnMechanismLateUpdate()

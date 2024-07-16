@@ -13,15 +13,16 @@ namespace Viva
 
         private Job[] jobs = new Job[System.Enum.GetValues(typeof(Job.JobType)).Length - 1];
 
-        public LocomotionBehaviors locomotion { get { return jobs[(int)Job.JobType.LOCOMOTION] as LocomotionBehaviors; } }
-        public ActiveBehaviors active { get { return jobs[(int)Job.JobType.ACTIVE] as ActiveBehaviors; } }
-        public PassiveBehaviors passive { get { return jobs[(int)Job.JobType.PASSIVE] as PassiveBehaviors; } }
+        public LocomotionBehaviors locomotion => jobs[(int)Job.JobType.LOCOMOTION] as LocomotionBehaviors;
+        public ActiveBehaviors active => jobs[(int)Job.JobType.ACTIVE] as ActiveBehaviors;
+        public PassiveBehaviors passive => jobs[(int)Job.JobType.PASSIVE] as PassiveBehaviors;
         public Autonomy autonomy { get; private set; } = null;
 
         public delegate void OnAnimationChangeCallback(Companion.Animation oldAnim, Companion.Animation newAnim);
         public delegate void OnCharacterCollisionCallback(CharacterCollisionCallback ccc, Collision collision);
         public delegate void OnCharacterTriggerCallback(CharacterTriggerCallback ccc, Collider collider);
         public delegate void TaskChangeCallback(Companion companion, ActiveBehaviors.Behavior newType);
+        public delegate void OnMoodChange(Happiness happiness);
 
         public OnAnimationChangeCallback onAnimationChange;
         public OnGenericCallback onFixedUpdate;
@@ -31,6 +32,7 @@ namespace Viva
         public OnCharacterCollisionCallback onCharacterCollisionEnter;
         public OnCharacterTriggerCallback onCharacterTriggerEnter;
         public TaskChangeCallback onTaskChange;
+        public OnMoodChange onMoodChange;
         public FirstServeItemCallStack onGiftItemCallstack { get; private set; } = new FirstServeItemCallStack();
 
 
@@ -44,7 +46,7 @@ namespace Viva
             jobs[(int)Job.JobType.PASSIVE] = new PassiveBehaviors(this, passiveBehaviorSettings);
             autonomy = new Autonomy(this);
 
-            DebugValidateAnimationInfos();
+            //DebugValidateAnimationInfos();
             Shader.SetGlobalTexture(globalDirtTexID, passiveBehaviorSettings.globalDirtTexture);
         }
 

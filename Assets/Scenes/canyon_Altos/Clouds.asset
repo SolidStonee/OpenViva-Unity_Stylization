@@ -15,8 +15,8 @@ MonoBehaviour:
   cloudiness: 0
   dynamicCloudiness: 1
   cloudinessMin: 0.4
-  cloudinessMax: 0.7
-  currentCloudiness: 0.5792969
+  cloudinessMax: 0.872
+  currentCloudiness: 0.8021836
   inScatteringMultiplier: 100
   inScatteringStrength: 1
   stepCount: 128
@@ -29,30 +29,30 @@ MonoBehaviour:
   useReprojection: 1
   resolutionOptions: 0
   useTemporalDenoising: 0
-  cloudAlbedoColor: {r: 1, g: 0.964, b: 0.92, a: 1}
+  cloudAlbedoColor: {r: 1, g: 0.7848448, b: 0.5235849, a: 1}
   sunColor: {r: 1, g: 1, b: 1, a: 1}
   ambientExposure: 1
-  cheapAmbientLighting: 1
+  cheapAmbientLighting: 0
   HGEccentricityForward: 0.6
   HGEccentricityBackward: -0.2
   HGStrength: 1
   celestialBodySelection: 0
   planetRadius: 6378
   cloudLayerHeight: 600
-  cloudLayerThickness: 4000
+  cloudLayerThickness: 4163
   cloudFadeDistance: 40000
   visibility: 30000
   overrideAtmosphericVisibility: 0
   renderInSceneView: 1
   temporalDenoisingFactor: 0.03
   subpixelJitterEnabled: 0
-  castShadowsEnabled: 0
+  castShadowsEnabled: 1
   shadowStepCount: 16
   screenShadows: 1
-  shadowStrength: 0.3
+  shadowStrength: 0.26
   shadowResolution: 512
-  shadowDistance: 10000
-  extinctionCoefficient: 10
+  shadowDistance: 9177
+  extinctionCoefficient: 8
   maxLightingDistance: 2000
   shadingStrengthFalloff: 0.2
   multipleScatteringAmpGain: 0.3

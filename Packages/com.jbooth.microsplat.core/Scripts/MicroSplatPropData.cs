@@ -144,10 +144,10 @@ namespace JBooth.MicroSplat
 
 
       public const int sMaxAttributes = 32;
-      [HideInInspector]
+
       public Color[] values = new Color[32 * sMaxAttributes];
 
-      [HideInInspector]
+
       public Texture2D propTex;
 
       [HideInInspector]

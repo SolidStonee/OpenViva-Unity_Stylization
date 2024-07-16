@@ -133,7 +133,7 @@ namespace Viva
         {
         }
 
-        public override void OnDestroy()
+        public override void OnMechanismDestroy()
         {
             GameDirector.mechanisms.Remove(this);
         }

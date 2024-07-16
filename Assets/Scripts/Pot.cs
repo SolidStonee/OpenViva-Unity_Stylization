@@ -147,8 +147,8 @@ namespace Viva
 
             m_fruitCount++;
 
-            SoundManager.main.RequestHandle(transform.position).PlayOneShot(fruitDropSound);
-            GameDirector.Destroy(item.gameObject);
+            SoundManager.main.RequestHandle(transform.position, transform).PlayOneShot(fruitDropSound);
+            Destroy(item.gameObject);
 
             UpdateWaterMaterial();
         }

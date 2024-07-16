@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Viva
 {
 
-    using LoliAnimationEvent = AnimationEvent<float[]>;
+    using CompanionAnimationEvent = AnimationEvent<float[]>;
 
     public partial class Companion : Character
     {
@@ -78,6 +78,15 @@ namespace Viva
                 {
                     transitionHandle = null;
                 }
+
+                AnimationInfo.Flag mirroredFlags = info.flag;
+
+                //mirror the DISABLE_HOLDIK_RIGHT flag to DISABLE_HOLDIK_LEFT
+                if (info.flag == AnimationInfo.Flag.DISABLE_HOLDIK_RIGHT)
+                {
+                    mirroredFlags = AnimationInfo.Flag.DISABLE_HOLDIK_LEFT;
+                }
+         
                 animationInfos.Add(GetMirroredLeftEnum(animation),
                     new AnimationInfo(transitionHandle,
                         info.torsoStateName.Replace("_right", "_left"),
@@ -88,7 +97,7 @@ namespace Viva
                         GetMirroredBodyState(info.newBodyState),
                         info.transitionTime, info.animLogicInfo,
                         GetMirroredAnimationEvents(info.animationEvents),
-                        info.flags
+                        mirroredFlags
                     )
                 );
             }
@@ -123,17 +132,17 @@ namespace Viva
             return (BodyState)mirroredBodyState;
         }
 
-        private static LoliAnimationEvent[] GetMirroredAnimationEvents(LoliAnimationEvent[] events)
+        private static CompanionAnimationEvent[] GetMirroredAnimationEvents(CompanionAnimationEvent[] events)
         {
             if (events == null)
             {
                 return null;
             }
-            LoliAnimationEvent[] mirroredEvents = new LoliAnimationEvent[events.Length];
+            CompanionAnimationEvent[] mirroredEvents = new CompanionAnimationEvent[events.Length];
             for (int i = 0; i < mirroredEvents.Length; i++)
             {
 
-                LoliAnimationEvent animEvent = events[i];
+                CompanionAnimationEvent animEvent = events[i];
                 int mirroredName;
                 if (((AnimationEventName)animEvent.nameID).ToString().Contains("_RIGHT"))
                 {
@@ -147,7 +156,7 @@ namespace Viva
                 {
                     mirroredName = animEvent.nameID;
                 }
-                mirroredEvents[i] = new LoliAnimationEvent(
+                mirroredEvents[i] = new CompanionAnimationEvent(
                     animEvent.fireTimeNormalized,
                     mirroredName,
                     animEvent.parameter
@@ -198,8 +207,8 @@ namespace Viva
                 "bathtub_test_water_in_cold_right", "bathtub_test_water_in_cold_right", "bathtub_test_water_in_cold_right",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.5f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } )
                 }
             ));
             RegisterAnimation(Companion.Animation.BATHTUB_TEST_WATER_IN_COLD_LEFT,
@@ -207,8 +216,8 @@ namespace Viva
                 "bathtub_test_water_in_cold_left", "bathtub_test_water_in_cold_left", "bathtub_test_water_in_cold_left",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.5f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } )
                 }
             ));
             RegisterAnimation(Companion.Animation.BATHTUB_TEST_WATER_LUKEWARM_RIGHT,
@@ -216,9 +225,9 @@ namespace Viva
                 "bathtub_test_water_lukewarm_right", "bathtub_test_water_lukewarm_right", "bathtub_test_water_lukewarm_right",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.5f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } )
                 }
             ));
             RegisterAnimation(Companion.Animation.BATHTUB_TEST_WATER_LUKEWARM_LEFT,
@@ -226,9 +235,9 @@ namespace Viva
                 "bathtub_test_water_lukewarm_left", "bathtub_test_water_lukewarm_left", "bathtub_test_water_lukewarm_left",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.5f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } )
                 }
             ));
             RegisterAnimation(Companion.Animation.BATHTUB_TEST_WATER_IN_HOT_RIGHT,
@@ -236,8 +245,8 @@ namespace Viva
                 "bathtub_test_water_in_hot_right", "bathtub_test_water_in_hot_right", "bathtub_test_water_in_hot_right",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.2f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SCREAMING, 0.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SCREAMING, 0.0f } )
                 }
             ));
             RegisterAnimation(Companion.Animation.BATHTUB_TEST_WATER_IN_HOT_LEFT,
@@ -245,8 +254,8 @@ namespace Viva
                 "bathtub_test_water_in_hot_left", "bathtub_test_water_in_hot_left", "bathtub_test_water_in_hot_left",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.2f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SCREAMING, 0.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SCREAMING, 0.0f } )
                 }
             ));
             RegisterAnimation(Companion.Animation.STAND_POINT_OUT_IN_RIGHT,
@@ -254,8 +263,8 @@ namespace Viva
                 "stand_point_out_in_right", "stand_point_out_in_right", "stand_point_out_in_right",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.2f, new Companion.AnimLogicInfo(1, 1.0f, 0.4f, 7, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.HUMPH, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.HUMPH, 0.0f } ),
                 }
             ), true);
 
@@ -265,7 +274,7 @@ namespace Viva
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.2f, new Companion.AnimLogicInfo(1, 1.0f, 0.4f, 7, 0.3f),
                 null,
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ), true);
 
             RegisterAnimation(Companion.Animation.STAND_POINT_OUT_SOUND_2_3_RIGHT,
@@ -273,8 +282,8 @@ namespace Viva
                 "stand_point_out_sound_2_3_right", "stand_point_out_sound_2_3_right", "stand_point_out_sound_2_3_right",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.2f, new Companion.AnimLogicInfo(1, 1.0f, 0.4f, 12, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.GET_OUT_2_3, 1.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.GET_OUT_2_3, 1.0f } ),
                 }
             ), true);
             RegisterAnimation(Companion.Animation.STAND_POINT_OUT_TO_WAIT_RIGHT,
@@ -290,7 +299,7 @@ namespace Viva
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(3, 1.0f, 0.5f, 7, 0.3f),
                 null,
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
             RegisterAnimation(Companion.Animation.BATHTUB_RELAX_LOOP,
                 new Companion.AnimationInfo(null,
@@ -298,18 +307,18 @@ namespace Viva
                 Companion.Priority.LOW, BodyState.BATHING_RELAX, BodyState.BATHING_RELAX,
                 0.1f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.3f),
                 null,
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
             RegisterAnimation(Companion.Animation.BATHTUB_RELAX_TO_HAPPY_IDLE,
                 new Companion.AnimationInfo(new Companion.DefaultTransition(Companion.Animation.BATHTUB_HAPPY_IDLE_LOOP),
                 "bathtub_relax_to_happy_idle", "bathtub_relax_to_happy_idle", "bathtub_relax_to_happy_idle",
                 Companion.Priority.HIGH, BodyState.BATHING_RELAX, BodyState.BATHING_IDLE,
                 0.1f, new Companion.AnimLogicInfo(0, 1.0f, 1.0f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_KERPLUNK } ),
-                new LoliAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f,0.5f } ),
-                new LoliAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f,1.0f, 0.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_KERPLUNK } ),
+                new CompanionAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f,0.5f } ),
+                new CompanionAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f,1.0f, 0.5f } ),
                 }
             ));
             RegisterAnimation(Companion.Animation.BATHTUB_RELAX_TO_ANGRY_IDLE,
@@ -317,12 +326,12 @@ namespace Viva
                 "bathtub_relax_to_angry_idle", "bathtub_relax_to_angry_idle", "bathtub_relax_to_angry_idle",
                 Companion.Priority.HIGH, BodyState.BATHING_RELAX, BodyState.BATHING_IDLE,
                 0.1f, new Companion.AnimLogicInfo(0, 1.0f, 0.6f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_SHORT, 1.0f } ),
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_KERPLUNK } ),
-                new LoliAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f,0.5f } ),
-                new LoliAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f,1.0f, 0.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_SHORT, 1.0f } ),
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_KERPLUNK } ),
+                new CompanionAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f,0.5f } ),
+                new CompanionAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f,1.0f, 0.5f } ),
                 }
             ));
             RegisterAnimation(Companion.Animation.BATHTUB_HAPPY_IDLE_LOOP,
@@ -331,18 +340,18 @@ namespace Viva
                 Companion.Priority.LOW, BodyState.BATHING_IDLE, BodyState.BATHING_IDLE,
                 0.3f, new Companion.AnimLogicInfo(3, 1.0f, 0.5f, 7, 0.5f),
                 null,
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
             RegisterAnimation(Companion.Animation.BATHTUB_HAPPY_IDLE2,
                 new Companion.AnimationInfo(idleTransition,
                 "bathtub_happy_idle2", "bathtub_happy_idle2", "bathtub_happy_idle2",
                 Companion.Priority.LOW, BodyState.BATHING_IDLE, BodyState.BATHING_IDLE,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.6f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.41f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f,0.25f } ),
-                new LoliAnimationEvent( 0.55f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f,0.25f } ),
-                new LoliAnimationEvent( 0.9f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f,1.0f, 0.5f } ),
-                new LoliAnimationEvent( 0.9f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f,0.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.41f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f,0.25f } ),
+                new CompanionAnimationEvent( 0.55f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f,0.25f } ),
+                new CompanionAnimationEvent( 0.9f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f,1.0f, 0.5f } ),
+                new CompanionAnimationEvent( 0.9f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f,0.5f } ),
                 }
             ));
             RegisterAnimation(Companion.Animation.BATHTUB_HAPPY_SWITCH_SIDES,
@@ -350,10 +359,10 @@ namespace Viva
                 "bathtub_happy_switch_sides", "bathtub_happy_switch_sides", "bathtub_happy_switch_sides",
                 Companion.Priority.HIGH, BodyState.BATHING_IDLE, BodyState.NONE,
                 0.35f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
-                new LoliAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f,0.5f } ),
-                new LoliAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f,1.0f, 0.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
+                new CompanionAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f,0.5f } ),
+                new CompanionAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f,1.0f, 0.5f } ),
                 }
             ));
             RegisterAnimation(Companion.Animation.BATHTUB_ANGRY_IDLE_LOOP,
@@ -362,15 +371,15 @@ namespace Viva
                 Companion.Priority.LOW, BodyState.BATHING_IDLE, BodyState.BATHING_IDLE,
                 0.3f, new Companion.AnimLogicInfo(1, 0.6f, 0.7f, 7, 0.5f),
                 null,
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
             RegisterAnimation(Companion.Animation.BATHTUB_SINK_ANGRY,
                 new Companion.AnimationInfo(new Companion.DefaultTransition(Companion.Animation.BATHTUB_ANGRY_IDLE_LOOP),
                 "bathtub_sink_angry", "bathtub_sink_angry", "bathtub_sink_angry",
                 Companion.Priority.MEDIUM, BodyState.BATHING_IDLE, BodyState.BATHING_IDLE,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 0.3f, 12, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.06f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_SPLASH } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.06f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_SPLASH } ),
                 }
             ));
             RegisterAnimation(Companion.Animation.BATHTUB_HAPPY_IDLE3,
@@ -378,13 +387,13 @@ namespace Viva
                 "bathtub_happy_idle3", "bathtub_happy_idle3", "bathtub_happy_idle3",
                 Companion.Priority.LOW, BodyState.BATHING_IDLE, BodyState.BATHING_IDLE,
                 0.4f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
-                new LoliAnimationEvent( 0.27f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_SPLASH } ),
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 1.0f } ),
-                new LoliAnimationEvent( 0.82f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f,0.5f } ),
-                new LoliAnimationEvent( 0.82f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f,1.0f, 0.5f } ),
-                new LoliAnimationEvent( 0.84f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_SPLASH } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
+                new CompanionAnimationEvent( 0.27f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_SPLASH } ),
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 1.0f } ),
+                new CompanionAnimationEvent( 0.82f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f,0.5f } ),
+                new CompanionAnimationEvent( 0.82f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f,1.0f, 0.5f } ),
+                new CompanionAnimationEvent( 0.84f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_SPLASH } ),
                 }
             ));
 
@@ -393,8 +402,8 @@ namespace Viva
                 "stand_point_out_antsy_right", "stand_point_out_antsy_right", "stand_point_out_antsy_right",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.4f, new Companion.AnimLogicInfo(1, 1.0f, 0.8f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.07f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_GRUMBLE_LONG, 1.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.07f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_GRUMBLE_LONG, 1.0f } ),
                 }
             ), true);
 
@@ -403,13 +412,13 @@ namespace Viva
                 "bathtub_happy_idle4", "bathtub_happy_idle4", "bathtub_happy_idle4",
                 Companion.Priority.LOW, BodyState.BATHING_IDLE, BodyState.BATHING_IDLE,
                 0.4f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
-                new LoliAnimationEvent( 0.15f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_KERPLUNK } ),
-                new LoliAnimationEvent( 0.82f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f,0.5f } ),
-                new LoliAnimationEvent( 0.82f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f,1.0f, 0.5f } ),
-                new LoliAnimationEvent( 0.27f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_SPLASH } ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.RELIEF, 1.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
+                new CompanionAnimationEvent( 0.15f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_KERPLUNK } ),
+                new CompanionAnimationEvent( 0.82f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f,0.5f } ),
+                new CompanionAnimationEvent( 0.82f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f,1.0f, 0.5f } ),
+                new CompanionAnimationEvent( 0.27f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_SPLASH } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.RELIEF, 1.0f } ),
                 }
             ));
             RegisterAnimation(Companion.Animation.BATHTUB_WAVE_HAPPY_RIGHT,
@@ -417,11 +426,11 @@ namespace Viva
                 "bathtub_wave_happy_right", "bathtub_wave_happy_right", "bathtub_wave_happy_right",
                 Companion.Priority.LOW, BodyState.BATHING_IDLE, BodyState.BATHING_IDLE,
                 0.3f, new Companion.AnimLogicInfo(3, 0.7f, 0.5f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
-                new LoliAnimationEvent( 0.11f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_SPLASH } ),
-                new LoliAnimationEvent( 0.125f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.GIGGLE, 1.0f } ),
-                new LoliAnimationEvent( 0.69f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_SPLASH } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
+                new CompanionAnimationEvent( 0.11f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_SPLASH } ),
+                new CompanionAnimationEvent( 0.125f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.GIGGLE, 1.0f } ),
+                new CompanionAnimationEvent( 0.69f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_SPLASH } ),
                 }
             ));
             RegisterAnimation(Companion.Animation.BATHTUB_RELAX_HUMMING,
@@ -429,8 +438,8 @@ namespace Viva
                 "bathtub_relax_humming", "bathtub_relax_humming", "bathtub_relax_humming",
                 Companion.Priority.LOW, BodyState.BATHING_RELAX, BodyState.BATHING_RELAX,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.4f, 0, 0.5f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.HUMMING, 1.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.HUMMING, 1.0f } ),
                 }
             ));
             RegisterAnimation(Companion.Animation.BATHTUB_HAPPY_IDLE_TO_ON_KNEES,
@@ -438,11 +447,11 @@ namespace Viva
                 "bathtub_happy_idle_to_on_knees", "bathtub_happy_idle_to_on_knees", "bathtub_happy_idle_to_on_knees",
                 Companion.Priority.LOW, BodyState.BATHING_IDLE, BodyState.BATHING_ON_KNEES,
                 0.4f, new Companion.AnimLogicInfo(0, 1.0f, 0.6f, 0, 0.5f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_SPLASH } ),
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 1.0f } ),
-                new LoliAnimationEvent( 0.6f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 0.9f, 0.5f } ),
-                new LoliAnimationEvent( 0.6f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_SPLASH } ),
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 1.0f } ),
+                new CompanionAnimationEvent( 0.6f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 0.9f, 0.5f } ),
+                new CompanionAnimationEvent( 0.6f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.5f } ),
                 }
             ));
             RegisterAnimation(Companion.Animation.BATHTUB_ON_KNEES_TO_HAPPY_IDLE,
@@ -450,11 +459,11 @@ namespace Viva
                 "bathtub_on_knees_to_happy_idle", "bathtub_on_knees_to_happy_idle", "bathtub_on_knees_to_happy_idle",
                 Companion.Priority.MEDIUM, BodyState.BATHING_ON_KNEES, BodyState.BATHING_IDLE,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.6f, 0, 0.5f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_SPLASH } ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 1.0f } ),
-                new LoliAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f,0.5f } ),
-                new LoliAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f,0.7f, 0.6f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_SPLASH } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 1.0f } ),
+                new CompanionAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f,0.5f } ),
+                new CompanionAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f,0.7f, 0.6f } ),
                 }
             ));
             RegisterAnimation(Companion.Animation.BATHTUB_ON_KNEES_LOOP,
@@ -463,7 +472,7 @@ namespace Viva
                 Companion.Priority.LOW, BodyState.BATHING_ON_KNEES, BodyState.BATHING_ON_KNEES,
                 0.3f, new Companion.AnimLogicInfo(1, 0.3f, 0.7f, 0, 0.4f),
                 null,
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
 
             RegisterAnimation(Companion.Animation.BATHTUB_HAPPY_BEG_LOOP,
@@ -478,9 +487,9 @@ namespace Viva
                 "bathtub_on_knees_to_towel_idle", "bathtub_on_knees_to_towel_idle", "bathtub_on_knees_to_towel_idle",
                 Companion.Priority.MEDIUM, BodyState.BATHING_ON_KNEES, BodyState.BATHING_STAND,
                 0.3f, new Companion.AnimLogicInfo(1, 0.8f, 0.7f, 7, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_SPLASH } ),
-                new LoliAnimationEvent( 0.6f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.7f, 0.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_SPLASH } ),
+                new CompanionAnimationEvent( 0.6f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.7f, 0.5f } ),
                 }
             ));
 
@@ -489,8 +498,8 @@ namespace Viva
                 "bathtub_towel_out_sound_2_3", "bathtub_towel_out_sound_2_3", "bathtub_towel_out_sound_2_3",
                 Companion.Priority.MEDIUM, BodyState.BATHING_STAND, BodyState.BATHING_STAND,
                 0.2f, new Companion.AnimLogicInfo(3, 1.0f, 0.4f, 12, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.GET_OUT_2_3, 1.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.GET_OUT_2_3, 1.0f } )
                 }
             ));
 
@@ -500,7 +509,7 @@ namespace Viva
                 Companion.Priority.LOW, BodyState.BATHING_STAND, BodyState.BATHING_STAND,
                 0.3f, new Companion.AnimLogicInfo(3, 0.8f, 0.7f, 12, 0.4f),
                 null,
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
 
             RegisterAnimation(Companion.Animation.BATHTUB_TOWEL_EMBARRASSED_TO_BATHTUB_IDLE,
@@ -508,10 +517,10 @@ namespace Viva
                 "bathtub_towel_embarrassed_to_bathtub_idle", "bathtub_towel_embarrassed_to_bathtub_idle", "bathtub_towel_embarrassed_to_bathtub_idle",
                 Companion.Priority.HIGH, BodyState.BATHING_STAND, BodyState.BATHING_IDLE,
                 0.3f, new Companion.AnimLogicInfo(1, 0.6f, 0.3f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SCREAMING, 1.0f } ),
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
-                new LoliAnimationEvent( 0.7f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_KERPLUNK } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SCREAMING, 1.0f } ),
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
+                new CompanionAnimationEvent( 0.7f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_KERPLUNK } ),
                 }
             ));
 
@@ -520,8 +529,8 @@ namespace Viva
                 "stand_happy_beg_start", "stand_happy_beg_start", "stand_happy_beg_start",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(1, 1.0f, 0.5f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.000f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.IMPRESSED, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.000f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.IMPRESSED, 0.0f } ),
                 }
             ));
 
@@ -530,27 +539,27 @@ namespace Viva
                 "stand_happy_beg_loop", "stand_locomotion_spine_stable", "stand_happy_beg_loop",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(1, 0.8f, 0.5f, 12, 0.32f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.141f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.6f } ),
-                new LoliAnimationEvent( 0.185f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.5f } ),
-                new LoliAnimationEvent( 0.280f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.7f } ),
-                new LoliAnimationEvent( 0.280f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.7f } ),
-                new LoliAnimationEvent( 0.361f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 0.6f } ),
-                new LoliAnimationEvent( 0.361f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.6f } ),
-                new LoliAnimationEvent( 0.400f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.6f } ),
-                new LoliAnimationEvent( 0.400f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.6f } ),
-                new LoliAnimationEvent( 0.551f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 0.6f } ),
-                new LoliAnimationEvent( 0.551f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.6f } ),
-                new LoliAnimationEvent( 0.811f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.7f } ),
-                new LoliAnimationEvent( 0.811f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.5f } ),
-                new LoliAnimationEvent( 0.890f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 1.0f } ),
-                new LoliAnimationEvent( 0.890f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.141f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.6f } ),
+                new CompanionAnimationEvent( 0.185f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.5f } ),
+                new CompanionAnimationEvent( 0.280f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.7f } ),
+                new CompanionAnimationEvent( 0.280f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.7f } ),
+                new CompanionAnimationEvent( 0.361f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 0.6f } ),
+                new CompanionAnimationEvent( 0.361f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.6f } ),
+                new CompanionAnimationEvent( 0.400f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.6f } ),
+                new CompanionAnimationEvent( 0.400f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.6f } ),
+                new CompanionAnimationEvent( 0.551f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 0.6f } ),
+                new CompanionAnimationEvent( 0.551f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.6f } ),
+                new CompanionAnimationEvent( 0.811f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.7f } ),
+                new CompanionAnimationEvent( 0.811f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.5f } ),
+                new CompanionAnimationEvent( 0.890f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 1.0f } ),
+                new CompanionAnimationEvent( 0.890f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
 
-                new LoliAnimationEvent( 0.000f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.WHINE_SOFT, 1.0f } ),
-                new LoliAnimationEvent( 0.356f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.WHINE, 1.0f } ),
-                new LoliAnimationEvent( 0.800f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.WHINE_SOFT, 1.0f } ),
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
+                new CompanionAnimationEvent( 0.000f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.WHINE_SOFT, 1.0f } ),
+                new CompanionAnimationEvent( 0.356f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.WHINE, 1.0f } ),
+                new CompanionAnimationEvent( 0.800f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.WHINE_SOFT, 1.0f } ),
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, new float[] { 0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, new float[] { 1f } ),
                 }
             ));
 
@@ -566,11 +575,11 @@ namespace Viva
                 new Companion.AnimationInfo(null, "stand_happy_loop", "stand_happy_loop", "stand_happy_idle",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(3, 1.0f, 0.5f, 7, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, new float[] { 0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, new float[] { 1f } ),
                 },
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
             animationInfos[Companion.Animation.STAND_HAPPY_IDLE1].setTorsoSyncFloatID(Animator.StringToHash("sync_locomotion_happy"));
 
@@ -579,13 +588,13 @@ namespace Viva
                 "stand_idle2_happy", "stand_locomotion_spine_stable", "stand_idle2_happy",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(3, 1.0f, 0.5f, 7, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.THINKING_LONG, 0.0f } ),
-                new LoliAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.THINKING_SHORT, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, new float[] { 0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, new float[] { 1f } ),
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.THINKING_LONG, 0.0f } ),
+                new CompanionAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.THINKING_SHORT, 0.0f } ),
                 },
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
 
             RegisterAnimation(Companion.Animation.STAND_CONFUSED,
@@ -593,8 +602,8 @@ namespace Viva
                 "stand_confused", "stand_confused", "stand_confused",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(1, 0.6f, 0.3f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.CONFUSED, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.CONFUSED, 0.0f } ),
                 }
             ));
 
@@ -603,23 +612,23 @@ namespace Viva
                 "stand_happy_social1", "stand_happy_social1", "stand_happy_social1",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(1, 0.6f, 0.3f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
-                new LoliAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
                 },
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
 
             RegisterAnimation(Companion.Animation.STAND_ANGRY_IDLE1,
                 new Companion.AnimationInfo(null, "stand_angry_loop", "stand_angry_loop", "stand_angry_idle",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(3, 1.0f, 0.5f, 7, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, new float[] { 0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, new float[] { 1f } ),
                 },
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
             animationInfos[Companion.Animation.STAND_ANGRY_IDLE1].setTorsoSyncFloatID(Animator.StringToHash("sync_locomotion_angry"));
 
@@ -628,8 +637,8 @@ namespace Viva
                 "stand_agree", "stand_locomotion_spine_stable", "floor_sit_agree",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(1, 0.5f, 0.3f, 12, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.GIGGLE, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.GIGGLE, 0.0f } ),
                 }
             ));
 
@@ -638,9 +647,9 @@ namespace Viva
                 "stand_angry_refuse", "stand_angry_refuse", "stand_angry_refuse",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.65f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.REFUSE, 0.0f } ),
-                new LoliAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 1.1f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.REFUSE, 0.0f } ),
+                new CompanionAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 1.1f } ),
                 }
             ));
 
@@ -649,9 +658,9 @@ namespace Viva
                 "stand_tired_refuse", "stand_tired_refuse", "stand_tired_refuse",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.65f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SLEEP_DISTURBED_SHORT, 0.0f } ),
-                new LoliAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.5f, 0.7f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SLEEP_DISTURBED_SHORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.5f, 0.7f } ),
                 }
             ));
 
@@ -660,12 +669,12 @@ namespace Viva
                 "stand_stretch", "stand_stretch", "stand_stretch",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SLEEP_DISTURBED_SHORT, 0.0f } ),
-                new LoliAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.5f, 0.5f } ),
-                new LoliAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SLEEP_DISTURBED_SHORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.5f, 0.5f } ),
+                new CompanionAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
                 },
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
 
             RegisterAnimation(Companion.Animation.STAND_POSE_PEACE_IN,
@@ -673,16 +682,18 @@ namespace Viva
                 "stand_pose_peace_in", "stand_pose_peace_in", "stand_pose_peace_in",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.55f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.PEACE, 0.0f } ),
-                }
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.PEACE, 0.0f } ),
+                },
+                AnimationInfo.Flag.DISABLE_HOLDIK_BOTH
             ));
 
             RegisterAnimation(Companion.Animation.STAND_POSE_PEACE_LOOP,
                 new Companion.AnimationInfo(null,
                 "stand_pose_peace_loop", "stand_pose_peace_loop", "stand_pose_peace_loop",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
-                0.2f, new Companion.AnimLogicInfo(0, 1.0f, 0.55f, 0, 0.4f), null
+                0.2f, new Companion.AnimLogicInfo(0, 1.0f, 0.55f, 0, 0.4f), null,
+                AnimationInfo.Flag.DISABLE_HOLDIK_BOTH
             ));
 
             RegisterAnimation(Companion.Animation.STAND_HAPPY_TAKE_PHOTO_IN,
@@ -690,16 +701,18 @@ namespace Viva
                 "stand_happy_take_photo_in", "stand_happy_take_photo_in", "stand_happy_take_photo_in",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{(float)Companion.VoiceLine.MISC_IDLE,0.0f} ),
-                }
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{(float)Companion.VoiceLine.MISC_IDLE,0.0f} ),
+                },
+                AnimationInfo.Flag.DISABLE_HOLDIK_BOTH
             ));
 
             RegisterAnimation(Companion.Animation.STAND_HAPPY_TAKE_PHOTO_LOOP,
                 new Companion.AnimationInfo(null,
                 "stand_happy_take_photo_loop", "stand_happy_take_photo_loop", "stand_happy_take_photo_loop",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
-                0.4f, new Companion.AnimLogicInfo(1, 0.1f, 1.0f, 7, 1.0f)
+                0.4f, new Companion.AnimLogicInfo(1, 0.1f, 1.0f, 7, 1.0f),
+                _flags: AnimationInfo.Flag.DISABLE_HOLDIK_BOTH
             ));
 
             RegisterAnimation(Companion.Animation.STAND_HAPPY_TAKE_PHOTO_OUT_RIGHT,
@@ -707,9 +720,10 @@ namespace Viva
                 "stand_happy_take_photo_out_right_nm", "stand_happy_take_photo_out_right_nm", "stand_happy_take_photo_out_right_nm",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(3, 1.0f, 0.6f, 7, 0.5f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{(float)Companion.VoiceLine.THINKING_SHORT,0.0f} ),
-                }
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{(float)Companion.VoiceLine.THINKING_SHORT,0.0f} ),
+                },
+                AnimationInfo.Flag.DISABLE_HOLDIK_RIGHT
             ));
 
             RegisterAnimation(Companion.Animation.STAND_HAPPY_TAKE_PHOTO_OUT_LEFT,
@@ -717,9 +731,10 @@ namespace Viva
                 "stand_happy_take_photo_out_left_nm", "stand_happy_take_photo_out_left_nm", "stand_happy_take_photo_out_left_nm",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(3, 1.0f, 0.6f, 7, 0.5f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{(float)Companion.VoiceLine.THINKING_SHORT,0.0f} ),
-                }
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{(float)Companion.VoiceLine.THINKING_SHORT,0.0f} ),
+                },
+                AnimationInfo.Flag.DISABLE_HOLDIK_LEFT
             ));
 
             RegisterAnimation(Companion.Animation.STAND_CATTAIL_IDLE1_RIGHT,
@@ -727,10 +742,10 @@ namespace Viva
                 "stand_cattail_idle1_right", "stand_cattail_idle1_right", "stand_cattail_idle1_right",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.4f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.000f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.HUMMING, 1.0f } ),
-                new LoliAnimationEvent( 0.272f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.CONFUSED, 1.0f } ),
-                new LoliAnimationEvent( 0.606f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.TROUBLED, 1.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.000f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.HUMMING, 1.0f } ),
+                new CompanionAnimationEvent( 0.272f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.CONFUSED, 1.0f } ),
+                new CompanionAnimationEvent( 0.606f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.TROUBLED, 1.0f } ),
                 }
             ), true);
 
@@ -739,11 +754,11 @@ namespace Viva
                 "stand_cattail_swing_right", "stand_cattail_swing_right", "stand_cattail_swing_right",
                 Companion.Priority.HIGH, BodyState.STAND, BodyState.STAND,
                 0.35f, new Companion.AnimLogicInfo(1, 0.4f, 0.5f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.05f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EFFORT_ANGRY, 0.0f } ),
-                new LoliAnimationEvent( 0.45f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EFFORT_ANGRY, 0.0f } ),
-                new LoliAnimationEvent( 0.349f, (int)Companion.AnimationEventName.ATTEMPT_CATTAIL_HIT, null ),
-                new LoliAnimationEvent( 0.651f, (int)Companion.AnimationEventName.ATTEMPT_CATTAIL_HIT, null ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.05f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EFFORT_ANGRY, 0.0f } ),
+                new CompanionAnimationEvent( 0.45f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EFFORT_ANGRY, 0.0f } ),
+                new CompanionAnimationEvent( 0.349f, (int)Companion.AnimationEventName.ATTEMPT_CATTAIL_HIT, null ),
+                new CompanionAnimationEvent( 0.651f, (int)Companion.AnimationEventName.ATTEMPT_CATTAIL_HIT, null ),
                 }
             ), true);
 
@@ -752,8 +767,8 @@ namespace Viva
                 "sit_floor_chopsticks_in", "sit_floor_chopsticks_in", "sit_floor_chopsticks_idle",
                 Companion.Priority.MEDIUM, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.2f, new Companion.AnimLogicInfo(1, 0.6f, 0.5f, 7, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } )
                 }
             ));
 
@@ -770,8 +785,8 @@ namespace Viva
                 "sit_floor_hype", "sit_floor_hype", "sit_floor_hype",
                 Companion.Priority.MEDIUM, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.2f, new Companion.AnimLogicInfo(1, 0.5f, 0.5f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.HEADPAT_HAPPY, 0.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.HEADPAT_HAPPY, 0.0f } )
                 }
             ));
 
@@ -780,8 +795,8 @@ namespace Viva
                 "sit_floor_chopsticks_worried", "sit_floor_chopsticks_worried", "sit_floor_chopsticks_worried",
                 Companion.Priority.MEDIUM, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.WORRY, 0.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.WORRY, 0.0f } )
                 }
             ));
 
@@ -790,11 +805,11 @@ namespace Viva
                 "sit_floor_chopsticks_neutral", "sit_floor_chopsticks_neutral", "sit_floor_chopsticks_neutral",
                 Companion.Priority.MEDIUM, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.25f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.05f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.THINKING_LONG, 0.0f } ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.THINKING_LONG, 0.0f } ),
-                new LoliAnimationEvent( 0.75f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 0.6f } ),
-                new LoliAnimationEvent( 0.75f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.6f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.05f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.THINKING_LONG, 0.0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.THINKING_LONG, 0.0f } ),
+                new CompanionAnimationEvent( 0.75f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 0.6f } ),
+                new CompanionAnimationEvent( 0.75f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.6f } )
                 }
             ));
 
@@ -803,8 +818,8 @@ namespace Viva
                 "sit_floor_chopsticks_confident", "sit_floor_chopsticks_confident", "sit_floor_chopsticks_confident",
                 Companion.Priority.MEDIUM, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.2f, new Companion.AnimLogicInfo(1, 0.8f, 0.5f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.CONFIDENT, 0.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.CONFIDENT, 0.0f } )
                 }
             ));
 
@@ -813,8 +828,8 @@ namespace Viva
                 "sit_floor_chopsticks_lose", "sit_floor_chopsticks_lose", "sit_floor_chopsticks_lose",
                 Companion.Priority.MEDIUM, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.LOSE, 0.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.LOSE, 0.0f } )
                 }
             ));
 
@@ -823,10 +838,10 @@ namespace Viva
                 "sit_floor_chopsticks_win", "sit_floor_chopsticks_win", "sit_floor_chopsticks_win",
                 Companion.Priority.MEDIUM, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.WIN, 0.0f } ),
-                new LoliAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 0.8f } ),
-                new LoliAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.WIN, 0.0f } ),
+                new CompanionAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 0.8f } ),
+                new CompanionAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
                 }
             ));
 
@@ -835,8 +850,8 @@ namespace Viva
                 "sit_floor_chopsticks_receive_right", "sit_floor_chopsticks_idle", "sit_floor_chopsticks_idle",
                 Companion.Priority.MEDIUM, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.2f, null,
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } )
                 }
             ));
 
@@ -845,8 +860,8 @@ namespace Viva
                 "sit_floor_chopsticks_receive_left", "sit_floor_chopsticks_idle", "sit_floor_chopsticks_idle",
                 Companion.Priority.MEDIUM, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.2f, null,
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } )
                 }
             ));
 
@@ -855,9 +870,9 @@ namespace Viva
                 "sit_floor_chopsticks_redistribute", "sit_floor_chopsticks_idle", "sit_floor_chopsticks_idle",
                 Companion.Priority.MEDIUM, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.2f, null,
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.35f, (int)Companion.AnimationEventName.REDISTRIBUTE_CHOPSTICKS_FINGERS, null ),
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.35f, (int)Companion.AnimationEventName.REDISTRIBUTE_CHOPSTICKS_FINGERS, null ),
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } )
                 }
             ));
 
@@ -873,13 +888,13 @@ namespace Viva
                 "stand_headpat_happy_wanted_more", "stand_happy_loop", "stand_headpat_happy_wanted_more",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(3, 1.0f, 0.5f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_STARTLE, 0.0f } ),
-                new LoliAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_SIGH, 0.0f } ),
-                new LoliAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.8f } ),
-                new LoliAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.3f } ),
-                new LoliAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.8f } ),
-                new LoliAnimationEvent( 0.9f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_STARTLE, 0.0f } ),
+                new CompanionAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_SIGH, 0.0f } ),
+                new CompanionAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.8f } ),
+                new CompanionAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.3f } ),
+                new CompanionAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.8f } ),
+                new CompanionAnimationEvent( 0.9f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
                 }
             ));
 
@@ -888,8 +903,8 @@ namespace Viva
                 "stand_wave_happy_right", "stand_wave_happy_right", "stand_wave_happy_right",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(1, 0.5f, 0.65f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.GIGGLE, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.GIGGLE, 0.0f } ),
                 }
             ));
 
@@ -898,8 +913,8 @@ namespace Viva
                 "stand_wave_happy_left", "stand_wave_happy_left", "stand_wave_happy_left",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(1, 0.5f, 0.65f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.GIGGLE, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.GIGGLE, 0.0f } ),
                 }
             ));
 
@@ -911,11 +926,11 @@ namespace Viva
                 "stand_reach_out_right", "stand_reach_out_right", "stand_reach_out_right",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.1f, new Companion.AnimLogicInfo(3, 0.6f, 0.5f, 7, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.554f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.4f } ),
-                new LoliAnimationEvent( 0.554f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.6f } ),
-                new LoliAnimationEvent( 0.679f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 0.4f } ),
-                new LoliAnimationEvent( 0.679f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.6f, 0.6f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.554f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.4f } ),
+                new CompanionAnimationEvent( 0.554f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.6f } ),
+                new CompanionAnimationEvent( 0.679f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 0.4f } ),
+                new CompanionAnimationEvent( 0.679f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.6f, 0.6f } ),
                 }
             ), true);
 
@@ -932,11 +947,11 @@ namespace Viva
                 "stand_to_horseback_Idle_right", "stand_to_horseback_Idle_right", "stand_to_horseback_Idle_right",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.HORSEBACK,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.3f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.2f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EFFORT, 0.0f } ),
-                new LoliAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.9f, 0.5f } ),
-                new LoliAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 0.4f } ),
-                new LoliAnimationEvent( 0.9f, (int)Companion.AnimationEventName.BEGIN_MOUNT, null )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.2f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EFFORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.9f, 0.5f } ),
+                new CompanionAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 0.4f } ),
+                new CompanionAnimationEvent( 0.9f, (int)Companion.AnimationEventName.BEGIN_MOUNT, null )
                 }
             ), true);
 
@@ -945,7 +960,7 @@ namespace Viva
                 "horseback_Idle_loop", "horseback_Idle_loop", "horseback_Idle_loop",
                 Companion.Priority.LOW, BodyState.HORSEBACK, BodyState.HORSEBACK,
                 0.3f, new Companion.AnimLogicInfo(3, 0.9f, 0.5f, 7, 0.4f), null,
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
 
             RegisterAnimation(Companion.Animation.HORSEBACK_HARD_STOP,
@@ -953,8 +968,8 @@ namespace Viva
                 "horseback_hard_stop", "horseback_hard_stop", "horseback_hard_stop",
                 Companion.Priority.HIGH, BodyState.HORSEBACK, BodyState.HORSEBACK,
                 0.3f, new Companion.AnimLogicInfo(0, 0.9f, 0.1f, 12, 0.1f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SCARED_SHORT, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SCARED_SHORT, 0.0f } ),
                 }
             ));
 
@@ -963,8 +978,8 @@ namespace Viva
                 "horseback_joy", "horseback_joy", "horseback_joy",
                 Companion.Priority.HIGH, BodyState.HORSEBACK, BodyState.HORSEBACK,
                 0.3f, new Companion.AnimLogicInfo(0, 0.9f, 0.4f, 12, 0.1f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ECSTATIC, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ECSTATIC, 0.0f } ),
                 }
             ));
 
@@ -973,10 +988,10 @@ namespace Viva
                 "horseback_to_stand", "horseback_to_stand", "stand_happy_idle",
                 Companion.Priority.LOW, BodyState.HORSEBACK, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 0.9f, 0.4f, 12, 0.1f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.STOP_SPINE_ANCHOR, null ),
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.DISABLE_STAND_ON_GROUND, null ),
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.STOP_SPINE_ANCHOR, null ),
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.DISABLE_STAND_ON_GROUND, null ),
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
                 }
             ));
 
@@ -985,10 +1000,11 @@ namespace Viva
                 "stand_angry_throw_right", "stand_angry_throw_right", "stand_angry_throw_right",
                 Companion.Priority.HIGH, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(1, 0.4f, 0.5f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.400f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EFFORT, 0.0f } ),
-                new LoliAnimationEvent( 0.483f, (int)Companion.AnimationEventName.THROW_RIGHT_HAND_OBJECT, null ),
-                }
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.400f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EFFORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.483f, (int)Companion.AnimationEventName.THROW_RIGHT_HAND_OBJECT, null ),
+                },
+                AnimationInfo.Flag.DISABLE_HOLDIK_RIGHT
             ), true);
 
             RegisterAnimation(Companion.Animation.STAND_HAPPY_SMELL_ITEM_RIGHT,
@@ -996,12 +1012,13 @@ namespace Viva
                 "stand_happy_donut_smell_right", "stand_happy_donut_smell_right", "stand_happy_donut_smell_right",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.45f, 0, 0.36f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.200f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DONUT_SMELL_A, 1.0f } ),
-                new LoliAnimationEvent( 0.573f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DONUT_SMELL_B, 1.0f } ),
-                new LoliAnimationEvent( 0.927f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.6f } ),
-                new LoliAnimationEvent( 0.927f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
-                }
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.200f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DONUT_SMELL_A, 1.0f } ),
+                new CompanionAnimationEvent( 0.573f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DONUT_SMELL_B, 1.0f } ),
+                new CompanionAnimationEvent( 0.927f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.6f } ),
+                new CompanionAnimationEvent( 0.927f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
+                },
+                AnimationInfo.Flag.DISABLE_HOLDIK_RIGHT
             ), true);
 
             RegisterAnimation(Companion.Animation.STAND_HAPPY_EAT_ITEM_RIGHT,
@@ -1009,12 +1026,13 @@ namespace Viva
                 , "stand_happy_donut_eat_right", "stand_locomotion_spine_stable", "stand_happy_donut_eat_right",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.4f, new Companion.AnimLogicInfo(0, 1.0f, 0.55f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.080f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EAT, 1.0f } ),
-                new LoliAnimationEvent( 0.129f, (int)Companion.AnimationEventName.EAT_CURRENT_INTEREST, null ),
-                new LoliAnimationEvent( 0.800f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 1.0f } ),
-                new LoliAnimationEvent( 0.818f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 0.7f } ),
-                }
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.080f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EAT, 1.0f } ),
+                new CompanionAnimationEvent( 0.129f, (int)Companion.AnimationEventName.EAT_CURRENT_INTEREST, null ),
+                new CompanionAnimationEvent( 0.800f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 1.0f } ),
+                new CompanionAnimationEvent( 0.818f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 0.7f } ),
+                },
+                AnimationInfo.Flag.DISABLE_HOLDIK_RIGHT
             ), true);
 
             RegisterAnimation(Companion.Animation.STAND_HAPPY_DONUT_LAST_BITE_RIGHT,
@@ -1022,10 +1040,11 @@ namespace Viva
                 , "stand_happy_donut_last_bite_right", "stand_locomotion_spine_stable", "stand_happy_donut_last_bite_right",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.4f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.080f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EAT, 1.0f } ),
-                new LoliAnimationEvent( 0.127f, (int)Companion.AnimationEventName.EAT_CURRENT_INTEREST, null )
-                }
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.080f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EAT, 1.0f } ),
+                new CompanionAnimationEvent( 0.127f, (int)Companion.AnimationEventName.EAT_CURRENT_INTEREST, null )
+                },
+                AnimationInfo.Flag.DISABLE_HOLDIK_RIGHT
             ), true);
 
             RegisterAnimation(Companion.Animation.STAND_SHINOBU_YUMMY,
@@ -1033,8 +1052,8 @@ namespace Viva
                 , "stand_shinobu_yummy", "stand_shinobu_yummy", "stand_shinobu_yummy",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.4f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.080f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.YUMMY, 1.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.080f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.YUMMY, 1.0f } ),
                 }
             ));
 
@@ -1043,10 +1062,11 @@ namespace Viva
                 "stand_wear_sunhat_right", "stand_wear_sunhat_right", "stand_wear_sunhat_right",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.35f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.10f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 1.0f } ),
-                new LoliAnimationEvent( 0.65f, (int)Companion.AnimationEventName.WEAR_HAT_RIGHT_HAND, null ),
-                }
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.10f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 1.0f } ),
+                new CompanionAnimationEvent( 0.65f, (int)Companion.AnimationEventName.WEAR_HAT_RIGHT_HAND, null ),
+                },
+                AnimationInfo.Flag.DISABLE_HOLDIK_RIGHT
             ), true);
 
             RegisterAnimation(Companion.Animation.STAND_POLAROID_FRAME_REACT_IN_RIGHT,
@@ -1054,9 +1074,10 @@ namespace Viva
                 "stand_polaroid_frame_react_in_right", "stand_locomotion_spine_stable", "stand_polaroid_frame_react_in_right",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.55f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.000f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.THINKING_SHORT, 0.0f } ),
-                }
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.000f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.THINKING_SHORT, 0.0f } ),
+                },
+                AnimationInfo.Flag.DISABLE_HOLDIK_RIGHT
             ), true);
 
 
@@ -1065,11 +1086,12 @@ namespace Viva
                 "stand_polaroid_frame_react_normal_right", "stand_locomotion_spine_stable", "stand_polaroid_frame_react_normal_right",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.55f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.250f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.THINKING_LONG, 1.0f } ),
-                new LoliAnimationEvent( 0.850f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 1.0f } ),
-                new LoliAnimationEvent( 0.850f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 1.0f } ),
-                }
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.250f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.THINKING_LONG, 1.0f } ),
+                new CompanionAnimationEvent( 0.850f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 1.0f } ),
+                new CompanionAnimationEvent( 0.850f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 1.0f } ),
+                },
+                AnimationInfo.Flag.DISABLE_HOLDIK_RIGHT
             ), true);
 
             RegisterAnimation(Companion.Animation.STAND_POLAROID_FRAME_REACT_PANTY_RIGHT,
@@ -1077,12 +1099,13 @@ namespace Viva
                 "stand_polaroid_frame_react_panty_right", "stand_polaroid_frame_react_panty_right", "stand_polaroid_frame_react_panty_right",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.55f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.000f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SCARED_SHORT, 0.0f } ),
-                new LoliAnimationEvent( 0.400f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_GRUMBLE_LONG, 1.0f } ),
-                new LoliAnimationEvent( 0.500f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 0.4f } ),
-                new LoliAnimationEvent( 0.500f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
-                }
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.000f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SCARED_SHORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.400f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_GRUMBLE_LONG, 1.0f } ),
+                new CompanionAnimationEvent( 0.500f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 0.4f } ),
+                new CompanionAnimationEvent( 0.500f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
+                },
+                AnimationInfo.Flag.DISABLE_HOLDIK_RIGHT
             ), true);
 
             RegisterAnimation(Companion.Animation.STAND_POLAROID_FRAME_REACT_RIP,
@@ -1090,16 +1113,17 @@ namespace Viva
                 "stand_polaroid_frame_rip", "stand_polaroid_frame_rip", "stand_polaroid_frame_rip",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.55f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.000f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.RIP, 1.0f } ),
-                new LoliAnimationEvent( 0.167f, (int)Companion.AnimationEventName.SPAWN_POLAROID_FRAME_RIPPED_FX, null ),
-                new LoliAnimationEvent( 0.283f, (int)Companion.AnimationEventName.SPAWN_POLAROID_FRAME_RIPPED_FX, null ),
-                new LoliAnimationEvent( 0.400f, (int)Companion.AnimationEventName.SPAWN_POLAROID_FRAME_RIPPED_FX, null ),
-                new LoliAnimationEvent( 0.500f, (int)Companion.AnimationEventName.SPAWN_POLAROID_FRAME_RIPPED_FX, null ),
-                new LoliAnimationEvent( 0.700f, (int)Companion.AnimationEventName.SPAWN_POLAROID_FRAME_RIPPED_FX, null ),
-                new LoliAnimationEvent( 0.800f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 1.1f } ),
-                new LoliAnimationEvent( 0.800f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 1.0f } ),
-                }
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.000f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.RIP, 1.0f } ),
+                new CompanionAnimationEvent( 0.167f, (int)Companion.AnimationEventName.SPAWN_POLAROID_FRAME_RIPPED_FX, null ),
+                new CompanionAnimationEvent( 0.283f, (int)Companion.AnimationEventName.SPAWN_POLAROID_FRAME_RIPPED_FX, null ),
+                new CompanionAnimationEvent( 0.400f, (int)Companion.AnimationEventName.SPAWN_POLAROID_FRAME_RIPPED_FX, null ),
+                new CompanionAnimationEvent( 0.500f, (int)Companion.AnimationEventName.SPAWN_POLAROID_FRAME_RIPPED_FX, null ),
+                new CompanionAnimationEvent( 0.700f, (int)Companion.AnimationEventName.SPAWN_POLAROID_FRAME_RIPPED_FX, null ),
+                new CompanionAnimationEvent( 0.800f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 1.1f } ),
+                new CompanionAnimationEvent( 0.800f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 1.0f } ),
+                },
+                AnimationInfo.Flag.DISABLE_HOLDIK_BOTH
             ));
 
             RegisterAnimation(Companion.Animation.STAND_CHASE_LOCOMOTION,
@@ -1107,11 +1131,11 @@ namespace Viva
                 "stand_jealous_loop", "stand_jealous_loop", "stand_jealous_loop",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.35f, new Companion.AnimLogicInfo(),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, new float[] { 0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, new float[] { 1f } ),
                 },
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
             animationInfos[Companion.Animation.STAND_CHASE_LOCOMOTION].setTorsoSyncFloatID(Animator.StringToHash("sync_locomotion_jealous"));
 
@@ -1121,11 +1145,11 @@ namespace Viva
                 "stand_wear_bag_right_nm", "stand_happy_loop", "stand_happy_idle",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.000f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 1.0f } ),
-                new LoliAnimationEvent( 0.675f, (int)Companion.AnimationEventName.ATTACH_BAG_SHOULDER, null ),
-                new LoliAnimationEvent( 0.800f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.5f } ),
-                new LoliAnimationEvent( 0.800f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 0.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.000f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 1.0f } ),
+                new CompanionAnimationEvent( 0.675f, (int)Companion.AnimationEventName.ATTACH_BAG_SHOULDER, null ),
+                new CompanionAnimationEvent( 0.800f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.5f } ),
+                new CompanionAnimationEvent( 0.800f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 0.5f } ),
                 }
             ), true);
 
@@ -1134,11 +1158,11 @@ namespace Viva
                 "stand_remove_bag_right_nm", "stand_happy_loop", "stand_happy_idle",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.000f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 1.0f } ),
-                new LoliAnimationEvent( 0.410f, (int)Companion.AnimationEventName.REMOVE_BAG_SHOULDER, null ),
-                new LoliAnimationEvent( 0.800f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.5f } ),
-                new LoliAnimationEvent( 0.800f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 0.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.000f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 1.0f } ),
+                new CompanionAnimationEvent( 0.410f, (int)Companion.AnimationEventName.REMOVE_BAG_SHOULDER, null ),
+                new CompanionAnimationEvent( 0.800f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.5f } ),
+                new CompanionAnimationEvent( 0.800f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 0.5f } ),
                 }
             ), true);
 
@@ -1147,12 +1171,12 @@ namespace Viva
                 "stand_bag_put_in_right", "stand_happy_loop", "stand_happy_idle",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.4f, new Companion.AnimLogicInfo(0, 1.0f, 0.7f, 0, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.000f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 1.0f } ),
-                new LoliAnimationEvent( 0.3f, (int)Companion.AnimationEventName.OPEN_BAG_RIGHT, null ),
-                new LoliAnimationEvent( 0.700f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.5f } ),
-                new LoliAnimationEvent( 0.700f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 0.5f } ),
-                new LoliAnimationEvent( 0.55f, (int)Companion.AnimationEventName.PUT_ITEM_IN_BAG_RIGHT, null ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.000f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 1.0f } ),
+                new CompanionAnimationEvent( 0.3f, (int)Companion.AnimationEventName.OPEN_BAG_RIGHT, null ),
+                new CompanionAnimationEvent( 0.700f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.5f } ),
+                new CompanionAnimationEvent( 0.700f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 0.5f } ),
+                new CompanionAnimationEvent( 0.55f, (int)Companion.AnimationEventName.PUT_ITEM_IN_BAG_RIGHT, null ),
                 }
             ), true);
 
@@ -1161,11 +1185,11 @@ namespace Viva
                 "stand_jealous_loop", "stand_jealous_loop", "stand_jealous_loop",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.35f, new Companion.AnimLogicInfo(),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, new float[] { 0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, new float[] { 1f } ),
                 },
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
             animationInfos[Companion.Animation.STAND_LOCOMOTION_JEALOUS].setTorsoSyncFloatID(Animator.StringToHash("sync_locomotion_jealous"));
 
@@ -1174,14 +1198,14 @@ namespace Viva
                 "stand_angry_tip_toe_reach", "stand_angry_tip_toe_reach", "stand_angry_tip_toe_reach",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.4f, new Companion.AnimLogicInfo(3, 1.0f, 0.5f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.05f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_LONG, 1.0f } ),
-                new LoliAnimationEvent( 0.100f, (int)Companion.AnimationEventName.TOGGLE_FACE_YAW_SUM_FOR_ANIMATION, null ),
-                new LoliAnimationEvent( 0.220f, (int)Companion.AnimationEventName.TOGGLE_FACE_YAW_SUM_FOR_ANIMATION, null ),
-                new LoliAnimationEvent( 0.312f, (int)Companion.AnimationEventName.TOGGLE_FACE_YAW_SUM_FOR_ANIMATION, null ),
-                new LoliAnimationEvent( 0.532f, (int)Companion.AnimationEventName.TOGGLE_FACE_YAW_SUM_FOR_ANIMATION, null ),
-                new LoliAnimationEvent( 0.578f, (int)Companion.AnimationEventName.TOGGLE_FACE_YAW_SUM_FOR_ANIMATION, null ),
-                new LoliAnimationEvent( 0.716f, (int)Companion.AnimationEventName.TOGGLE_FACE_YAW_SUM_FOR_ANIMATION, null ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.05f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_LONG, 1.0f } ),
+                new CompanionAnimationEvent( 0.100f, (int)Companion.AnimationEventName.TOGGLE_FACE_YAW_SUM_FOR_ANIMATION, null ),
+                new CompanionAnimationEvent( 0.220f, (int)Companion.AnimationEventName.TOGGLE_FACE_YAW_SUM_FOR_ANIMATION, null ),
+                new CompanionAnimationEvent( 0.312f, (int)Companion.AnimationEventName.TOGGLE_FACE_YAW_SUM_FOR_ANIMATION, null ),
+                new CompanionAnimationEvent( 0.532f, (int)Companion.AnimationEventName.TOGGLE_FACE_YAW_SUM_FOR_ANIMATION, null ),
+                new CompanionAnimationEvent( 0.578f, (int)Companion.AnimationEventName.TOGGLE_FACE_YAW_SUM_FOR_ANIMATION, null ),
+                new CompanionAnimationEvent( 0.716f, (int)Companion.AnimationEventName.TOGGLE_FACE_YAW_SUM_FOR_ANIMATION, null ),
                 }
             ));
 
@@ -1196,10 +1220,10 @@ namespace Viva
                 "stand_angry_jealous_steal_right", "stand_angry_jealous_steal_right", "stand_angry_jealous_steal_right",
                 Companion.Priority.HIGH, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 12, 0.52f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.200f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EFFORT_ANGRY, 0.0f } ),
-				// new LoliAnimationEvent( 0.460f, (int)Companion.AnimationEventName.STEAL_CURRENT_INTEREST, null ),
-				new LoliAnimationEvent( 0.460f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.8f, 0.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.200f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EFFORT_ANGRY, 0.0f } ),
+				// new CompanionAnimationEvent( 0.460f, (int)Companion.AnimationEventName.STEAL_CURRENT_INTEREST, null ),
+				new CompanionAnimationEvent( 0.460f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.8f, 0.5f } ),
                 }
             ), true);
 
@@ -1208,13 +1232,13 @@ namespace Viva
                 "stand_angry_jealous", "stand_angry_jealous", "stand_angry_jealous",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(3, 1.0f, 0.5f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.062f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_STARTLE, 0.0f } ),
-                new LoliAnimationEvent( 0.175f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.4f } ),
-                new LoliAnimationEvent( 0.200f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.4f } ),
-                new LoliAnimationEvent( 0.325f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_POUT, 0.0f } ),
-                new LoliAnimationEvent( 0.830f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.4f } ),
-                new LoliAnimationEvent( 0.830f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.062f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_STARTLE, 0.0f } ),
+                new CompanionAnimationEvent( 0.175f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.4f } ),
+                new CompanionAnimationEvent( 0.200f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.4f } ),
+                new CompanionAnimationEvent( 0.325f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_POUT, 0.0f } ),
+                new CompanionAnimationEvent( 0.830f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.4f } ),
+                new CompanionAnimationEvent( 0.830f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
                 }
             ));
 
@@ -1226,10 +1250,10 @@ namespace Viva
                 "crawl_tired_to_stand", "crawl_tired_to_stand", "stand_happy_idle",
                 Companion.Priority.MEDIUM, BodyState.CRAWL_TIRED, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.3f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{(float)Companion.VoiceLine.MISC_IDLE,0.1f} ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{(float)Companion.VoiceLine.MISC_IDLE,0.1f} ),
                 },
-                (int)AnimationInfo.Flag.DISABLE_RAGDOLL_CHECK
+                AnimationInfo.Flag.DISABLE_RAGDOLL_CHECK
             ));
 
             RegisterAnimation(Companion.Animation.STAND_TIRED_TO_BED_CRAWL_TIRED,
@@ -1237,11 +1261,11 @@ namespace Viva
                 "stand_tired_to_bed_crawl_tired", "stand_tired_to_bed_crawl_tired", "stand_tired_to_bed_crawl_tired",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.CRAWL_TIRED,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.3f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{(float)Companion.VoiceLine.MISC_IDLE,0.0f} ),
-                new LoliAnimationEvent( 0.7f, (int)Companion.AnimationEventName.JUMP_ON_BED, null )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{(float)Companion.VoiceLine.MISC_IDLE,0.0f} ),
+                new CompanionAnimationEvent( 0.7f, (int)Companion.AnimationEventName.JUMP_ON_BED, null )
                 },
-                (int)AnimationInfo.Flag.DISABLE_RAGDOLL_CHECK
+                AnimationInfo.Flag.DISABLE_RAGDOLL_CHECK
             ));
 
             RegisterAnimation(Companion.Animation.CRAWL_TIRED_IDLE,
@@ -1250,7 +1274,7 @@ namespace Viva
                 Companion.Priority.LOW, BodyState.CRAWL_TIRED, BodyState.CRAWL_TIRED,
                 0.3f, new Companion.AnimLogicInfo(1, 0.5f, 0.3f, 7, 0.4f),
                 null,
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
 
             RegisterAnimation(Companion.Animation.CRAWL_TIRED_TO_LAY_PILLOW_SIDE_HAPPY_RIGHT,
@@ -1258,8 +1282,8 @@ namespace Viva
                 "crawl_tired_to_lay_side_pillow_happy_right", "crawl_tired_to_lay_side_pillow_happy_right", "crawl_tired_to_lay_side_pillow_happy_right",
                 Companion.Priority.LOW, BodyState.CRAWL_TIRED, BodyState.AWAKE_PILLOW_SIDE_RIGHT,
                 0.3f, new Companion.AnimLogicInfo(0, 0.5f, 0.3f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.ROLL_ON_BED, null )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.ROLL_ON_BED, null )
                 }
             ), true);
 
@@ -1270,7 +1294,7 @@ namespace Viva
                 Companion.Priority.LOW, BodyState.AWAKE_PILLOW_SIDE_RIGHT, BodyState.AWAKE_PILLOW_SIDE_RIGHT,
                 0.3f, new Companion.AnimLogicInfo(0, 0.5f, 0.3f, 7, 0.4f),
                 null,
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ), true);
 
             RegisterAnimation(Companion.Animation.AWAKE_PILLOW_SIDE_YAWN_LONG_RIGHT,
@@ -1278,8 +1302,8 @@ namespace Viva
                 "lay_side_pillow_yawn_long_right", "lay_side_pillow_yawn_long_right", "lay_side_pillow_yawn_long_right",
                 Companion.Priority.MEDIUM, BodyState.AWAKE_PILLOW_SIDE_RIGHT, BodyState.AWAKE_PILLOW_SIDE_RIGHT,
                 0.3f, new Companion.AnimLogicInfo(0, 0.5f, 0.3f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.05f, (int)Companion.AnimationEventName.SPEAK, new float[]{(float)Companion.VoiceLine.YAWN_LONG,1.0f} ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.05f, (int)Companion.AnimationEventName.SPEAK, new float[]{(float)Companion.VoiceLine.YAWN_LONG,1.0f} ),
                 }
             ), true);
 
@@ -1288,8 +1312,8 @@ namespace Viva
                 "lay_side_pillow_to_sleep_side_pillow_right", "lay_side_pillow_to_sleep_side_pillow_right", "lay_side_pillow_to_sleep_side_pillow_right",
                 Companion.Priority.MEDIUM, BodyState.AWAKE_PILLOW_SIDE_RIGHT, BodyState.SLEEP_PILLOW_SIDE_RIGHT,
                 0.3f, new Companion.AnimLogicInfo(0, 0.5f, 0.3f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.05f, (int)Companion.AnimationEventName.SPEAK, new float[]{(float)Companion.VoiceLine.MISC_IDLE,0.0f} ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.05f, (int)Companion.AnimationEventName.SPEAK, new float[]{(float)Companion.VoiceLine.MISC_IDLE,0.0f} ),
                 }
             ), true);
 
@@ -1298,8 +1322,8 @@ namespace Viva
                 "lay_side_pillow_sound_goodnight_right", "lay_side_pillow_sound_goodnight_right", "lay_side_pillow_sound_goodnight_right",
                 Companion.Priority.MEDIUM, BodyState.AWAKE_PILLOW_SIDE_RIGHT, BodyState.AWAKE_PILLOW_SIDE_RIGHT,
                 0.3f, new Companion.AnimLogicInfo(0, 0.2f, 0.3f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.05f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.GOODNIGHT, 1.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.05f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.GOODNIGHT, 1.0f } ),
                 }
             ), true);
 
@@ -1309,10 +1333,10 @@ namespace Viva
                 "sleep_side_pillow_idle_loop_right", "sleep_side_pillow_idle_loop_right", "sleep_side_pillow_idle_loop_right",
                 Companion.Priority.LOW, BodyState.SLEEP_PILLOW_SIDE_RIGHT, BodyState.SLEEP_PILLOW_SIDE_RIGHT,
                 0.3f, new Companion.AnimLogicInfo(0, 0.5f, 0.3f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SLEEP_BREATHING, 1.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SLEEP_BREATHING, 1.0f } )
                 },
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ), true);
 
             RegisterAnimation(Companion.Animation.SLEEP_PILLOW_SIDE_TO_SLEEP_PILLOW_UP_RIGHT,
@@ -1320,9 +1344,9 @@ namespace Viva
                 "sleep_side_pillow_to_sleep_pillow_up_right_nm", "sleep_side_pillow_to_sleep_pillow_up_right_nm", "sleep_side_pillow_to_sleep_pillow_up_right_nm",
                 Companion.Priority.MEDIUM, BodyState.SLEEP_PILLOW_SIDE_RIGHT, BodyState.SLEEP_PILLOW_UP,
                 0.1f, new Companion.AnimLogicInfo(0, 0.5f, 0.3f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SLEEP_DISTURBED_LONG, 0.0f } ),
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.ROLL_ON_BED, null )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SLEEP_DISTURBED_LONG, 0.0f } ),
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.ROLL_ON_BED, null )
                 }
             ), true);
 
@@ -1331,10 +1355,10 @@ namespace Viva
                 "sleep_pillow_up_idle_loop", "sleep_pillow_up_idle_loop", "sleep_pillow_up_idle_loop",
                 Companion.Priority.LOW, BodyState.SLEEP_PILLOW_UP, BodyState.SLEEP_PILLOW_UP,
                 0.1f, new Companion.AnimLogicInfo(0, 0.5f, 0.3f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SLEEP_BREATHING, 1.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SLEEP_BREATHING, 1.0f } )
                 },
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
 
             RegisterAnimation(Companion.Animation.SLEEP_PILLOW_UP_TO_SLEEP_PILLOW_SIDE_RIGHT,
@@ -1342,9 +1366,9 @@ namespace Viva
                 "sleep_pillow_up_to_sleep_side_pillow_right_nm", "sleep_pillow_up_to_sleep_side_pillow_right_nm", "sleep_pillow_up_to_sleep_side_pillow_right_nm",
                 Companion.Priority.MEDIUM, BodyState.SLEEP_PILLOW_UP, BodyState.SLEEP_PILLOW_SIDE_RIGHT,
                 0.1f, new Companion.AnimLogicInfo(0, 0.5f, 0.3f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SLEEP_DISTURBED_LONG, 0.0f } ),
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.ROLL_ON_BED, null )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SLEEP_DISTURBED_LONG, 0.0f } ),
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.ROLL_ON_BED, null )
                 }
             ), true);
 
@@ -1354,8 +1378,8 @@ namespace Viva
                 "sleep_side_pillow_headpat_start_right", "sleep_side_pillow_headpat_start_right", "sleep_side_pillow_headpat_start_right",
                 Companion.Priority.LOW, BodyState.SLEEP_PILLOW_SIDE_RIGHT, BodyState.SLEEP_PILLOW_SIDE_RIGHT,
                 0.3f, new Companion.AnimLogicInfo(0, 0.5f, 0.3f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.HEADPAT_RETURN, 1.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.HEADPAT_RETURN, 1.0f } )
                 }
             ), true);
 
@@ -1364,11 +1388,11 @@ namespace Viva
                 "sleep_pillow_up_to_awake_happy_pillow_up", "sleep_pillow_up_to_awake_happy_pillow_up", "sleep_pillow_up_to_awake_happy_pillow_up",
                 Companion.Priority.MEDIUM, BodyState.SLEEP_PILLOW_UP, BodyState.AWAKE_PILLOW_UP,
                 0.3f, new Companion.AnimLogicInfo(0, 0.5f, 0.3f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.YAWN_SHORT, 1.0f } ),
-                new LoliAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
-                new LoliAnimationEvent( 0.55f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
-                new LoliAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 0.65f, 0.5f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.YAWN_SHORT, 1.0f } ),
+                new CompanionAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent( 0.55f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
+                new CompanionAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 0.65f, 0.5f } )
                 }
             ));
 
@@ -1377,11 +1401,11 @@ namespace Viva
                 "sleep_pillow_up_to_awake_angry_pillow_up", "sleep_pillow_up_to_awake_angry_pillow_up", "sleep_pillow_up_to_awake_angry_pillow_up",
                 Companion.Priority.MEDIUM, BodyState.SLEEP_PILLOW_UP, BodyState.AWAKE_PILLOW_UP,
                 0.3f, new Companion.AnimLogicInfo(0, 0.5f, 0.3f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 1.0f } ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_POUT, 0.0f } ),
-                new LoliAnimationEvent( 0.55f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
-                new LoliAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 0.65f, 0.5f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 1.0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_POUT, 0.0f } ),
+                new CompanionAnimationEvent( 0.55f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
+                new CompanionAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 0.65f, 0.5f } )
                 }
             ));
 
@@ -1390,12 +1414,12 @@ namespace Viva
                 "sleep_side_pillow_to_awake_happy_pillow_up_right_nm", "sleep_side_pillow_to_awake_happy_pillow_up_right_nm", "sleep_side_pillow_to_awake_happy_pillow_up_right_nm",
                 Companion.Priority.MEDIUM, BodyState.SLEEP_PILLOW_SIDE_RIGHT, BodyState.AWAKE_PILLOW_UP,
                 0.3f, new Companion.AnimLogicInfo(0, 0.5f, 0.3f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.03f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 1.0f } ),
-                new LoliAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.TROUBLED, 1.0f } ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.ROLL_ON_BED, null ),
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
-                new LoliAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 0.65f, 0.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.03f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 1.0f } ),
+                new CompanionAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.TROUBLED, 1.0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.ROLL_ON_BED, null ),
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
+                new CompanionAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 0.65f, 0.5f } ),
                 }
             ), true);
 
@@ -1404,12 +1428,12 @@ namespace Viva
                 "sleep_side_pillow_to_awake_angry_pillow_up_right_nm", "sleep_side_pillow_to_awake_angry_pillow_up_right_nm", "sleep_side_pillow_to_awake_angry_pillow_up_right_nm",
                 Companion.Priority.MEDIUM, BodyState.SLEEP_PILLOW_SIDE_RIGHT, BodyState.AWAKE_PILLOW_UP,
                 0.3f, new Companion.AnimLogicInfo(0, 0.5f, 0.3f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_POUT, 0.0f } ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.ROLL_ON_BED, null ),
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
-                new LoliAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 0.65f, 0.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_POUT, 0.0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.ROLL_ON_BED, null ),
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
+                new CompanionAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 0.65f, 0.5f } ),
                 }
             ), true);
 
@@ -1419,7 +1443,7 @@ namespace Viva
                 Companion.Priority.LOW, BodyState.AWAKE_PILLOW_UP, BodyState.AWAKE_PILLOW_UP,
                 0.3f, new Companion.AnimLogicInfo(1, 0.6f, 0.5f, 7, 0.4f),
                 null,
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
 
             RegisterAnimation(Companion.Animation.AWAKE_ANGRY_PILLOW_UP_IDLE,
@@ -1428,7 +1452,7 @@ namespace Viva
                 Companion.Priority.LOW, BodyState.AWAKE_PILLOW_UP, BodyState.AWAKE_PILLOW_UP,
                 0.3f, new Companion.AnimLogicInfo(1, 0.6f, 0.5f, 7, 0.4f),
                 null,
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
 
             RegisterAnimation(Companion.Animation.AWAKE_HAPPY_PILLOW_UP_HEADPAT_LOOP,
@@ -1436,8 +1460,8 @@ namespace Viva
                 "awake_happy_pillow_up_headpat_idle", "awake_happy_pillow_up_headpat_idle", "awake_happy_pillow_up_headpat_idle",
                 Companion.Priority.LOW, BodyState.AWAKE_PILLOW_UP, BodyState.AWAKE_PILLOW_UP,
                 0.5f, new Companion.AnimLogicInfo(0, 0.5f, 0.3f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.45f, (int)Companion.AnimationEventName.HEADPAT_PROPER_SOUND, null )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.45f, (int)Companion.AnimationEventName.HEADPAT_PROPER_SOUND, null )
                 }
             ));
 
@@ -1448,9 +1472,9 @@ namespace Viva
                 "floor_sit_to_crawl", "floor_sit_to_crawl", "stand_to_horseback_Idle_right",
                 Companion.Priority.MEDIUM, BodyState.FLOOR_SIT, BodyState.CRAWL_TIRED,
                 0.3f, new Companion.AnimLogicInfo(0, 0.5f, 0.3f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EFFORT, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EFFORT, 0.0f } ),
                 }
             ));
 
@@ -1459,8 +1483,8 @@ namespace Viva
                 "awake_side_pillow_to_awake_pillow_up_right", "awake_side_pillow_to_awake_pillow_up_right", "stand_happy_idle",
                 Companion.Priority.MEDIUM, BodyState.AWAKE_PILLOW_SIDE_RIGHT, BodyState.AWAKE_PILLOW_UP,
                 0.3f, new Companion.AnimLogicInfo(0, 0.5f, 0.3f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
                 }
             ), true);
 
@@ -1469,10 +1493,10 @@ namespace Viva
                 "awake_pillow_up_to_crawl", "awake_pillow_up_to_crawl", "awake_pillow_up_to_crawl",
                 Companion.Priority.MEDIUM, BodyState.AWAKE_PILLOW_UP, BodyState.CRAWL_TIRED,
                 0.3f, new Companion.AnimLogicInfo(0, 0.5f, 0.3f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EFFORT, 0.0f } ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.JUMP_ON_BED, null ),
-                new LoliAnimationEvent( 0.95f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EFFORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.JUMP_ON_BED, null ),
+                new CompanionAnimationEvent( 0.95f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
                 }
             ));
 
@@ -1481,13 +1505,13 @@ namespace Viva
                 "crawl_bed_to_stand", "crawl_bed_to_stand", "crawl_bed_to_stand",
                 Companion.Priority.MEDIUM, BodyState.CRAWL_TIRED, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 0.5f, 0.3f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EFFORT, 0.0f } ),
-                new LoliAnimationEvent( 0.2f, (int)Companion.AnimationEventName.ROLL_ON_BED, null ),
-                new LoliAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
-                new LoliAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 0.65f, 0.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EFFORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.2f, (int)Companion.AnimationEventName.ROLL_ON_BED, null ),
+                new CompanionAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
+                new CompanionAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 0.65f, 0.5f } ),
                 },
-                (int)AnimationInfo.Flag.DISABLE_RAGDOLL_CHECK
+                AnimationInfo.Flag.DISABLE_RAGDOLL_CHECK
             ));
 
 
@@ -1496,8 +1520,8 @@ namespace Viva
                 "stand_sound_goodmorning_short", "stand_sound_goodmorning_short", "stand_sound_goodmorning_short",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(3, 0.7f, 0.3f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.05f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.GOODMORNING, 1.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.05f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.GOODMORNING, 1.0f } ),
                 }
             ));
 
@@ -1509,8 +1533,8 @@ namespace Viva
                 "stand_giddy_surprise", "stand_giddy_surprise", "stand_giddy_surprise",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.2f, new Companion.AnimLogicInfo(3, 0.6f, 0.5f, 12, 1.2f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.080f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.IMPRESSED_VERY, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.080f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.IMPRESSED_VERY, 0.0f } ),
                 }
             ));
 
@@ -1519,11 +1543,11 @@ namespace Viva
                 "stand_giddy_loop", "stand_giddy_loop", "stand_giddy_loop",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.4f, new Companion.AnimLogicInfo(1, 1.0f, 0.5f, 7, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, new float[] { 0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, new float[] { 1f } ),
                 },
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
             animationInfos[Companion.Animation.STAND_GIDDY_LOCOMOTION].setTorsoSyncFloatID(Animator.StringToHash("sync_giddy_locomotion"));
 
@@ -1532,8 +1556,8 @@ namespace Viva
                 "stand_pickup_right", "stand_pickup_right", "stand_happy_idle",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 0.6f, 0.5f, 7, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
                 }
             ), true);
 
@@ -1542,12 +1566,12 @@ namespace Viva
                 "stand_search_right", "stand_search_right", "stand_search_right",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.4f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_STARTLE, 1.0f } ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.TROUBLED, 1.0f } ),
-                new LoliAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 1.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_STARTLE, 1.0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.TROUBLED, 1.0f } ),
+                new CompanionAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 1.0f } )
                 },
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
 
             RegisterAnimation(Companion.Animation.STAND_HAPPY_CHANGE_ITEM_HANDS,
@@ -1555,8 +1579,8 @@ namespace Viva
                 "stand_change_item_hands", "stand_happy_loop", "stand_happy_idle",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(3, 0.5f, 0.4f, 7, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
                 }
             ));
 
@@ -1565,8 +1589,8 @@ namespace Viva
                 "stand_change_item_hands", "stand_angry_loop", "stand_angry_idle",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(3, 0.5f, 0.4f, 7, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
                 }
             ));
 
@@ -1575,9 +1599,9 @@ namespace Viva
                 new Companion.AnimationInfo(new Companion.DefaultTransition(Companion.Animation.FLOOR_SIT_LOCOMOTION_HAPPY), "stand_to_sit_floor", "stand_to_sit_floor", null,
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.FLOOR_SIT,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.6f, 0, 0.6f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.6f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 0.8f } ),
-                new LoliAnimationEvent( 0.6f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.6f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 0.8f } ),
+                new CompanionAnimationEvent( 0.6f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } )
                 }
             ));
 
@@ -1585,14 +1609,14 @@ namespace Viva
                 new Companion.AnimationInfo(null, "floor_sit_locomotion_happy", "floor_sit_locomotion_happy", "stand_happy_idle",
                 Companion.Priority.LOW, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.5f, new Companion.AnimLogicInfo(1, 0.6f, 0.5f, 7, 0.4f), null,
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
 
             RegisterAnimation(Companion.Animation.FLOOR_SIT_LOCOMOTION_ANGRY,
                 new Companion.AnimationInfo(null, "floor_sit_locomotion_angry", "floor_sit_locomotion_angry", "stand_angry_idle",
                 Companion.Priority.LOW, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.5f, new Companion.AnimLogicInfo(1, 0.6f, 0.5f, 7, 0.4f), null,
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
 
             RegisterAnimation(Companion.Animation.FLOOR_SIT_TO_STAND,
@@ -1633,10 +1657,10 @@ namespace Viva
                 "stand_outfit_like", "stand_outfit_like", "stand_outfit_like",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 0.3f, 0, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.2f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.IMPRESSED_VERY, 1.0f } ),
-                new LoliAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 0.5f } ),
-                new LoliAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.6f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.2f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.IMPRESSED_VERY, 1.0f } ),
+                new CompanionAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 0.5f } ),
+                new CompanionAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.6f } ),
                 }
             ));
 
@@ -1645,11 +1669,11 @@ namespace Viva
                 "stand_handhold_angry_refuse_right", "stand_handhold_angry_refuse_right", "stand_handhold_angry_refuse_right",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 0.6f, 0, 1.2f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_SHORT, 0.0f } ),
-                new LoliAnimationEvent( 0.78f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 0.5f, 1.0f } ),
-                new LoliAnimationEvent( 0.78f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
-                new LoliAnimationEvent( 0.65f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_GRUMBLE_SHORT, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_SHORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.78f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 0.5f, 1.0f } ),
+                new CompanionAnimationEvent( 0.78f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
+                new CompanionAnimationEvent( 0.65f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_GRUMBLE_SHORT, 0.0f } ),
                 }
             ));
             RegisterAnimation(Companion.Animation.STAND_HANDHOLD_ANGRY_REFUSE_LEFT,
@@ -1657,11 +1681,11 @@ namespace Viva
                 "stand_handhold_angry_refuse_left", "stand_handhold_angry_refuse_left", "stand_handhold_angry_refuse_left",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 0.6f, 0, 1.2f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_SHORT, 0.0f } ),
-                new LoliAnimationEvent( 0.78f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 0.5f, 1.0f } ),
-                new LoliAnimationEvent( 0.78f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
-                new LoliAnimationEvent( 0.65f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_GRUMBLE_SHORT, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_SHORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.78f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 0.5f, 1.0f } ),
+                new CompanionAnimationEvent( 0.78f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
+                new CompanionAnimationEvent( 0.65f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_GRUMBLE_SHORT, 0.0f } ),
                 }
             ));
 
@@ -1670,20 +1694,20 @@ namespace Viva
                 "stand_handhold_happy_embarrassed_right", "stand_handhold_happy_embarrassed_right", "stand_handhold_happy_embarrassed_right",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 12, 1.2f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EMBARRASSED_HANDHOLD, 1.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EMBARRASSED_HANDHOLD, 1.0f } ),
 
-                new LoliAnimationEvent( 0.075f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.5f } ),
-                new LoliAnimationEvent( 0.075f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.6f } ),
+                new CompanionAnimationEvent( 0.075f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.5f } ),
+                new CompanionAnimationEvent( 0.075f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.6f } ),
 
-                new LoliAnimationEvent( 0.655f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.5f, 0.6f } ),
-                new LoliAnimationEvent( 0.655f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.5f } ),
+                new CompanionAnimationEvent( 0.655f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.5f, 0.6f } ),
+                new CompanionAnimationEvent( 0.655f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.5f } ),
 
-                new LoliAnimationEvent( 0.735f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.6f } ),
-                new LoliAnimationEvent( 0.735f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.5f } ),
+                new CompanionAnimationEvent( 0.735f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.6f } ),
+                new CompanionAnimationEvent( 0.735f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.5f } ),
 
-                new LoliAnimationEvent( 0.88f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.5f, 0.6f } ),
-                new LoliAnimationEvent( 0.88f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.5f } ),
+                new CompanionAnimationEvent( 0.88f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.5f, 0.6f } ),
+                new CompanionAnimationEvent( 0.88f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.5f } ),
                 }
             ), true);
 
@@ -1692,9 +1716,9 @@ namespace Viva
                 "stand_handhold_happy_pull_hard_right", "stand_handhold_happy_pull_hard_right", "stand_handhold_happy_pull_hard_right",
                 Companion.Priority.HIGH, BodyState.STAND, BodyState.STAND,
                 0.4f, new Companion.AnimLogicInfo(1, 0.5f, 0.5f, 7, 1.2f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, new float[] { 0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, new float[] { 1f } ),
                 }
             ));
             RegisterAnimation(Companion.Animation.STAND_HANDHOLD_HAPPY_PULL_LEFT,
@@ -1702,9 +1726,9 @@ namespace Viva
                 "stand_handhold_happy_pull_hard_left", "stand_handhold_happy_pull_hard_left", "stand_handhold_happy_pull_hard_left",
                 Companion.Priority.HIGH, BodyState.STAND, BodyState.STAND,
                 0.4f, new Companion.AnimLogicInfo(1, 0.5f, 0.5f, 7, 1.2f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, new float[] { 0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, new float[] { 1f } ),
                 }
             ));
 
@@ -1716,9 +1740,9 @@ namespace Viva
                 "stand_tired_handhold_right", "stand_tired_handhold_right", "stand_tired_handhold_right",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.4f, new Companion.AnimLogicInfo(1, 0.7f, 0.5f, 7, 1.2f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, new float[] { 0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, new float[] { 1f } ),
                 }
             ));
             RegisterAnimation(Companion.Animation.STAND_TIRED_HANDHOLD_PULL_LEFT,
@@ -1726,9 +1750,9 @@ namespace Viva
                 "stand_tired_handhold_left", "stand_tired_handhold_left", "stand_tired_handhold_left",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.4f, new Companion.AnimLogicInfo(1, 0.7f, 0.5f, 7, 1.2f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, new float[] { 0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, new float[] { 1f } ),
                 }
             ));
 
@@ -1737,10 +1761,10 @@ namespace Viva
                 "bathtub_headpat_brush_away", "bathtub_headpat_brush_away", "bathtub_headpat_brush_away",
                 Companion.Priority.HIGH, BodyState.BATHING_IDLE, BodyState.BATHING_IDLE,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 0.3f, 0, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_LONG, 1.0f } ),
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_SPLASH } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_LONG, 1.0f } ),
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_SPLASH } ),
                 }
             ));
 
@@ -1749,9 +1773,9 @@ namespace Viva
                 "bathtub_headpat_angry_idle", "bathtub_headpat_angry_idle", "bathtub_headpat_angry_idle",
                 Companion.Priority.LOW, BodyState.BATHING_IDLE, BodyState.BATHING_IDLE,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.3f, 7, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_POUT, 1.0f } ),
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_POUT, 1.0f } ),
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
                 }
             ));
 
@@ -1760,10 +1784,10 @@ namespace Viva
                 "bathtub_headpat_happy_idle", "bathtub_headpat_happy_idle", "bathtub_headpat_happy_idle",
                 Companion.Priority.LOW, BodyState.BATHING_IDLE, BodyState.BATHING_IDLE,
                 0.3f, new Companion.AnimLogicInfo(3, 1.0f, 0.5f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.05f, (int)Companion.AnimationEventName.HEADPAT_PROPER_SOUND, null ),
-                new LoliAnimationEvent( 0.45f, (int)Companion.AnimationEventName.HEADPAT_PROPER_SOUND, null ),
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.05f, (int)Companion.AnimationEventName.HEADPAT_PROPER_SOUND, null ),
+                new CompanionAnimationEvent( 0.45f, (int)Companion.AnimationEventName.HEADPAT_PROPER_SOUND, null ),
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
                 }
             ));
 
@@ -1772,9 +1796,9 @@ namespace Viva
                 "bathtub_headpat_angry_proper_to_happy", "bathtub_headpat_angry_proper_to_happy", "bathtub_headpat_angry_proper_to_happy",
                 Companion.Priority.LOW, BodyState.BATHING_IDLE, BodyState.BATHING_IDLE,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_HEADPAT_B, 1.0f } ),
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_HEADPAT_B, 1.0f } ),
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
                 }
             ));
 
@@ -1784,10 +1808,10 @@ namespace Viva
                 "bathtub_on_knees_headpat_idle", "bathtub_on_knees_headpat_idle", "bathtub_on_knees_headpat_idle",
                 Companion.Priority.MEDIUM, BodyState.BATHING_ON_KNEES, BodyState.BATHING_ON_KNEES,
                 0.3f, new Companion.AnimLogicInfo(1, 0.2f, 0.5f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.05f, (int)Companion.AnimationEventName.HEADPAT_PROPER_SOUND, null ),
-                new LoliAnimationEvent( 0.45f, (int)Companion.AnimationEventName.HEADPAT_PROPER_SOUND, null ),
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.05f, (int)Companion.AnimationEventName.HEADPAT_PROPER_SOUND, null ),
+                new CompanionAnimationEvent( 0.45f, (int)Companion.AnimationEventName.HEADPAT_PROPER_SOUND, null ),
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
                 }
             ));
 
@@ -1796,10 +1820,10 @@ namespace Viva
                 "bathtub_on_knees_headpat_brush_away_to_angry_idle", "bathtub_on_knees_headpat_brush_away_to_angry_idle", "bathtub_on_knees_headpat_brush_away_to_angry_idle",
                 Companion.Priority.HIGH, BodyState.BATHING_ON_KNEES, BodyState.BATHING_IDLE,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 0.3f, 0, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_LONG, 0.0f } ),
-                new LoliAnimationEvent( 0.2f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_KERPLUNK } ),
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_LONG, 0.0f } ),
+                new CompanionAnimationEvent( 0.2f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_KERPLUNK } ),
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_MOVEMENT } ),
                 }
             ));
 
@@ -1808,8 +1832,8 @@ namespace Viva
                 "stand_headpat_happy_start", "stand_happy_loop", "stand_headpat_happy_start",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.4f, new Companion.AnimLogicInfo(2, 1.0f, 0.5f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.05f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_STARTLE, 0.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.05f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_STARTLE, 0.0f } )
                 }
             ));
 
@@ -1819,8 +1843,8 @@ namespace Viva
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.2f, new Companion.AnimLogicInfo(2, 1.0f, 0.5f, 12, 0.4f),
 
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.HEADPAT_RETURN, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.HEADPAT_RETURN, 0.0f } ),
                 }
             ));
 
@@ -1829,13 +1853,13 @@ namespace Viva
                 "stand_headpat_happy_wanted_more", "stand_happy_loop", "stand_headpat_happy_wanted_more",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(3, 1.0f, 0.5f, 6, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_STARTLE, 0.0f } ),
-                new LoliAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_SIGH, 0.0f } ),
-                new LoliAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.8f } ),
-                new LoliAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.3f } ),
-                new LoliAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.8f } ),
-                new LoliAnimationEvent( 0.9f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_STARTLE, 0.0f } ),
+                new CompanionAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_SIGH, 0.0f } ),
+                new CompanionAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.8f } ),
+                new CompanionAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.3f } ),
+                new CompanionAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.8f } ),
+                new CompanionAnimationEvent( 0.9f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
                 }
             ));
 
@@ -1844,11 +1868,11 @@ namespace Viva
                 "stand_headpat_happy_idle_sad_right", "stand_headpat_happy_idle_sad_right", "stand_headpat_happy_idle_sad_right",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(1, 0.4f, 0.5f, 12, 0.5f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.WHINE_SOFT, 0.0f } ),
-                new LoliAnimationEvent( 0.34f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.6f } ),
-                new LoliAnimationEvent( 0.34f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.3f } ),
-                new LoliAnimationEvent( 0.85f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.WHINE_SOFT, 0.0f } ),
+                new CompanionAnimationEvent( 0.34f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.6f } ),
+                new CompanionAnimationEvent( 0.34f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.3f } ),
+                new CompanionAnimationEvent( 0.85f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
                 }
             ), true);
 
@@ -1857,8 +1881,8 @@ namespace Viva
                 "stand_headpat_satisfaction", "stand_headpat_satisfaction", "stand_headpat_satisfaction",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ECSTATIC, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ECSTATIC, 0.0f } ),
                 }
             ));
 
@@ -1867,9 +1891,9 @@ namespace Viva
                 "stand_headpat_happy_loop", "stand_happy_loop", "stand_headpat_happy_loop",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.5f, new Companion.AnimLogicInfo(0, 0.5f, 0.5f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.05f, (int)Companion.AnimationEventName.HEADPAT_PROPER_SOUND, null ),
-                new LoliAnimationEvent( 0.45f, (int)Companion.AnimationEventName.HEADPAT_PROPER_SOUND, null )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.05f, (int)Companion.AnimationEventName.HEADPAT_PROPER_SOUND, null ),
+                new CompanionAnimationEvent( 0.45f, (int)Companion.AnimationEventName.HEADPAT_PROPER_SOUND, null )
                 }
             ));
 
@@ -1878,8 +1902,8 @@ namespace Viva
                 "stand_headpat_angry_brush_away", "stand_angry_loop", "stand_headpat_angry_brush_away",
                 Companion.Priority.HIGH, BodyState.STAND, BodyState.STAND,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_LONG, 1.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_LONG, 1.0f } )
                 }
             ));
 
@@ -1888,8 +1912,8 @@ namespace Viva
                 "stand_headpat_angry_start", "stand_angry_loop", "stand_headpat_angry_start",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.2f, new Companion.AnimLogicInfo(0, 0.5f, 0.5f, 7, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_POUT, 0.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_POUT, 0.0f } )
                 }
             ));
 
@@ -1898,11 +1922,11 @@ namespace Viva
                 "stand_headpat_angry_end", "stand_headpat_angry_end", "stand_headpat_angry_end",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 0.55f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_GRUMBLE_LONG, 0.0f } ),
-                new LoliAnimationEvent( 0.46f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 1.1f } ),
-                new LoliAnimationEvent( 0.76f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.7f } ),
-                new LoliAnimationEvent( 0.76f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 1.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_GRUMBLE_LONG, 0.0f } ),
+                new CompanionAnimationEvent( 0.46f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 1.1f } ),
+                new CompanionAnimationEvent( 0.76f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.7f } ),
+                new CompanionAnimationEvent( 0.76f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 1.0f } )
                 }
             ));
 
@@ -1911,9 +1935,9 @@ namespace Viva
                 "stand_headpat_climax_to_cancel_right", "stand_angry_loop", "stand_headpat_climax_to_cancel_right",
                 Companion.Priority.HIGH, BodyState.STAND, BodyState.STAND,
                 0.15f, new Companion.AnimLogicInfo(0, 1.0f, 0.85f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_LONG, 0.0f } ),
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 1.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_LONG, 0.0f } ),
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 1.0f } )
                 }
             ), true);
 
@@ -1922,8 +1946,8 @@ namespace Viva
                 "stand_headpat_climax_to_happy", "stand_angry_loop", "stand_headpat_climax_to_happy",
                 Companion.Priority.HIGH, BodyState.STAND, BodyState.STAND,
                 0.3f, null,
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_HEADPAT_B, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_HEADPAT_B, 0.0f } ),
                 }
             ));
 
@@ -1932,8 +1956,8 @@ namespace Viva
                 "stand_headpat_angry_interrupt", "stand_angry_loop", "stand_headpat_angry_interrupt",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.HUMPH, 0.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.HUMPH, 0.0f } )
                 }
             ));
 
@@ -1949,8 +1973,8 @@ namespace Viva
                 "stand_face_prox_angry_surprise", "stand_angry_loop", "stand_face_prox_angry_surprise",
                 Companion.Priority.HIGH, BodyState.STAND, BodyState.STAND,
                 0.2f, new Companion.AnimLogicInfo(3, 0.2f, 1.5f, 4, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SCARED_SHORT, 0.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SCARED_SHORT, 0.0f } )
                 }
                 ));
 
@@ -1959,12 +1983,12 @@ namespace Viva
                 "stand_face_prox_angry_loop", "stand_angry_loop", "stand_face_prox_angry_loop",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.25f, new Companion.AnimLogicInfo(1, 0.6f, 0.5f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.112f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_GRUMBLE_SHORT, 0.0f } ),
-                new LoliAnimationEvent( 0.412f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_GRUMBLE_LONG, 0.0f } ),
-                new LoliAnimationEvent( 0.837f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_GRUMBLE_LONG, 0.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.112f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_GRUMBLE_SHORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.412f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_GRUMBLE_LONG, 0.0f } ),
+                new CompanionAnimationEvent( 0.837f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_GRUMBLE_LONG, 0.0f } )
                 },
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
 
             RegisterAnimation(Companion.Animation.STAND_KISS_ANGRY_CHEEK_RIGHT,
@@ -1972,8 +1996,8 @@ namespace Viva
                 "stand_kiss_angry_cheek_right", "stand_angry_loop", "stand_kiss_angry_cheek_right",
                 Companion.Priority.HIGH, BodyState.STAND, BodyState.STAND,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 2.0f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.112f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.KISSED_ANGRY, 1.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.112f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.KISSED_ANGRY, 1.0f } ),
                 }
             ));
 
@@ -1982,8 +2006,8 @@ namespace Viva
                 "stand_kiss_angry_cheek_left", "stand_angry_loop", "stand_kiss_angry_cheek_left",
                 Companion.Priority.HIGH, BodyState.STAND, BodyState.STAND,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 2.0f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.112f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.KISSED_ANGRY, 1.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.112f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.KISSED_ANGRY, 1.0f } ),
                 }
             ));
 
@@ -1992,17 +2016,17 @@ namespace Viva
                 "stand_kiss_angry_left_to_happy", "stand_angry_loop", "stand_kiss_angry_left_to_happy",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.2f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.16f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
-                new LoliAnimationEvent( 0.16f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.3f, 0.5f } ),
-                new LoliAnimationEvent( 0.26f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.3f } ),
-                new LoliAnimationEvent( 0.35f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
-                new LoliAnimationEvent( 0.35f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.5f } ),
-                new LoliAnimationEvent( 0.55f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.3f } ),
-                new LoliAnimationEvent( 0.52f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.5f } ),
-                new LoliAnimationEvent( 0.80f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
-                new LoliAnimationEvent( 0.80f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.7f } ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.RELIEF, 1.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.16f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
+                new CompanionAnimationEvent( 0.16f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.3f, 0.5f } ),
+                new CompanionAnimationEvent( 0.26f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.3f } ),
+                new CompanionAnimationEvent( 0.35f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
+                new CompanionAnimationEvent( 0.35f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.5f } ),
+                new CompanionAnimationEvent( 0.55f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.3f } ),
+                new CompanionAnimationEvent( 0.52f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.5f } ),
+                new CompanionAnimationEvent( 0.80f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
+                new CompanionAnimationEvent( 0.80f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.7f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.RELIEF, 1.0f } ),
                 }
             ));
 
@@ -2011,17 +2035,17 @@ namespace Viva
                 "stand_kiss_angry_right_to_happy", "stand_angry_loop", "stand_kiss_angry_right_to_happy",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.2f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.16f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
-                new LoliAnimationEvent( 0.16f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.3f, 0.5f } ),
-                new LoliAnimationEvent( 0.26f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.3f } ),
-                new LoliAnimationEvent( 0.35f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
-                new LoliAnimationEvent( 0.35f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.5f } ),
-                new LoliAnimationEvent( 0.55f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.3f } ),
-                new LoliAnimationEvent( 0.52f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.5f } ),
-                new LoliAnimationEvent( 0.80f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
-                new LoliAnimationEvent( 0.80f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.7f } ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.RELIEF, 1.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.16f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
+                new CompanionAnimationEvent( 0.16f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.3f, 0.5f } ),
+                new CompanionAnimationEvent( 0.26f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.3f } ),
+                new CompanionAnimationEvent( 0.35f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
+                new CompanionAnimationEvent( 0.35f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.5f } ),
+                new CompanionAnimationEvent( 0.55f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.3f } ),
+                new CompanionAnimationEvent( 0.52f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.5f } ),
+                new CompanionAnimationEvent( 0.80f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
+                new CompanionAnimationEvent( 0.80f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.7f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.RELIEF, 1.0f } ),
                 }
             ));
 
@@ -2030,8 +2054,8 @@ namespace Viva
                 "stand_face_prox_happy_surprise", "stand_happy_loop", "stand_face_prox_happy_surprise",
                 Companion.Priority.HIGH, BodyState.STAND, BodyState.STAND,
                 0.2f, new Companion.AnimLogicInfo(3, 1.0f, 0.7f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SCARED_SHORT, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SCARED_SHORT, 0.0f } ),
                 }
             ));
 
@@ -2040,11 +2064,11 @@ namespace Viva
                 "stand_face_prox_happy_loop", "stand_happy_loop", "stand_face_prox_happy_loop",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.25f, new Companion.AnimLogicInfo(1, 0.6f, 0.5f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.075f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EMBARRASSED, 1.0f } ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.075f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EMBARRASSED, 1.0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
                 },
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
 
             RegisterAnimation(Companion.Animation.STAND_KISS_HAPPY_CHEEK_RIGHT,
@@ -2052,8 +2076,8 @@ namespace Viva
                 "stand_kiss_happy_cheek_right", "stand_kiss_happy_cheek_right", "stand_kiss_happy_cheek_right",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 1.5f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.KISSED_HAPPY, 1.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.KISSED_HAPPY, 1.0f } ),
                 }
             ));
 
@@ -2062,8 +2086,8 @@ namespace Viva
                 , "stand_kiss_happy_cheek_left", "stand_kiss_happy_cheek_left", "stand_kiss_happy_cheek_left",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 1.5f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.KISSED_HAPPY, 1.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.KISSED_HAPPY, 1.0f } ),
                 }
             ));
 
@@ -2072,8 +2096,8 @@ namespace Viva
                 , "stand_kiss_angry_left_to_angry", "stand_angry_loop", "stand_kiss_angry_left_to_angry",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.25f, new Companion.AnimLogicInfo(0, 1.0f, 1.5f, 12, 0.8f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.112f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_SHORT, 1.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.112f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_SHORT, 1.0f } ),
                 }
             ));
 
@@ -2082,8 +2106,8 @@ namespace Viva
                 , "stand_kiss_angry_right_to_angry", "stand_angry_loop", "stand_kiss_angry_right_to_angry",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.25f, new Companion.AnimLogicInfo(0, 1.0f, 1.5f, 12, 0.8f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.112f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_SHORT, 1.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.112f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_SHORT, 1.0f } ),
                 }
             ));
 
@@ -2097,7 +2121,7 @@ namespace Viva
                 new Companion.AnimationInfo(null,
                 "stand_react_perv_front_idle_loop", "stand_react_perv_front_idle_loop", "stand_react_perv_front_idle_loop",
                 Companion.Priority.HIGH, BodyState.STAND, BodyState.STAND,
-                0.2f, new Companion.AnimLogicInfo(1, 0.5f, 1.5f, 12, 1.0f), new LoliAnimationEvent[]{
+                0.2f, new Companion.AnimLogicInfo(1, 0.5f, 1.5f, 12, 1.0f), new CompanionAnimationEvent[]{
                 }
             ));
 
@@ -2112,11 +2136,11 @@ namespace Viva
                 "stand_tired_idle", "stand_tired_idle", "stand_tired_idle",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.15f, new Companion.AnimLogicInfo(3, 0.5f, 1.5f, 7, 1.0f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BIND_ANIMATION_TO_VIEW_MODE, new float[]{ (float)Companion.AwarenessMode.TIRED } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BIND_ANIMATION_TO_VIEW_MODE, new float[]{ (float)Companion.AwarenessMode.TIRED } ),
 
                 },
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
 
             RegisterAnimation(Companion.Animation.STAND_SCARED_LOCOMOTION,
@@ -2125,7 +2149,7 @@ namespace Viva
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.4f, new Companion.AnimLogicInfo(0, 1.0f, 0.1f, 12, 1.0f),
                 null,
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
             RegisterLegSpeedInfo("stand_scared_locomotion", 2.0f, 2.5f, 350.0f, 45.0f);
 
@@ -2134,8 +2158,8 @@ namespace Viva
                 "stand_scared_startled", "stand_scared_startled", "stand_scared_startled",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.15f, new Companion.AnimLogicInfo(0, 1.0f, 0.1f, 12, 1.0f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SCARED_SHORT, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SCARED_SHORT, 0.0f } ),
                 }
             ));
 
@@ -2144,9 +2168,9 @@ namespace Viva
                 "stand_to_stand_tired", "stand_to_stand_tired", "stand_to_stand_tired",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 1.0f, 0, 0.5f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.05f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.YAWN_LONG, 1.0f } ),
-                new LoliAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3, 0.5f, 0.8f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.05f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.YAWN_LONG, 1.0f } ),
+                new CompanionAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3, 0.5f, 0.8f } ),
                 }
             ));
 
@@ -2155,11 +2179,11 @@ namespace Viva
                 "stand_tired_rub_eyes_right", "stand_tired_rub_eyes_right", "stand_tired_rub_eyes_right",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.6f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.YAWN_SHORT, 1.0f } ),
-                new LoliAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3, 0.5f, 0.8f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.YAWN_SHORT, 1.0f } ),
+                new CompanionAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3, 0.5f, 0.8f } ),
                 },
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
 
             RegisterAnimation(Companion.Animation.STAND_TIRED_RUB_EYES_LEFT,
@@ -2167,11 +2191,11 @@ namespace Viva
                 "stand_tired_rub_eyes_left", "stand_tired_rub_eyes_left", "stand_tired_rub_eyes_left",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.6f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.YAWN_SHORT, 1.0f } ),
-                new LoliAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3, 0.5f, 0.8f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.YAWN_SHORT, 1.0f } ),
+                new CompanionAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3, 0.5f, 0.8f } ),
                 },
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
 
             RegisterLegSpeedInfo("stand_tired_idle", 0.95f, 2.0f, 255.0f, 30.0f);
@@ -2181,9 +2205,9 @@ namespace Viva
                 "bathtub_relax_face_poke_right_nm", "bathtub_relax_face_poke_right_nm", "bathtub_relax_face_poke_right_nm",
                 Companion.Priority.HIGH, BodyState.BATHING_RELAX, BodyState.BATHING_RELAX,
                 0.1f, new Companion.AnimLogicInfo(1, 0.4f, 0.2f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 0.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 0.5f } ),
                 }
             ), true);
 
@@ -2192,9 +2216,9 @@ namespace Viva
                 "bathtub_idle_face_poke_1_right_nm", "bathtub_idle_face_poke_1_right_nm", "bathtub_idle_face_poke_1_right_nm",
                 Companion.Priority.HIGH, BodyState.BATHING_IDLE, BodyState.BATHING_IDLE,
                 0.15f, new Companion.AnimLogicInfo(1, 0.4f, 0.2f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 0.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 0.5f } ),
                 }
             ), true);
             RegisterAnimation(Companion.Animation.BATHTUB_IDLE_FACE_POKE_2_RIGHT,
@@ -2202,9 +2226,9 @@ namespace Viva
                 "bathtub_idle_face_poke_2_right_nm", "bathtub_idle_face_poke_2_right_nm", "bathtub_idle_face_poke_2_right_nm",
                 Companion.Priority.HIGH, BodyState.BATHING_IDLE, BodyState.BATHING_IDLE,
                 0.15f, new Companion.AnimLogicInfo(1, 0.4f, 0.2f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 0.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 0.5f } ),
                 }
             ), true);
 
@@ -2213,9 +2237,9 @@ namespace Viva
                 "stand_tired_poke_right", "stand_tired_poke_right", "stand_tired_poke_right",
                 Companion.Priority.HIGH, BodyState.STAND, BodyState.STAND,
                 0.1f, new Companion.AnimLogicInfo(1, 0.2f, 0.2f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.WHIMPER_SHORT, 0.0f } ),
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 1.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.WHIMPER_SHORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 1.5f } ),
                 }
             ), true);
 
@@ -2224,8 +2248,8 @@ namespace Viva
                 "sleep_side_pillow_bother_right", "sleep_side_pillow_bother_right", "sleep_side_pillow_bother_right",
                 Companion.Priority.MEDIUM, BodyState.SLEEP_PILLOW_SIDE_RIGHT, BodyState.SLEEP_PILLOW_SIDE_RIGHT,
                 0.1f, new Companion.AnimLogicInfo(0, 0.5f, 0.3f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SNORE, 0.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SNORE, 0.0f } )
                 }
             ), true);
 
@@ -2234,8 +2258,8 @@ namespace Viva
                 "sleep_pillow_up_bother_right_nm", "sleep_pillow_up_bother_right_nm", "sleep_pillow_up_bother_right_nm",
                 Companion.Priority.MEDIUM, BodyState.SLEEP_PILLOW_UP, BodyState.SLEEP_PILLOW_UP,
                 0.1f, new Companion.AnimLogicInfo(0, 0.5f, 0.3f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SLEEP_DISTURBED_SHORT, 0.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SLEEP_DISTURBED_SHORT, 0.0f } )
                 }
             ), true);
 
@@ -2245,8 +2269,8 @@ namespace Viva
                 "awake_pillow_up_face_poke_right_nm", "awake_pillow_up_face_poke_right_nm", "awake_pillow_up_face_poke_right_nm",
                 Companion.Priority.HIGH, BodyState.AWAKE_PILLOW_UP, BodyState.AWAKE_PILLOW_UP,
                 0.1f, new Companion.AnimLogicInfo(0, 0.2f, 0.2f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
                 }
             ), true);
 
@@ -2255,9 +2279,9 @@ namespace Viva
                 "stand_poke_face_1_right", "stand_poke_face_1_right", "stand_poke_face_1_right",
                 Companion.Priority.HIGH, BodyState.STAND, BodyState.STAND,
                 0.15f, new Companion.AnimLogicInfo(1, 0.4f, 0.3f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.5f } ),
                 }
             ));
 
@@ -2266,9 +2290,9 @@ namespace Viva
                 "stand_poke_face_1_left", "stand_poke_face_1_left", "stand_poke_face_1_left",
                 Companion.Priority.HIGH, BodyState.STAND, BodyState.STAND,
                 0.15f, new Companion.AnimLogicInfo(1, 0.4f, 0.3f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.5f } ),
                 }
             ));
             RegisterAnimation(Companion.Animation.STAND_POKE_FACE_2_RIGHT,
@@ -2276,9 +2300,9 @@ namespace Viva
                 "stand_poke_face_2_right", "stand_poke_face_2_right", "stand_poke_face_2_right",
                 Companion.Priority.HIGH, BodyState.STAND, BodyState.STAND,
                 0.15f, new Companion.AnimLogicInfo(1, 0.4f, 0.3f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.7f} ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.7f} ),
                 }
             ));
             RegisterAnimation(Companion.Animation.STAND_POKE_FACE_2_LEFT,
@@ -2286,9 +2310,9 @@ namespace Viva
                 "stand_poke_face_2_left", "stand_poke_face_2_left", "stand_poke_face_2_left",
                 Companion.Priority.HIGH, BodyState.STAND, BodyState.STAND,
                 0.15f, new Companion.AnimLogicInfo(1, 0.4f, 0.3f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.7f} ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.7f} ),
                 }
             ));
             RegisterAnimation(Companion.Animation.STAND_POKE_FACE_3_RIGHT,
@@ -2296,9 +2320,9 @@ namespace Viva
                 "stand_poke_face_3_right", "stand_poke_face_3_right", "stand_poke_face_3_right",
                 Companion.Priority.HIGH, BodyState.STAND, BodyState.STAND,
                 0.15f, new Companion.AnimLogicInfo(1, 0.4f, 0.3f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.7f} ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.7f} ),
                 }
             ));
             RegisterAnimation(Companion.Animation.STAND_POKE_FACE_3_LEFT,
@@ -2306,9 +2330,9 @@ namespace Viva
                 "stand_poke_face_3_left", "stand_poke_face_3_left", "stand_poke_face_3_left",
                 Companion.Priority.HIGH, BodyState.STAND, BodyState.STAND,
                 0.15f, new Companion.AnimLogicInfo(1, 0.4f, 0.3f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.7f} ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.7f} ),
                 }
             ));
 
@@ -2317,11 +2341,11 @@ namespace Viva
                 "stand_wipe_cheek_right", "stand_wipe_cheek_right", "stand_wipe_cheek_right",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 0.3f, 0, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.45f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
-                new LoliAnimationEvent( 0.45f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.4f} ),
-                new LoliAnimationEvent( 0.45f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_GRUMBLE_SHORT, 0.0f } ),
-                new LoliAnimationEvent( 0.71f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_HEADPAT_A, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.45f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
+                new CompanionAnimationEvent( 0.45f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.4f} ),
+                new CompanionAnimationEvent( 0.45f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_GRUMBLE_SHORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.71f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_HEADPAT_A, 0.0f } ),
                 }
             ));
 
@@ -2330,11 +2354,11 @@ namespace Viva
                 "stand_wipe_cheek_left", "stand_wipe_cheek_left", "stand_wipe_cheek_left",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 0.3f, 0, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.45f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
-                new LoliAnimationEvent( 0.45f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.4f} ),
-                new LoliAnimationEvent( 0.45f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_GRUMBLE_SHORT, 0.0f } ),
-                new LoliAnimationEvent( 0.71f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_HEADPAT_A, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.45f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
+                new CompanionAnimationEvent( 0.45f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.4f} ),
+                new CompanionAnimationEvent( 0.45f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_GRUMBLE_SHORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.71f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_HEADPAT_A, 0.0f } ),
                 }
             ));
 
@@ -2342,10 +2366,10 @@ namespace Viva
                 new Companion.AnimationInfo(idleTransition, "stand_angry_block_right", "stand_angry_block_right", "stand_angry_block_right",
                 Companion.Priority.HIGH, BodyState.STAND, BodyState.STAND,
                 0.15f, new Companion.AnimLogicInfo(0, 1.0f, 0.4f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_LONG, 0.0f } ),
-                new LoliAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.8f } ),
-                new LoliAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 1.0f} ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_LONG, 0.0f } ),
+                new CompanionAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.8f } ),
+                new CompanionAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 1.0f} ),
                 }
             ));
 
@@ -2353,10 +2377,10 @@ namespace Viva
                 new Companion.AnimationInfo(idleTransition, "stand_angry_block_left", "stand_angry_block_left", "stand_angry_block_left",
                 Companion.Priority.HIGH, BodyState.STAND, BodyState.STAND,
                 0.15f, new Companion.AnimLogicInfo(0, 1.0f, 0.4f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_LONG, 0.0f } ),
-                new LoliAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.8f } ),
-                new LoliAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 1.0f} ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_LONG, 0.0f } ),
+                new CompanionAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.8f } ),
+                new CompanionAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 1.0f} ),
                 }
             ));
 
@@ -2380,10 +2404,10 @@ namespace Viva
                 , "stand_poked_tummy_out", "stand_poked_tummy_out", "stand_poked_tummy_out",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.4f, new Companion.AnimLogicInfo(0, 1.0f, 0.3f, 0, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.2f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
-                new LoliAnimationEvent( 0.2f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 1.8f } ),
-                new LoliAnimationEvent( 0.68f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.RELIEF, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.2f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
+                new CompanionAnimationEvent( 0.2f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 1.8f } ),
+                new CompanionAnimationEvent( 0.68f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.RELIEF, 0.0f } ),
                 }
             ));
 
@@ -2391,9 +2415,9 @@ namespace Viva
                 new Companion.AnimationInfo(null, "stand_chase_low_locomotion", "stand_chase_low_locomotion", "stand_jealous_loop",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.4f, new Companion.AnimLogicInfo(3, 1.0f, 0.5f, 7, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, null ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, new float[] { 0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.FOOTSTEP_SOUND, new float[] { 1f } ),
                 }
             ));
             animationInfos[Companion.Animation.STAND_CHASE_LOW_LOCOMOTION].setTorsoSyncFloatID(Animator.StringToHash("sync_chase_low_locomotion"));
@@ -2402,16 +2426,18 @@ namespace Viva
             RegisterAnimation(Companion.Animation.STAND_MORTAR_AND_PESTLE_GRIND_LOOP_RIGHT,
                 new Companion.AnimationInfo(null, "stand_mortar_and_pestle_grind_loop_right_nm", "stand_locomotion_spine_stable", "stand_happy_idle",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
-                0.3f, new Companion.AnimLogicInfo(3, 0.5f, 0.4f, 7, 0.4f), null
+                0.3f, new Companion.AnimLogicInfo(3, 0.5f, 0.4f, 7, 0.4f), null,
+                AnimationInfo.Flag.DISABLE_HOLDIK_BOTH
             ), true);
 
             RegisterAnimation(Companion.Animation.STAND_WHEAT_INTO_MORTAR_RIGHT,
                 new Companion.AnimationInfo(idleTransition, "stand_wheat_into_mortar_right_nm", "stand_locomotion_spine_stable", "stand_happy_idle",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.4f, new Companion.AnimLogicInfo(0, 0.5f, 0.4f, 7, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.DROP_LEFT_HAND_ITEM, null ),
-                }
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.DROP_LEFT_HAND_ITEM, null ),
+                },
+                AnimationInfo.Flag.DISABLE_HOLDIK_BOTH
             ), true);
 
             RegisterAnimation(Companion.Animation.STAND_SPLASHED_START_RIGHT,
@@ -2419,8 +2445,8 @@ namespace Viva
                 "stand_splashed_start_right", "stand_locomotion_spine_stable", "stand_splashed_start_right",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.25f, new Companion.AnimLogicInfo(0, 1.0f, 0.55f, 12, 1.0f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SCREAMING, 1.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SCREAMING, 1.0f } )
                 }
             ), true);
 
@@ -2435,36 +2461,39 @@ namespace Viva
                 new Companion.AnimationInfo(idleTransition, "stand_splashed_end_right", "stand_splashed_end_right", "stand_splashed_end_right",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.4f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.8f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.781f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 1.0f } ),
-                new LoliAnimationEvent( 0.781f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.781f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 1.0f } ),
+                new CompanionAnimationEvent( 0.781f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
                 }
             ), true);
 
             RegisterAnimation(Companion.Animation.STAND_MIXING_BOWL_MIX_LOOP_RIGHT,
                 new Companion.AnimationInfo(null, "stand_mixing_bowl_mix_right_nm_loop", "stand_locomotion_spine_stable", "stand_happy_idle",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
-                0.3f, new Companion.AnimLogicInfo(1, 0.5f, 0.4f, 7, 0.4f), null
+                0.3f, new Companion.AnimLogicInfo(1, 0.5f, 0.4f, 7, 0.4f), null,
+                AnimationInfo.Flag.DISABLE_HOLDIK_BOTH
             ), true);
 
             RegisterAnimation(Companion.Animation.STAND_POUR_MORTAR_INTO_MIXING_BOWL_RIGHT,
                 new Companion.AnimationInfo(idleTransition, "stand_pour_mortar_into_mixing_bowl_right_nm", "stand_locomotion_spine_stable", "stand_happy_idle",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
-                0.4f, new Companion.AnimLogicInfo(1, 0.5f, 0.4f, 7, 0.4f), null
+                0.4f, new Companion.AnimLogicInfo(1, 0.5f, 0.4f, 7, 0.4f), null,
+                AnimationInfo.Flag.DISABLE_HOLDIK_BOTH
             ), true);
 
             RegisterAnimation(Companion.Animation.STAND_EGG_INTO_MIXING_BOWL_RIGHT,
                 new Companion.AnimationInfo(idleTransition, "stand_egg_into_mixing_bowl_right_nm", "stand_locomotion_spine_stable", "stand_happy_idle",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
-                0.4f, new Companion.AnimLogicInfo(1, 0.5f, 0.4f, 7, 0.4f), null
+                0.4f, new Companion.AnimLogicInfo(1, 0.5f, 0.4f, 7, 0.4f), null,
+                AnimationInfo.Flag.DISABLE_HOLDIK_BOTH
             ), true);
             RegisterAnimation(Companion.Animation.BATHTUB_SPLASH_REACT_RIGHT,
                 new Companion.AnimationInfo(idleTransition, "bathtub_splash_react_right_nm", "bathtub_splash_react_right_nm", "bathtub_splash_react_right_nm",
                 Companion.Priority.MEDIUM, BodyState.BATHING_IDLE, BodyState.BATHING_IDLE,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 1.0f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
-                new LoliAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 0.7f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 0.7f } ),
                 }
             ), true);
 
@@ -2472,10 +2501,10 @@ namespace Viva
                 new Companion.AnimationInfo(idleTransition, "bathtub_happy_splash", "bathtub_happy_splash", "bathtub_happy_splash",
                 Companion.Priority.HIGH, BodyState.BATHING_IDLE, BodyState.BATHING_IDLE,
                 0.3f, new Companion.AnimLogicInfo(1, 0.5f, 0.4f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.LAUGH_SHORT, 1.0f } ),
-                new LoliAnimationEvent( 0.3f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_SPLASH } ),
-                new LoliAnimationEvent( 0.3f, (int)Companion.AnimationEventName.BATHTUB_SPLASH, null ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.LAUGH_SHORT, 1.0f } ),
+                new CompanionAnimationEvent( 0.3f, (int)Companion.AnimationEventName.BATHTUB_PLAY_SOUND, new float[]{ (float)Bathtub.SoundType.WATER_SPLASH } ),
+                new CompanionAnimationEvent( 0.3f, (int)Companion.AnimationEventName.BATHTUB_SPLASH, null ),
                 }
             ));
 
@@ -2484,8 +2513,8 @@ namespace Viva
                 "floor_sit_headpat_happy_start", "floor_sit_headpat_happy_start", "stand_headpat_happy_start",
                 Companion.Priority.LOW, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.4f, new Companion.AnimLogicInfo(2, 1.0f, 0.5f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.05f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_STARTLE, 0.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.05f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_STARTLE, 0.0f } )
                 }
             ));
 
@@ -2494,13 +2523,13 @@ namespace Viva
                 "floor_sit_headpat_happy_wanted_more", "floor_sit_headpat_happy_wanted_more", "stand_headpat_happy_wanted_more",
                 Companion.Priority.MEDIUM, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.3f, new Companion.AnimLogicInfo(3, 1.0f, 0.5f, 6, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_STARTLE, 0.0f } ),
-                new LoliAnimationEvent( 0.35f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_SIGH, 0.0f } ),
-                new LoliAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.8f } ),
-                new LoliAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.3f } ),
-                new LoliAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.8f } ),
-                new LoliAnimationEvent( 0.9f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_STARTLE, 0.0f } ),
+                new CompanionAnimationEvent( 0.35f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_SIGH, 0.0f } ),
+                new CompanionAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.8f } ),
+                new CompanionAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.3f } ),
+                new CompanionAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.8f } ),
+                new CompanionAnimationEvent( 0.9f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
                 }
             ));
 
@@ -2509,9 +2538,9 @@ namespace Viva
                 "floor_sit_headpat_happy_loop", "floor_sit_headpat_happy_loop", "stand_headpat_happy_loop",
                 Companion.Priority.LOW, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.5f, new Companion.AnimLogicInfo(0, 0.5f, 0.5f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.05f, (int)Companion.AnimationEventName.HEADPAT_PROPER_SOUND, null ),
-                new LoliAnimationEvent( 0.45f, (int)Companion.AnimationEventName.HEADPAT_PROPER_SOUND, null )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.05f, (int)Companion.AnimationEventName.HEADPAT_PROPER_SOUND, null ),
+                new CompanionAnimationEvent( 0.45f, (int)Companion.AnimationEventName.HEADPAT_PROPER_SOUND, null )
                 }
             ));
 
@@ -2527,8 +2556,8 @@ namespace Viva
                 "floor_sit_headpat_angry_brush_away", "floor_sit_headpat_angry_brush_away", "stand_headpat_angry_brush_away",
                 Companion.Priority.HIGH, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_LONG, 1.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_LONG, 1.0f } )
                 }
             ));
 
@@ -2537,54 +2566,54 @@ namespace Viva
                 "floor_sit_headpat_climax_to_happy", "floor_sit_headpat_climax_to_happy", "stand_headpat_climax_to_happy",
                 Companion.Priority.HIGH, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.3f, null,
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_HEADPAT_B, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_HEADPAT_B, 0.0f } ),
                 }
             ));
 
             RegisterAnimation(Companion.Animation.STAND_HUG_FAR_TO_STAND,
                 new Companion.AnimationInfo(idleTransition,
                 "stand_hug_far_to_stand", "stand_locomotion_spine_stable", "stand_to_stand_hug_far_happy",
-                Companion.Priority.MEDIUM, BodyState.STANDING_HUG, BodyState.STAND,
+                Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 12, 0.4f)
             ));
 
             RegisterAnimation(Companion.Animation.STAND_TO_STAND_HUG_FAR_HAPPY,
                 new Companion.AnimationInfo(new DefaultTransition(Companion.Animation.STAND_HUG_HAPPY_LOOP),
                 "stand_to_stand_hug_far_happy", "stand_locomotion_spine_stable", "stand_to_stand_hug_far_happy",
-                Companion.Priority.HIGH, BodyState.STAND, BodyState.STANDING_HUG,
+                Companion.Priority.HIGH, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.GIGGLE, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.GIGGLE, 0.0f } ),
                 }
             ));
 
             RegisterAnimation(Companion.Animation.STAND_HUG_HAPPY_LOOP,
                 new Companion.AnimationInfo(null,
                 "stand_hug_happy_loop", "stand_locomotion_spine_stable", "stand_hug_happy_loop",
-                Companion.Priority.LOW, BodyState.STANDING_HUG, BodyState.STANDING_HUG,
+                Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 12, 0.4f),
                 null,
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
 
             RegisterAnimation(Companion.Animation.STAND_TO_STAND_HUG_FAR_ANGRY,
                 new Companion.AnimationInfo(new DefaultTransition(Companion.Animation.STAND_HUG_ANGRY_LOOP),
                 "stand_to_stand_hug_far_angry", "stand_locomotion_spine_stable", "stand_to_stand_hug_far_angry",
-                Companion.Priority.HIGH, BodyState.STAND, BodyState.STANDING_HUG,
+                Companion.Priority.HIGH, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_POUT, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_POUT, 0.0f } ),
                 }
             ));
 
             RegisterAnimation(Companion.Animation.STAND_HUG_ANGRY_LOOP,
                 new Companion.AnimationInfo(null,
                 "stand_hug_angry_loop", "stand_locomotion_spine_stable", "stand_hug_angry_loop",
-                Companion.Priority.HIGH, BodyState.STANDING_HUG, BodyState.STANDING_HUG,
+                Companion.Priority.HIGH, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.4f),
                 null,
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
 
             RegisterAnimation(Companion.Animation.FLOOR_SIT_AGREE,
@@ -2592,8 +2621,8 @@ namespace Viva
                 "floor_sit_agree", "floor_sit_agree", "floor_sit_agree",
                 Companion.Priority.LOW, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.3f, new Companion.AnimLogicInfo(1, 0.5f, 0.3f, 12, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.GIGGLE, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.GIGGLE, 0.0f } ),
                 }
             ));
 
@@ -2602,8 +2631,8 @@ namespace Viva
                 "floor_sit_refuse", "floor_sit_refuse", "floor_sit_refuse",
                 Companion.Priority.LOW, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.3f, new Companion.AnimLogicInfo(1, 0.0f, 0.3f, 12, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.REFUSE, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.REFUSE, 0.0f } ),
                 }
             ));
 
@@ -2612,8 +2641,8 @@ namespace Viva
                 "floor_sit_beg_in_right", "floor_sit_beg_in_right", "floor_sit_beg_in_right",
                 Companion.Priority.LOW, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.3f, new Companion.AnimLogicInfo(1, 0.8f, 0.4f, 7, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
                 }
             ), true);
 
@@ -2622,8 +2651,8 @@ namespace Viva
                 "floor_sit_beg_loop_right", "floor_sit_beg_loop_right", "floor_sit_beg_loop_right",
                 Companion.Priority.LOW, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.3f, new Companion.AnimLogicInfo(1, 0.8f, 0.4f, 7, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
                 }
             ), true);
 
@@ -2632,8 +2661,8 @@ namespace Viva
                 "floor_sit_beg_to_card_fan_start_right", "floor_sit_beg_to_card_fan_start_right", "floor_sit_beg_to_card_fan_start_right",
                 Companion.Priority.LOW, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.3f, new Companion.AnimLogicInfo(0, 0.8f, 0.2f, 0, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
                 }
             ), true);
 
@@ -2642,10 +2671,10 @@ namespace Viva
                 "floor_sit_reach_right", "floor_sit_reach_right", "floor_sit_reach_right",
                 Companion.Priority.MEDIUM, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.3f, new Companion.AnimLogicInfo(0, 0.8f, 0.2f, 0, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 0.8f, 0.7f } ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 0.8f, 0.7f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.5f } ),
                 }
             ), true);
 
@@ -2654,10 +2683,10 @@ namespace Viva
                 "floor_sit_place_card_right", "floor_sit_place_card_right", "floor_sit_place_card_right",
                 Companion.Priority.LOW, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.3f, new Companion.AnimLogicInfo(0, 0.8f, 0.2f, 12, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EFFORT, 0.0f } ),
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 0.8f, 0.5f } ),
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.EFFORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 0.8f, 0.5f } ),
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.5f } ),
                 }
             ), true);
 
@@ -2666,10 +2695,10 @@ namespace Viva
                 "floor_sit_pick_card_right", "floor_sit_pick_card_right", "floor_sit_pick_card_right",
                 Companion.Priority.LOW, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.3f, new Companion.AnimLogicInfo(1, 0.8f, 0.2f, 12, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BLEND_CONTROLLER_RIGHT, new float[]{ 0.0f } ),
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.EXECUTE_PICK_CARD_RIGHT, null ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.BLEND_CONTROLLER_RIGHT, new float[]{ 0.0f } ),
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.EXECUTE_PICK_CARD_RIGHT, null ),
                 }
             ), true);
 
@@ -2678,16 +2707,16 @@ namespace Viva
                 "stand_impressed1", "stand_impressed1", "stand_impressed1",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(1, 0.8f, 0.2f, 12, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.IMPRESSED_VERY, 1.0f } ),
-                new LoliAnimationEvent( 0.2f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
-                new LoliAnimationEvent( 0.26f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
-                new LoliAnimationEvent( 0.34f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
-                new LoliAnimationEvent( 0.42f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
-                new LoliAnimationEvent( 0.50f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
-                new LoliAnimationEvent( 0.58f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
-                new LoliAnimationEvent( 0.66f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
-                new LoliAnimationEvent( 0.74f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.IMPRESSED_VERY, 1.0f } ),
+                new CompanionAnimationEvent( 0.2f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
+                new CompanionAnimationEvent( 0.26f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
+                new CompanionAnimationEvent( 0.34f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
+                new CompanionAnimationEvent( 0.42f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
+                new CompanionAnimationEvent( 0.50f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
+                new CompanionAnimationEvent( 0.58f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
+                new CompanionAnimationEvent( 0.66f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
+                new CompanionAnimationEvent( 0.74f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
                 }
             ));
 
@@ -2696,16 +2725,16 @@ namespace Viva
                 "floor_sit_impressed1", "floor_sit_impressed1", "stand_impressed1",
                 Companion.Priority.LOW, BodyState.FLOOR_SIT, BodyState.FLOOR_SIT,
                 0.3f, new Companion.AnimLogicInfo(1, 0.8f, 0.2f, 12, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.IMPRESSED_VERY, 1.0f } ),
-                new LoliAnimationEvent( 0.2f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
-                new LoliAnimationEvent( 0.26f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
-                new LoliAnimationEvent( 0.34f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
-                new LoliAnimationEvent( 0.42f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
-                new LoliAnimationEvent( 0.50f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
-                new LoliAnimationEvent( 0.58f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
-                new LoliAnimationEvent( 0.66f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
-                new LoliAnimationEvent( 0.74f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.IMPRESSED_VERY, 1.0f } ),
+                new CompanionAnimationEvent( 0.2f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
+                new CompanionAnimationEvent( 0.26f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
+                new CompanionAnimationEvent( 0.34f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
+                new CompanionAnimationEvent( 0.42f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
+                new CompanionAnimationEvent( 0.50f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
+                new CompanionAnimationEvent( 0.58f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
+                new CompanionAnimationEvent( 0.66f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
+                new CompanionAnimationEvent( 0.74f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
                 }
             ));
 
@@ -2738,10 +2767,10 @@ namespace Viva
                 "floor_face_down_to_stand", "floor_face_down_to_stand", "floor_face_down_to_stand",
                 Companion.Priority.LOW, BodyState.OFFBALANCE, BodyState.STAND,
                 0.0f, new Companion.AnimLogicInfo(0, 0.6f, 0.5f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.2f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
-                new LoliAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.8f, 0.5f } ),
-                new LoliAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 0.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.2f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.8f, 0.5f } ),
+                new CompanionAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 0.5f } ),
                 }
             ));
 
@@ -2750,10 +2779,10 @@ namespace Viva
                 "floor_face_up_to_stand", "floor_face_up_to_stand", "floor_face_up_to_stand",
                 Companion.Priority.LOW, BodyState.OFFBALANCE, BodyState.STAND,
                 0.0f, new Companion.AnimLogicInfo(0, 0.6f, 0.5f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.2f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
-                new LoliAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.8f, 0.5f } ),
-                new LoliAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 0.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.2f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.8f, 0.5f } ),
+                new CompanionAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 0.5f } ),
                 }
             ));
 
@@ -2762,8 +2791,8 @@ namespace Viva
                 "floor_face_up_idle", "floor_face_up_idle", "floor_face_up_idle",
                 Companion.Priority.LOW, BodyState.OFFBALANCE, BodyState.OFFBALANCE,
                 0.4f, new Companion.AnimLogicInfo(0, 0.6f, 0.5f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.2f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.2f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
                 }
             ));
 
@@ -2772,10 +2801,10 @@ namespace Viva
                 "floor_face_side_to_stand_right", "floor_face_side_to_stand_right", "floor_face_side_to_stand_right",
                 Companion.Priority.LOW, BodyState.OFFBALANCE, BodyState.STAND,
                 0.0f, new Companion.AnimLogicInfo(0, 0.6f, 0.5f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
-                new LoliAnimationEvent( 0.85f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.8f, 0.5f } ),
-                new LoliAnimationEvent( 0.85f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 0.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent( 0.85f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 0.8f, 0.5f } ),
+                new CompanionAnimationEvent( 0.85f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 0.5f } ),
                 }
             ), true);
 
@@ -2784,12 +2813,12 @@ namespace Viva
                 "stand_merchant_idle1", "stand_merchant_idle1", "stand_merchant_idle1",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(1, 0.5f, 0.3f, 0, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.5f } ),
-                new LoliAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 0.5f } ),
-                new LoliAnimationEvent( 1.0f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.5f } ),
-                new LoliAnimationEvent( 1.0f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 0.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.5f } ),
+                new CompanionAnimationEvent( 0.5f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 0.5f } ),
+                new CompanionAnimationEvent( 1.0f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.5f } ),
+                new CompanionAnimationEvent( 1.0f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 7.0f, 0.5f } ),
                 }
             ));
             RegisterAnimation(Companion.Animation.STAND_BOW,
@@ -2797,10 +2826,10 @@ namespace Viva
                 "stand_bow", "stand_bow", "stand_bow",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 0.3f, 0.3f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
-                new LoliAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.4f } ),
-                new LoliAnimationEvent( 0.6f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent( 0.7f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.4f } ),
+                new CompanionAnimationEvent( 0.6f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.4f } ),
                 }
             ));
             RegisterAnimation(Companion.Animation.STAND_FOLLOW_ME_RIGHT,
@@ -2808,8 +2837,8 @@ namespace Viva
                 "stand_follow_me_right", "stand_follow_me_right", "stand_follow_me_right",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(0, 0.3f, 0.3f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ECSTATIC, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ECSTATIC, 0.0f } ),
                 }
             ));
             RegisterAnimation(Companion.Animation.STAND_SLIDINGDOOR_RIGHT,
@@ -2817,8 +2846,8 @@ namespace Viva
                 "stand_slidingDoor_right", "stand_slidingDoor_right", "stand_happy_idle",
                 Companion.Priority.MEDIUM, BodyState.STAND, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(1, 0.7f, 0.3f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
                 }
             ), true);
 
@@ -2835,7 +2864,7 @@ namespace Viva
                 Companion.Priority.LOW, BodyState.SQUAT, BodyState.SQUAT,
                 0.3f, new Companion.AnimLogicInfo(1, 1.0f, 0.3f, 7, 0.4f),
                 null,
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
 
             RegisterAnimation(Companion.Animation.SQUAT_LOCOMOTION_ANGRY,
@@ -2844,7 +2873,7 @@ namespace Viva
                 Companion.Priority.LOW, BodyState.SQUAT, BodyState.SQUAT,
                 0.3f, new Companion.AnimLogicInfo(1, 1.0f, 0.3f, 7, 0.4f),
                 null,
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
 
             RegisterLegSpeedInfo("squat_locomotion_happy", 0.75f, 0.3f, 100.0f, 20.0f);
@@ -2854,8 +2883,8 @@ namespace Viva
                 "stand_to_squat", "stand_to_squat", "stand_happy_idle",
                 Companion.Priority.LOW, BodyState.STAND, BodyState.SQUAT,
                 0.3f, new Companion.AnimLogicInfo(1, 0.3f, 0.3f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
                 }
             ));
 
@@ -2864,8 +2893,8 @@ namespace Viva
                 "squat_to_relax", "squat_to_relax", "squat_to_relax",
                 Companion.Priority.LOW, BodyState.SQUAT, BodyState.RELAX,
                 0.3f, new Companion.AnimLogicInfo(1, 0.3f, 0.3f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.RELIEF, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.RELIEF, 0.0f } ),
                 }
             ));
 
@@ -2875,7 +2904,7 @@ namespace Viva
                 Companion.Priority.LOW, BodyState.RELAX, BodyState.RELAX,
                 0.3f, new Companion.AnimLogicInfo(1, 0.3f, 0.3f, 12, 0.4f),
                 null,
-                (int)Companion.AnimationInfo.Flag.IDLE_STATE
+                AnimationInfo.Flag.IDLE_STATE
             ));
 
             RegisterAnimation(Companion.Animation.RELAX_TO_SQUAT,
@@ -2890,8 +2919,8 @@ namespace Viva
                 "relax_to_squat_startle", "relax_to_squat_startle", "relax_to_squat_startle",
                 Companion.Priority.MEDIUM, BodyState.RELAX, BodyState.SQUAT,
                 0.3f, new Companion.AnimLogicInfo(1, 0.8f, 0.3f, 0, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SCARED_SHORT, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.SCARED_SHORT, 0.0f } ),
                 }
             ));
 
@@ -2900,8 +2929,8 @@ namespace Viva
                 "squat_to_stand", "squat_to_stand", "stand_happy_idle",
                 Companion.Priority.LOW, BodyState.SQUAT, BodyState.STAND,
                 0.3f, new Companion.AnimLogicInfo(1, 0.3f, 0.3f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 0.0f } ),
                 }
             ));
 
@@ -2910,8 +2939,8 @@ namespace Viva
                 "squat_headpat_happy_start", "squat_headpat_happy_start", "squat_headpat_happy_start",
                 Companion.Priority.MEDIUM, BodyState.SQUAT, BodyState.SQUAT,
                 0.4f, new Companion.AnimLogicInfo(2, 1.0f, 0.5f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.05f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_STARTLE, 0.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.05f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_STARTLE, 0.0f } )
                 }
             ));
 
@@ -2920,13 +2949,13 @@ namespace Viva
                 "squat_headpat_happy_wanted_more", "squat_headpat_happy_wanted_more", "squat_headpat_happy_wanted_more",
                 Companion.Priority.MEDIUM, BodyState.SQUAT, BodyState.SQUAT,
                 0.3f, new Companion.AnimLogicInfo(3, 1.0f, 0.5f, 6, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_STARTLE, 0.0f } ),
-                new LoliAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_SIGH, 0.0f } ),
-                new LoliAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.8f } ),
-                new LoliAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.3f } ),
-                new LoliAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.8f } ),
-                new LoliAnimationEvent( 0.9f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_STARTLE, 0.0f } ),
+                new CompanionAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.DISAPPOINTED_SIGH, 0.0f } ),
+                new CompanionAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.8f } ),
+                new CompanionAnimationEvent( 0.3f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.3f } ),
+                new CompanionAnimationEvent( 0.8f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 3.0f, 1.0f, 0.8f } ),
+                new CompanionAnimationEvent( 0.9f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
                 }
             ));
 
@@ -2935,11 +2964,11 @@ namespace Viva
                 "squat_headpat_happy_idle_sad_right", "squat_headpat_happy_idle_sad_right", "squat_headpat_happy_idle_sad_right",
                 Companion.Priority.MEDIUM, BodyState.SQUAT, BodyState.SQUAT,
                 0.3f, new Companion.AnimLogicInfo(1, 0.4f, 0.5f, 12, 0.5f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.WHINE_SOFT, 0.0f } ),
-                new LoliAnimationEvent( 0.34f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.6f } ),
-                new LoliAnimationEvent( 0.34f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.3f } ),
-                new LoliAnimationEvent( 0.85f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.WHINE_SOFT, 0.0f } ),
+                new CompanionAnimationEvent( 0.34f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 0.0f, 1.0f, 0.6f } ),
+                new CompanionAnimationEvent( 0.34f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 0.0f, 0.3f } ),
+                new CompanionAnimationEvent( 0.85f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 0.3f } ),
                 }
             ), true);
 
@@ -2948,8 +2977,8 @@ namespace Viva
             // 	"squat_headpat_satisfaction","squat_headpat_satisfaction","squat_headpat_satisfaction",
             // 	Companion.Priority.MEDIUM,BodyState.SQUAT,BodyState.SQUAT,
             // 	0.3f,new Companion.AnimLogicInfo(0,1.0f,0.5f,0,0.4f),
-            // 	new LoliAnimationEvent[]{
-            // 		new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ECSTATIC, 0.0f } ),
+            // 	new CompanionAnimationEvent[]{
+            // 		new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ECSTATIC, 0.0f } ),
             // 	}
             // ));
 
@@ -2958,9 +2987,9 @@ namespace Viva
                 "squat_headpat_happy_loop", "squat_headpat_happy_loop", "squat_headpat_happy_loop",
                 Companion.Priority.LOW, BodyState.SQUAT, BodyState.SQUAT,
                 0.5f, new Companion.AnimLogicInfo(0, 0.5f, 0.5f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.05f, (int)Companion.AnimationEventName.HEADPAT_PROPER_SOUND, null ),
-                new LoliAnimationEvent( 0.45f, (int)Companion.AnimationEventName.HEADPAT_PROPER_SOUND, null )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.05f, (int)Companion.AnimationEventName.HEADPAT_PROPER_SOUND, null ),
+                new CompanionAnimationEvent( 0.45f, (int)Companion.AnimationEventName.HEADPAT_PROPER_SOUND, null )
                 }
             ));
 
@@ -2969,8 +2998,8 @@ namespace Viva
                 "squat_headpat_angry_brush_away", "squat_headpat_angry_brush_away", "stand_headpat_angry_brush_away",
                 Companion.Priority.HIGH, BodyState.SQUAT, BodyState.SQUAT,
                 0.2f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_LONG, 1.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_LONG, 1.0f } )
                 }
             ));
 
@@ -2979,8 +3008,8 @@ namespace Viva
                 "squat_headpat_angry_start", "squat_headpat_angry_start", "squat_headpat_angry_start",
                 Companion.Priority.MEDIUM, BodyState.SQUAT, BodyState.SQUAT,
                 0.2f, new Companion.AnimLogicInfo(0, 0.5f, 0.5f, 7, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_POUT, 0.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_POUT, 0.0f } )
                 }
             ));
 
@@ -2989,8 +3018,8 @@ namespace Viva
                 "squat_headpat_angry_loop", "squat_headpat_angry_loop", "squat_headpat_angry_loop",
                 Companion.Priority.MEDIUM, BodyState.SQUAT, BodyState.SQUAT,
                 0.2f, new Companion.AnimLogicInfo(0, 0.5f, 0.5f, 7, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_POUT, 0.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_POUT, 0.0f } )
                 }
             ));
 
@@ -2999,9 +3028,9 @@ namespace Viva
                 "squat_headpat_climax_to_cancel_right", "squat_headpat_climax_to_cancel_right", "stand_headpat_climax_to_cancel_right",
                 Companion.Priority.HIGH, BodyState.SQUAT, BodyState.SQUAT,
                 0.15f, new Companion.AnimLogicInfo(0, 1.0f, 0.85f, 0, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_LONG, 0.0f } ),
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 1.0f } )
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_LONG, 0.0f } ),
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_EYE_FLAGS, new float[]{ 12.0f, 1.0f } )
                 }
             ), true);
 
@@ -3010,8 +3039,8 @@ namespace Viva
                 "squat_headpat_climax_to_happy", "squat_headpat_climax_to_happy", "stand_headpat_climax_to_happy",
                 Companion.Priority.HIGH, BodyState.SQUAT, BodyState.SQUAT,
                 0.3f, null,
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_HEADPAT_B, 0.0f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.1f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.ANGRY_HEADPAT_B, 0.0f } ),
                 }
             ));
 
@@ -3020,9 +3049,9 @@ namespace Viva
                 "squat_poke_face_1_right", "squat_poke_face_1_right", "stand_poke_face_1_right",
                 Companion.Priority.HIGH, BodyState.SQUAT, BodyState.SQUAT,
                 0.15f, new Companion.AnimLogicInfo(1, 0.4f, 0.2f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 0.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 0.5f } ),
                 }
             ), true);
             RegisterAnimation(Companion.Animation.SQUAT_FACE_POKE_2_RIGHT,
@@ -3030,9 +3059,9 @@ namespace Viva
                 "squat_poke_face_2_right", "squat_poke_face_2_right", "stand_poke_face_2_right",
                 Companion.Priority.HIGH, BodyState.SQUAT, BodyState.SQUAT,
                 0.15f, new Companion.AnimLogicInfo(1, 0.4f, 0.2f, 12, 0.4f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
-                new LoliAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 0.5f } ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.STARTLE_SHORT, 0.0f } ),
+                new CompanionAnimationEvent( 0.4f, (int)Companion.AnimationEventName.SET_BODY_FLAGS, new float[]{ 1.0f, 1.0f, 0.5f } ),
                 }
             ), true);
 
@@ -3041,16 +3070,16 @@ namespace Viva
                 "squat_impressed1", "squat_impressed1", "stand_impressed1",
                 Companion.Priority.LOW, BodyState.SQUAT, BodyState.SQUAT,
                 0.3f, new Companion.AnimLogicInfo(1, 0.8f, 0.2f, 12, 0.3f),
-                new LoliAnimationEvent[]{
-                new LoliAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.IMPRESSED_VERY, 1.0f } ),
-                new LoliAnimationEvent( 0.2f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
-                new LoliAnimationEvent( 0.26f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
-                new LoliAnimationEvent( 0.34f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
-                new LoliAnimationEvent( 0.42f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
-                new LoliAnimationEvent( 0.50f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
-                new LoliAnimationEvent( 0.58f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
-                new LoliAnimationEvent( 0.66f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
-                new LoliAnimationEvent( 0.74f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
+                new CompanionAnimationEvent[]{
+                new CompanionAnimationEvent( 0.0f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.IMPRESSED_VERY, 1.0f } ),
+                new CompanionAnimationEvent( 0.2f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
+                new CompanionAnimationEvent( 0.26f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
+                new CompanionAnimationEvent( 0.34f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
+                new CompanionAnimationEvent( 0.42f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
+                new CompanionAnimationEvent( 0.50f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
+                new CompanionAnimationEvent( 0.58f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
+                new CompanionAnimationEvent( 0.66f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
+                new CompanionAnimationEvent( 0.74f, (int)Companion.AnimationEventName.PLAY_CLAP_SOUND, null ),
                 }
             ));
         }

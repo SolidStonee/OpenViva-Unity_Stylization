@@ -31,8 +31,18 @@ namespace Viva
 
                 bellFX.Emit(1);
 
-                Player source = Tools.SearchTransformAncestors<Player>(collision.transform);
-                targetReception.CreateClerkSession(source, null);
+                var source = Tools.SearchTransformAncestors<Player>(collision.transform);
+                if (source == null)
+                {
+                    var source2 = Tools.SearchTransformAncestors<Item>(collision.transform);
+                    if (source2 == null) return;
+                    targetReception.CreateClerkSession(source2.mainOwner, null);
+                }
+                else
+                {
+                    targetReception.CreateClerkSession(source, null);
+                }
+                
             }
         }
     }

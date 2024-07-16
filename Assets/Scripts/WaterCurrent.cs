@@ -44,7 +44,7 @@ namespace Viva
             {
                 return;
             }
-            character.footstepInfo.AddtoFootstepRegion(FootstepInfo.Type.WATER);
+            character.footstepInfo.AddtoFootstepRegion(FootstepInfo.FootStepType.WATER);
         }
 
         public void OnTriggerExit(Collider collider)
@@ -54,7 +54,7 @@ namespace Viva
             {
                 return;
             }
-            character.footstepInfo.RemoveFromFootstepRegion(FootstepInfo.Type.WATER);
+            character.footstepInfo.RemoveFromFootstepRegion(FootstepInfo.FootStepType.WATER);
         }
     }
 

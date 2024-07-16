@@ -219,7 +219,7 @@ namespace Viva
         {
             OnItemDisable();
         }
-        public override sealed void OnDestroy()
+        protected override sealed void OnStartDestroy()
         {
             m_isBeingDestroyed = true;
             GameDirector.items.Remove(this);
@@ -267,7 +267,7 @@ namespace Viva
         {
             return settings.playerHeldAnimation;
         }
-        public virtual Companion.HoldFormAnimation GetPreferredLoliHeldAnimation(CompanionHandState companionHandState)
+        public virtual Companion.HoldFormAnimation GetPreferredCompanionHeldAnimation(CompanionHandState companionHandState)
         {
             return settings.companionHeldAnimation;
         }
@@ -292,7 +292,7 @@ namespace Viva
             }
             if (handState.actionState.isDown && !handState.player.keyboardAlt)
             {
-                OnItemUsed();
+                OnItemUsed(handState);
             }
             
         }
@@ -303,7 +303,7 @@ namespace Viva
                 statusBar.FaceCamera();
             }
         }
-        public virtual void OnItemUsed()
+        public virtual void OnItemUsed(PlayerHandState handState)
         {
         }
         public virtual bool OnPrePickupInterrupt(HandState handState)

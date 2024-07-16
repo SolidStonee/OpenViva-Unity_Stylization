@@ -107,7 +107,7 @@ namespace Viva
             Item oldItem = heldItem;
             DropHeldItem(false, false);
 
-            Debug.Log("[" + owner.name + "] picked up " + item.name);
+            Debug.Log("[" + owner.name + "] picked up " + item.assetName);
             heldItem = item;
 
             item.AddOccupyState(this);

@@ -8,7 +8,7 @@ namespace Viva
     {
 
         [SerializeField]
-        private Outfit m_outfit = null;
+        private Outfit m_outfit;
         [VivaFileAttribute]
         public Outfit outfit { get { return m_outfit; } protected set { m_outfit = value; } }
 

@@ -29,7 +29,6 @@ namespace Viva
         private bool[] gapStates;
         private static readonly int bloodAmountID = Shader.PropertyToID("_Blood");
         private static readonly int solveID = Shader.PropertyToID("_Solve");
-        private bool bloodEnabled = false;
         private float huddleMinimum;
         private float referenceUnit;
         private float sleepTimeout = 0.0f;

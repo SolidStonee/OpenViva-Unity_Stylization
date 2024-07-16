@@ -25,9 +25,11 @@ Material:
   m_Parent: {fileID: 2100000, guid: 5c4a6b3882d01db4b945601c54016701, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _ENVIRONMENTREFLECTIONS_OFF
   - _METALLICSPECGLOSSMAP
   - _NORMALMAP
   - _OCCLUSIONMAP
+  - _SPECULARHIGHLIGHTS_OFF
   m_InvalidKeywords:
   - N_F_EAL_ON
   - N_F_ESSAO_ON
@@ -94,11 +96,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _EnvironmentReflections: 0
     - _GlossMapScale: 0.8
     - _N_F_ESSAO: 1
     - _N_F_NLASOBF: 1
     - _OcclusionStrength: 0.75
     - _ReduSha: 0.71
     - _ShadowHardness: 0
+    - _SpecularHighlights: 0
     m_Colors: []
   m_BuildTextureStacks: []

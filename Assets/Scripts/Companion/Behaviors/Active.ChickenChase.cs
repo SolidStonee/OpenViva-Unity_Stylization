@@ -24,7 +24,7 @@ namespace Viva
         private float tangentSpeed = 0.0f;
         private float chaseTimeout = 0.0f;
 
-        public ChickenChaseBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.CHICKEN_CHASE, null)
+        public ChickenChaseBehavior(Companion _self) : base("Chasing Chickens", _self, ActiveBehaviors.Behavior.CHICKEN_CHASE, null)
         {
         }
 
@@ -52,11 +52,11 @@ namespace Viva
             return true;
         }
 
-        // public override void OnActivate(){
-        // 	state = ChaseState.WALK_TO_CIRCLE;
-        // 	chaseTimeout = 0.0f;
-        // 	tangentSpeed = 0.0f;
-        // }
+        public override void OnActivate(){
+        	state = ChaseState.WALK_TO_CIRCLE;
+        	chaseTimeout = 0.0f;
+        	tangentSpeed = 0.0f;
+        }
 
         public override void OnDeactivate()
         {
@@ -84,10 +84,10 @@ namespace Viva
                     break;
             }
             // self.SetRootFacingTarget( targetChicken.pelvis.position, 200.0f, 20.0f, 10.0f );
-            self.autonomy.SetAutonomy(new AutonomyFaceDirection(self.autonomy, "look chicken", delegate (TaskTarget target)
-            {
-                target.SetTargetPosition(targetChicken.pelvis.position);
-            }, 20.0f));
+            // self.autonomy.SetAutonomy(new AutonomyFaceDirection(self.autonomy, "look chicken", delegate (TaskTarget target)
+            // {
+            //     target.SetTargetPosition(targetChicken.pelvis.position);
+            // }, 20.0f));
             self.SetLookAtTarget(targetChicken.transform);
         }
 

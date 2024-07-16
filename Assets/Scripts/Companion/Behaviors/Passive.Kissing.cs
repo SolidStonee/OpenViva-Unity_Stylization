@@ -115,11 +115,13 @@ namespace Viva
         private void facePlayer(float faceDirSpeedMult)
         {
             //self.SetRootFacingTarget( GameDirector.player.head.transform.position, 100.0f*faceDirSpeedMult, 20.0f*faceDirSpeedMult, 10.0f );
-            //self.autonomy.SetAutonomy(new AutonomyFaceDirection( self.autonomy, "face direction", delegate(TaskTarget target){
-            //                target.SetTargetPosition( GameDirector.player.head.transform.position );
-            //            }, 100.0f*faceDirSpeedMult ) );
-
             self.SetLookAtTarget(GameDirector.player.head);
+            self.autonomy.Interrupt(new AutonomyFaceDirection(self.autonomy, "face direction", delegate (TaskTarget target)
+            {
+                target.SetTargetPosition(GameDirector.player.head.transform.position);
+            }, faceDirSpeedMult));
+
+            
         }
 
         public override void OnAnimationChange(Companion.Animation oldAnim, Companion.Animation newAnim)

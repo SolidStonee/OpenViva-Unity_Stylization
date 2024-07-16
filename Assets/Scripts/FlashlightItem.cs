@@ -42,7 +42,7 @@ namespace Viva {
             }
         }
 
-        public override void OnItemUsed()
+        public override void OnItemUsed(PlayerHandState handState)
         {
             Toggle();
         }
@@ -54,13 +54,13 @@ namespace Viva {
 
             if (enable)
             {
-                SoundManager.main.RequestHandle(transform.position).PlayOneShot(flashlightOnSound.GetRandomAudioClip());
+                SoundManager.main.RequestHandle(transform.position, transform).PlayOneShot(flashlightOnSound.GetRandomAudioClip());
                 flashlightRenderer.material.SetColor(emissionColorID, Color.white);
        
             }
             else
             {
-                SoundManager.main.RequestHandle(transform.position).PlayOneShot(flashlightOffSound.GetRandomAudioClip());
+                SoundManager.main.RequestHandle(transform.position, transform).PlayOneShot(flashlightOffSound.GetRandomAudioClip());
                 flashlightRenderer.material.SetColor(emissionColorID, Color.black);
             }
         }

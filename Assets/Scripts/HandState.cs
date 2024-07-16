@@ -196,7 +196,8 @@ namespace Viva
                 Rigidbody targetBody = Tools.SearchTransformAncestors<Rigidbody>(collider.transform);
                 if (targetBody == null)
                 {
-                    Debug.LogError("[HandState] Cannot setup grab, targetBody is null!");
+                    Debug.LogError("[HandState] Cannot setup grab, targetBody is null! ");
+                    Debug.LogError($"[HandState] Grab collider that failed was: {collider.name}");
                     return;
                 }
                 OnPreApplyHoldingTransform(targetItem);
@@ -258,7 +259,7 @@ namespace Viva
             }
             if (heldItem.settings.pickupSound)
             {
-                SoundManager.main.RequestHandle(transform.position).PlayOneShot(heldItem.settings.pickupSound.GetRandomAudioClip());
+                SoundManager.main.RequestHandle(transform.position, transform).PlayOneShot(heldItem.settings.pickupSound.GetRandomAudioClip());
             }
         }
         protected override void OnPreDropItem()

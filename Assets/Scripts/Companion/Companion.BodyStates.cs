@@ -119,13 +119,30 @@ namespace Viva
         private bool AnimationAllowsBalanceCheck(Animation animation)
         {
             AnimationInfo info = animationInfos[animation];
-            if ((info.flags & (int)AnimationInfo.Flag.DISABLE_RAGDOLL_CHECK) != 0)
+            if (info.HasFlag(AnimationInfo.Flag.DISABLE_RAGDOLL_CHECK))
             {
                 return false;
             }
             bool conditionAllows = bodyStateAnimationSets[(int)info.conditionBodyState].checkBalance;
             bool newAllows = bodyStateAnimationSets[(int)info.newBodyState].checkBalance;
             return conditionAllows && newAllows;
+        }
+
+        public bool AnimationDisablesHoldingIK(Animation animation, bool right)
+        {
+            AnimationInfo info = animationInfos[animation];
+            if (info.flag != AnimationInfo.Flag.NONE)
+            {
+                if (right)
+                {
+                    return info.HasFlag(AnimationInfo.Flag.DISABLE_HOLDIK_RIGHT);
+                }
+                else
+                {
+                    return info.HasFlag(AnimationInfo.Flag.DISABLE_HOLDIK_LEFT);
+                }
+            }
+            return false;
         }
 
         public void OverrideBodyState(BodyState newBodyState)

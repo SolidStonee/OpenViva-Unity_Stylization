@@ -301,19 +301,14 @@ namespace Viva
                     return quat;
                 case AssetStorage.VIVA_SESSION_ASSET:
                     if (rawVal == "")
-                    {   //null references are empty string
+                    {   // null references are empty string
                         return null;
                     }
-                    GameObject targetContainer = GameObject.Find(rawVal);
-                    if (targetContainer == null)
+                    VivaSessionAsset asset = VivaSessionAsset.FindAssetByID(rawVal);
+                    if (asset == null)
                     {
                         Debug.LogError("[PERSISTANCE] Could not dereference gameobject " + rawVal);
                         return null;
-                    }
-                    VivaSessionAsset asset = targetContainer.GetComponent<VivaSessionAsset>();
-                    if (asset == null)
-                    {
-                        Debug.LogError("[PERSISTANCE] Could not find VivaSessionAsset from gameobject " + rawVal);
                     }
                     return asset;
                 case AssetStorage.VIVA_SESSION_ASSET_ARRAY:

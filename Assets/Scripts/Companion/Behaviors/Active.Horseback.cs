@@ -22,7 +22,7 @@ namespace Viva
         public bool isOnHorse { get; private set; } = false;
 
 
-        public HorsebackBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.HORSEBACK, new HorseSession())
+        public HorsebackBehavior(Companion _self) : base("Riding a Horse", _self, ActiveBehaviors.Behavior.HORSEBACK, new HorseSession())
         {
         }
 
@@ -45,8 +45,8 @@ namespace Viva
         public override void OnActivate()
         {
 
-            GameDirector.player.objectFingerPointer.selectedLolis.Remove(self);
-            self.characterSelectionTarget.OnUnselected();
+            GameDirector.player.objectFingerPointer.selectedCompanions.Remove(self);
+            self.OnUnselected();
         }
 
         public override void OnDeactivate()
@@ -66,6 +66,13 @@ namespace Viva
             var playAnim = CompanionUtility.CreateSpeechAnimation(self, AnimationSet.CONFUSED, SpeechBubble.INTERROGATION);
             playAnim.onSuccess += delegate { self.active.SetTask(self.active.idle); };
             self.autonomy.SetAutonomy(playAnim);
+        }
+
+        private void DisappointAndFinalizeHorseback()
+        {
+            var failAnim = new AutonomyPlayAnimation(self.autonomy, "fail beg distance", Companion.Animation.STAND_HAPPY_DISAPPOINTMENT);
+            failAnim.onSuccess += delegate { self.active.SetTask(self.active.idle); };
+            self.autonomy.SetAutonomy(failAnim);
         }
 
         private void RideHorse()
@@ -89,6 +96,13 @@ namespace Viva
                 target.SetTargetPosition(horseSession.horse.spine1.position - horseSession.horse.spine1.forward * side);
             });
             moveToHorseSide.onGeneratePathRequest = GeneratePathRequest;
+            moveToHorseSide.onUpdate += delegate
+            {
+                if (horseSession.horse.backSeat.owner != null)
+                {
+                    DisappointAndFinalizeHorseback();
+                }
+            };
             moveToHorseSide.onSuccess += OnReachHorseSide;
             moveToHorseSide.onFail += ConfusedAndFinalizeHorseback;
 
@@ -139,20 +153,21 @@ namespace Viva
 
             var overseeAnchor = new AutonomyEmpty(self.autonomy, "ride horse global", delegate { return null; });
 
-            var playJoyAnim = new AutonomyPlayAnimation(self.autonomy, "joy anim", Companion.Animation.HORSEBACK_JOY);
-            playJoyAnim.FlagForSuccess();
-
-            var playJoyAnimInterval = new AutonomyWait(self.autonomy, "play joy anim", 20.0f);
-            playJoyAnimInterval.loop = true;
-            playJoyAnimInterval.onSuccess += delegate { playJoyAnim.Reset(); };
+            // var playJoyAnim = new AutonomyPlayAnimation(self.autonomy, "joy anim", Companion.Animation.HORSEBACK_JOY);
+            // playJoyAnim.FlagForSuccess();
+            //
+            // var playJoyAnimInterval = new AutonomyWait(self.autonomy, "play joy anim", 20.0f);
+            // playJoyAnimInterval.loop = true;
+            // playJoyAnimInterval.onSuccess += delegate { playJoyAnim.Reset(); };
 
             var mountHorse = new AutonomyPlayAnimation(self.autonomy, "mount horse anim", entryAnim);
             mountHorse.onAnimationEnter += OnMountHorseEnterAnimation;
             mountHorse.onAnimationExit += OnMountHorseIdleAnimation;
             mountHorse.onRemovedFromQueue += EndHorseLogic;
 
-            overseeAnchor.AddRequirement(mountHorse);
             overseeAnchor.AddRequirement(new AutonomyFilterUse(self.autonomy, "horse seat", horseSession.horse.backSeat, 0.0f, true));
+            overseeAnchor.AddRequirement(mountHorse);
+            
 
             self.autonomy.SetAutonomy(overseeAnchor);
         }

@@ -59,7 +59,7 @@ namespace Viva
 
         public void SetTargetItem(Item targetItem)
         {
-            //check that target is not part of self hierarchy (would caus spinning in place)
+            //check that target is not part of self hierarchy (would cause spinning in place)
             if (targetItem == null)
             {
                 lastReadPos = null; //count as complete
@@ -194,7 +194,8 @@ namespace Viva
                 return;
             }
             Vector3 readPos = ConstrainFromFloorPos(target.lastReadPos.Value);
-            Debug.DrawLine(self.floorPos, readPos, Color.magenta, 0.1f);
+            Debug.DrawLine(self.floorPos, readPos, Color.green, 0.1f);
+            Debug.DrawLine(self.anchor.position, self.anchor.position + self.anchor.forward, Color.red, 0.1f);
             float bearing = Tools.Bearing(self.anchor, readPos);
             if (self.faceYawDisableSum > 0)
             {   //disable if sum is greater than 1

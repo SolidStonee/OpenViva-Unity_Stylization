@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9a6db46ea1f40743af6eb0ed0193136, type: 3}
   m_Name: Sky
   m_EditorClassIdentifier: 
-  environmentLightingExposure: 1
-  environmentLightingSaturation: 1
   periodsOfDay:
   - description: Night End
     startTime: 5.5
@@ -21,37 +19,44 @@ MonoBehaviour:
     horizonColor: {r: 0.011764706, g: 0.011764706, b: 0.02745098, a: 0}
     zenithColor: {r: 0.011764706, g: 0.011764706, b: 0.043137256, a: 0}
     groundColor: {r: 0.019607844, g: 0.015686275, b: 0.019607844, a: 0}
+    fogColor: {r: 0.02322449, g: 0.02322449, b: 0.087470084, a: 1}
   - description: Dawn
     startTime: 6
     daySegment: 0
     horizonColor: {r: 0.4528302, g: 0.24195907, b: 0.087575644, a: 0}
     zenithColor: {r: 0.8867924, g: 0.32084104, b: 0.11294055, a: 0}
     groundColor: {r: 0.07008724, g: 0.07290534, b: 0.084905684, a: 0}
+    fogColor: {r: 0.90466136, g: 0.44520125, b: 0.20507877, a: 0}
   - description: Day
     startTime: 9.1
     daySegment: 1
-    horizonColor: {r: 0.48380208, g: 0.5967927, b: 0.6792453, a: 0}
+    horizonColor: {r: 0.553, g: 0.69803923, b: 1, a: 0}
     zenithColor: {r: 0.06909563, g: 0.099198654, b: 0.23251227, a: 0}
-    groundColor: {r: 0.29411766, g: 0.26300654, b: 0.22745098, a: 0}
+    groundColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 0}
+    fogColor: {r: 0.49528304, g: 0.62783134, b: 0.6603774, a: 0}
   - description: Day End
     startTime: 16.5
     daySegment: 1
-    horizonColor: {r: 0.66180134, g: 0.6967497, b: 0.8301887, a: 1}
+    horizonColor: {r: 1, g: 1, b: 1, a: 1}
     zenithColor: {r: 0.054512277, g: 0.13728885, b: 0.46226418, a: 0}
-    groundColor: {r: 0.29, g: 0.257085, b: 0.22416998, a: 0}
+    groundColor: {r: 0.8962264, g: 0.8962264, b: 0.8962264, a: 0}
+    fogColor: {r: 0.28702384, g: 0.4589281, b: 0.4716981, a: 0}
   - description: Evening
     startTime: 18.6
-    daySegment: 2
+    daySegment: 1
     horizonColor: {r: 0.6603774, g: 0.45372912, b: 0.3270737, a: 0}
     zenithColor: {r: 0.6226415, g: 0.1967782, b: 0.38605088, a: 0}
     groundColor: {r: 0.066037714, g: 0.040888004, b: 0.02953007, a: 0}
+    fogColor: {r: 0.5754717, g: 0.24013372, b: 0.06243326, a: 0}
   - description: Night
-    startTime: 20.54
+    startTime: 20.1
     daySegment: 2
     horizonColor: {r: 0.011709091, g: 0.012727273, b: 0.027999999, a: 0}
     zenithColor: {r: 0.013523999, g: 0.013523999, b: 0.042, a: 0}
     groundColor: {r: 0.019, g: 0.017642858, b: 0.019, a: 0}
-  initialTime: 8
+    fogColor: {r: 0.023153365, g: 0.023153365, b: 0.086500466, a: 0}
+  initialTime: 12
   editorTime: 12
-  timeSystem: 12
-  dayNightCycleDuration: 1
+  timeSystem: 20.630993
+  dayNightCycleDuration: 120
+  currentSegment: 2

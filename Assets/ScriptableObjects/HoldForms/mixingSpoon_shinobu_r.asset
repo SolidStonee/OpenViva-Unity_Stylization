@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: mixingSpoon_shinobu_r
   m_EditorClassIdentifier: 
   rightHandOnly: 1
-  handSize: 0.99999994
+  handSize: 1
   normal: {x: 0.0060950653, y: 0.04230994, z: -0.99908775}
   fingers:
   - {x: -0.29123744, y: 0.019479826, z: 0.21177411, w: -0.9327128}

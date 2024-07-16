@@ -294,17 +294,14 @@ namespace Viva
                 {
                     targetHandState.GrabItemRigidBody(targetItem);
                     //end previous requirements
-                    RemoveRequirement( waitForIdle );
                     RemoveRequirement( moveTo );
                     RemoveRequirement( faceTarget );
-                    RemoveRequirement( playTargetAnim );
                     //make sure they go back to the idle animation
                     self.SetTargetAnimation(self.GetLastReturnableIdleAnimation());
                     if( begging ){
                         RemoveRequirement( setBegLocomotion );
-                        RemoveRequirement( playBegStartAnim );
                     }
-                    Viva.DevTools.LogExtended("begging successful, flagging for success", true, true);
+                    //Viva.DevTools.LogExtended("begging successful, flagging for success", true, true);
                     FlagForSuccess();
                     playTargetAnim.FlagForSuccess();
                     if (setBegLocomotion != null)

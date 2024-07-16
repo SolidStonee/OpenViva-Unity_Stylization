@@ -1,4 +1,5 @@
 using System.Collections;
+using OccaSoftware.Altos.Runtime;
 using UnityEngine;
 
 
@@ -18,7 +19,7 @@ namespace Viva
 
         private bool AllowedToPlayBell()
         {
-            if (GameDirector.skyDirector.daySegment == SkyDirector.DaySegment.NIGHT)
+            if (GameDirector.newSkyDirector.skyDefinition.currentSegment == DaySegment.NIGHT)
             {
                 return false;
             }

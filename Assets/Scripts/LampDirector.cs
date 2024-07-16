@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using OccaSoftware.Altos.Runtime;
 using UnityEngine;
 
 namespace Viva
@@ -22,7 +23,7 @@ namespace Viva
         public void UpdateDaySegmentLampState(bool instant)
         {
 
-            bool turnOn = (GameDirector.skyDirector.daySegment == SkyDirector.DaySegment.NIGHT);
+            bool turnOn = (GameDirector.newSkyDirector.skyDefinition.currentSegment == DaySegment.NIGHT);
 
             if (turnOnLampsCoroutine != null)
             {

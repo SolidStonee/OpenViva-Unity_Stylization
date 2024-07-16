@@ -27,6 +27,7 @@ namespace Viva
         private RaycastHit[] raycastResults = new RaycastHit[8];
         private float lastRefreshTime = 0.0f;
         private float lastRaycastCheck = 0.0f;
+
         public NavSearchCallback onGeneratePathRequest;
         private bool nearTarget = false;
         private float targetDistance = 0.0f;
@@ -41,13 +42,17 @@ namespace Viva
         {
             readTargetLocation = _readTargetLocation;
             distance = _distance;
-            onGeneratePathRequest = DefaultPathRequest;
+            onGeneratePathRequest = GenerateDefaultPathRequest;
             preferredBodyState = _preferredBodyState;
 
             overrideFinalCornerLookAtPos = _overrideFinalCornerLookAtPos;
 
             enforceBodyState = new AutonomyEnforceBodyState(self.autonomy, _name + " body state", preferredBodyState);
             AddPassive(enforceBodyState);
+            onFail += self.locomotion.StopMoveTo;
+            onSuccess += self.locomotion.StopMoveTo;
+            onInterrupted += self.locomotion.StopMoveTo;
+            onUnregistered += self.locomotion.StopMoveTo;
             AddPassive(new AutonomyFaceDirection(autonomy, _name + " face dir", DefaultReadPathLookAtTarget));
 
             onFixedUpdate += OnFixedUpdate;
@@ -81,6 +86,9 @@ namespace Viva
                 target.SetTargetPosition(self.locomotion.path[self.locomotion.currCorner]);
             }
         }
+
+
+        
 
 
         private bool IsDoorInTheWay()
@@ -182,7 +190,7 @@ namespace Viva
         {
             actualTargetPos.lastReadPos = null;
             readTargetLocation?.Invoke(actualTargetPos);
-            if (onGeneratePathRequest != DefaultPathRequest)
+            if (onGeneratePathRequest != GenerateDefaultPathRequest)
             {   //pick move pos if path request differs
                 if (nearbyTargetPos.HasValue)
                 {
@@ -268,7 +276,7 @@ namespace Viva
                 enforceBodyState.SetTargetBodyState(targetDistance < bodyStateChangeSqDist ? preferredBodyState : BodyState.STAND);
 
                 //run to target if far away
-                bool tooFarAway = targetDistance > 20.0f;
+                bool tooFarAway = targetDistance > 25.0f;
                 if (self.currentAnim != Companion.Animation.STAND_GIDDY_LOCOMOTION)
                 {
                     if (tooFarAway && allowRunning && !self.IsTired())
@@ -327,7 +335,7 @@ namespace Viva
             }
         }
 
-        private LocomotionBehaviors.PathRequest[] DefaultPathRequest(Vector3 targetPos)
+        private LocomotionBehaviors.PathRequest[] GenerateDefaultPathRequest(Vector3 targetPos)
         {
             int vertices = Mathf.Clamp(1 + Mathf.FloorToInt(Mathf.Pow(distance / 0.2f, 2)), 1, 8);
             if (vertices == 2)
@@ -343,34 +351,89 @@ namespace Viva
             {
                 Debug.Log("[MoveTo] No Path for " + name);
                 Tools.DrawCross(navSearchPoint, Color.red);
-                // Debug.Break();
-                FlagForFailure();
                 return;
             }
             //use closest navSearchPoint as world position
             nearbyTargetPos = navSearchPoint;
 
-            self.locomotion.FollowPath(path, (LocomotionBehaviors.LocomotionCallback)delegate { lastRefreshTime = Time.time; }, pathID);
+            self.locomotion.FollowPath(path, (LocomotionBehaviors.LocomotionCallback)delegate { lastRefreshTime = Time.time; }, (LocomotionBehaviors.LocomotionCallback)delegate { CheckStuck(); }, pathID);
+        }
+
+        private void CheckStuck()
+        {
+            float stuckSqDist = Vector3.SqrMagnitude(self.locomotion.lastNonstuckPos - self.spine1RigidBody.position);
+
+
+            if (stuckSqDist > LocomotionBehaviors.minSqCornerDist)
+            {
+                self.locomotion.lastNonstuckPos = self.spine1RigidBody.position;
+                self.locomotion.stuckTimer = 0.0f;
+            }
+            else if (self.IsCurrentAnimationIdle())
+            {
+                self.locomotion.stuckTimer += Time.deltaTime;
+                if (self.locomotion.stuckTimer > 2.5f)
+                {
+                    if (nearTarget)
+                    {
+                        float minSqDist = (LocomotionBehaviors.minCornerDist + distance) * (LocomotionBehaviors.minCornerDist + distance);
+                        if (!keepDistance && targetDistance < minSqDist)
+                        {
+                            // Reset stuck timer if near the target and within distance
+                            self.locomotion.stuckTimer = 0.0f;
+                            return;
+                        }
+                    }
+                    self.locomotion.stuckTimer = 0.0f;
+                    Wiggle();   //try to unstuck itself
+                }
+            }
+        }
+
+        private void Wiggle()
+        {
+            if (self.locomotion.tryingToUnStuck) return;
+            self.locomotion.tryingToUnStuck = true;
+
+            var wiggle = new AutonomyEmpty(self.autonomy, "wiggle unstuck");
+            float wiggleMidtime = Time.time + 0.5f;
+            var moveTo = this;
+
+            wiggle.onFixedUpdate += delegate {
+                float wiggleStrength = 1.0f - Mathf.Min(0.5f, Mathf.Abs(Time.time - wiggleMidtime)) * 6.0f;
+
+                if (Time.time > wiggleMidtime + 0.5f)
+                {
+                    moveTo.RemovePassive(wiggle);
+                }
+
+                Vector3 force = new Vector3(Mathf.Sin(Time.time * 4.123f), 0, Mathf.Cos(Time.time * 6.333f)) * 0.5f;
+                self.spine1RigidBody.AddForce(force * wiggleStrength, ForceMode.VelocityChange);
+            };
+            wiggle.onUnregistered += delegate {
+                self.locomotion.tryingToUnStuck = false;
+            };
+            AddPassive(wiggle);
         }
 
         // ------------------------------------------------------------------------------------
         // debug
-        private string lastLogLine = "";
-        private string logBuffer = "";
-        private void SpecialLog(string msg, bool send = false)
-        {
-            if (msg != "")
-                logBuffer += (logBuffer == "" ? msg : ", " + msg);
-            if (send && logBuffer != "")
-            {
-                if (logBuffer != lastLogLine)
-                {
-                    Debug.Log("csa: " + logBuffer);
-                    lastLogLine = logBuffer;
-                }
-                logBuffer = "";
-            }
-        }
+        //private string lastLogLine = "";
+        //private string logBuffer = "";
+        //private void SpecialLog(string msg, bool send = false)
+        //{
+        //    if (msg != "")
+        //        logBuffer += (logBuffer == "" ? msg : ", " + msg);
+        //    if (send && logBuffer != "")
+        //    {
+        //        if (logBuffer != lastLogLine)
+        //        {
+        //            Debug.Log("csa: " + logBuffer);
+        //            lastLogLine = logBuffer;
+        //        }
+        //        logBuffer = "";
+        //    }
+        //}
     }
 
 }

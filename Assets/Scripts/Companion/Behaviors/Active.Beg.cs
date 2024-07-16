@@ -12,7 +12,7 @@ namespace Viva
         private Vector3 begTargetPos = Vector3.zero;
         private Item targetItem = null;
 
-        public BegBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.BEG, null)
+        public BegBehavior(Companion _self) : base("Begging", _self, ActiveBehaviors.Behavior.BEG, null)
         {
             self.onGiftItemCallstack.AddCallback(OnItemBeg);
         }

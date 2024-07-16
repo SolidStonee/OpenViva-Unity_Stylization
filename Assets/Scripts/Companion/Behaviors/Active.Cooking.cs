@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 
 namespace Viva
@@ -32,14 +33,27 @@ namespace Viva
 
 
         private KitchenFacilities facilities;
-        private Phase phase = Phase.GRIND_WHEAT;
+        private Phase _phase = Phase.GO_TO_KITCHEN;
+
+        private Phase phase
+        {
+            get { return _phase; }
+            set
+            {
+                if (_phase != value)
+                {
+                    Debug.Log($"Phase changed from {_phase} to {value}");
+                    _phase = value;
+                }
+            }
+        }
         private List<Item.Type> priorityPickup = new List<Item.Type>();
         private float searchTimer = 0.0f;
         private int searches = 0;
         private Recipe currentRecipe = new Recipe();
         private MixingBowl targetMixingBowl = null;
 
-        public CookingBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.COOKING, null)
+        public CookingBehavior(Companion _self) : base("Cooking", _self, ActiveBehaviors.Behavior.COOKING, null)
         {
         }
 
@@ -50,15 +64,7 @@ namespace Viva
             {
                 return false;
             }
-            Vector3 targetStartPos = newFacilities.transform.TransformPoint(newFacilities.centerLocalPos);
-            if (Vector3.Distance(targetStartPos, self.floorPos) > 10.0f)
-            {
-                return false;
-            }
-            self.autonomy.SetAutonomy(new AutonomyFaceDirection(self.autonomy, "look kitchen", delegate (TaskTarget target)
-            {
-                target.SetTargetPosition(newFacilities.transform.position);
-            }, 2.0f));
+            
 
 
             switch (self.active.currentTask.type)
@@ -75,10 +81,32 @@ namespace Viva
                 return false;
             }
             facilities = newFacilities;
+            phase = Phase.GO_TO_KITCHEN;
             self.active.SetTask(this, null);
-            SetCookingPhase(Phase.GO_TO_KITCHEN);
             targetMixingBowl = null;
             return true;
+        }
+
+        public override void OnActivate()
+        {
+            base.OnActivate();
+            searchTimer = 0.0f;
+            searches = 0;
+            var lookAtKitchen = new AutonomyFaceDirection(self.autonomy, "look kitchen", delegate (TaskTarget target)
+            {
+                target.SetTargetPosition(facilities.transform.position);
+            }, 2.0f);
+            var goToKitchen = new AutonomyMoveTo(self.autonomy, "go to kitchen", delegate (TaskTarget target)
+                {
+                    target.SetTargetPosition(facilities.approachLocation.position);
+                },
+                1.0f,
+                BodyState.STAND);
+            goToKitchen.AddPassive(lookAtKitchen);
+            goToKitchen.onSuccess += OnReachKitchen;
+            goToKitchen.onFail += delegate { self.active.SetTask(self.active.idle, false); };
+            self.autonomy.SetAutonomy(goToKitchen);
+            
         }
 
         public override void OnDeactivate()
@@ -98,12 +126,13 @@ namespace Viva
         public override bool OnReturnPollTaskResult(ActiveBehaviors.ActiveTask returnSource, bool succeeded)
         {
 
+            Debug.Log("Return Poll Task Result");
             if (phase == Phase.WAIT_TO_DROP_ITEM /*&& returnSource==self.active.drop*/ )
             {
                 SetCookingPhase(Phase.SEARCH_COOKING_INGREDIENTS);
                 return true;
             }
-            else if (phase == Phase.WAIT_TO_PICKUP_ITEM /*&& returnSource==self.active.pickup*/ )
+            if (phase == Phase.WAIT_TO_PICKUP_ITEM /*&& returnSource==self.active.pickup*/ )
             {
                 SetCookingPhase(Phase.SEARCH_COOKING_INGREDIENTS);
                 return true;
@@ -111,13 +140,7 @@ namespace Viva
             return false;
         }
 
-        public override void OnActivate()
-        {
-            GameDirector.player.objectFingerPointer.selectedLolis.Remove(self);
-            self.characterSelectionTarget.OnUnselected();
-            searchTimer = 0.0f;
-            searches = 0;
-        }
+        
 
         public override void OnUpdate()
         {
@@ -126,11 +149,9 @@ namespace Viva
                 self.active.SetTask(self.active.idle, false);
                 return;
             }
+            Debug.Log("Current Phase: " + phase.ToString());
             switch (phase)
             {
-                case Phase.GO_TO_KITCHEN:
-                    UpdateGoToKitchen();
-                    break;
                 case Phase.SEARCH_COOKING_INGREDIENTS:
                     if (targetMixingBowl == null)
                     {
@@ -158,33 +179,18 @@ namespace Viva
             }
         }
 
-        private void UpdateGoToKitchen()
+        public Vector3 GetNavMeshPosition(Vector3 pos, NavMeshHit navMeshHit = default(NavMeshHit), float sampleRadius = 5f, int areaMask = -1)
         {
-            Vector3 targetStartPos = facilities.transform.TransformPoint(facilities.centerLocalPos);
-            if (!self.locomotion.isMoveToActive() || Vector3.Distance(targetStartPos, self.floorPos) > 2.0f)
+            if (NavMesh.SamplePosition(pos, out navMeshHit, sampleRadius, areaMask))
             {
-                var goToKitchen = new AutonomyMoveTo(self.autonomy, "go to kitchen", delegate (TaskTarget target)
-                {
-                    target.SetTargetPosition(targetStartPos);
-                },
-                1.0f,
-                BodyState.STAND);
-                goToKitchen.onSuccess += OnReachKitchen;
-                goToKitchen.onFail += delegate { self.active.SetTask(self.active.idle, false); };
-                self.autonomy.SetAutonomy(goToKitchen);
-                //var path = self.locomotion.GetNavMeshPath( targetStartPos );
-                //if( path == null ){
-                //	self.active.SetTask( self.active.idle, false );
-                //}else{
-                //	self.locomotion.FollowPath( path, OnReachKitchen );
-                //}
+                return navMeshHit.position;
             }
-
-
+            return pos;
         }
 
         private void OnReachKitchen()
         {
+            Debug.Log("Reached Kitchen");
             phase = Phase.SEARCH_COOKING_INGREDIENTS;
         }
 
@@ -605,19 +611,13 @@ namespace Viva
                 //drop item if pickupHand is curently busy
                 if (pickupHand.heldItem != null)
                 {
-                    var itemdrop = new AutonomyDrop(self.autonomy, "item drop", pickupHand.heldItem, facilities.centerLocalPos);
+                    var itemdrop = new AutonomyDrop(self.autonomy, "item drop", pickupHand.heldItem, facilities.approachLocation.position);
                     self.autonomy.SetAutonomy(itemdrop);
                     itemdrop.onSuccess += delegate
                     {
-                        self.active.PollNextTaskResult(this);
+                        self.active.PollNextTaskResult( this );
                         SetCookingPhase(Phase.WAIT_TO_DROP_ITEM);
-                        return;
                     };
-                    //if( self.active.drop.AttemptDropItem( pickupHand, true, 1.0f, 0.1f, true ) ){
-                    //	self.active.PollNextTaskResult( this );
-                    //	SetCookingPhase( Phase.WAIT_TO_DROP_ITEM );
-                    //	return;
-                    //}
                 }
                 else
                 {   //else use it to pick up missingItem
@@ -625,15 +625,8 @@ namespace Viva
                     self.autonomy.SetAutonomy(itempickup);
                     itempickup.onSuccess += delegate
                     {
-                        self.active.PollNextTaskResult(this);
                         SetCookingPhase(Phase.WAIT_TO_PICKUP_ITEM);
-                        return;
                     };
-                    //if( self.active.pickup.AttemptGoAndPickup( item, self.active.pickup.FindPreferredHandState( item ), true, true ) ){
-                    //	self.active.PollNextTaskResult( this );
-                    //	SetCookingPhase( Phase.WAIT_TO_PICKUP_ITEM );
-                    //	return;
-                    //}
                 }
                 break;
             }
@@ -662,12 +655,21 @@ namespace Viva
                 {
                     dropHand = null;
                 }
-                // if( dropHand != null && self.active.drop.AttemptDropItem( dropHand, true, 1.0f, 0.1f, true ) ){
-                //     self.active.PollNextTaskResult( this );
-                // 	SetCookingPhase( Phase.WAIT_TO_DROP_ITEM );
-                // }else{
-                //     self.active.SetTask( self.active.idle, false );
-                // }
+
+                if (dropHand != null)
+                {
+                    var itemdrop = new AutonomyDrop(self.autonomy, "item drop", dropHand.heldItem, facilities.approachLocation.position);
+                    itemdrop.onDropped += delegate
+                    {
+                        self.active.PollNextTaskResult( this );
+                        SetCookingPhase( Phase.WAIT_TO_DROP_ITEM ); 
+                    };
+                    self.autonomy.SetAutonomy(itemdrop);
+                }
+                else
+                {
+                    self.active.SetTask( self.active.idle, false );
+                }
             }
         }
 

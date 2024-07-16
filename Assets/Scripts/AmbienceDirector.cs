@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using OccaSoftware.Altos.Runtime;
 using UnityEngine;
 
 namespace Viva
 {
-
-
     public class AmbienceDirector : MonoBehaviour
     {
-
         [HideInInspector]
         [SerializeField]
         private List<AudioSource> windowSourcesA = new List<AudioSource>();
@@ -38,6 +36,8 @@ namespace Viva
         private Coroutine randomSoundsCoroutine = null;
         private bool usingWindowSourcesA = true;
 
+        private Dictionary<Ambience, int> activeAmbienceCounts = new Dictionary<Ambience, int>();
+
 
         public void InitializeAmbience()
         {
@@ -51,7 +51,7 @@ namespace Viva
             }
             if (currentAmbience == null)
             {
-                EnterAmbience(null);
+                EnterDefaultAmbience();
             }
         }
 
@@ -74,6 +74,55 @@ namespace Viva
         }
 
         public void EnterAmbience(Ambience ambience)
+        {
+            if (!activeAmbienceCounts.ContainsKey(ambience))
+            {
+                activeAmbienceCounts[ambience] = 0;
+            }
+
+            activeAmbienceCounts[ambience]++;
+            UpdateCurrentAmbience();
+        }
+
+        public void ExitAmbience(Ambience ambience)
+        {
+            if (activeAmbienceCounts.ContainsKey(ambience))
+            {
+                activeAmbienceCounts[ambience]--;
+                if (activeAmbienceCounts[ambience] <= 0)
+                {
+                    activeAmbienceCounts.Remove(ambience);
+                }
+                UpdateCurrentAmbience();
+            }
+        }
+
+        private void UpdateCurrentAmbience()
+        {
+            if (activeAmbienceCounts.Count == 0)
+            {
+                EnterDefaultAmbience();
+                return;
+            }
+
+            Ambience highestPriorityAmbience = null;
+            foreach (var entry in activeAmbienceCounts)
+            {
+                if (highestPriorityAmbience == null || entry.Key.priority > highestPriorityAmbience.priority)
+                {
+                    highestPriorityAmbience = entry.Key;
+                }
+            }
+
+            EnterAmbienceByPriority(highestPriorityAmbience);
+        }
+        
+        private void EnterDefaultAmbience()
+        {
+            EnterAmbienceByPriority(defaultAmbience);
+        }
+
+        public void EnterAmbienceByPriority(Ambience ambience)
         {
             if (ambience == null)
             {
@@ -99,20 +148,8 @@ namespace Viva
             }
         }
 
-        public void ExitAmbience(Ambience ambience)
-        {
-            if (ambience == currentAmbience)
-            {
-                if (--currentAmbienceEnterCount == 0)
-                {
-                    EnterAmbience(null);
-                }
-            }
-        }
-
         private IEnumerator RandomSoundPlayer()
         {
-
             while (true)
             {
                 if (globalAmbienceSourcesA.Count > 0 && globalAmbienceSourcesB.Count > 0)
@@ -156,28 +193,27 @@ namespace Viva
             {
                 fadeInSources = globalAmbienceSourcesB;
                 fadeOutSources = globalAmbienceSourcesA;
-                SetAndPlayLoopAudioSources(globalAmbienceSourcesB, currentAmbience.GetAudio(GameDirector.skyDirector.daySegment, GameDirector.instance.userIsIndoors));
+                SetAndPlayLoopAudioSources(globalAmbienceSourcesB, currentAmbience.GetAudio(GameDirector.newSkyDirector.skyDefinition.currentSegment, GameDirector.instance.userIsIndoors));
             }
             else
             {
                 fadeInSources = globalAmbienceSourcesA;
                 fadeOutSources = globalAmbienceSourcesB;
-                SetAndPlayLoopAudioSources(globalAmbienceSourcesA, currentAmbience.GetAudio(GameDirector.skyDirector.daySegment, GameDirector.instance.userIsIndoors));
+                SetAndPlayLoopAudioSources(globalAmbienceSourcesA, currentAmbience.GetAudio(GameDirector.newSkyDirector.skyDefinition.currentSegment, GameDirector.instance.userIsIndoors));
             }
             usingAmbienceSourcesA = !usingAmbienceSourcesA;
 
             ambienceChangeCoroutine = GameDirector.instance.StartCoroutine(CrossFadeSound(fadeInSources, fadeOutSources, false, 2.0f));
         }
 
-        private void SetDaySegmentSounds(SkyDirector.DaySegment daySegment, float fadeVal)
+        private void SetDaySegmentSounds(DaySegment daySegment, float fadeVal)
         {
-            //cross fade from expected previous  daySegment state
-            if (daySegment == SkyDirector.DaySegment.NIGHT)
+            if (daySegment == DaySegment.NIGHT)
             {
                 SetAudioSourcesVolume(daytimeOnlySources, 1.0f - fadeVal);
                 SetAudioSourcesVolume(nighttimeOnlySources, fadeVal);
             }
-            else if (daySegment == SkyDirector.DaySegment.MORNING)
+            else if (daySegment == DaySegment.MORNING)
             {
                 SetAudioSourcesVolume(daytimeOnlySources, fadeVal);
                 SetAudioSourcesVolume(nighttimeOnlySources, 1.0f - fadeVal);
@@ -191,10 +227,8 @@ namespace Viva
 
         private void FadeLocaleAmbience()
         {
-
             if (currentAmbience == null)
             {
-                // Debug.LogError("[Ambience] currentAmbience is null");
                 return;
             }
             List<AudioSource> fadeInSources;
@@ -213,14 +247,10 @@ namespace Viva
 
             if (GameDirector.instance.userIsIndoors)
             {
-                Debug.Log("[Ambience] Indoor");
-                //turn on outdoor window source sounds if now indoors
-                SetAndPlayLoopAudioSources(fadeInSources, currentAmbience.GetAudio(GameDirector.skyDirector.daySegment, false));
+                SetAndPlayLoopAudioSources(fadeInSources, currentAmbience.GetAudio(GameDirector.newSkyDirector.skyDefinition.currentSegment, false));
             }
             else
             {
-                Debug.Log("[Ambience] Outdoor");
-                //turn off window source sounds if now outdoors
                 SetAndPlayLoopAudioSources(fadeInSources, null);
             }
             if (windowChangeCoroutine != null)
@@ -261,8 +291,8 @@ namespace Viva
 
                     SetAudioSourcesVolume(fadeInSources, fadeInStartSound.Value);
                     SetAudioSourcesVolume(fadeOutSources, 1.0f - fadeInStartSound.Value);
-                    SetDaySegmentSounds(GameDirector.skyDirector.daySegment, fadeInStartSound.Value);
-                    yield return new WaitForSeconds(interval);    //don't update every frame
+                    SetDaySegmentSounds(GameDirector.newSkyDirector.skyDefinition.currentSegment, fadeInStartSound.Value);
+                    yield return new WaitForSeconds(interval);
                 }
             }
 
@@ -295,5 +325,4 @@ namespace Viva
             }
         }
     }
-
 }

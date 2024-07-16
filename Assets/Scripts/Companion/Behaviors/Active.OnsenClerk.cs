@@ -43,7 +43,7 @@ namespace Viva
         public OnsenClerkSession onsenClerkSession { get { return session as OnsenClerkSession; } }
 
 
-        public OnsenClerkBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.ONSEN_CLERK, new OnsenClerkSession())
+        public OnsenClerkBehavior(Companion _self) : base("Onsen Receptionist", _self, ActiveBehaviors.Behavior.ONSEN_CLERK, new OnsenClerkSession())
         {
         }
 
@@ -57,8 +57,8 @@ namespace Viva
                 moveTo.onSuccess += AttendNextClient;
             }
 
-            GameDirector.player.objectFingerPointer.selectedLolis.Remove(self);
-            self.characterSelectionTarget.OnUnselected();
+            GameDirector.player.objectFingerPointer.selectedCompanions.Remove(self);
+            self.OnUnselected();
         }
 
         public override void OnDeactivate()

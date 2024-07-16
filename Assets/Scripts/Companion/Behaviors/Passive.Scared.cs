@@ -40,7 +40,6 @@ namespace Viva
                         self.BeginRagdollMode(0.5f, Companion.Animation.FLOOR_CURL_LOOP);
                         break;
                     case BodyState.STAND:
-                    case BodyState.STANDING_HUG:
                         var playScareAnim = new AutonomyPlayAnimation(self.autonomy, "play scare anim", Companion.Animation.STAND_SCARED_STARTLE);
                         scareTimer.AddRequirement(playScareAnim);
                         break;

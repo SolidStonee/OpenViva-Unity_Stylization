@@ -16,7 +16,7 @@ namespace Viva.console
         {
             Name = "Player Walkspeed";
             Command = "walkspeed";
-            Description = "Sets the Player WalkSpeed, Default WalkSpeed is 0.2";
+            Description = "Sets the Player WalkSpeed, Default WalkSpeed is 0.24";
             Help = "Syntax: walkspeed <walkspeed> \n" +
                    $"<color={RequiredColor}><walkspeed></color> is required!";
             Example = "walkspeed 0.5, walkspeed reset";
@@ -34,9 +34,9 @@ namespace Viva.console
                     AddStaticMessageToConsole(ParametersAmount);
                 }
                 // when commandParameter is digit, speed was passed
-                if (commandParameter.All(char.IsDigit))
+                if (float.TryParse(commandParameter, out float speed))
                 {
-                    float speed = Convert.ToSingle(commandParameter);
+                    speed = Convert.ToSingle(commandParameter);
                     GameDirector.player.walkSpeed = speed;
                     AddStaticMessageToConsole("Set Walkspeed to" + " " + speed);
                 }
@@ -44,7 +44,7 @@ namespace Viva.console
                 {
                     if (commandParameter.Contains("reset"))
                     {
-                        GameDirector.player.walkSpeed = 0.2f;
+                        GameDirector.player.walkSpeed = 0.24f;
                         AddStaticMessageToConsole("Reset Walkspeed");
                     }
                 }

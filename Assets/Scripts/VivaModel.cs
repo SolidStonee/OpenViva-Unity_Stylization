@@ -13,19 +13,19 @@ namespace Viva
     public partial class VivaModel
     {
 
-        public class CreateLoliRequest
+        public class CreateCompanionRequest
         {
             public readonly string sourceCardFilename;
             public readonly Companion targetCompanion = null;
             public readonly byte[] data = null;
             public readonly ModelBuildSettings modelImportSettings = null;
             public readonly bool dataIncludesModelSettings;
-            public readonly string loliName;
+            public readonly string companionName;
             public string error = null;
             public Companion result = null;
             public ModelBuildSettings mbs = null;
 
-            public CreateLoliRequest(string _sourceCardFilename, Companion targetCompanion, byte[] _buildData, ModelBuildSettings _modelImportSettings)
+            public CreateCompanionRequest(string _sourceCardFilename, Companion targetCompanion, byte[] _buildData, ModelBuildSettings _modelImportSettings)
             {
                 sourceCardFilename = _sourceCardFilename;
                 this.targetCompanion = targetCompanion;
@@ -34,14 +34,14 @@ namespace Viva
                 modelImportSettings = _modelImportSettings;
             }
 
-            public CreateLoliRequest(Companion targetCompanion, string filePath, ModelBuildSettings _modelImportSettings)
+            public CreateCompanionRequest(Companion targetCompanion, string filePath, ModelBuildSettings _modelImportSettings)
             {
                 this.targetCompanion = targetCompanion;
                 string[] words = filePath.Split('\\').Last().Split('/').Last().Split('.');
-                loliName = "";
+                companionName = "";
                 for (int i = 0; i < words.Length - 1; i++)
                 {
-                    loliName += words[i];
+                    companionName += words[i];
                 }
 
                 try
@@ -57,7 +57,7 @@ namespace Viva
             }
         }
 
-        public static IEnumerator DeserializeVivaModel(CreateLoliRequest request)
+        public static IEnumerator DeserializeVivaModel(CreateCompanionRequest request)
         {
 
             request.error = null;
@@ -69,7 +69,7 @@ namespace Viva
                 yield break;
             }
 
-            VivaModel model = new VivaModel(request.sourceCardFilename, request.loliName);
+            VivaModel model = new VivaModel(request.sourceCardFilename, request.companionName);
             if (request.dataIncludesModelSettings)
             {
                 model.DeserializeFromCardData(request.data);
@@ -341,6 +341,7 @@ namespace Viva
         public bool fullBodyOverride;
         public Vector4 headpatWorldSphere;
         public Vector4 hatLocalPosAndPitch;
+
         public Vector4 headCollisionWorldSphere;
         public readonly int hashID; //used to match textures
         public byte[] modelData = null;
@@ -370,9 +371,9 @@ namespace Viva
             skinColor = model.skinColor;
             voiceIndex = model.voiceIndex;
             fullBodyOverride = model.fullBodyOverride;
-            // headpatWorldSphere = model.headpatWorldSphere;
-            // hatLocalPosAndPitch = model.hatLocalPosAndPitch;
-            // headCollisionWorldSphere = model.headCollisionWorldSphere;
+            headpatWorldSphere = model.headpatWorldSphere;
+            hatLocalPosAndPitch = model.hatLocalPosAndPitch;
+            headCollisionWorldSphere = model.headCollisionWorldSphere;
 
             int matched = 0;
             for (int i = 0; i < dynamicBoneInfos.Count; i++)
@@ -656,7 +657,7 @@ namespace Viva
 
             var bsr = new ByteStreamReader(cardData);
             byte version = bsr.ReadUnsigned1ByteInt();
-            if (version < VIVA_MODEL_CARD_VERSION)
+            if (version == 1)
             {
                 error = "Outdated card version";
                 return;

@@ -1,4 +1,5 @@
-﻿using static Viva.console.DevConsole;
+﻿using UnityEngine.TextCore.Text;
+using static Viva.console.DevConsole;
 
 namespace Viva.console
 {
@@ -13,11 +14,11 @@ namespace Viva.console
         public CommandSelectCharacter()
         {
             Name = "Select Character";
-            Command = "selected";
+            Command = "Selected";
             Description = "Selects/Deselects Companion's";
-            Help = "Syntax: selected <all/none> \n" +
+            Help = "Syntax: Selected <all/none> \n" +
                    $"<color={RequiredColor}><all/none></color> is required!";
-            Example = "selected all, selected none";
+            Example = "Selected all, Selected none";
 
             AddCommandToConsole();
         }
@@ -33,21 +34,31 @@ namespace Viva.console
                 }
                 if (commandParameter.Contains("all"))
                 {
-                    Companion companion = GameDirector.instance.FindNearbyLoli(GameDirector.player.head.position, 500.0f);
-                    if (!GameDirector.player.objectFingerPointer.selectedLolis.Contains(companion))
+                    foreach (var character in GameDirector.characters.objects)
                     {
-                        companion.characterSelectionTarget.OnSelected();
-                        GameDirector.player.objectFingerPointer.selectedLolis.Add(companion);
+                        if (character is Companion companion && !(character is Player))
+                        {
+                            if (!GameDirector.player.objectFingerPointer.selectedCompanions.Contains(companion))
+                            {
+                                companion.OnSelected();
+                                GameDirector.player.objectFingerPointer.selectedCompanions.Add(companion);
+                            }
+                        }
                     }
-
-                    AddStaticMessageToConsole("Selected All Companion's");
+                    AddStaticMessageToConsole("Selected All Companions");
                 }
                 else if (commandParameter.Contains("none"))
                 {
-                    Companion companion = GameDirector.instance.FindNearbyLoli(GameDirector.player.head.position, 500.0f);
-                    companion.characterSelectionTarget.OnUnselected();
-                    GameDirector.player.objectFingerPointer.selectedLolis.Remove(companion);
-                    AddStaticMessageToConsole("Deselected All Companion's");
+                    foreach (var character in GameDirector.characters.objects)
+                    {
+                        if (character is Companion companion && !(character is Player))
+                        {
+                            companion.OnUnselected();
+                            GameDirector.player.objectFingerPointer.selectedCompanions.Remove(companion);
+                        }
+
+                    }
+                    AddStaticMessageToConsole("Deselected All Companions");
                 }
                 else
                 {

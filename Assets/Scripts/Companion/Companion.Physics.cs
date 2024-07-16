@@ -20,6 +20,9 @@ namespace Viva
         public Collider[] colliderBodyParts = new Collider[System.Enum.GetValues(typeof(BodyPart)).Length];
         private float lastCollisionSoundTime = 1.0f;
 
+        public Collider leftFootSurfaceCollider;
+        public Collider rightFootSurfaceCollider;
+
 
         public BodyPart IdentifyCollider(Collider test)
         {
@@ -100,7 +103,7 @@ namespace Viva
             if (active == null)
             {
                 return;
-            }
+            } 
             onCharacterCollisionEnter?.Invoke(ccc, collision);
 
             if (collision.gameObject.layer == WorldUtil.outofbounds)
@@ -158,6 +161,19 @@ namespace Viva
         }
 
         public delegate void CollisionCallback(CharacterCollisionCallback ccc, Collision collision);
+
+        public override void OnCharacterCollisionStay(CharacterCollisionCallback ccc, Collision collision)
+        {
+            switch (ccc.collisionPart)
+            {
+                case CharacterCollisionCallback.Type.LEFT_FOOT:
+                    //leftFootSurfaceCollider = collision.GetContact(0).otherCollider;
+                    break;
+                case CharacterCollisionCallback.Type.RIGHT_FOOT:
+                    //rightFootSurfaceCollider = collision.GetContact(0).otherCollider;
+                    break;
+            }
+        }
 
         public override void OnCharacterCollisionExit(CharacterCollisionCallback ccc, Collision collision)
         {

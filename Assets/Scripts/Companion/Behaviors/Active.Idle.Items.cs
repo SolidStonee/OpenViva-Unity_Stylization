@@ -351,7 +351,7 @@ namespace Viva
             {
                 return;
             }
-            self.headState.WearOnHead(item, self.headModel.hatLocalPosAndPitch, HoldType.OBJECT, 1.0f);
+            self.headState.WearOnHead(item, self.headModel.hatLocalPosAndPitch, 1.0f);
 
             GameDirector.player.CompleteAchievement(Player.ObjectiveType.FIND_HAT, new Achievement("FIND_HAT"));
         }

@@ -10,7 +10,7 @@ namespace Viva
 
         private float cameraPoseTimer = 0.0f;
 
-        public CameraPoseBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.CAMERA_POSE, null)
+        public CameraPoseBehavior(Companion _self) : base("Posing for Camera", _self, ActiveBehaviors.Behavior.CAMERA_POSE, null)
         {
         }
 

@@ -28,7 +28,7 @@ namespace Viva
                     Vector3 headPlaneXZ = player.head.TransformDirection(accel);
                     headPlaneXZ.y = 0.0f;
                     float speed;
-                    if (GameDirector.player.keyboardTargetHeight == GameDirector.player.keyboardFloorHeight)
+                    if (player.keyboardTargetHeight == player.keyboardFloorHeight)
                     {
                         speed = player.walkSpeed;
                     }
@@ -41,8 +41,8 @@ namespace Viva
             }
 
             float angleSlow = 1.0f - Mathf.Abs(player.head.forward.y) * 0.5f;
-            player.head.rotation *= Quaternion.Euler(player.mouseVelocitySum.x, player.mouseVelocitySum.y * angleSlow, 0.0f);
-            player.mouseVelocitySum *= 0.6f;
+            
+            
 
             player.moveVel *= 0.85f;
             player.moveVel.y = player.rigidBody.velocity.y;
@@ -50,13 +50,18 @@ namespace Viva
 
             player.FixedUpdatePlayerCapsule(player.keyboardCurrentHeight);
             player.ApplyHeadTransformToArmature();
-
+            
+            
+            
             if (GameDirector.instance.controlsAllowed <= GameDirector.ControlsAllowed.HAND_INPUT_ONLY)
             {
 
                 if (GameDirector.instance.controlsAllowed == GameDirector.ControlsAllowed.ALL)
                 {
+                    player.head.rotation *= Quaternion.Euler(player.mouseVelocitySum.x, player.mouseVelocitySum.y * angleSlow, 0.0f);
+                    player.mouseVelocitySum *= 0.6f;
                     player.UpdateInputKeyboardRotateHead();
+                    player.FixHeadRoll();
                     player.UpdateInputKeyboardCrouching();
                 }
             }

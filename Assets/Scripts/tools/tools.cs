@@ -500,10 +500,10 @@ namespace Viva.Util
         
         public static float RemapTo01(float value, float iMin, float iMax)
         {
-            // Ensure value is within the input range
+            //ensure value is within the input range
             value = Mathf.Clamp(value, iMin, iMax);
 
-            // Calculate the remapped value in the [0, 1] range
+            //calculate the remapped value in the [0, 1] range
             return (value - iMin) / (iMax - iMin);
         }
 
@@ -968,7 +968,7 @@ namespace Viva.Util
 
         public static T SearchTransformAncestors<T>(Transform branch) where T : Component
         {
-            //percolate down transforms until a Mechanism is found
+            //percolate down transforms until a Certain component is found
             Transform parent = branch;
             while (parent != null)
             {

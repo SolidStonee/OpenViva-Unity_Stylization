@@ -47,6 +47,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NoiseUV:
+        m_Texture: {fileID: 2800000, guid: fb84fc5f3e7e14ae7be5bd45efc3d3c4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _NormalOriginal:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -62,6 +66,10 @@ Material:
     - _PerTexProps:
         m_Texture: {fileID: 88400862573516639, guid: 9b82664c91fdac64db53e4464ed356fb,
           type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Specular:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TerrainDesc:
@@ -94,10 +102,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Contrast: 0.4
-    - _HybridHeightBlendDistance: 300
+    - _Contrast: 0.417
+    - _HybridHeightBlendDistance: 210
     - _TBNoiseScale: 1
     m_Colors:
+    - _NoiseUVParams: {r: 1, g: 1, b: 0, a: 0}
     - _TerrainBlendParams: {r: 1, g: 0.4, b: 0, a: 0}
     - _TerrainBlendParams2: {r: 40, g: 0, b: 0, a: 0}
     - _TerrainBounds: {r: 0, g: 0, b: 512, a: 512}

@@ -198,7 +198,7 @@ public class LoliEditor : EditorWindow
                     if (!System.IO.File.Exists(assetName))
                     {
 
-                        SoundSet newVoiceSet = ScriptableObject.CreateInstance("SoundSet") as SoundSet;
+                        SoundSet newVoiceSet = CreateInstance<SoundSet>();
                         newVoiceSet.name = enumName;
 
                         AssetDatabase.CreateAsset(newVoiceSet, assetName);

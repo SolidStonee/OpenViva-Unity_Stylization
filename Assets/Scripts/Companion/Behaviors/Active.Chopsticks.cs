@@ -115,7 +115,7 @@ namespace Viva
         private bool chopsticksActive = false;
 
 
-        public ChopsticksBehavior(Companion _self) : base(_self, ActiveBehaviors.Behavior.CHOPSTICKS, null)
+        public ChopsticksBehavior(Companion _self) : base("Playing Chopsticks", _self, ActiveBehaviors.Behavior.CHOPSTICKS, null)
         {
         }
 

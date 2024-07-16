@@ -435,7 +435,7 @@ namespace Viva
 
             float touchpadAccel = Mathf.Clamp01(touchpadPos.magnitude);
             touchpadAccel *= touchpadAccel;
-            if (targetHand.trackpadButtonState.isHeldDown)
+            if (targetHand.trackpadButtonState.isDown)
             {
                 touchpadAccel *= 2.8f;
             }

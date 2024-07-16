@@ -111,7 +111,7 @@ namespace Viva
                     GameObject.Instantiate(rawDoughPrefab, spawnPoint.position, spawnPoint.rotation);
                 }
                 eggsMixed = 0;
-                SoundManager.main.RequestHandle(transform.position).PlayOneShot(pastryCreatedSound);
+                SoundManager.main.RequestHandle(transform.position, transform).PlayOneShot(pastryCreatedSound);
                 pastryCreatedFX.Emit(30);
             }
             OnUpdateStatusBar();

@@ -1,12 +1,9 @@
 ﻿using UnityEngine;
 
-
 namespace Viva
 {
-
     public class GlobalAmbienceVolume : MonoBehaviour
     {
-
         [SerializeField]
         private Ambience ambience;
 
@@ -28,5 +25,4 @@ namespace Viva
             }
         }
     }
-
 }

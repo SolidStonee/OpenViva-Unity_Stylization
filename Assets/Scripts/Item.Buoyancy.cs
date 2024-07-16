@@ -59,6 +59,11 @@ namespace Viva
                 0.5f
             );
 
+            foreach (var character in characters)
+            {
+                character.OnCharacterSplashed(splashDir);
+            }
+
             if (settings.splashSounds != null)
             {
                 SoundManager.main.RequestHandle(transform.position).PlayOneShot(settings.splashSounds.GetRandomAudioClip());

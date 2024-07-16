@@ -4,7 +4,7 @@
 namespace Viva
 {
 
-    using LoliAnimationEvent = AnimationEvent<float[]>;
+    using CompanionAnimationEvent = AnimationEvent<float[]>;
 
     public partial class Companion : Character
     {
@@ -47,7 +47,7 @@ namespace Viva
             EXECUTE_PICK_CARD_LEFT,
             PLAY_CLAP_SOUND,
             STOP_SPINE_ANCHOR,
-            DISABLE_STAND_ON_GROUND
+            DISABLE_STAND_ON_GROUND,
         }
 
         public class AnimLogicInfo
@@ -129,7 +129,11 @@ namespace Viva
             {
                 NONE = 0,
                 IDLE_STATE = 1,
-                DISABLE_RAGDOLL_CHECK = 2
+                DISABLE_RAGDOLL_CHECK = 2,
+                DISABLE_HOLDIK_BOTH = 3,
+                DISABLE_HOLDIK_RIGHT = 4,
+                DISABLE_HOLDIK_LEFT = 5
+                
             }
 
             public readonly Companion.Animation nextAnim;
@@ -142,8 +146,8 @@ namespace Viva
             public readonly BodyState newBodyState;
             public readonly float transitionTime;
             public readonly AnimLogicInfo animLogicInfo;
-            public readonly int flags;
-            public readonly LoliAnimationEvent[] animationEvents;
+            public readonly Flag flag;
+            public readonly CompanionAnimationEvent[] animationEvents;
             private int torsoSyncFloatID = 0;
             public readonly TransitionHandle transitionHandle = null;
             public readonly bool loopAnimationEvents;
@@ -160,8 +164,8 @@ namespace Viva
                                   BodyState _newBodyState,
                                   float _transitionTime,
                                   AnimLogicInfo _animLogicInfo,
-                                  LoliAnimationEvent[] _animEvents = null,
-                                  int _flags = 0)
+                                  CompanionAnimationEvent[] _animEvents = null,
+                                  Flag _flags = Flag.NONE)
             {
                 torsoStateID = Animator.StringToHash(_torsoStateName);
                 legsStateID = Animator.StringToHash(_legsStateName);
@@ -170,7 +174,7 @@ namespace Viva
                 loopAnimationEvents = _torsoStateName.Contains("_loop");
 
                 transitionTime = _transitionTime;
-                flags = _flags;
+                flag = _flags;
                 transitionHandle = _transitionHandle;
                 animationEvents = _animEvents;
 
@@ -182,9 +186,9 @@ namespace Viva
                 newBodyState = _newBodyState;
                 animLogicInfo = _animLogicInfo;
             }
-            public bool HasFlag(Flag flag)
+            public bool HasFlag(Flag flags)
             {
-                return (flags & (int)flag) != 0;
+                return flag == flags;
             }
             public void setTorsoSyncFloatID(int id)
             {
@@ -234,7 +238,7 @@ namespace Viva
             animationEventContext.UpdateAnimationEvents(currAnimInfo.animationEvents, currentAnimationLoops, GetLayerAnimNormTime(1));
         }
 
-        private void DebugAssert(LoliAnimationEvent animEvent, int minSize)
+        private void DebugAssert(CompanionAnimationEvent animEvent, int minSize)
         {
 #if UNITY_EDITOR
             if (minSize <= 0)
@@ -260,7 +264,7 @@ namespace Viva
             currentAnimAwarenessModeBinded = true;
         }
 
-        public void HandleAnimationEvent(LoliAnimationEvent animEvent)
+        public void HandleAnimationEvent(CompanionAnimationEvent animEvent)
         {
             float[] parameters = animEvent.parameter;
             switch (animEvent.nameID)
@@ -335,10 +339,10 @@ namespace Viva
                     passive.headpat.PlayProperHeadpatSound();
                     break;
                 case (int)AnimationEventName.FOOTSTEP_SOUND:
-                    DebugAssert(animEvent, -1);
-                    if (locomotion.isMoveToActive() && velTracker.velocity.magnitude > 0.3)
+                    DebugAssert(animEvent, 1);
+                    if (locomotion.isMoveToActive() && velTracker.velocity.magnitude > 0.2)
                     {
-                        PlayFootstep();
+                        PlayFootstep(parameters[0] == 1.0f);
                     }
                     break;
                 case (int)AnimationEventName.BATHTUB_PLAY_SOUND:

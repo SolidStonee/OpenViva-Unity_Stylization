@@ -262,7 +262,7 @@ namespace Viva
                 if (walkPaceSoundTimer > 30.0f)
                 {
                     walkPaceSoundTimer = 0.0f;
-                    SoundManager.main.RequestHandle(mouthSource.position).PlayOneShot(noseSound);
+                    SoundManager.main.RequestHandle(mouthSource.position, mouthSource.transform).PlayOneShot(noseSound);
                 }
             }
             // if (lastVelocity > 0.003f && averageFloorNormal.HasValue)
@@ -296,7 +296,7 @@ namespace Viva
             
             if (lastVelocity > 0.003f && averageFloorNormal.HasValue && currentTime - lastPlayTime >= currentInterval) {
                 int soundIndex = currentStep % 2; //alternate between footstep sounds
-                AudioClip sound = footstepInfo.sounds[(int)footstepInfo.currentType].sounds[soundIndex];
+                AudioClip sound = footstepInfo.sounds[(int)footstepInfo.CurrentFootStepType].sounds[soundIndex];
 
                 SoundManager.main.RequestHandle(hoovesSource.position).PlayOneShot(sound);
 
@@ -309,7 +309,7 @@ namespace Viva
         protected void PlayRandomClopSound()
         {
             int randomIndex = Random.Range(0, 3);
-            SoundManager.main.RequestHandle(hoovesSource.position).PlayOneShot(footstepInfo.sounds[(int)footstepInfo.currentType].sounds[randomIndex]);
+            SoundManager.main.RequestHandle(hoovesSource.position).PlayOneShot(footstepInfo.sounds[(int)footstepInfo.CurrentFootStepType].sounds[randomIndex]);
         }
 
         public override void OnMechanismFixedUpdate()

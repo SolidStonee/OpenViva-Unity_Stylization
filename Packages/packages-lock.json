@@ -29,6 +29,15 @@
         "com.jbooth.microsplat.core": "3.9.0"
       }
     },
+    "com.kink3d.mirrors": {
+      "version": "https://github.com/Kink3d/kMirrors.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.render-pipelines.universal": "7.x.x"
+      },
+      "hash": "79b0526e5da06689f12a7f4846b2b568e997be35"
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
@@ -148,6 +157,15 @@
       "dependencies": {
         "com.unity.timeline": "1.7.1",
         "com.autodesk.fbx": "4.2.1"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.ide.rider": {
+      "version": "3.0.31",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.ext.nunit": "1.0.6"
       },
       "url": "https://packages.unity.com"
     },

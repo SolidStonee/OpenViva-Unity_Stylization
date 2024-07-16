@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using Viva.Util;
@@ -236,47 +237,34 @@ namespace Viva
 
         public IEnumerator LoadCardTexture(LoadCardTextureRequest request)
         {
-
             request.result = null;
             request.error = null;
 
-            FileStream fs = null;
-            string path = cardFolder + "/" + request.name;
-            try
+            string path = Path.Combine(cardFolder, request.name);
+            byte[] data = null;
+
+            Task readTask = Task.Run(() =>
             {
-                fs = new FileStream(path, FileMode.Open, FileAccess.Read);
-                if (!fs.CanRead)
+                try
                 {
-                    fs = null;
+                    data = File.ReadAllBytes(path);
                 }
-            }
-            catch (System.Exception e)
+                catch (System.Exception e)
+                {
+                    request.error = e.Message + "\nCould not open file " + path;
+                }
+            });
+
+            while (!readTask.IsCompleted)
             {
-                request.error = e.Message;
-                fs = null;
+                yield return null; // Wait until the read task is completed
             }
 
-
-            if (fs == null)
+            if (data == null || data.Length == 0)
             {
-                request.error += "\nCould not open file " + path;
+                request.error += " Could not read file " + path;
                 yield break;
             }
-
-            byte[] data = new byte[fs.Length];
-            const float targetLoadWait = 0.5f; //seconds
-            const float waitLength = 0.03f;
-            int waits = (int)(targetLoadWait / waitLength);
-            int bytesPerRead = (int)(fs.Length / waits);
-            int bytesLeft = (int)fs.Length;
-            while (fs.CanRead && bytesLeft > 0)
-            {
-                bytesPerRead = Mathf.Min(bytesPerRead, bytesLeft);
-                fs.Read(data, data.Length - bytesLeft, bytesPerRead);
-                bytesLeft -= bytesPerRead;
-                yield return new WaitForSeconds(waitLength);
-            }
-            fs.Close();
 
             Texture2D texture = new Texture2D(Steganography.PACK_SIZE, Steganography.CARD_HEIGHT, TextureFormat.RGB24, false, false);
             if (ImageConversion.LoadImage(texture, data, false))
@@ -294,7 +282,6 @@ namespace Viva
             {
                 request.error = "ERROR Could not read texture!";
             }
-
         }
 
         public bool CheckIfCardActuallyExists(string card)

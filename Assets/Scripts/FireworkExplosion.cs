@@ -8,7 +8,7 @@ namespace Viva
 
         [Range(10, 30)]
         [SerializeField]
-        private float lifespan = 20;
+        private float lifespan = 30;
         [SerializeField]
         private ParticleSystem fireworksPSys;
         [SerializeField]
@@ -82,10 +82,24 @@ namespace Viva
 
             Destroy(this, lifespan);
 
-            AlertLocalLolis();
+            AlertLocalCompanions();
         }
 
-        private void AlertLocalLolis()
+        private void OnDestroy()
+        {
+            foreach (Character character in GameDirector.characters.objects)
+            {
+                Companion companion = character as Companion;
+                if (companion == null)
+                {
+                    continue;
+                }
+                companion.autonomy.RemoveFromQueue("fireworks impressed");
+
+            }
+        }
+
+        private void AlertLocalCompanions()
         {
 
             foreach (Character character in GameDirector.characters.objects)
@@ -131,7 +145,15 @@ namespace Viva
 
                         playImpressed.AddRequirement(new AutonomyFaceDirection(companion.autonomy, "face firework", delegate (TaskTarget target)
                         {
-                            target.SetTargetPosition(transform.position);
+                            if(transform.position != null)
+                            {
+                                target.SetTargetPosition(transform.position);
+                            }
+                            else
+                            {
+                                playImpressed.FlagForFailure();
+                            }
+                            
                         }));
                         playImpressed.AddRequirement(new AutonomyWait(companion.autonomy, "random wait", Random.value));
 

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -11,19 +12,22 @@ namespace Viva
         [SerializeField]
         private Rigidbody headRigidBody;
 
-
-        public void WearOnHead(
-                    Item item,
-                    Vector4 localPosAndPitch,
-                    HoldType _holdType,
-                    float blendDuration)
+        private Vector3 hatPosition;
+        
+        
+        private void Start()
         {
+            hatPosition = headRigidBody.gameObject.transform.localPosition;
+        }
 
+        public void WearOnHead(Item item, Vector4 hatOffset, float blendDuration)
+        {
             if (item.rigidBody == null)
             {
                 return;
             }
-            item.transform.localPosition = localPosAndPitch;
+            
+            headRigidBody.gameObject.transform.localPosition = hatOffset;
             BeginRigidBodyGrab(item.rigidBody, headRigidBody, false, HoldType.OBJECT, blendDuration);
             Pickup(item);
         }

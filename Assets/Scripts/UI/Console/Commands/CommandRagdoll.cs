@@ -15,7 +15,7 @@ namespace Viva.console
         {
             Name = "Ragdoll";
             Command = "ragdoll";
-            Description = "Ragdoll's Selected Lolis";
+            Description = "Ragdoll's Selected Companions";
             Help = "Syntax: ragdoll <muscle weights> \n" +
                    $"<color={RequiredColor}><muscle weights></color> are required!";
             Example = "ragdoll 0.5";
@@ -23,18 +23,18 @@ namespace Viva.console
             AddCommandToConsole();
         }
 
-        public override void RunCommand(string[] data)
+        public override void RunCommand(string[] args)
         {
 
-            if (data.Length == 2)
+            if (args.Length == 2)
             {
-                var commandParameter = data[1];
+                var commandParameter = args[1];
                 float weight = Convert.ToSingle(commandParameter);
-                if (GameDirector.player.objectFingerPointer.selectedLolis.Count > 0)
+                if (GameDirector.player.objectFingerPointer.selectedCompanions.Count > 0)
                 {
-                    foreach (var loli in GameDirector.player.objectFingerPointer.selectedLolis)
+                    foreach (var companion in GameDirector.player.objectFingerPointer.selectedCompanions)
                     {
-                        loli.BeginRagdollMode(weight, Companion.Animation.FALLING_LOOP);
+                        companion.BeginRagdollMode(weight, Companion.Animation.FALLING_LOOP);
                     }
                 }
                 else

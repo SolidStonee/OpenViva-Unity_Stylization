@@ -12,6 +12,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - N_F_DNO_ON
   - N_F_EAL_ON
   - N_F_O_ON
   - N_F_RDC_ON
@@ -24,7 +25,6 @@ Material:
   - _GIFLATSHADE_OFF
   - _GLOSSTEXTUREFOLLOWOBJECTROTATION_OFF
   - _LIGHTAFFECTOUTLINECOLOR_OFF
-  - _LIGHTAFFECTRIMLIGHTCOLOR_OFF
   - _LIGHTAFFECTSHADOW_OFF
   - _LIGHTFALLOFFAFFECTSHADOWT_OFF
   - _LIGIGNOYNORDIR_OFF
@@ -192,7 +192,7 @@ Material:
     - _Dirt: 0
     - _DoubleSidedOutline: 1
     - _DstBlend: 0
-    - _DynamicNoisyOutline: 0
+    - _DynamicNoisyOutline: 1
     - _EnvironmentalLightingIntensity: 1
     - _FarDistanceMaxWidth: 10
     - _GIFlatShade: 0
@@ -211,7 +211,7 @@ Material:
     - _HighlightColorPower: 1
     - _LigIgnoYNorDir: 0
     - _LightAffectOutlineColor: 0
-    - _LightAffectRimLightColor: 0
+    - _LightAffectRimLightColor: 1
     - _LightAffectShadow: 0
     - _LightFalloffAffectShadowT: 0
     - _LightFalloffSoftness: 1
@@ -258,7 +258,7 @@ Material:
     - _N_F_ST: 0
     - _N_F_STIAL: 0
     - _N_F_STIS: 0
-    - _NoisyOutlineIntensity: 0
+    - _NoisyOutlineIntensity: 0.159
     - _NormalMapIntensity: 1
     - _OcclusionStrength: 1
     - _Opacity: 1
@@ -266,7 +266,7 @@ Material:
     - _OutSizeMax: 0.001
     - _OutSizeMin: 0.001
     - _OutlineExtrudeMethod: 0
-    - _OutlineWidth: 0.5
+    - _OutlineWidth: 0.63
     - _OutlineWidthAffectedByViewDistance: 0
     - _OutlineZPostionInCamera: 0
     - _OverallShadowColorPower: 1
@@ -287,10 +287,10 @@ Material:
     - _ReflectionRoughtness: 0
     - _RimBias: 0.65
     - _RimLigInt: 1
-    - _RimLightColorPower: 10
+    - _RimLightColorPower: 3.14
     - _RimLightInLight: 1
-    - _RimLightSoftness: 1
-    - _RimLightUnfill: 1.5
+    - _RimLightSoftness: 0.882
+    - _RimLightUnfill: 1.75
     - _RimMult: 1
     - _SPECIN: 1
     - _SPECMODE: 0
@@ -302,9 +302,9 @@ Material:
     - _SelfShadowAffectedByLightShadowStrength: 0
     - _SelfShadowHardness: 1
     - _SelfShadowRealTimeShadowColorPower: 1
-    - _SelfShadowRealtimeShadowIntensity: 1
+    - _SelfShadowRealtimeShadowIntensity: 0.9
     - _SelfShadowShadowTAtViewDirection: 0
-    - _SelfShadowThreshold: 0.93
+    - _SelfShadowThreshold: 0.83
     - _ShadowColorTexturePower: 0
     - _ShadowHardness: 0
     - _ShadowTColorPower: 1
@@ -346,7 +346,7 @@ Material:
     - _HighlightColor: {r: 1, g: 1, b: 1, a: 1}
     - _LightDir: {r: 2.19, g: 1, b: 0, a: 1}
     - _MainColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 0.47599998, g: 0.27230376, b: 0.226576, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineOffset: {r: 0, g: 0, b: 0, a: 1}
     - _OverallShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _PTCol: {r: 0, g: 0, b: 0, a: 1}

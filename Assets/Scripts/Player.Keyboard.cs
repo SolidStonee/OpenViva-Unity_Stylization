@@ -15,6 +15,7 @@ namespace Viva
         public float keyboardStandingHeight = 1.4f;
         public float keyboardFloorHeight = 0.5f;
         public float keyboardArmatureZoom = 0.5f;
+        public float keyboardArmatureUpOffset = 0.5f;
         private float keyboardMaxHeightOverride = 1.4f;
         private float enableMouseRotationMult = 1.0f;
         private Coroutine halfCrouchCoroutine = null;
@@ -76,7 +77,12 @@ namespace Viva
 
         public void ApplyHeadTransformToArmature()
         {
-            armature.position = head.position + head.forward * Mathf.Lerp(0.2f, 0.8f, keyboardArmatureZoom);
+
+            Vector3 forwardBackMovement = head.position + head.forward * Mathf.Lerp(0.2f, 0.8f, keyboardArmatureZoom);
+            Vector3 verticalMovement = head.up * Mathf.Lerp(-0.5f, 0.5f, keyboardArmatureUpOffset);
+
+
+            armature.position = forwardBackMovement + verticalMovement;
             armature.rotation = head.rotation * Quaternion.Euler(-90.0f, 0.0f, 0.0f);
         }
         public void UpdateGUIKeyboardShortcuts()
@@ -104,17 +110,34 @@ namespace Viva
 
         public void OnInputScroll(Vector2 scroll)
         {
-            if (scroll.y > 0)
+            if (keyboardAlt)
             {
-                keyboardArmatureZoom += 0.15f;
+                // adjust vertical offset
+                if (scroll.y > 0)
+                {
+                    keyboardArmatureUpOffset += 0.1f;
+                }
+                if (scroll.y < 0)
+                {
+                    keyboardArmatureUpOffset -= 0.1f;
+                }
+
+                keyboardArmatureUpOffset = Mathf.Clamp(keyboardArmatureUpOffset, 0.2f, 0.8f);
             }
-            if(scroll.y < 0)
+            else
             {
-                keyboardArmatureZoom -= 0.15f;
+                //adjust zoom
+                if (scroll.y > 0)
+                {
+                    keyboardArmatureZoom += 0.15f;
+                }
+                if (scroll.y < 0)
+                {
+                    keyboardArmatureZoom -= 0.15f;
+                }
+
+                keyboardArmatureZoom = Mathf.Clamp(keyboardArmatureZoom, 0, 1);
             }
-
-            keyboardArmatureZoom = Mathf.Clamp(keyboardArmatureZoom, 0, 1);
-
         }
 
         public void OnInputTogglePresentHand(PlayerHandState handState)
@@ -179,13 +202,16 @@ namespace Viva
             head.localPosition = Vector3.up * keyboardCurrentHeight;
         }
 
+        public void FixHeadRoll()
+        {
+            //Fix head camera roll
+            head.transform.rotation = Quaternion.LookRotation(head.forward, Vector3.up);
+            head.transform.rotation = Quaternion.RotateTowards(Quaternion.LookRotation(new Vector3(head.forward.x, 0.0f, head.forward.z)), head.transform.rotation, 85.0f);
+        }
+
         public void UpdateInputKeyboardRotateHead()
         {
             mouseVelocitySum += CalculateMouseMovement() * enableMouseRotationMult;
-
-            //Fix head camera roll
-            head.transform.rotation = Quaternion.LookRotation(head.forward, Vector3.up);
-            head.transform.rotation = Quaternion.RotateTowards(Quaternion.LookRotation(new Vector3(head.forward.x, 0.0f, head.forward.z)), head.transform.rotation, 75.0f);
         }
     }
 

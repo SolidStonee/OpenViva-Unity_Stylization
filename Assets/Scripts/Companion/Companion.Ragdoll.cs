@@ -58,7 +58,7 @@ namespace Viva
         public OnRagdollCallback onRagdollModeBegin = null;
         public float? groundHeight { get; private set; } = null;
         private int disableFallingCount = 0;
-        private int activeConstraints = 0;
+        public int activeConstraints = 0;
         public bool isConstrained { get { return activeConstraints > 0; } }
         private bool enableStandOnGround = false;
 
@@ -172,6 +172,13 @@ namespace Viva
                     finalForce,
                     ForceMode.VelocityChange
                 );
+            }
+            else
+            {
+                foreach (var muscle in puppetMaster.muscles)
+                {
+                    muscle.rigidbody.AddForce(Physics.gravity * (1f - muscle.props.pinWeight), ForceMode.Acceleration);
+                }
             }
         }
 

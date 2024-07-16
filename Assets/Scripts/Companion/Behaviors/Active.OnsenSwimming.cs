@@ -30,7 +30,7 @@ namespace Viva
         private AutonomyEmpty currentClerkSession;
 
 
-        public OnsenSwimming(Companion _self) : base(_self, ActiveBehaviors.Behavior.ONSEN_SWIMMING, new OnsenSwimmingSession())
+        public OnsenSwimming(Companion _self) : base("Relaxing in onsen",_self, ActiveBehaviors.Behavior.ONSEN_SWIMMING, new OnsenSwimmingSession())
         {
         }
 
@@ -62,8 +62,8 @@ namespace Viva
         public override void OnActivate()
         {
 
-            GameDirector.player.objectFingerPointer.selectedLolis.Remove(self);
-            self.characterSelectionTarget.OnUnselected();
+            GameDirector.player.objectFingerPointer.selectedCompanions.Remove(self);
+            self.OnUnselected();
 
             GoToPool();
         }
@@ -94,7 +94,7 @@ namespace Viva
                 return false;
             }
 
-            if (IsWearingSwimmingClothes())
+            if (!IsWearingSwimmingClothes())
             {
                 return false;
             }

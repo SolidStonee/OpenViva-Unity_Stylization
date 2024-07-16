@@ -185,7 +185,6 @@ namespace Viva
                         if (item.settings.itemType == Item.Type.CHARACTER)
                         {
                             nearbyCharacters.Remove(item.mainOwner);
-                            return;
                         }
                         break;
                     }
@@ -193,18 +192,18 @@ namespace Viva
             }
         }
 
-        public void OnGesture(Item source, Gesture gesture)
-        {
-
-            //stop at first accepted gesture
-            for (int i = 0; i < passives.Length; i++)
-            {
-                if (passives[i].OnGesture(source, gesture))
-                {
-                    break;
-                }
-            }
-        }
+        // public void OnGesture(Item source, Gesture gesture)
+        // {
+        //
+        //     //stop at first accepted gesture
+        //     for (int i = 0; i < passives.Length; i++)
+        //     {
+        //         if (passives[i].OnGesture(source, gesture))
+        //         {
+        //             break;
+        //         }
+        //     }
+        // }
     }
 
 }
