@@ -17,6 +17,8 @@ namespace Viva
         private int idleVersion = 0;
         public bool enableFaceTargetTimer;
         public bool hasSaidGoodMorning = true;
+        private bool tryingToGrabInterest = false;
+        
         private float lastYummyReactTime = 0.0f;
 
         public IdleBehavior(Companion _self) : base("Idling", _self, ActiveBehaviors.Behavior.IDLE, null)
@@ -285,11 +287,26 @@ namespace Viva
                     return;
                 }
 
+                if (tryingToGrabInterest) return; //if already trying to pickup return my brain is fried rn so i dont know any other solutions
+
                 if (self.GetPreferredHandState(closest) == null)
                 {
                     return;
                 }
-                self.autonomy.SetAutonomy(new AutonomyPickup(self.autonomy, "pickup interest", closest, self.GetPreferredHandState(closest), true));
+
+                // var pickup = new AutonomyPickup(self.autonomy, "pickup interest", closest,
+                //     self.GetPreferredHandState(closest), true);
+                //
+                // pickup.onRegistered += delegate
+                // {
+                //     tryingToGrabInterest = true;
+                // };
+                // pickup.onUnregistered += delegate
+                // {
+                //     tryingToGrabInterest = false;
+                // };
+                //
+                // self.autonomy.SetAutonomy(pickup);
                 //self.active.pickup.AttemptGoAndPickup( closest, self.active.pickup.FindPreferredHandState( closest ) );
             }
         }
@@ -336,6 +353,9 @@ namespace Viva
 
         private void UpdateIdleRootFacingTargetTimer()
         {
+            
+            self.SetFacingRootTarget(GameDirector.player.head.transform.position);
+            
             if (self.currentLookAtTransform != null && !self.locomotion.isMoveToActive())
             {
                 idleRootFacingTargetTimer -= Time.deltaTime * System.Convert.ToInt32(enableFaceTargetTimer);
@@ -346,11 +366,7 @@ namespace Viva
                     {
                         if (self.bodyState != BodyState.AWAKE_PILLOW_UP && self.bodyState != BodyState.AWAKE_PILLOW_SIDE_LEFT && self.bodyState != BodyState.AWAKE_PILLOW_SIDE_RIGHT)
                         {
-                            self.autonomy.Interrupt(new AutonomyFaceDirection(self.autonomy, "idle face direction", delegate (TaskTarget target)
-                            {
-                                target.SetTargetPosition(self.currentLookAtTransform.position);
-                            }));
-                            //self.SetRootFacingTarget( self.currentLookAtTransform.position, 200.0f, 15.0f, 30.0f );
+                            self.SetFacingRootTarget(self.currentLookAtTransform.position);
                         }
                     }
                 }

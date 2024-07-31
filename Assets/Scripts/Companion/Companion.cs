@@ -18,6 +18,7 @@ namespace Viva
             EYELID_FOLLOW = 2,
             PUPIL_FOLLOW = 4,
             EYELID_PUPIL_CLAMP = 8,
+
             NORMAL = 7
             //7 EYELID_FOLLOW + PUPIL_FOLLOW + BLINK
             //6 EYELID_FOLLOW + PUPIL_FOLLOW
@@ -35,59 +36,119 @@ namespace Viva
             NORMAL = 3
         }
 
-        [SerializeField]
-        private CharacterSelectionTarget m_characterSelectionTarget;
-        public CharacterSelectionTarget characterSelectionTarget { get { return m_characterSelectionTarget; } }
-        [SerializeField]
-        private PuppetMaster m_puppetMaster;
-        public PuppetMaster puppetMaster { get { return m_puppetMaster; } }
-        [SerializeField]
-        private Transform m_anchor;
-        public Transform anchor { get { return m_anchor; } }
-        [SerializeField]
-        private Transform m_spine1;
-        public Transform spine1 { get { return m_spine1; } }
-        [SerializeField]
-        private Transform m_spine2;
-        public Transform spine2 { get { return m_spine2; } }
-        [SerializeField]
-        private Transform m_spine3;
-        public Transform spine3 { get { return m_spine3; } }
-        [SerializeField]
-        private Transform m_foot_r;
-        public Transform foot_r { get { return m_foot_r; } }
-        [SerializeField]
-        private Transform m_foot_l;
-        public Transform foot_l { get { return m_foot_l; } }
-        [SerializeField]
-        private Transform m_shoulder_r;
-        public Transform shoulder_r { get { return m_shoulder_r; } }
-        [SerializeField]
-        private Transform m_shoulder_l;
-        public Transform shoulder_l { get { return m_shoulder_l; } }
-        [SerializeField]
-        private Transform m_bodyArmature;
-        public Transform bodyArmature { get { return m_bodyArmature; } }
-        [SerializeField]
-        private float m_dirt;
-        public float dirt { get { return m_dirt; } private set { m_dirt = value; } }
-        [SerializeField]
-        private MeshRenderer nametagMR;
-        [SerializeField]
-        private SpeechBubbleDisplay m_speechBubbleDisplay;
-        public SpeechBubbleDisplay speechBubbleDisplay { get { return m_speechBubbleDisplay; } }
+        [SerializeField] private CharacterSelectionTarget m_characterSelectionTarget;
+
+        public CharacterSelectionTarget characterSelectionTarget
+        {
+            get { return m_characterSelectionTarget; }
+        }
+
+        [SerializeField] private PuppetMaster m_puppetMaster;
+
+        public PuppetMaster puppetMaster
+        {
+            get { return m_puppetMaster; }
+        }
+
+        [SerializeField] private Transform m_anchor;
+
+        public Transform anchor
+        {
+            get { return m_anchor; }
+        }
+
+        [SerializeField] private Transform m_spine1;
+
+        public Transform spine1
+        {
+            get { return m_spine1; }
+        }
+
+        [SerializeField] private Transform m_spine2;
+
+        public Transform spine2
+        {
+            get { return m_spine2; }
+        }
+
+        [SerializeField] private Transform m_spine3;
+
+        public Transform spine3
+        {
+            get { return m_spine3; }
+        }
+
+        [SerializeField] private Transform m_foot_r;
+
+        public Transform foot_r
+        {
+            get { return m_foot_r; }
+        }
+
+        [SerializeField] private Transform m_foot_l;
+
+        public Transform foot_l
+        {
+            get { return m_foot_l; }
+        }
+
+        [SerializeField] private Transform m_shoulder_r;
+
+        public Transform shoulder_r
+        {
+            get { return m_shoulder_r; }
+        }
+
+        [SerializeField] private Transform m_shoulder_l;
+
+        public Transform shoulder_l
+        {
+            get { return m_shoulder_l; }
+        }
+
+        [SerializeField] private Transform m_bodyArmature;
+
+        public Transform bodyArmature
+        {
+            get { return m_bodyArmature; }
+        }
+
+        [SerializeField] private float m_dirt;
+
+        public float dirt
+        {
+            get { return m_dirt; }
+            private set { m_dirt = value; }
+        }
+
+        [SerializeField] private MeshRenderer nametagMR;
+        [SerializeField] private SpeechBubbleDisplay m_speechBubbleDisplay;
+
+        public SpeechBubbleDisplay speechBubbleDisplay
+        {
+            get { return m_speechBubbleDisplay; }
+        }
 
         private Outfit m_outfit = null;
-        [VivaFileAttribute]
-        public Outfit outfit { get { return m_outfit; } private set { m_outfit = value; } }
 
-        [SerializeField] 
-        private bool debuggingCharacter = false;
+        [VivaFileAttribute]
+        public Outfit outfit
+        {
+            get { return m_outfit; }
+            private set { m_outfit = value; }
+        }
+
+        [SerializeField] private bool debuggingCharacter = false;
 
         private LookAtBone headLookAt = null;
         private LookAtBone spine2LookAt = null;
         private VivaModel m_headModel;
-        public VivaModel headModel { get { return m_headModel; } }
+
+        public VivaModel headModel
+        {
+            get { return m_headModel; }
+        }
+
         private float bodyFlagPercent = 1.0f;
         private float bodyFlagSpeedMult = 1.0f;
         private float eyeFlagSpeedMult = 1.0f;
@@ -100,7 +161,7 @@ namespace Viva
         public float animationDelta { get; protected set; } = 0.0f;
         public float lastPhysicsStepMult { get; protected set; } = 1.0f;
         private Vector3 lastFloorPos;
-        
+
         public List<Outline.Entry> companionOutlines = new List<Outline.Entry>();
 
 
@@ -111,7 +172,8 @@ namespace Viva
 
         public void Teleport(Vector3 position, Quaternion rotation)
         {
-            spine1RigidBody.transform.position = spine1.position + Vector3.up * (spine1RigidBody.transform.position.y - lastFloorPos.y);
+            spine1RigidBody.transform.position =
+                spine1.position + Vector3.up * (spine1RigidBody.transform.position.y - lastFloorPos.y);
             spine1RigidBody.transform.rotation = spine1.rotation;
             puppetMaster.ClearVelocities();
         }
@@ -133,7 +195,8 @@ namespace Viva
 
         protected override void OnFootstep()
         {
-            bool isBathing = active.bathing.GetBathingPhase() != BathingBehavior.BathingPhase.NONE || active.onsenSwimming.isSwimming;
+            bool isBathing = active.bathing.GetBathingPhase() != BathingBehavior.BathingPhase.NONE ||
+                             active.onsenSwimming.isSwimming;
             bool touchingDirtyWater = !isBathing && footstepInfo.CurrentFootStepType == FootstepInfo.FootStepType.WATER;
             if (footstepInfo.CurrentFootStepType == FootstepInfo.FootStepType.DIRT || touchingDirtyWater)
             {
@@ -142,18 +205,21 @@ namespace Viva
                 IncreaseDirt(0.0001f);
             }
         }
+
         protected override void OnCharacterAwake()
         {
 
             if (outfit == null)
             {
                 outfit = Outfit.Create(
-                    new string[]{
-                    "skirt 1",
+                    new string[]
+                    {
+                        "skirt 1",
                     },
                     false
                 );
             }
+
             SetOutfit(outfit);
 
             rightCompanionHandState.InitializeIK();
@@ -164,7 +230,8 @@ namespace Viva
 
             name = sessionReferenceName;
             companionID = companionIDCounter++;
-            worldMask = WorldUtil.wallsMask | WorldUtil.wallsStaticForCharactersMask | WorldUtil.wallsStaticForCompanionOnlyMask;
+            worldMask = WorldUtil.wallsMask | WorldUtil.wallsStaticForCharactersMask |
+                        WorldUtil.wallsStaticForCompanionOnlyMask;
             lastFloorPos = CalculateCurrentFloorPosition();
         }
 
@@ -194,6 +261,7 @@ namespace Viva
             {
                 muscle.SetEnableAngularLimits(muscle.props.alwaysOnAngularLimits);
             }
+
             puppetMaster.transform.SetParent(null, true);
 
             puppetMaster.SetEnableInternalCollisions(false);
@@ -205,12 +273,12 @@ namespace Viva
         {
             UpdateTasks();
 
-            
+
             if (spine1.transform.position.y < 0.0f || spine1.transform.position.y > 500.0f)
             {
                 Vector3 respawnPos = new Vector3(62.34f, 144.57f, 325.11f);
                 TeleportToSpawn(respawnPos, spine1.transform.rotation);
-            }           
+            }
         }
 
         public override void OnCharacterFixedUpdate()
@@ -249,6 +317,7 @@ namespace Viva
 
         private ArmIK debugArmIK;
         private ArmIK.RetargetingInfo debugRetargeting;
+
         private void DebugIK()
         {
             if (debugArmIK == null)
@@ -256,6 +325,7 @@ namespace Viva
                 debugArmIK = new ArmIK(rightCompanionHandState.holdArmIK);
                 debugRetargeting = new ArmIK.RetargetingInfo();
             }
+
             debugArmIK.OverrideWorldRetargetingTransform(
                 debugRetargeting,
                 GameObject.Find("DEBUGSPHERE").transform.position,
@@ -277,7 +347,8 @@ namespace Viva
             {
                 maxPhysicsLOD = 0;
             }
-            int lodMult = Mathf.Min(maxPhysicsLOD * maxPhysicsLOD + 1, 4);  //1, 2, 4
+
+            int lodMult = Mathf.Min(maxPhysicsLOD * maxPhysicsLOD + 1, 4); //1, 2, 4
             lastPhysicsStepMult = System.Convert.ToInt32((lowLODstep++ + companionID) % lodMult == 0) * lodMult;
 
             lastFloorPos = CalculateCurrentFloorPosition();
@@ -311,6 +382,7 @@ namespace Viva
                 FixedUpdateAnimationEvents();
                 FixedUpdateBalanceCheck();
             }
+
             LateUpdateTasks();
             if (!anchorActive)
             {
@@ -339,6 +411,7 @@ namespace Viva
             {
                 return true;
             }
+
             return base.IgnorePersistance();
         }
 
@@ -357,10 +430,13 @@ namespace Viva
 
             eyeFlagSpeedMult = transitionTime;
 
-            if (Mathf.Min(1.0f, flags & (int)EyeLogicFlags.EYELID_PUPIL_CLAMP) + Mathf.Min(1.0f, flags & (int)EyeLogicFlags.EYELID_FOLLOW) == 2.0f)
+            if (Mathf.Min(1.0f, flags & (int)EyeLogicFlags.EYELID_PUPIL_CLAMP) +
+                Mathf.Min(1.0f, flags & (int)EyeLogicFlags.EYELID_FOLLOW) == 2.0f)
             {
-                Debug.Log("Invalid PUPIL behavior [EYELID_PUPIL_CLAMP+EYELID_FOLLOW] at " + m_currentAnim + "/" + m_targetAnim + " = " + flags);
+                Debug.Log("Invalid PUPIL behavior [EYELID_PUPIL_CLAMP+EYELID_FOLLOW] at " + m_currentAnim + "/" +
+                          m_targetAnim + " = " + flags);
             }
+
             eyeFlags = flags;
             float eyePercent = Mathf.Min(1.0f, flags & (int)EyeLogicFlags.PUPIL_FOLLOW);
             rightEye.lookAt.easeBlend.StartBlend(eyePercent, transitionTime);
@@ -384,8 +460,10 @@ namespace Viva
                 Debug.LogError("###ERROR### Set body flag percent > 1. at " + m_currentAnim);
             }
 #endif
-            headLookAt.easeBlend.StartBlend(Mathf.Min(bodyFlagPercent, flags & (int)BodyLogicFlags.HEAD_FOLLOW), transitionTime);
-            spine2LookAt.easeBlend.StartBlend(Mathf.Min(bodyFlagPercent, flags & (int)BodyLogicFlags.SPINE2_FOLLOW), transitionTime * 1.4f);
+            headLookAt.easeBlend.StartBlend(Mathf.Min(bodyFlagPercent, flags & (int)BodyLogicFlags.HEAD_FOLLOW),
+                transitionTime);
+            spine2LookAt.easeBlend.StartBlend(Mathf.Min(bodyFlagPercent, flags & (int)BodyLogicFlags.SPINE2_FOLLOW),
+                transitionTime * 1.4f);
         }
 
         public void OnDrawGizmosSelected()
@@ -394,6 +472,7 @@ namespace Viva
             {
                 return;
             }
+
             Gizmos.color = new Color(0.0f, 0.0f, 1.0f, 0.5f);
             Gizmos.DrawSphere(rightCompanionHandState.holdRetargeting.target, 0.05f);
             Gizmos.DrawSphere(rightCompanionHandState.holdRetargeting.pole, 0.05f);
@@ -415,8 +494,12 @@ namespace Viva
             {
                 Outline.StopOutlining(characterOutline);
             }
+
             companionOutlines.Clear();
         }
+
+        [SerializeField] public Vector3 debugVar;
+        [SerializeField] public Vector3 debugVar2;
 
         // public void OnGUI()
         // {
@@ -464,10 +547,6 @@ namespace Viva
         //     GUI.Label(new Rect(25.0f, 240.0f, 100.0f, 30.0f), "eye: " + randomViewTimer, debugStyle);
         // }
 
-        [SerializeField]
-        public Vector3 debugVar;
-        [SerializeField]
-        public Vector3 debugVar2;
     }
 
 }

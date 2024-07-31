@@ -78,11 +78,13 @@ namespace Viva
 
         public override bool AttemptCommandUse(Companion targetCompanion, Character commandSource)
         {
+            Debug.Log("test");
             var basket = changingRoom.GetNextEmptyBasket();
             if (basket == null)
             {
                 return false;
             }
+            Debug.Log("test 2");
             targetCompanion.active.onsenSwimming.swimmingSession.activePoolAsset = this;
             targetCompanion.active.onsenSwimming.swimmingSession.activeBasketAsset = basket;
             targetCompanion.active.SetTask(targetCompanion.active.onsenSwimming);

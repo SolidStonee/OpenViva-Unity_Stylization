@@ -208,7 +208,7 @@ namespace Viva
             }
             if (fillSound != null)
             {
-                SoundManager.main.RequestHandle(transform.position).PlayOneShot(fillSound);
+                SoundManager.main.RequestHandle(transform.localPosition, transform).PlayOneShot(fillSound);
             }
             GameDirector.instance.StartCoroutine(AnimationChangeFill(spillAmount, ChangeSubstanceAmount));
             return true;
@@ -225,7 +225,7 @@ namespace Viva
 
                 if (tipReset && spillSound != null)
                 {
-                    SoundManager.main.RequestHandle(transform.position).PlayOneShot(spillSound);
+                    SoundManager.main.RequestHandle(transform.localPosition, transform).PlayOneShot(spillSound);
                 }
                 if (tipReset && instantSpill)
                 {
@@ -338,7 +338,7 @@ namespace Viva
 
             if (fillSound != null)
             {
-                SoundManager.main.RequestHandle(transform.position).PlayOneShot(fillSound);
+                SoundManager.main.RequestHandle(transform.localPosition, transform).PlayOneShot(fillSound);
             }
             float timer = 0.0f;
             while (timer < 0.5f)
@@ -447,6 +447,7 @@ namespace Viva
                 {
                     //empty contents
                     containerHand.actionState.Consume();
+                    Debug.Log("Dumping Allow" + allowDumping);
                     if (isMixing)
                     {
                         //restore both hands animation
@@ -455,6 +456,7 @@ namespace Viva
                     }
                     else if (allowDumping)
                     {
+                        
                         containerHand.animSys.SetTargetAnimation(emptyContentsAnim);
                     }
                 }

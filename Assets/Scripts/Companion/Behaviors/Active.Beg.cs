@@ -30,6 +30,12 @@ namespace Viva
                 Debug.LogError("Cannot beg for item without an owner");
                 return false;
             }
+            float sqDist = Vector3.SqrMagnitude(self.head.position - item.transform.position);
+            if (sqDist > 24.0f)
+            {
+                Debug.LogWarning("Too far away to beg for item");
+                return false;
+            }
             if (self.rightHandState.occupied && self.leftHandState.occupied)
             {
                 return false;
@@ -45,9 +51,8 @@ namespace Viva
             self.SetLookAtTarget(targetItem.transform, 2.4f);
 
             //random chance startle
-            if (Random.value > 0.5f)
+            if (Random.value > 0.5f && self.IsHappy())
             {
-
                 var startleFirst = new AutonomyPlayAnimation(self.autonomy, "startle before pickup", Companion.Animation.STAND_GIDDY_SURPRISE);
                 startleFirst.AddRequirement(new AutonomyEnforceBodyState(self.autonomy, "enforce stand", BodyState.STAND));
                 startleFirst.AddPassive(new AutonomyFaceDirection(self.autonomy, "face beg item", delegate (TaskTarget target) { target.SetTargetItem(targetItem); }));
@@ -90,19 +95,19 @@ namespace Viva
             var playEndBegAnim = new AutonomyPlayAnimation(self.autonomy, "end beg anim", Companion.Animation.STAND_HAPPY_BEG_END);
             self.autonomy.SetAutonomy(playEndBegAnim);
 
-            playEndBegAnim.onSuccess += PlayPostPickupAnim;
+            //playEndBegAnim.onSuccess += PlayPostPickupAnim;
             playEndBegAnim.onFail += ConfusedAndIdle;
 
             self.active.SetTask(self.active.idle);
         }
 
-        private void PlayPostPickupAnim()
-        {
-            var postPickupAnim = Companion.Animation.NONE;// self.active.pickup.GetPostPickupAnimationByItemType( targetItem.settings.itemType );
-            var playPostPickupAnim = new AutonomyPlayAnimation(self.autonomy, "end beg anim", postPickupAnim);
-
-            self.autonomy.SetAutonomy(playPostPickupAnim);
-        }
+        // private void PlayPostPickupAnim()
+        // {
+        //     var postPickupAnim = Companion.Animation.NONE;// self.active.pickup.GetPostPickupAnimationByItemType( targetItem.settings.itemType );
+        //     var playPostPickupAnim = new AutonomyPlayAnimation(self.autonomy, "end beg anim", postPickupAnim);
+        //
+        //     self.autonomy.SetAutonomy(playPostPickupAnim);
+        // }
 
         private void ConfusedAndIdle()
         {

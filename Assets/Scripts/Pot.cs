@@ -153,6 +153,15 @@ namespace Viva
             UpdateWaterMaterial();
         }
 
+        protected override void OnSpillContents()
+        {
+            base.OnSpillContents();
+            //Reset
+            m_timeHeated = 0.0f;
+            m_fruitCount = 0;
+            UpdateHeatedMaterial();
+        }
+
         protected override void OnUpdateStatusBar()
         {
             if (timeHeated == 0.0f)
@@ -211,7 +220,7 @@ namespace Viva
                 timeHeated = Mathf.Min(timeHeated + time, timeToHeat);
                 UpdateHeatedMaterial();
             }
-            EnableItemLogicTemporarily(1.5f);
+            EnableItemLogicTemporarily(3.5f);
         }
 
         private void UpdateHeatedMaterial()

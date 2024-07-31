@@ -176,6 +176,55 @@ namespace Viva
                 onModifyAnimations += ResetAnchorRotationAfter;
             }
         }
-    }
+        
+        Vector3 rootDirEuler = Vector3.zero;
+        float faceYawVelocity = 0.0f;
+        
+        public void SetFacingRootTarget(Vector3 facingTarget, float speedMultiplier = 1.0f, float minSuccessBearing = 10.0f)
+        {
+            
+            float faceYawAcc = 20.0f * speedMultiplier;
+            float faceYawMaxVel = 200 * speedMultiplier;
+            
+            
+            rootDirEuler.y = anchor.eulerAngles.y;
 
+            
+            Vector3 readPos = ConstrainFromFloorPos(facingTarget);
+            Debug.DrawLine(floorPos, readPos, Color.green, 0.1f);
+            Debug.DrawLine(anchor.position, anchor.position + anchor.forward, Color.red, 0.1f);
+            float bearing = Tools.Bearing(anchor, readPos);
+            if (faceYawDisableSum > 0)
+            {   //disable if sum is greater than 1
+                faceYawVelocity *= Mathf.Pow(0.8f, animationDelta * 10.0f);
+            }
+            else
+            {
+                faceYawVelocity += Mathf.Sign(bearing) * faceYawAcc * animationDelta;
+
+                float absBearing = Mathf.Abs(bearing);
+                float absMaxVelocity = faceYawMaxVel * animationDelta;
+                if (absBearing < 25)
+                {
+                    float ratio = 1.0f - absBearing / 25;
+                    absMaxVelocity *= 1.0f - ratio * ratio;
+                }
+                faceYawVelocity = Mathf.Clamp(faceYawVelocity, -absMaxVelocity, absMaxVelocity);
+            }
+            if (bearing > 0.0f)
+            {
+                if (bearing + faceYawVelocity <= 0.0f)
+                {
+                    faceYawVelocity = bearing;
+                }
+            }
+            else if (bearing + faceYawVelocity >= 0.0f)
+            {
+                faceYawVelocity = bearing;
+            }
+            rootDirEuler.y = anchor.eulerAngles.y + faceYawVelocity;
+            anchor.eulerAngles = rootDirEuler;
+//            Debug.Log(anchor.eulerAngles.ToString());
+        }
+    }
 }

@@ -120,7 +120,7 @@ namespace Viva
             begging = true;
             if (playBegStartAnim == null)
             {
-                playBegStartAnim = new AutonomyPlayAnimation(self.autonomy, "play beg start anim", Companion.Animation.STAND_HAPPY_BEG_START);
+                playBegStartAnim = new AutonomyPlayAnimation(self.autonomy, "play beg start anim", self.IsHappy() ? Companion.Animation.STAND_HAPPY_BEG_START : Companion.Animation.STAND_ANGRY_JEALOUS);
                 playBegStartAnim.AddPassive(new AutonomyFaceDirection(self.autonomy, "face beg item", delegate (TaskTarget target) { target.SetTargetItem(targetItem); }, 1.0f, 10.0f));
 
                 playBegStartAnim.onSuccess += BeginBegLogic;
@@ -156,7 +156,13 @@ namespace Viva
                 setBegLocomotion = new AutonomyPlayAnimation(self.autonomy, "proximity beg anim", GetBegLocomotionAnimation());
                 setBegLocomotion.onRegistered += delegate { ValidateBegProximityAnimation(setBegLocomotion); };
                 setBegLocomotion.onCharacterTriggerEnter += HandleItemCollision;
-                setBegLocomotion.onFixedUpdate += ValidateItemDistance;
+                setBegLocomotion.onFixedUpdate += delegate
+                {
+                    if( !self.IsSpeakingAtAll() && self.currentAnim == Companion.Animation.STAND_LOCOMOTION_JEALOUS ){
+ 					    self.SpeakAtRandomIntervals( Companion.VoiceLine.ANGRY_LONG, 2.5f, 5.0f );
+ 				    }
+                    ValidateItemDistance();
+                };
 
                 onFixedUpdate += delegate { ValidateBegProximityAnimation(setBegLocomotion); };
 
@@ -175,7 +181,8 @@ namespace Viva
                     };
                 }
             }
-            RemoveRequirement(playBegStartAnim);
+            if (playBegStartAnim != null)
+                RemoveRequirement(playBegStartAnim);
             AddRequirement(setBegLocomotion);
         }
 
@@ -218,16 +225,12 @@ namespace Viva
 
         private Companion.Animation GetBegLocomotionAnimation()
         {
-
             float sqDist = Vector3.SqrMagnitude(self.floorPos - targetItem.transform.position);
-            if (sqDist < 6.0f)
-            {
-                return Companion.Animation.STAND_HAPPY_BEG_LOCOMOTION;
-            }
-            else
-            {
-                return Companion.Animation.STAND_HAPPY_IDLE1;
-            }
+            // if (sqDist < 10.0f)
+            // {
+            //     return  Companion.Animation.STAND_HAPPY_BEG_LOCOMOTION ;
+            // }
+            return  Companion.Animation.STAND_HAPPY_BEG_LOCOMOTION;
         }
 
         private void ValidateBegProximityAnimation(AutonomyPlayAnimation begAnim)

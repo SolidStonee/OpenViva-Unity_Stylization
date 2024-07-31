@@ -262,7 +262,7 @@ namespace Viva
                 if (walkPaceSoundTimer > 30.0f)
                 {
                     walkPaceSoundTimer = 0.0f;
-                    SoundManager.main.RequestHandle(mouthSource.position, mouthSource.transform).PlayOneShot(noseSound);
+                    SoundManager.main.RequestHandle(mouthSource.localPosition, mouthSource.transform).PlayOneShot(noseSound);
                 }
             }
             // if (lastVelocity > 0.003f && averageFloorNormal.HasValue)
@@ -298,7 +298,7 @@ namespace Viva
                 int soundIndex = currentStep % 2; //alternate between footstep sounds
                 AudioClip sound = footstepInfo.sounds[(int)footstepInfo.CurrentFootStepType].sounds[soundIndex];
 
-                SoundManager.main.RequestHandle(hoovesSource.position).PlayOneShot(sound);
+                SoundManager.main.RequestHandle(hoovesSource.localPosition, hoovesSource.transform).PlayOneShot(sound);
 
                 lastPlayTime = currentTime;
                 currentStep++;
@@ -309,7 +309,7 @@ namespace Viva
         protected void PlayRandomClopSound()
         {
             int randomIndex = Random.Range(0, 3);
-            SoundManager.main.RequestHandle(hoovesSource.position).PlayOneShot(footstepInfo.sounds[(int)footstepInfo.CurrentFootStepType].sounds[randomIndex]);
+            SoundManager.main.RequestHandle(hoovesSource.localPosition, hoovesSource.transform).PlayOneShot(footstepInfo.sounds[(int)footstepInfo.CurrentFootStepType].sounds[randomIndex]);
         }
 
         public override void OnMechanismFixedUpdate()
@@ -347,7 +347,7 @@ namespace Viva
             }
             AttemptCrossFade(neighID, 0.2f);
             targetSpeed = 0;
-            SoundManager.main.RequestHandle(mouthSource.position).PlayOneShot(neighSounds[(int)Random.Range(0.0f, neighSounds.Length - 1)]);
+            SoundManager.main.RequestHandle(mouthSource.localPosition, mouthSource.transform).PlayOneShot(neighSounds[(int)Random.Range(0.0f, neighSounds.Length - 1)]);
             if (backSeat.owner != null)
             {
                 Companion companion = backSeat.owner as Companion;

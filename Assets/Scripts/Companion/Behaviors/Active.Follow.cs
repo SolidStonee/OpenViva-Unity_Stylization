@@ -41,13 +41,13 @@ namespace Viva
             {
                 return false;
             }
-            Debug.Log($"Attempt Follow A: {source.name}");
+            //Debug.Log($"Attempt Follow A: {source.name}");
             //if the player isint in view dont follow
             if (!self.CanSeePoint(source.head.transform.position) && requiresLOS)
             {
                 return false;
             }
-            Debug.Log("Attempt Follow B");
+            //Debug.Log("Attempt Follow B");
             if (self.IsHappy() || self.IsTired() && self.IsHappy())
             {
 
@@ -87,7 +87,7 @@ namespace Viva
                 follow.onMoodChange += MoodChange;
                 self.autonomy.SetAutonomy(follow);
 
-                Debug.Log("Attempt Follow C");
+                //Debug.Log("Attempt Follow C");
                 self.active.SetTask(self.active.follow, null);
                 return true;
             }

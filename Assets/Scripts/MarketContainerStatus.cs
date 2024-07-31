@@ -52,7 +52,7 @@ namespace Viva
                 if (withinRange)
                 {
                     iconMeshRenderer.enabled = true;
-                    SoundManager.main.RequestHandle(transform.position, transform).PlayOneShot(readySound);
+                    SoundManager.main.RequestHandle(transform.localPosition, transform).PlayOneShot(readySound);
 
                     float timer = 0.0f;
                     float duration = 0.35f;

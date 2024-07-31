@@ -83,11 +83,7 @@ namespace Viva
                     UpdateApproaching();
                     break;
             }
-            // self.SetRootFacingTarget( targetChicken.pelvis.position, 200.0f, 20.0f, 10.0f );
-            // self.autonomy.SetAutonomy(new AutonomyFaceDirection(self.autonomy, "look chicken", delegate (TaskTarget target)
-            // {
-            //     target.SetTargetPosition(targetChicken.pelvis.position);
-            // }, 20.0f));
+            
             self.SetLookAtTarget(targetChicken.transform);
         }
 

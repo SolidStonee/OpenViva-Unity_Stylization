@@ -259,7 +259,7 @@ namespace Viva
             }
             if (heldItem.settings.pickupSound)
             {
-                SoundManager.main.RequestHandle(transform.position, transform).PlayOneShot(heldItem.settings.pickupSound.GetRandomAudioClip());
+                SoundManager.main.RequestHandle(transform.localPosition, transform).PlayOneShot(heldItem.settings.pickupSound.GetRandomAudioClip());
             }
         }
         protected override void OnPreDropItem()

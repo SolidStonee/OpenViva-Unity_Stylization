@@ -43,7 +43,7 @@ namespace Viva
                 }
                 m_tamed = true;
                 tameFX.SetActive(true);
-                SoundManager.main.RequestHandle(transform.position).PlayOneShot(parentMechanism.chickenSettings.tameSound);
+                SoundManager.main.RequestHandle(transform.localPosition, transform).PlayOneShot(parentMechanism.chickenSettings.tameSound);
                 parentMechanism.UpdateTamedStatus();
                 lastEggSpawnTime = Time.time - 28.0f;
             }
@@ -73,7 +73,7 @@ namespace Viva
                     {
                         eggScript.sourceChickenItem = this;
                     }
-                    SoundManager.main.RequestHandle(transform.position).PlayOneShot(parentMechanism.chickenSettings.eggSpawnSound);
+                    SoundManager.main.RequestHandle(transform.localPosition, transform).PlayOneShot(parentMechanism.chickenSettings.eggSpawnSound);
                 }
             }
         }

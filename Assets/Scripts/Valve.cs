@@ -49,7 +49,7 @@ namespace Viva
                     }
                     if (player.controls == Player.ControlType.KEYBOARD)
                     {
-                        if (disablePlayerMouseLookRotation)
+                        if (disablePlayerMouseLookRotation )
                         {
                             player.SetKeyboardMouseRotationMult(0.0f);
                         }
@@ -64,7 +64,6 @@ namespace Viva
 
         public override void OnPreDrop()
         {
-
             switch (mainOwner.characterType)
             {
                 case Character.Type.PLAYER:
@@ -76,11 +75,26 @@ namespace Viva
                     }
                     if (disablePlayerMouseLookRotation)
                     {
-                        player.SetKeyboardMouseRotationMult(1.0f);
+                        var oppositeHand = mainOwner.FindOppositeHandStateByOccupyState(this.mainOccupyState);
+                        
+                        Debug.Log($"Opposite hand is {oppositeHand.gameObject.name}");
+                        bool isOppositeHandHoldingValve = oppositeHand != null && oppositeHand.heldItem != null && oppositeHand.heldItem.settings.itemType == Type.VALVE;
+
+                        if (!isOppositeHandHoldingValve)
+                        {
+                            player.SetKeyboardMouseRotationMult(1.0f);
+                        }
                     }
                     break;
             }
+            
             parentMechanism.OnItemReleased(this);
+        }
+
+        public override void OnPostDrop()
+        {
+            base.OnPostDrop();
+            
         }
 
         public override void OnItemLateUpdatePostIK()

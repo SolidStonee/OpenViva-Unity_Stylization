@@ -288,6 +288,17 @@ namespace Viva
         {
             handsSMR.enabled = show;
         }
+
+        public bool CheckIfAnyHandsHaveItemType(Item.Type itemType)
+        {
+            if (leftPlayerHandState.heldItem.settings.itemType == itemType || rightPlayerHandState.heldItem.settings.itemType == itemType)
+            {
+                return true;
+            }
+
+            return false;
+        }
+        
     }
 
 }

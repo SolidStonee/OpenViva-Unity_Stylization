@@ -83,12 +83,20 @@ namespace Viva
                 {
                     continue;
                 }
-                if (handState.selfItem == selfItem)
+                if (handState.selfItem != selfItem)
                 {
                     return handState;
                 }
             }
             return null;
+        }
+        //Find Opposite HandState by Hand Item itself
+        public HandState FindOppositeHandStateByOccupyState(OccupyState occState)
+        {
+            bool isRightHand = occState.rightSide;
+            int oppositeIndex = isRightHand ? (int)Occupation.HAND_LEFT : (int)Occupation.HAND_RIGHT;
+
+            return occupyStates[oppositeIndex] as HandState;
         }
         
         public T GetItemIfHeldByEitherHand<T>() where T : Item
@@ -134,6 +142,15 @@ namespace Viva
             InitFootstepSounds();
             OnCharacterAwake();
         }
+        
+        public Vector3 ConstrainFromFloorPos(Vector3 p)
+        {
+            Vector3 diff = p - floorPos;
+            diff.y = 0.0f;
+            return floorPos + diff.normalized;
+        }
+
+  
     }
 
 }
