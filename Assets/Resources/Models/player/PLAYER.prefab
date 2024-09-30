@@ -1655,6 +1655,7 @@ MonoBehaviour:
   keyboardStandingHeight: 1.4
   keyboardFloorHeight: 0.5
   keyboardArmatureZoom: 0.5
+  keyboardArmatureUpOffset: 0.5
   surfaceCollider: {fileID: 0}
   handRigidBodyPrefab: {fileID: 4593641065835188907, guid: 8a2089c73e2cb7c43a31a9410a580d0c,
     type: 3}
@@ -2121,6 +2122,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f9146a10efd1a4173a1effeaa758c9e1, type: 2}
   - {fileID: 11400000, guid: 6569bfbb8d9e04a00a66f8b40aeb829d, type: 2}
   - {fileID: 11400000, guid: 1d05bc2f05a258e4eaf35f76592092ae, type: 2}
+  - {fileID: 11400000, guid: df03a561f65f30a4b95e6a036c3bfcb7, type: 2}
+  - {fileID: 11400000, guid: 937860c5d28f70c4fbb437a853efdd27, type: 2}
   - {fileID: 11400000, guid: 9ca9936d5b2c25f408e0ee77eda7cb71, type: 2}
   - {fileID: 11400000, guid: 808cfc92ac5fc6744ae2234447f39517, type: 2}
   lastFloorPos: {x: 0, y: 0, z: 0}
@@ -2443,7 +2446,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.02
-  far clip plane: 994.96
+  far clip plane: 600
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -2676,12 +2679,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaf0fcd27f873441fa3c3bd7137206be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHurtMat: {fileID: 0}
+  playerSplashMat: {fileID: 2100000, guid: 7c8518cf265b19ba7bfd705fef1bff14, type: 2}
   HurtScreen: {fileID: -3403770539973920601, guid: 983de87aa58b06c4188c608a983c5fc7,
     type: 2}
   SplashScreen: {fileID: -7382292691052397058, guid: 983de87aa58b06c4188c608a983c5fc7,
     type: 2}
   GhostScreen: {fileID: -4255186446054167466, guid: 983de87aa58b06c4188c608a983c5fc7,
     type: 2}
+  underWaterPP: {fileID: 0}
 --- !u!114 &5922770914765990496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2811,7 +2817,7 @@ MonoBehaviour:
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
-  m_Dithering: 0
+  m_Dithering: 1
   m_ClearDepth: 1
   m_AllowXRRendering: 1
   m_AllowHDROutput: 1

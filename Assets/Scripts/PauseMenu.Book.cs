@@ -64,7 +64,7 @@ namespace Viva
 
         private void OnCloseBookFinished()
         {
-            ContinueTutorial(MenuTutorial.WAIT_TO_EXIT_CHECKLIST);
+            Tutorial.instance.ContinueTutorial(MenuTutorial.WAIT_TO_EXIT_CHECKLIST);
             SetMenuActive(Menu.NONE, false);
             gameObject.SetActive(false);
             IsPauseMenuOpen = false;

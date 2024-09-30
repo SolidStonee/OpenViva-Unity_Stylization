@@ -333,24 +333,22 @@ namespace Viva
 
         private void SetEnableUnderwaterEffects(bool enable)
         {
-
-            headSoundSource.Stop();
             lowPassFilter.enabled = enable;
+            GameDirector.instance.postProcessing.ToggleUnderWater(enable);
             if (enable)
             {
-                //GameDirector.instance.postProcessing.EnableUnderwaterEffect();
+                
                 headSoundSource.clip = underwaterSoundLoop;
                 headSoundSource.loop = true;
-                headSoundSource.Play();
+                Debug.Log("Play");
+                if(!headSoundSource.isPlaying)
+                    headSoundSource.Play();
             }
             else
             {
-                //GameDirector.instance.postProcessing.DisableUnderwaterEffect();
+                headSoundSource.Stop();
             }
 
-            //fix a bug with Unity causing low pass filter from not working
-            headItem.transform.GetComponent<AudioListener>().enabled = false;
-            headItem.transform.GetComponent<AudioListener>().enabled = true;
         }
     }
 

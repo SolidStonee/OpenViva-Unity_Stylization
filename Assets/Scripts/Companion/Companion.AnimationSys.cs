@@ -27,8 +27,15 @@ namespace Viva
 
         [SerializeField]
         public Animator animator = null;
-        public Happiness happiness = Happiness.VERY_HAPPY;
-        public bool Tired = false;
+        
+        private bool m_tired = false;
+
+        [VivaFileAttribute]
+        public bool Tired
+        {
+            get => m_tired;
+            set => m_tired = value;
+        }
         private int lastLegsAnimID = -1;
         private int lastTorsoAnimID = -1;
         private int lastFaceAnimID = -1;

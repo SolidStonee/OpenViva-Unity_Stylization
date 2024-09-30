@@ -996,7 +996,7 @@ MonoBehaviour:
   localSpawnPosition: {x: -0.49, y: 0.36, z: -0.11}
   scale: 1
   targetMenu: {fileID: 0}
-  sprite: {fileID: 21300000, guid: 75555f67ac8d27343a1b0dd5785a5d62, type: 3}
+  sprite: {fileID: 21300000, guid: b4f8a50e8ec129442abcccf90a62172f, type: 3}
   enableOnEnterTargetMenu: {fileID: 8430301093217427698}
   useHUD: 0
   useSound: 1
@@ -1466,7 +1466,7 @@ MonoBehaviour:
   localSpawnPosition: {x: 0, y: 0.36, z: 0}
   scale: 1
   targetMenu: {fileID: 0}
-  sprite: {fileID: 21300000, guid: 54321cdc4a188e14d9ad4a274395c0cf, type: 3}
+  sprite: {fileID: 21300000, guid: fda68b19b543b0a488be5a3c346f05cd, type: 3}
   enableOnEnterTargetMenu: {fileID: 8430301093217427698}
   useHUD: 0
   useSound: 1
@@ -2443,7 +2443,7 @@ MonoBehaviour:
   localSpawnPosition: {x: 0.48, y: 0.36, z: 0.58}
   scale: 1
   targetMenu: {fileID: 0}
-  sprite: {fileID: 21300000, guid: 75555f67ac8d27343a1b0dd5785a5d62, type: 3}
+  sprite: {fileID: 21300000, guid: b4f8a50e8ec129442abcccf90a62172f, type: 3}
   enableOnEnterTargetMenu: {fileID: 8430301093217427698}
   useHUD: 0
   useSound: 1
@@ -6037,7 +6037,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2474249667247999291}
   m_Layer: 0
-  m_Name: firstLoliHints
+  m_Name: firstCharacterHints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6567,7 +6567,7 @@ GameObject:
   - component: {fileID: 1880927117}
   - component: {fileID: 4960216072427243448}
   m_Layer: 15
-  m_Name: hint_mirror_spawn_loli
+  m_Name: hint_mirror_spawn_character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16713,12 +16713,12 @@ PrefabInstance:
     - target: {fileID: 1487841468594555215, guid: b1081a8a82a4f9740815d57b829b587c,
         type: 3}
       propertyPath: m_Size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1487841468594555215, guid: b1081a8a82a4f9740815d57b829b587c,
         type: 3}
       propertyPath: m_Value
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1487841469206362423, guid: b1081a8a82a4f9740815d57b829b587c,
         type: 3}
@@ -16743,7 +16743,7 @@ PrefabInstance:
     - target: {fileID: 1487841469206362423, guid: b1081a8a82a4f9740815d57b829b587c,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000059127808
+      value: 1425.5435
       objectReference: {fileID: 0}
     - target: {fileID: 1487841469360280756, guid: b1081a8a82a4f9740815d57b829b587c,
         type: 3}

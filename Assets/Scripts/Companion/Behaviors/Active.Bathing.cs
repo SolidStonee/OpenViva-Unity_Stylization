@@ -195,7 +195,7 @@ namespace Viva
             self.leftShoulderState.AttemptDrop();
             Debug.Log("Bathing Debug 4");
 
-            BeginActualBathing();	//DEBUG OVERRIDE
+            //BeginActualBathing();	//DEBUG OVERRIDE
 
             Debug.Log("Bathing Debug");
             

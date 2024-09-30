@@ -77,9 +77,9 @@ namespace Viva
         [SerializeField]
         private RectTransform tabsButtonsContainer;
         [SerializeField]
-        private Transform loliPlaySpawnTransform;
+        private Transform characterPlaySpawnTransform;
         [SerializeField]
-        private Text selectedLolisText;
+        private Text selectedCharactersText;
 
         private Coroutine activeCoroutine = null;
 
@@ -177,23 +177,23 @@ namespace Viva
                 companion.OnUnselected();
                 GameDirector.player.objectFingerPointer.selectedCompanions.Remove(companion);
             }
-            selectedLolisText.text = GameDirector.player.objectFingerPointer.selectedCompanions.Count + " " + LocalizationManager.GetLocalizedStringFromTable("OtherUI", "CharactersSelected");
+            selectedCharactersText.text = GameDirector.player.objectFingerPointer.selectedCompanions.Count + " " + LocalizationManager.GetLocalizedStringFromTable("OtherUI", "CharactersSelected");
         }
 
         public override void OnBeginUIInput()
         {            
             FileDragAndDrop.EnableDragAndDrop(OnDropFile);
-            this.enabled = true;
+            enabled = true;
             SetTab(lastValidTabIndex);
-            selectedLolisText.text = GameDirector.player.objectFingerPointer.selectedCompanions.Count + " " + LocalizationManager.GetLocalizedStringFromTable("OtherUI", "CharactersSelected");
+            selectedCharactersText.text = GameDirector.player.objectFingerPointer.selectedCompanions.Count + " " + LocalizationManager.GetLocalizedStringFromTable("OtherUI", "CharactersSelected");
         }
 
         public override void OnExitUIInput()
         {
-            this.enabled = false;
+            enabled = false;
             SetTab((int)Tab.NONE);
             FileDragAndDrop.DisableDragAndDrop();
-            selectedLolisText.text = "";
+            selectedCharactersText.text = "";
         }
 
         public void PlaySpawnSound()
@@ -344,7 +344,7 @@ namespace Viva
                 }
                 else
                 {
-                    GameDirector.instance.town.BuildTownLolis(new string[] { modelDefault.headModel.name }, 1, loliPlaySpawnTransform.position);
+                    GameDirector.instance.town.BuildTownLolis(new string[] { modelDefault.headModel.name }, 1, characterPlaySpawnTransform.position);
                 }
                 modelDefault.gameObject.SetActive(false);
                 modelPreviewer.SetPreviewCompanion(null);

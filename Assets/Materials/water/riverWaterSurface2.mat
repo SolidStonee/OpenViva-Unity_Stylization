@@ -164,9 +164,9 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Refraction_Speed: 0.04
-    - _Refraction_Strength: 0.39
+    - _Refraction_Strength: 0.5
     - _SecondaryScale: 0.0046
-    - _Smoothness: 0.37
+    - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
     - _SpecSize: 1
     - _SpecStrength: 48
@@ -192,6 +192,6 @@ Material:
     - _SubsurfaceColor: {r: 0.6179246, g: 0.9597815, b: 1, a: 1}
     - _SurfColor: {r: 0, g: 0.7725491, b: 0.6627451, a: 0.2627451}
     - _UV: {r: 0, g: 0, b: 0, a: 0}
-    - _UnderColor: {r: 0.01960784, g: 0.2784313, b: 0.49411762, a: 0.6431373}
+    - _UnderColor: {r: 0, g: 0.6039216, b: 0.6784314, a: 0.11372549}
     - _UnderwaterColor: {r: 0.338928, g: 0.52082795, b: 0.614, a: 0}
   m_BuildTextureStacks: []

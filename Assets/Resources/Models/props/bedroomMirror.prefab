@@ -9654,8 +9654,8 @@ MonoBehaviour:
   browseTab: {fileID: 2048900599254116700}
   modelShader: {fileID: 4800000, guid: 6459b2db96a08ca41b0f9b39dc7ad59e, type: 3}
   tabsButtonsContainer: {fileID: 2952380646593394115}
-  loliPlaySpawnTransform: {fileID: 1772624619}
-  selectedLolisText: {fileID: 2521104628107827554}
+  characterPlaySpawnTransform: {fileID: 1772624619}
+  selectedCharactersText: {fileID: 2521104628107827554}
   tweakTab: {fileID: 1936294723603988663}
   tweakTabButton: {fileID: 5496120053707916451}
   tweakTabSubImage1: {fileID: 6375738803691449448}
@@ -19639,7 +19639,7 @@ GameObject:
   - component: {fileID: 2521104628107827554}
   - component: {fileID: 5613403318569688636}
   m_Layer: 5
-  m_Name: lolisSelected
+  m_Name: charactersSelected
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

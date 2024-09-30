@@ -22,6 +22,7 @@ Material:
   - N_F_TRANSAFFSHA_ON
   m_InvalidKeywords:
   - _CUSTOMLIGHTDIRECTIONFOLLOWOBJECTROTATION_OFF
+  - _EMISSION
   - _GLOSSTEXTUREFOLLOWOBJECTROTATION_OFF
   - _LIGHTFALLOFFAFFECTSHADOWT_OFF
   - _LIGIGNOYNORDIR_OFF
@@ -33,6 +34,7 @@ Material:
   - _SELFSHADOWAFFECTEDBYLIGHTSHADOWSTRENGTH_OFF
   - _SHOWNORMAL_OFF
   - _SPECMODE_OFF
+  - _SPECULARHIGHLIGHTS_OFF
   - _STIL_OFF
   - _TEXTUREPATTERNSTYLE_OFF
   - _USESECONDARYCUTOUT_OFF
@@ -40,8 +42,8 @@ Material:
   - _VERTEXCOLORBLUEAFFECTOUTLINEWITDH_OFF
   - _VERTEXCOLORGREENCONTROLSELFSHADOWTHRESHOLD_OFF
   - _VERTEXCOLORREDCONTROLSMOOTHOBJECTNORMAL_OFF
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 1
+  m_LightmapFlags: 1
+  m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -275,10 +277,10 @@ Material:
     - _RELG: 1
     - _ReceiveShadows: 1
     - _ReduSha: 0.57
-    - _RefMetallic: 0.354
+    - _RefMetallic: 0
     - _RefVal: 0
-    - _ReflectionIntensity: 0.383
-    - _ReflectionRoughtness: 0
+    - _ReflectionIntensity: 0.02
+    - _ReflectionRoughtness: 0.77
     - _RimLigInt: 1
     - _RimLightColorPower: 0.02
     - _RimLightInLight: 1
@@ -311,9 +313,9 @@ Material:
     - _SimTrans: 0
     - _SkinMatrixIndex: 0
     - _SmoothObjectNormal: 1
-    - _Smoothness: 0
+    - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
-    - _SpecularHighlights: 1
+    - _SpecularHighlights: 0
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0

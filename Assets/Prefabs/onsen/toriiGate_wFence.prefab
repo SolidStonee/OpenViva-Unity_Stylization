@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 4960451739665327605}
   - component: {fileID: 4116576968964138912}
   - component: {fileID: 2992279176734468358}
-  m_Layer: 0
+  - component: {fileID: 4094376654862738056}
+  m_Layer: 16
   m_Name: toriiGate_LeftDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7581042239879699770}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -180, y: -75.69947, z: 0}
 --- !u!33 &4116576968964138912
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -83,6 +84,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4094376654862738056
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291676339371980901}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 733725624648188452, guid: 3b19fbf2268b77f4a8c9aa6a98c4f68f, type: 3}
 --- !u!1 &556746208592463498
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,7 +281,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7581042239879699770}
-  - component: {fileID: 1564684689402512117}
+  - component: {fileID: 8182534560380023162}
   m_Layer: 0
   m_Name: toriiGate_gate (1)
   m_TagString: Untagged
@@ -285,21 +308,27 @@ Transform:
   - {fileID: 367594657684318872}
   m_Father: {fileID: 8955450382758096830}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!111 &1564684689402512117
-Animation:
+--- !u!95 &8182534560380023162
+Animator:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3296603241992625698}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98355b992de2c274397295db8975c4f3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7707518243493568234
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,7 +340,8 @@ GameObject:
   - component: {fileID: 66387163234082101}
   - component: {fileID: 3226335321324651549}
   - component: {fileID: 6897785172924574438}
-  m_Layer: 0
+  - component: {fileID: 6008997924854433385}
+  m_Layer: 16
   m_Name: toriiGate_RightDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -332,7 +362,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7581042239879699770}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 78.108, z: 0}
 --- !u!33 &3226335321324651549
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -383,6 +413,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6008997924854433385
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7707518243493568234}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5939863174268259259, guid: 3b19fbf2268b77f4a8c9aa6a98c4f68f, type: 3}
 --- !u!1001 &7871039030171492440
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -476,7 +528,7 @@ Animator:
   m_GameObject: {fileID: 5337750120571624877}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 37c2bfebc686169488e69d094c9784b4, type: 2}
+  m_Controller: {fileID: 9100000, guid: 98355b992de2c274397295db8975c4f3, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

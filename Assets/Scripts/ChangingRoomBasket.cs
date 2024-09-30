@@ -7,7 +7,7 @@ namespace Viva
     public class ChangingRoomBasket : VivaSessionAsset
     {
         
-        private Outfit m_outfit;
+        private Outfit m_outfit = null;
         [VivaFileAttribute]
         public Outfit outfit { get { return m_outfit; } protected set { m_outfit = value; } }
 

@@ -28,8 +28,8 @@ namespace Viva
         //Save current Calibration Position/Rotation
         public Vector3 CalibratePosition = new Vector3(0.003261785f, 0.086780190f, 0.05201015f);
         public Vector3 CalibrateEuler = new Vector3(-350.4226f, -101.9745f, -152.1913f);
-        public int qualityLevel = 2;
-        public int shadowLevel = 3;
+        public int qualityLevel = 3;
+        public int shadowLevel = 4;
         public int antiAliasing = 2;
         public float lodDistance = 1.0f;
         public int fpsLimit = 90;

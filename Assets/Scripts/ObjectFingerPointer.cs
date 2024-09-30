@@ -227,9 +227,7 @@ namespace Viva
                 hello_step = 0;
             }
         }
-
         
-
         [Header("Gestures")]
         [SerializeField]
         private GameObject gestureDisplay;
@@ -292,13 +290,13 @@ namespace Viva
             switch (gesture)
             {
                 case Gesture.FOLLOW:
-                    GameDirector.player.pauseMenu.ContinueTutorial(PauseMenu.MenuTutorial.WAIT_TO_COME_HERE);
+                    Tutorial.instance.ContinueTutorial(MenuTutorial.WAIT_TO_COME_HERE);
                     SendGestureToVisibleCharacters(sourceHand, gesture);
                     break;
 
                 case Gesture.HELLO:                    
                     SendGestureToVisibleCharacters(sourceHand, gesture);
-                    GameDirector.player.pauseMenu.ContinueTutorial(PauseMenu.MenuTutorial.WAIT_TO_WAVE);
+                    Tutorial.instance.ContinueTutorial(MenuTutorial.WAIT_TO_WAVE);
                     break;
                 case Gesture.STOP:
                     SendGestureToVisibleCharacters(sourceHand, gesture);
@@ -309,7 +307,7 @@ namespace Viva
 
                 case Gesture.PRESENT_START:
                     SendGestureToVisibleCharacters(sourceHand, gesture);
-                    GameDirector.player.pauseMenu.ContinueTutorial(PauseMenu.MenuTutorial.WAIT_TO_PRESENT);
+                    
                     break;
 
                 case Gesture.PRESENT_END:

@@ -5,9 +5,7 @@ using UnityEngine;
 
 namespace Viva
 {
-
-
-
+    
     [Serializable]
     public class Outfit : SerializedTaskData
     {

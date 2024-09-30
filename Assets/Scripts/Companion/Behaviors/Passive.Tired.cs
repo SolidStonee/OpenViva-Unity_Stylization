@@ -27,7 +27,6 @@ namespace Viva
                 float currentTime = GameDirector.newSkyDirector.skyDefinition.CurrentTime;
                 if (currentTime >= tiredTimeStart || currentTime < tiredTimeEnd)
                 {
-                    // SetTired(true);
                     BecomeTired();
                 }
             }

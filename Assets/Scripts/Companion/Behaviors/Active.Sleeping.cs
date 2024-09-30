@@ -130,7 +130,7 @@ namespace Viva
             }
 
             var moveToBed = GenerateMoveOnBed();
-            moveToBed.onSuccess += LayDownOnBed;
+            moveToBed.onSuccess += DoBedActions;
 
             self.autonomy.SetAutonomy(moveToBed);
         }
@@ -163,7 +163,7 @@ namespace Viva
             return ensureNearBed;
         }
 
-        private void LayDownOnBed()
+        private void DoBedActions()
         {
             Companion.Animation beforeSleepAnim;
             Companion.Animation yawnAnim;
@@ -194,7 +194,7 @@ namespace Viva
             var goodnightanim = new AutonomyPlayAnimation(self.autonomy, "say good night", goodNightAnim);
             
             var yawnanim = new AutonomyPlayAnimation(self.autonomy, "yawn anim", yawnAnim);
-            if (self.Tired && UnityEngine.Random.value > 0.5f)
+            if (self.Tired && Random.value > 0.5f)
             {
                 awakeToSleeptimer.AddRequirement(yawnanim);
             }

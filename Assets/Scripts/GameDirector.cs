@@ -15,6 +15,7 @@ namespace Viva
         public delegate bool BoolReturnCharacterFunc(Character character);
 
         public static GameDirector instance;
+        
         public static SkyDirector skyDirector;
         public static AltosSkyDirector newSkyDirector;
         public static LampDirector lampDirector;

@@ -89,6 +89,8 @@ namespace Viva
             {
                 return;
             }
+            if(targetItem.name.Contains("Ducky"))
+                Tutorial.instance.ContinueTutorial(MenuTutorial.WAIT_TO_GIVE_DUCKY);
             Debug.Log(self.headModel.name + " picked up " + targetItem.name);
             self.SetLookAtTarget(null);
 

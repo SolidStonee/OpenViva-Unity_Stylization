@@ -13,7 +13,6 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _ALPHAPREMULTIPLY_ON
   - _SPECULAR_SETUP
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
@@ -116,14 +115,14 @@ Material:
     - Vector1_2be7601ab99d430c8525266edef302b4: 1.5
     - Vector1_3331e4b5780d4a149d159f68f55a7e32: 142
     - Vector1_48aa5dff7d664a229bdd4ca9b62f08de: 0.14
-    - Vector1_86030992a0d049fab14057b7dfffae81: 0.86
+    - Vector1_86030992a0d049fab14057b7dfffae81: 1
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0
-    - _BlendModePreserveSpecular: 1
+    - _BlendModePreserveSpecular: 0
     - _BumpScale: 1
     - _CastShadows: 1
-    - _Cull: 2
+    - _Cull: 0
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DirtAmount: 0
@@ -162,7 +161,7 @@ Material:
     - _SpecSize: 1
     - _SpecStrength: 29.9
     - _SpecularHighlights: 1
-    - _SrcBlend: 1
+    - _SrcBlend: 5
     - _SubsurfaceLength: 2
     - _SubsurfaceStart: 0.091
     - _Surface: 1

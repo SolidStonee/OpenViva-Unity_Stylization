@@ -176,6 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1197108941230843847}
   - component: {fileID: 468353217121142296}
+  - component: {fileID: 1472098503987760154}
   m_Layer: 11
   m_Name: Stone_Large_2
   m_TagString: Untagged
@@ -228,6 +229,28 @@ LODGroup:
     renderers:
     - renderer: {fileID: 3048510316353734203}
   m_Enabled: 1
+--- !u!64 &1472098503987760154
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8053806149622496965}
+  m_Material: {fileID: 13400000, guid: 588d3d8443cad194bbffa36db3a912f3, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3485695674660399942, guid: bb5362f030fd0c54dbc51818a68afeb8, type: 3}
 --- !u!1 &8463003253528303568
 GameObject:
   m_ObjectHideFlags: 0

@@ -109,7 +109,8 @@ MonoBehaviour:
   - {fileID: -4255186446054167466}
   - {fileID: -3789186993131621832}
   - {fileID: 172726506325762108}
-  m_RendererFeatureMap: 62a95a7d5987dbf2fefddb19e9d38c99a738ea53ba60c3d0566ce2e5788af2c438f2db76811a6acb3c60d7a4d7a56502
+  - {fileID: 600803882487093541}
+  m_RendererFeatureMap: 62a95a7d5987dbf2fefddb19e9d38c99a738ea53ba60c3d0566ce2e5788af2c438f2db76811a6acb3c60d7a4d7a56502259951abf27b5608
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -165,3 +166,23 @@ MonoBehaviour:
   m_Name: HiZURP
   m_EditorClassIdentifier: 
   m_Active: 1
+--- !u!114 &600803882487093541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d613f08f173d4dd895bb07b3230baa9, type: 3}
+  m_Name: FullScreenPassRendererFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  injectionPoint: 600
+  fetchColorBuffer: 1
+  requirements: 0
+  passMaterial: {fileID: 2100000, guid: 39e77a120d92abc4dbfb57c88b8ae867, type: 2}
+  passIndex: 0
+  bindDepthStencilAttachment: 0
+  m_Version: 1

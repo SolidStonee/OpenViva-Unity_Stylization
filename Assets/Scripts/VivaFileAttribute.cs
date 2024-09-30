@@ -19,6 +19,7 @@ namespace Viva
             VIVA_SESSION_ASSET_ARRAY,
             VR_CONTROL_TYPE,
             CONTROL_TYPE,
+            HAPPINESS,
             SINGLE,
             INT32,
             INT32_ARRAY,
@@ -53,6 +54,7 @@ namespace Viva
             variableType = variableType.Replace("UnityEngine.", "");
             variableType = variableType.Replace("Viva.", "");
             variableType = variableType.Replace("System.", "");
+            //Debug.Log("VariableType: " + variableType);
             switch (variableType)
             {
                 case "String":
@@ -73,6 +75,8 @@ namespace Viva
                     return AssetStorage.VR_CONTROL_TYPE;
                 case "Player+ControlType":
                     return AssetStorage.CONTROL_TYPE;
+                case "Companion+Happiness":
+                    return AssetStorage.HAPPINESS;
                 case "Single":
                     return AssetStorage.SINGLE;
                 case "Int32":
@@ -98,6 +102,7 @@ namespace Viva
         {
             try
             {
+                Debug.Log("Serialize ENum: " + obj);
                 T enumVal = (T)obj;
                 int enumNumVal = System.Convert.ToInt32(enumVal);
                 return SerializeInt(enumNumVal);
@@ -175,6 +180,8 @@ namespace Viva
                     return SerializeEnum<Player.VRControlType>(obj);
                 case AssetStorage.CONTROL_TYPE:
                     return SerializeEnum<Player.ControlType>(obj);
+                case AssetStorage.HAPPINESS:
+                    return SerializeEnum<Companion.Happiness>(obj);
                 case AssetStorage.SINGLE:
                     float? f = (float)obj;
                     if (f == null)
@@ -327,6 +334,8 @@ namespace Viva
                     return DeserializeEnum<Player.VRControlType>(rawVal);
                 case AssetStorage.CONTROL_TYPE:
                     return DeserializeEnum<Player.ControlType>(rawVal);
+                case AssetStorage.HAPPINESS:
+                    return DeserializeEnum<Companion.Happiness>(rawVal);
                 case AssetStorage.SINGLE:
                     return DeserializeFloat(rawVal);
                 case AssetStorage.INT32:

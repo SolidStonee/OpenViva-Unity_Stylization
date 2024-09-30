@@ -178,6 +178,6 @@ Material:
     - _SubsurfaceColor: {r: 0.6179246, g: 0.9597815, b: 1, a: 1}
     - _SurfColor: {r: 0, g: 0.7725491, b: 0.6627451, a: 0.25882354}
     - _UV: {r: 0, g: 0, b: 0, a: 0}
-    - _UnderColor: {r: 0.01960784, g: 0.2784312, b: 0.49411762, a: 0.50980395}
+    - _UnderColor: {r: 0, g: 0.6039216, b: 0.6784314, a: 0.34901962}
     - _UnderwaterColor: {r: 0.338928, g: 0.52082795, b: 0.614, a: 0}
   m_BuildTextureStacks: []

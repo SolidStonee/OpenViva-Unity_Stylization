@@ -45,6 +45,7 @@ namespace Viva
                 var player = this as Player;
                 positionToPlay = footstepInfo.transform.localPosition;
                 playTransform = footstepInfo.transform;
+                //footstep regions take priority
                 if (footstepInfo.IsAnyFootstepRegionActive())
                 {
                     footstepInfo.SetFootStepTypeFromRegions();
@@ -65,7 +66,7 @@ namespace Viva
                 positionToPlay =
                     rightFoot ? companion.rightFootRigidBody.transform.localPosition : companion.rightFootRigidBody.transform.localPosition;
                 playTransform = rightFoot ? companion.rightFootRigidBody.transform : companion.rightFootRigidBody.transform;
-                // Check footstep regions first
+                //footstep regions take priority
                 if (footstepInfo.IsAnyFootstepRegionActive())
                 {
                     footstepInfo.SetFootStepTypeFromRegions();

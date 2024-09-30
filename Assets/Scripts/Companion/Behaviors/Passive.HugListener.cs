@@ -26,10 +26,11 @@ namespace Viva
 
         public override void OnFixedUpdate()
         {
-            foreach (var character in self.passive.nearbyCharacters.objects)
-            {
-                UpdateNearbyCharacter(character);
-            }
+            //TODO: FIX HUGGING
+            // foreach (var character in self.passive.nearbyCharacters.objects)
+            // {
+            //     UpdateNearbyCharacter(character);
+            // }
         }
 
         private void UpdateNearbyCharacter(Character character)

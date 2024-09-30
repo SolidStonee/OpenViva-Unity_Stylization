@@ -16,13 +16,17 @@ namespace Viva
             HURT,
             SPLASH
         }
-
+        
+        [SerializeField]
         private Material playerHurtMat;
+        [SerializeField]
         private Material playerSplashMat;
 
         public ScriptableRendererFeature HurtScreen;
         public ScriptableRendererFeature SplashScreen;
         public ScriptableRendererFeature GhostScreen;
+
+        [SerializeField] private Volume underWaterPP;
 
         private int alphaID = Shader.PropertyToID("_Alpha");
         private float lastScreenEffect = 0.0f;
@@ -87,7 +91,14 @@ namespace Viva
             }
             HurtScreen.SetActive(false);
         }
+        
+        public void ToggleUnderWater(bool enable)
+        {
+            underWaterPP.weight = enable ? 1f : 0f;
+        }
     }
+    
+    
 
 
 }

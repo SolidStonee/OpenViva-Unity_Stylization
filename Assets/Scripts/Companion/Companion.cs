@@ -137,6 +137,16 @@ namespace Viva
             get { return m_outfit; }
             private set { m_outfit = value; }
         }
+        
+        private Happiness m_happiness = Happiness.VERY_HAPPY;
+
+        [VivaFileAttribute]
+        public Happiness happiness
+        {
+            get => m_happiness;
+            set => m_happiness = value;
+        }
+
 
         [SerializeField] private bool debuggingCharacter = false;
 
@@ -164,7 +174,7 @@ namespace Viva
 
         public List<Outline.Entry> companionOutlines = new List<Outline.Entry>();
 
-
+        
         protected override Vector3 CalculateFloorPosition()
         {
             return lastFloorPos;

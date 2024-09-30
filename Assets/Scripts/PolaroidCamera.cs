@@ -271,6 +271,9 @@ namespace Viva
                 yield return null;
             }
             polaroidFrame.ClearAttribute(Item.Attributes.DISABLE_PICKUP);
+            
+            Tutorial.instance.frame = polaroidFrame.gameObject;
+            Tutorial.instance.ContinueTutorial(MenuTutorial.WAIT_TO_TAKE_PICTURE);
 
             //finish shutter
 

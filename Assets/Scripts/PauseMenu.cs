@@ -60,7 +60,6 @@ namespace Viva
 
         private Coroutine errorCoroutine = null;
         private Coroutine calibrationCoroutine = null;
-        private Vector3 lastPositionBeforeTutorial = Vector3.zero;
         public bool IsPauseMenuOpen = false;
 
         [SerializeField]
@@ -107,14 +106,7 @@ namespace Viva
         {
             GameDirector.instance.StopUIInput();
 
-            if (tutorialCoroutine != null)
-            {
-                return;
-            }
-            lastPositionBeforeTutorial = GameDirector.player.transform.position;
-            GameDirector.player.transform.position = tutorialCircle.transform.position;
-            menuTutorialPhase = MenuTutorial.NONE;
-            tutorialCoroutine = GameDirector.instance.StartCoroutine(Tutorial());
+            Tutorial.instance.OnStartTutorial();
         }
 
         public override void OnBeginUIInput()
@@ -247,7 +239,7 @@ namespace Viva
                 case Menu.CHECKLIST:
                     GameDirector.instance.PlayGlobalSound(nextSound);
                     SetMenuActive(menu, true);
-                    ContinueTutorial(MenuTutorial.WAIT_TO_ENTER_CHECKLIST);
+                    Tutorial.instance.ContinueTutorial(MenuTutorial.WAIT_TO_ENTER_CHECKLIST);
                     break;
                 case Menu.MAP:
                     GameDirector.instance.PlayGlobalSound(nextSound);
@@ -299,7 +291,7 @@ namespace Viva
                     }
                     GameDirector.instance.PlayGlobalSound(prevSound);
                     SetMenuActive(menu, true);
-                    ContinueTutorial(MenuTutorial.WAIT_TO_OPEN_PAUSE_MENU);
+                    Tutorial.instance.ContinueTutorial(MenuTutorial.WAIT_TO_OPEN_PAUSE_MENU);
                     break;
             }
         }

@@ -17,6 +17,7 @@ namespace Viva
             TILE,
             WATER,
             CARPET,
+            SAND,
             STONE,
             STONE_WET
         }
@@ -34,11 +35,13 @@ namespace Viva
 
         public void SetFootStepTypeBasedOnCollider(Collider collider)
         {
+            Debug.Log($"FootStep Mat");
             if(collider != null)
                 if (collider.material != null)
                 {
                     var groundMatName = collider.material.name;
                     groundMatName = groundMatName.Replace(" (Instance)","");
+                    
                     if (System.Enum.TryParse(groundMatName.ToUpper(), out FootStepType f))
                     {
                         mCurrentFootStepType = f;
@@ -75,7 +78,7 @@ namespace Viva
                     mCurrentFootStepType = FootStepType.DIRT;
                     break;
                 case 4:
-                    mCurrentFootStepType = FootStepType.CARPET;
+                    mCurrentFootStepType = FootStepType.SAND;
                     break;
 
                 default:
