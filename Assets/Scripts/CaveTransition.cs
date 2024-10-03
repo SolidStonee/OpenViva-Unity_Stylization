@@ -14,7 +14,7 @@ namespace Viva
             float distance = Vector3.Distance(GameDirector.player.head.position, closestPoint);
 
             float blendFactor = Mathf.Clamp01(distance / blendDistance);
-            //GameDirector.newSkyDirector.environmentLightingExposure = Mathf.Lerp(0f, 1f, blendFactor);
+            GameDirector.newSkyDirector.environmentLightingExposure = Mathf.Lerp(0f, 2f, blendFactor);
         }
 
     }

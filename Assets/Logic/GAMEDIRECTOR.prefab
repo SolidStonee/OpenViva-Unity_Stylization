@@ -2860,6 +2860,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 4330359ca0bb4bc4ca4eaccaee8089c4, type: 3}
   - {fileID: 2800000, guid: 4cd00571310562243ad38f9a928b6be6, type: 3}
   - {fileID: 2800000, guid: 0061f92b9638cda4eae6c5d0fffe7af3, type: 3}
+  vivaModelMaterial: {fileID: 2100000, guid: a851148347edd7d4797e8daaab0f4c68, type: 2}
   m_stickyPhysicsMaterial: {fileID: 13400000, guid: 4ce71a046f26d6441bbc603fab0f8617,
     type: 2}
   m_slipperyPhysicsMaterial: {fileID: 13400000, guid: 4586cd79f37859244b0125442502261c,
@@ -16713,12 +16714,12 @@ PrefabInstance:
     - target: {fileID: 1487841468594555215, guid: b1081a8a82a4f9740815d57b829b587c,
         type: 3}
       propertyPath: m_Size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1487841468594555215, guid: b1081a8a82a4f9740815d57b829b587c,
         type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1487841469206362423, guid: b1081a8a82a4f9740815d57b829b587c,
         type: 3}
@@ -16743,7 +16744,7 @@ PrefabInstance:
     - target: {fileID: 1487841469206362423, guid: b1081a8a82a4f9740815d57b829b587c,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1425.5435
+      value: -0.0001373291
       objectReference: {fileID: 0}
     - target: {fileID: 1487841469360280756, guid: b1081a8a82a4f9740815d57b829b587c,
         type: 3}

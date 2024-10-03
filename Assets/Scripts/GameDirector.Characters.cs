@@ -37,7 +37,7 @@ namespace Viva
         public CompanionSettings companionSettings { get { return m_AllCompanionSettings; } }
         [SerializeField]
         private Texture2D[] speechBubbleTextures = new Texture2D[System.Enum.GetValues(typeof(SpeechBubble)).Length];
-
+        public Material vivaModelMaterial;
         [SerializeField]
         private PhysicMaterial m_stickyPhysicsMaterial;
         public PhysicMaterial stickyPhysicsMaterial { get { return m_stickyPhysicsMaterial; } }

@@ -46,7 +46,7 @@ namespace Viva
             Quaternion oldSunRotation = skyDirector.sun.transform.rotation;
 
             //must make sure companion is in a proper behavior to override animations!
-            //frezee companion in place without logic momentarily to simulate clothing and hair
+            //freeze companion in place without logic momentarily to simulate clothing and hair
             companion.Teleport(photoshootStage.transform.position, photoshootStage.transform.rotation);
             characters.Remove(companion);
             companion.puppetMaster.SetEnableGravity(false);

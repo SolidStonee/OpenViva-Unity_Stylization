@@ -524,7 +524,7 @@ namespace Viva
 
         private static Material CreateModelMaterial(ModelBuildSettings mbs, string materialName)
         {
-            Material newMaterial = new Material(mbs.modelShader);
+            Material newMaterial = new Material(GameDirector.instance.vivaModelMaterial);
             newMaterial.name = materialName;
             return newMaterial;
         }
@@ -540,7 +540,7 @@ namespace Viva
             if (materialTable.Length == 0)
             {
                 Debug.Log("[VIVA MODEL MATERIAL] No materials found! Creating default material...");
-                Material newMaterial = new Material(mbs.modelShader);
+                Material newMaterial = new Material(GameDirector.instance.vivaModelMaterial);
                 materialTable = new Material[] { newMaterial };
                 newMaterial.name = "skin";
             }
