@@ -84,8 +84,6 @@ namespace Viva
             {
                 Vector3 nextCorner = path[currCorner];
 
-                Debug.Log(path.ToString());
-                
                 //start facing targetFaceYaw if close enough
                 Vector3 cornerDiff = nextCorner - self.floorPos;
                 bool heightInRange = Mathf.Abs(cornerDiff.y) < 0.3f;

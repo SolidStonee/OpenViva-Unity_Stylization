@@ -369,9 +369,7 @@ namespace Viva
                 button.enabled = false;
             }
         }
-
-
-        //TODO Make this work with selected Lolis
+        
         public void clickRespawnShinobu()
         {
             // Companion companion = GameDirector.instance.companion;

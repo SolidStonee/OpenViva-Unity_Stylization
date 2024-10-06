@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using OccaSoftware.Altos.Runtime;
 using UnityEngine;
 using Viva.Util;
 
@@ -13,6 +14,8 @@ namespace Viva
         private OnsenGhostBloodDoor[] bloodDoors;
         [SerializeField]
         private DayNightCycle.Phase spookySkyPhase;
+        [SerializeField] 
+        private PeriodOfDay spookySkyPeriod;
         [SerializeField]
         private Material skyboxMaterial;
         [SerializeField]
@@ -57,9 +60,9 @@ namespace Viva
 
         private void OnEnable()
         {
-            GameDirector.skyDirector.OverrideDayNightCycleLighting(spookySkyPhase, Quaternion.Euler(90.0f, 0.0f, 0.0f));
-            GameDirector.skyDirector.enabled = false;
-            GameDirector.skyDirector.SetSkyMaterial(skyboxMaterial);
+            GameDirector.newSkyDirector.SetSkyOverride(spookySkyPeriod);
+            //GameDirector.newSkyDirector.enabled = false;
+            GameDirector.newSkyDirector.Sun.GetLight().intensity = 0f;
             GameDirector.instance.SetMusic(GameDirector.Music.SUSPENSE, 1.0f);
             GameDirector.instance.LockMusic(true);
 
@@ -83,17 +86,19 @@ namespace Viva
             alternateWin = false;
 
             //scare all companions
-            var lolis = GameDirector.instance.FindCharactersInSphere((int)Character.Type.COMPANION, transform.position, 30.0f);
-            foreach (var loli in lolis)
+            var companions = GameDirector.instance.FindCharactersInSphere((int)Character.Type.COMPANION, transform.position, 30.0f);
+            foreach (var companion in companions)
             {
-                (loli as Companion).passive.scared.Scare(30.0f);
+                (companion as Companion).passive.scared.Scare(30.0f);
             }
         }
 
         private void OnDisable()
         {
+            GameDirector.newSkyDirector.SetSkyOverride(null);
             GameDirector.instance.LockMusic(false);
             GameDirector.instance.SetMusic(GameDirector.instance.GetDefaultMusic(), 3.0f);
+            
             GameDirector.skyDirector.SetSkyMaterial(null);    //restore
             GameDirector.instance.postProcessing.GhostScreen.SetActive(false);
             GameDirector.skyDirector.enabled = true;

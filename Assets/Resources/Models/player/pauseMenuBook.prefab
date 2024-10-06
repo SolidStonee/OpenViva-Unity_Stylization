@@ -7413,7 +7413,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5788147498339066181
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22450,8 +22450,6 @@ MonoBehaviour:
     vertical: 1050
   - horizontal: 1920
     vertical: 1080
-  - horizontal: 2560
-    vertical: 1440
   leftPageText: {fileID: 1390240728752326908}
   rightPageText: {fileID: 983869895347004196}
   manualButtonPrefab: {fileID: 8342732035627744516}
@@ -23534,28 +23532,26 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: '
 
+    Game Programmer: SolidStone
 
-    Original Programmer: b0ss
+    Website programmer: FunMaker
 
-    Game Programmer: SolidStone/FunMaker
+    Sound
+    design: Calpico
 
-    Website
-    programmer: FunMaker
+    Music Composer: Algernon von Peel
 
-    Launcher programmer: StillKill
 
-    Sound design: Calpico
-
-    Music
-    Composer: Algernon von Peel
+    Original Programmer:
+    b0ss
 
 
     Japanese Translator:
 
     German Translator:g-man
 
-    Russian
-    Translator: kolan2222
+    Russian Translator:
+    kolan2222
 
     Turkish Translator: EnoD
 

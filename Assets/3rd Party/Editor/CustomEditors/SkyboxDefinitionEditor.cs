@@ -119,6 +119,7 @@ namespace OccaSoftware.Altos.Editor
                     SerializedProperty zenithColor_Prop = periodOfDay.FindPropertyRelative("zenithColor");
                     SerializedProperty groundColor_Prop = periodOfDay.FindPropertyRelative("groundColor");
                     SerializedProperty fogColor_Prop = periodOfDay.FindPropertyRelative("fogColor");
+                    SerializedProperty fogDensity_Prop = periodOfDay.FindPropertyRelative("fogDensity");
 
                     EditorGUILayout.BeginHorizontal();
                     EditorGUILayout.PropertyField(description_Prop, new GUIContent("Name", "(Optional) Descriptive name"));
@@ -144,6 +145,7 @@ namespace OccaSoftware.Altos.Editor
                         EditorGUILayout.PropertyField(horizonColor_Prop, new GUIContent("Equator Color"));
                         EditorGUILayout.PropertyField(groundColor_Prop, new GUIContent("Ground Color"));
                         EditorGUILayout.PropertyField(fogColor_Prop, new GUIContent("Fog Color"));
+                        EditorGUILayout.PropertyField(fogDensity_Prop, new GUIContent("Fog Density"));
                         EditorGUI.indentLevel--;
                     }
                 }

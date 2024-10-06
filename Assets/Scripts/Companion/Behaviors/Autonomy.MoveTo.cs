@@ -49,10 +49,30 @@ namespace Viva
 
             enforceBodyState = new AutonomyEnforceBodyState(self.autonomy, _name + " body state", preferredBodyState);
             AddPassive(enforceBodyState);
-            onFail += self.locomotion.StopMoveTo;
-            onSuccess += self.locomotion.StopMoveTo;
-            onInterrupted += self.locomotion.StopMoveTo;
-            onUnregistered += self.locomotion.StopMoveTo;
+            onFail += delegate
+            {
+                Debug.Log("MoveTo Removed");
+                self.locomotion.StopMoveTo();
+                
+            };
+            onSuccess += delegate
+            {
+                Debug.Log("MoveTo Removed");
+                self.locomotion.StopMoveTo();
+                
+            };
+            onInterrupted += delegate
+            {
+                Debug.Log("MoveTo Removed");
+                self.locomotion.StopMoveTo();
+                
+            };
+            onUnregistered += delegate
+            {
+                Debug.Log("MoveTo Removed");
+                self.locomotion.StopMoveTo();
+                
+            };
             AddPassive(new AutonomyFaceDirection(autonomy, _name + " face dir", DefaultReadPathLookAtTarget));
 
             onFixedUpdate += OnFixedUpdate;

@@ -9,54 +9,52 @@ using UnityEngine.UI;
 
 namespace Viva.console
 {
-    public abstract class ConsoleCommand
+    public class CommandResult
     {
-        public abstract string Name { get; protected set; }
-        public abstract string Command { get; protected set; }
-        public abstract string Description { get; protected set; }
-        public abstract string Help { get; protected set; }
-        public abstract string Example { get; protected set; }
+        public bool IsSuccess { get; }
+        public string Message { get; }
 
-        public void AddCommandToConsole()
+        private CommandResult(bool isSuccess, string message)
         {
-            if (!DevConsole.Commands.ContainsKey(Command))
-            {
-                DevConsole.AddCommandsToConsole(Command, this);
-                string addMessage = " command has been added to the console.";
-                DevConsole.AddStaticMessageToConsole(Name + addMessage);
-            }
+            IsSuccess = isSuccess;
+            Message = message;
+
+            PrintResult();
         }
 
-        public abstract void RunCommand(string[] data);
+        public static CommandResult Success(string message) => new CommandResult(true, message);
+        public static CommandResult Failure(string message) => new CommandResult(false, message);
+
+        private void PrintResult()
+        {
+            if (IsSuccess)
+            {
+                DevConsole.AddStaticMessageToConsole(Message);
+            }
+            else
+            {
+                DevConsole.AddStaticMessageToConsole($"<color=#ff0000>Error:</color> {Message}");
+            }
+        }
     }
 
-    public class DevConsole : MonoBehaviour
+public class DevConsole : MonoBehaviour
     {
-        public static DevConsole Instance { get; set; }
-        public static Dictionary<string, ConsoleCommand> Commands { get; set; }
+        public static DevConsole Instance { get; private set; }
+        public static Dictionary<string, CommandInfo> Commands { get; private set; } = new Dictionary<string, CommandInfo>();
 
-        [SerializeField]
-        private Canvas _consoleCanvas;
-
-        [SerializeField]
-        private ScrollRect _scrollRect;
-        
+        [SerializeField] private Canvas _consoleCanvas;
+        [SerializeField] private ScrollRect _scrollRect;
         public Text _consoleText;
-        
         public Text _inputText;
-        
-        [SerializeField]
-        private Text _autocompleteText;
-        
+        [SerializeField] private Text _autocompleteText;
         public InputField _consoleInput;
 
-        [Tooltip("Define how many commands can be hold in the clipboard. If set to 0, clipboard will be off.")]
+        [Tooltip("Define how many commands can be held in the clipboard. If set to 0, clipboard will be off.")]
         public int _clipboardSize;
 
         private string[] _clipboard;
-
         private int _clipboardIndexer = 0;
-
         private int _clipboardCursor = 0;
 
         [SerializeField]
@@ -78,11 +76,7 @@ namespace Viva.console
         #region Typical Console Messages
 
         public static string CommandNotRecognized = $"Command not <color={WarningColor}>recognized</color>";
-        public static string ArgumentNotRecognized = $"Argument not <color={WarningColor}>recognized</color>";
-        public static string ExecutedSuccessfully = $"Command executed <color={ExecutedColor}>successfully</color>";
         public static string ParametersAmount = $"Wrong <color={WarningColor}>amount of parameters</color>";
-        public static string TypeNotSupported = $"Type of command <color={WarningColor}>not supported</color>";
-        public static string SceneNotFound = $"Scene <color={WarningColor}>not found</color>. Make sure that you have placed it inside <color={WarningColor}>build settings</color>";
         public static string ClipboardCleared = $"\nConsole clipboard <color={OptionalColor}>cleared</color>";
 
         #endregion
@@ -98,7 +92,7 @@ namespace Viva.console
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            Commands = new Dictionary<string, ConsoleCommand>();
+            Commands = new Dictionary<string, CommandInfo>();
             _suggestions = new List<string>();
         }
 
@@ -115,22 +109,158 @@ namespace Viva.console
                                "Type <color=orange>help</color> for list of available commands. \n" +
                                "Type <color=orange>help <command></color> for command details. \n \n \n";
 
-            RegisterAllCommands();
+            RegisterAllConVars();
         }
 
-        private void RegisterAllCommands()
+        private void RegisterAllConVars()
         {
-            var commandTypes = Assembly.GetExecutingAssembly().GetTypes()
-                .Where(t => t.IsSubclassOf(typeof(ConsoleCommand)) && !t.IsAbstract);
+            var members = AppDomain.CurrentDomain.GetAssemblies()
+                            .SelectMany(assembly => assembly.GetTypes())
+                            .SelectMany(type => type.GetMembers(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
+                            .Where(member => member.IsDefined(typeof(ConVarAttribute), false));
 
-            foreach (var type in commandTypes)
+            foreach (var member in members)
             {
-                var command = (ConsoleCommand)Activator.CreateInstance(type);
-                command.AddCommandToConsole();
+                var attribute = member.GetCustomAttribute<ConVarAttribute>();
+                string command = attribute.Command;
+
+                Action<string[]> commandAction = args => { };
+
+                // Register fields
+                if (member is FieldInfo field)
+                {
+                    commandAction = args =>
+                    {
+                        object target = field.IsStatic ? null : Activator.CreateInstance(field.DeclaringType);
+
+                        if (args.Length == 0)
+                        {
+                            try
+                            {
+                                AddStaticMessageToConsole($"{command}: {field.GetValue(target)}");
+                            }
+                            catch (Exception e)
+                            {
+                                CommandResult.Failure($"Failed to get value of {command}: {e.Message}");
+                            }
+                        }
+                        else
+                        {
+                            try
+                            {
+                                object value = Convert.ChangeType(args[0], field.FieldType);
+                                field.SetValue(target, value);
+                                AddStaticMessageToConsole($"{command} set to: {value}");
+                            }
+                            catch (Exception e)
+                            {
+                                CommandResult.Failure($"Failed to set {command}: {e.Message}");
+                            }
+                        }
+                    };
+                }
+                // Register properties
+                else if (member is PropertyInfo property)
+                {
+                    commandAction = args =>
+                    {
+                        object target = property.GetMethod.IsStatic ? null : Activator.CreateInstance(property.DeclaringType);
+
+                        if (args.Length == 0)
+                        {
+                            try
+                            {
+                                AddStaticMessageToConsole($"{command}: {property.GetValue(target)}");
+                            }
+                            catch (Exception e)
+                            {
+                                CommandResult.Failure($"Failed to get value of {command}: {e.Message}");
+                            }
+                        }
+                        else
+                        {
+                            try
+                            {
+                                object value = Convert.ChangeType(args[0], property.PropertyType);
+                                property.SetValue(target, value);
+                                AddStaticMessageToConsole($"{command} set to: {value}");
+                            }
+                            catch (Exception e)
+                            {
+                                CommandResult.Failure($"Failed to set {command}: {e.Message}");
+                            }
+                        }
+                    };
+                }
+                // Register methods
+                else if (member is MethodInfo method)
+                {
+                    commandAction = args =>
+                    {
+                        var parameters = method.GetParameters();
+                        int requiredParamCount = parameters.Count(p => !p.IsOptional);
+
+                        // Ensure provided arguments are at least the required count
+                        if (args.Length < requiredParamCount)
+                        {
+                            CommandResult.Failure($"Command {command} expects at least {requiredParamCount} arguments, but got {args.Length}.");
+                            return;
+                        }
+
+                        try
+                        {
+                            object[] invokeArgs;
+
+                            // Check if the method has only one parameter of type string[] (params scenario)
+                            if (parameters.Length == 1 && parameters[0].ParameterType == typeof(string[]))
+                            {
+                                invokeArgs = new object[] { args }; // Pass the entire args array as the single parameter
+                            }
+                            else
+                            {
+                                // Prepare arguments including handling optional parameters
+                                invokeArgs = new object[parameters.Length];
+                                for (int i = 0; i < parameters.Length; i++)
+                                {
+                                    if (i < args.Length)
+                                    {
+                                        // Convert provided argument
+                                        invokeArgs[i] = Convert.ChangeType(args[i], parameters[i].ParameterType);
+                                    }
+                                    else
+                                    {
+                                        // Handle optional parameter by setting its default value if not provided
+                                        invokeArgs[i] = parameters[i].DefaultValue;
+                                    }
+                                }
+                            }
+
+                            // Distinguish between static and instance methods
+                            object target = method.IsStatic ? null : Activator.CreateInstance(method.DeclaringType);
+                            method.Invoke(target, invokeArgs);
+                            CommandResult.Success($"{command} executed successfully.");
+                        }
+                        catch (Exception e)
+                        {
+                            CommandResult.Failure($"Failed to execute {command}: {e.Message}");
+                        }
+                    };
+                }
+
+                // Add command to the console commands dictionary
+                Commands[command] = new CommandInfo
+                {
+                    Command = command,
+                    Description = attribute.Description,
+                    Arguments = attribute.Arguments,
+                    Execute = commandAction
+                };
             }
         }
 
-        public static void AddCommandsToConsole(string name, ConsoleCommand command)
+
+
+        public static void AddCommandsToConsole(string name, CommandInfo command)
         {
             if (!Commands.ContainsKey(name))
             {
@@ -147,6 +277,8 @@ namespace Viva.console
                 _consoleInput.DeactivateInputField();
                 return;
             }
+
+            // Toggle console visibility with F1
             if (Keyboard.current[Key.F1].wasPressedThisFrame)
             {
                 if (!_consoleCanvas.gameObject.activeInHierarchy)
@@ -161,16 +293,17 @@ namespace Viva.console
                     if (!GameDirector.player.pauseMenu.IsPauseMenuOpen)
                     {
                         GameDirector.instance.SetEnableControls(GameDirector.ControlsAllowed.ALL);
-                    } 
+                    }
                     _consoleCanvas.gameObject.SetActive(false);
                 }
             }
 
             if (_consoleCanvas.gameObject.activeInHierarchy)
             {
+                // Enter to submit command
                 if (Keyboard.current[Key.Enter].wasPressedThisFrame)
                 {
-                    if (string.IsNullOrEmpty(_inputText.text) == false)
+                    if (!string.IsNullOrEmpty(_inputText.text))
                     {
                         AddMessageToConsole(_inputText.text);
                         ParseInput(_inputText.text);
@@ -189,10 +322,27 @@ namespace Viva.console
                 HandleAutocomplete();
             }
 
-            if (_consoleCanvas.gameObject.activeInHierarchy == false)
+            if (!_consoleCanvas.gameObject.activeInHierarchy)
             {
                 _consoleInput.text = "";
             }
+        }
+        
+        private void ParseInput(string input)
+        {
+            string[] splitInput = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            if (splitInput.Length == 0) return;
+
+            string command = splitInput[0].ToLower();
+            if (!DevConsole.Commands.TryGetValue(command, out var commandInfo))
+            {
+                AddMessageToConsole(CommandNotRecognized);
+                return;
+            }
+
+            //execute the command with the remaining arguments
+            string[] arguments = splitInput.Skip(1).ToArray();
+            commandInfo.Execute(arguments);
         }
 
         private void HandleClipboardNavigation()
@@ -236,42 +386,72 @@ namespace Viva.console
         private void HandleAutocomplete()
         {
             string currentText = _consoleInput.text;
+            string[] splitInput = currentText.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
             _autocompleteText.text = "";
 
             if (string.IsNullOrEmpty(currentText))
                 return;
 
+            // Handle autocompletion when pressing Tab (for commands only)
             if (Keyboard.current[Key.Tab].wasPressedThisFrame)
             {
-                if (_suggestions.Count == 0 || !_suggestions.Contains(currentText))
+                if (splitInput.Length == 1)
                 {
-                    _suggestions = Commands.Keys
-                        .Where(cmd => cmd.StartsWith(currentText, StringComparison.OrdinalIgnoreCase))
+                    // Autocomplete for commands
+                    string commandPrefix = splitInput[0];
+                    var possibleCommands = Commands.Keys
+                        .Where(cmd => cmd.StartsWith(commandPrefix, StringComparison.OrdinalIgnoreCase))
                         .ToList();
-                    _suggestionIndex = 0;
-                }
 
-                if (_suggestions.Count > 0)
-                {
-                    _consoleInput.text = _suggestions[_suggestionIndex];
-                    _consoleInput.caretPosition = _consoleInput.text.Length;
-                    _suggestionIndex = (_suggestionIndex + 1) % _suggestions.Count;
+                    if (possibleCommands.Count == 1)
+                    {
+                        _consoleInput.text = possibleCommands[0] + " ";
+                        _consoleInput.caretPosition = _consoleInput.text.Length;
+                    }
+                    else if (possibleCommands.Count > 1)
+                    {
+                        _autocompleteText.text = string.Join(", ", possibleCommands);
+                    }
                 }
             }
-
-            var matchingCommand = Commands.Keys
-                .FirstOrDefault(cmd => cmd.StartsWith(currentText, StringComparison.OrdinalIgnoreCase));
-
-            if (!string.IsNullOrEmpty(matchingCommand) && !matchingCommand.Equals(currentText, StringComparison.OrdinalIgnoreCase))
+            // Handle displaying suggestions without modifying the input
+            else
             {
-                _autocompleteText.text = currentText + matchingCommand.Substring(currentText.Length);
-            }
-        }
+                if (splitInput.Length == 1)
+                {
+                    // Suggest commands
+                    string commandPrefix = splitInput[0];
+                    var possibleCommands = Commands.Keys
+                        .Where(cmd => cmd.StartsWith(commandPrefix, StringComparison.OrdinalIgnoreCase))
+                        .ToList();
 
-        private IEnumerator ScrollDown()
-        {
-            yield return new WaitForSeconds(0.1f);
-            _scrollRect.verticalNormalizedPosition = 0f;
+                    if (possibleCommands.Count > 0)
+                    {
+                        _autocompleteText.text = string.Join(", ", possibleCommands);
+                    }
+                }
+                else if (splitInput.Length > 1)
+                {
+                    // Suggest arguments for the command (no Tab completion)
+                    string command = splitInput[0];
+                    if (Commands.TryGetValue(command, out var commandInfo))
+                    {
+                        int argIndex = splitInput.Length - 2;
+                        if (argIndex >= 0 && argIndex < commandInfo.Arguments.Length)
+                        {
+                            string currentArg = splitInput[argIndex + 1];
+                            string expectedArg = commandInfo.Arguments[argIndex];
+
+                            string commandPart = currentText.Substring(0, currentText.IndexOf(currentArg, StringComparison.OrdinalIgnoreCase));
+                            commandPart = commandPart.TrimEnd() + " ";
+
+                            // Display the expected argument suggestion without requiring any input or auto Tab complete
+                            _autocompleteText.text = commandPart + expectedArg;
+                        }
+                    }
+                }
+            }
         }
 
         private void StoreCommandInTheClipboard(string command)
@@ -285,7 +465,7 @@ namespace Viva.console
             }
             else if (_clipboardIndexer == _clipboardSize - 1)
             {
-                // Clear clipboard & reset 
+                //clear clipboard & reset
                 _clipboardIndexer = 0;
                 _clipboardCursor = 0;
                 Array.Clear(_clipboard, 0, _clipboardSize);
@@ -299,30 +479,19 @@ namespace Viva.console
             _consoleText.text += msg + "\n";
         }
 
-        //You can add Debug information to the console with this
         public static void AddStaticMessageToConsole(string msg)
         {
             Instance._consoleText.text += msg + "\n";
         }
-
-        private void ParseInput(string input)
-        {
-            string[] commandSplitInput = input.Split(null);
-
-            if (string.IsNullOrWhiteSpace(input))
-            {
-                AddMessageToConsole(CommandNotRecognized);
-                return;
-            }
-
-            if (Commands.ContainsKey(commandSplitInput[0]) == false)
-            {
-                AddMessageToConsole(CommandNotRecognized);
-            }
-            else
-            {
-                Commands[commandSplitInput[0]].RunCommand(commandSplitInput);
-            }
-        }
     }
+
+
+    public class CommandInfo
+    {
+        public string Command { get; set; }
+        public string Description { get; set; }
+        public string[] Arguments { get; set; }
+        public Action<string[]> Execute { get; set; }
+    }
+
 }

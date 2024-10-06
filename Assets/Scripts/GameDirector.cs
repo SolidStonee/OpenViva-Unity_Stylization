@@ -2,6 +2,7 @@
 using OccaSoftware.Altos.Runtime;
 using UnityEngine;
 using UnityEngine.XR.Management;
+using Viva.console;
 using Viva.Util;
 
 namespace Viva

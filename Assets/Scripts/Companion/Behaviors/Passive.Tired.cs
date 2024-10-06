@@ -1,3 +1,4 @@
+using OccaSoftware.Altos.Runtime;
 using UnityEngine;
 
 
@@ -25,7 +26,7 @@ namespace Viva
             if (!tired)
             {
                 float currentTime = GameDirector.newSkyDirector.skyDefinition.CurrentTime;
-                if (currentTime >= tiredTimeStart || currentTime < tiredTimeEnd)
+                if ((currentTime >= tiredTimeStart || currentTime < tiredTimeEnd) && AltosSkyDirector.Instance.skyOverride == null)
                 {
                     BecomeTired();
                 }
