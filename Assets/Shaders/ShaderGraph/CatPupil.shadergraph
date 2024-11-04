@@ -469,6 +469,7 @@
     "m_OutputNode": {
         "m_Id": ""
     },
+    "m_SubDatas": [],
     "m_ActiveTargets": [
         {
             "m_Id": "0168d809eb94419bb9046ef5a47850bd"
@@ -2505,7 +2506,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "Smoothness",
     "m_StageCapability": 2,
-    "m_Value": 0.5,
+    "m_Value": 0.1899999976158142,
     "m_DefaultValue": 0.5,
     "m_Labels": []
 }

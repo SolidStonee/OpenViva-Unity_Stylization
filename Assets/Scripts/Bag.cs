@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,13 +11,14 @@ namespace Viva
     public class Bag : Item
     {
 
+        [Serializable]
         public class BagItemCategory
         {
 
-            private Texture2D m_icon;
-            public Texture2D icon { get { return m_icon; } }
+            public Texture2D icon;
+
             public readonly Item.Type type;
-            public readonly List<Item> items = new List<Item>();
+            public List<Item> items = new List<Item>();
 
             public BagItemCategory(Item.Type _type)
             {
@@ -30,22 +32,27 @@ namespace Viva
                     item.transform.position = parentBag.transform.position;
                     item.gameObject.SetActive(true);
                 }
-                if (m_icon != null)
+                if (icon != null)
                 {
-                    Destroy(m_icon);
+                    Destroy(icon);
                 }
             }
 
             public void RenderIcon(RenderTexture renderTexture)
             {
 
-                if (m_icon != null)
+                Debug.Log("Set Icon 0");
+                if (icon != null)
                 {
-                    Destroy(m_icon);
+                    Destroy(icon);
                 }
                 Item item = items[0];
                 Camera camera = GameDirector.instance.utilityCamera;
                 camera.gameObject.SetActive(true);
+                camera.clearFlags = CameraClearFlags.SolidColor;
+                camera.backgroundColor = new Color(0, 0, 0, 0);
+                camera.allowHDR = false;
+                camera.allowMSAA = false;
                 camera.cullingMask = WorldUtil.itemsMask;
                 camera.fieldOfView = 40;
 
@@ -60,19 +67,22 @@ namespace Viva
                 camera.transform.rotation = Quaternion.LookRotation(item.transform.position - camera.transform.position, Vector3.up);
 
                 camera.targetTexture = renderTexture;
-                camera.Render();
 
                 RenderTexture old = RenderTexture.active;
                 RenderTexture.active = renderTexture;
+                
+                camera.Render();
 
                 Texture2D newIcon = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGBA32, false, true);
                 newIcon.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0, false);
-                newIcon.Apply(false, true);
+                newIcon.Apply(false, false);
 
                 RenderTexture.active = old;
 
-                m_icon = newIcon;
+                icon = newIcon;
 
+                Debug.Log("Set Icon: " + icon);
+                
                 //restore item gameobject settings
                 GameDirector.skyDirector.RestoreDayNightCycleLighting();
                 camera.gameObject.SetActive(false);
@@ -115,12 +125,6 @@ namespace Viva
 
         private List<BagItemCategory> m_storedItems = new List<BagItemCategory>();
         public List<BagItemCategory> storedItems { get { return m_storedItems; } }
-
-        public enum PhotoSummary
-        {
-            GENERIC,
-            PANTY
-        }
 
         public override void Save(GameDirector.VivaFile vivaFile)
         {
@@ -454,7 +458,7 @@ namespace Viva
                 category = new BagItemCategory(targetItem.settings.itemType);
                 storedItems.Add(category);
             }
-            SoundManager.main.RequestHandle(transform.position).PlayOneShot(storeItemSound);
+            SoundManager.main.RequestHandle(Vector3.zero, transform).PlayOneShot(storeItemSound);
             category.items.Add(targetItem);
             targetItem.gameObject.SetActive(false);
             GameDirector.instance.StartCoroutine(FullBagShapekeyAnimation((float)m_storedItems.Count / maxItems));

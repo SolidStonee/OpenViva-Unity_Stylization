@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Viva.console;
+using Viva.Util;
 
 namespace Viva
 {
@@ -107,9 +108,17 @@ namespace Viva
             //settings are built in to start in vr then switch to keyboard if it fails
             initialized = true;
             BindAllControls();
-            SetControls(ControlType.VR);
 
-            ReloadCurrentControlType();
+            if (Tools.GetArg("--enable-vr"))
+            {
+                SetControls(ControlType.VR);
+            }
+            else
+            {
+                SetControls(ControlType.KEYBOARD);
+            }
+            
+            
             SetInputController(null);    //ensure controller exists on initialize
             GameSettings.main.Apply();
             BindButtonStateCallbacks();

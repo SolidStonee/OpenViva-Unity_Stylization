@@ -116,7 +116,7 @@ namespace Viva
                 {   //if hasn't reached corner yet
                     if (!tryingToUnStuck)
                     {
-                        onCheckStuck.Invoke();
+                        onCheckStuck?.Invoke();
                     }
 
                     float currentVelAngle = Mathf.Atan2(-self.spine1RigidBody.velocity.z, self.spine1RigidBody.velocity.x);

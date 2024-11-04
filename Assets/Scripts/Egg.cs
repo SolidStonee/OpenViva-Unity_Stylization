@@ -19,8 +19,6 @@ namespace Viva
         [SerializeField]
         private float breakStrength = 3.0f;
         [SerializeField]
-        private float crackStrength = 1.0f;
-        [SerializeField]
         private GameObject eggYolkPrefab;
         [SerializeField]
         private VivaSessionAsset m_sourceChickenItem = null;

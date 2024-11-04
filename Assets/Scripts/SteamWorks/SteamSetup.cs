@@ -34,7 +34,9 @@ public class SteamSetup : MonoBehaviour
     }
     private void OnDestroy()
     {
-        //Just for sanity :)
+        //shutdown steam
+        SteamClient.Shutdown();
         initalized = false;
+        
     }
 }

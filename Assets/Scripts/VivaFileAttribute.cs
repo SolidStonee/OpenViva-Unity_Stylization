@@ -24,6 +24,7 @@ namespace Viva
             INT32,
             INT32_ARRAY,
             BOOLEAN,
+            BOOLEAN_ARRAY,
             POKER_SUIT
         }
 
@@ -85,6 +86,8 @@ namespace Viva
                     return AssetStorage.INT32_ARRAY;
                 case "Boolean":
                     return AssetStorage.BOOLEAN;
+                case "Boolean[]":
+                    return AssetStorage.BOOLEAN_ARRAY;
                 case "PokerCard+Suit":
                     return AssetStorage.POKER_SUIT;
             }
@@ -219,6 +222,22 @@ namespace Viva
                         return null;
                     }
                     return SerializeInt(System.Convert.ToInt32(b.Value));
+                case AssetStorage.BOOLEAN_ARRAY:
+                    bool[] bools = (bool[])obj;
+                    if (bools == null)
+                    {
+                        return null;
+                    }
+                    string boolsVal = "";
+                    if (bools.Length > 0)
+                    {
+                        boolsVal += System.Convert.ToInt32(bools[0]);
+                    }
+                    for (int i = 1; i < bools.Length; i++)
+                    {
+                        boolsVal += "," + System.Convert.ToInt32(bools[i]);
+                    }
+                    return boolsVal;
                 case AssetStorage.POKER_SUIT:
                     return SerializeEnum<PokerCard.Suit>(obj);
             }
@@ -354,6 +373,18 @@ namespace Viva
                     return ints;
                 case AssetStorage.BOOLEAN:
                     return System.Convert.ToBoolean(DeserializeInt(rawVal));
+                case AssetStorage.BOOLEAN_ARRAY:
+                    if (rawVal.Length == 0)
+                    {
+                        return new bool[0];
+                    }
+                    var boolWords = rawVal.Split(',');
+                    bool[] bools = new bool[boolWords.Length];
+                    for (int i = 0; i < boolWords.Length; i++)
+                    {
+                        bools[i] = System.Convert.ToBoolean(DeserializeInt(boolWords[i]));
+                    }
+                    return bools;
                 case AssetStorage.POKER_SUIT:
                     return DeserializeEnum<PokerCard.Suit>(rawVal);
             }

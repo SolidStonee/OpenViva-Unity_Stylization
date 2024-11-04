@@ -14,8 +14,9 @@ namespace Viva
         private GameObject photoshootStage;
         [SerializeField]
         private Transform photoshootSun;
-
-
+        
+        public CameraEffectRendererFeature effectFeature;
+        
         public class PhotoshootRequest
         {
 
@@ -54,11 +55,16 @@ namespace Viva
             photoshootStage.SetActive(true);
 
             companion.ResetEyeUniforms();
+            Debug.Log($"Pose: {request.pose.ToString()}");
             companion.ForceImmediatePose(request.pose);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1f);
             GameDirector.skyDirector.OverrideDayNightCycleLighting(GameDirector.skyDirector.defaultDayNightPhase, photoshootSun.rotation);
             GameDirector.skyDirector.sun.color = Color.black;
-            photoshootCamera.GetComponent<CameraRenderMaterial>().getEffectMat().SetTexture("_Background", request.background);
+            Material effectMat = effectFeature.GetEffectMaterial();
+            if (effectMat != null)
+            {
+                effectMat.SetTexture("_Background", request.background);
+            }
             request.texture = RenderPhotoshootTexture(photoshootCamera, request.resolution);
             yield return new WaitForSeconds(0.5f);
             GameDirector.skyDirector.RestoreDayNightCycleLighting();

@@ -195,7 +195,7 @@ Material:
     - _AO: 2.4
     - _Alpha: 1
     - _AlphaClip: 0
-    - _AlphaThreshold: 0.321
+    - _AlphaThreshold: 0.007
     - _AlphaToMask: 0
     - _BaseLight: 0.35
     - _Blend: 0
@@ -205,14 +205,14 @@ Material:
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
-    - _CullMode: 2
+    - _CullMode: 0
     - _Cutoff: 0.446
     - _DetailAlbedoMapScale: 1
     - _DetailAlbedoStrength: 1
     - _DetailNormalMapScale: 1
     - _DetailNormalStrength: 1
     - _DetailSmoothnessStrength: 1
-    - _DoubleSidedNormalMode: 1
+    - _DoubleSidedNormalMode: 2
     - _Drag: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
@@ -221,7 +221,7 @@ Material:
     - _GlossMapScale: 0.7
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _InitialBend: 1
+    - _InitialBend: 1.44
     - _Metallic: 0
     - _Mode: 1
     - _NormalStrength: 1
@@ -240,7 +240,7 @@ Material:
     - _SquashAmount: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
-    - _Stiffness: 1
+    - _Stiffness: 0.67
     - _Surface: 0
     - _TerrainAlbedoProvided: 0
     - _TerrainAlignedDetail: 1
@@ -254,7 +254,7 @@ Material:
     - _UseEmission: 0
     - _UseMaskMap: 0
     - _VertexWind: 1
-    - _WindNormalInfluence: 0
+    - _WindNormalInfluence: 1.92
     - _WindQuality: 0
     - _WorkflowMode: 1
     - _ZWrite: 1

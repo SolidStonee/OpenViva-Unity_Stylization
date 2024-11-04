@@ -14,7 +14,6 @@ Material:
   m_ValidKeywords:
   - _ALPHATEST_ON
   - _NORMALMAP
-  - _SPECULARHIGHLIGHTS_OFF
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -131,7 +130,7 @@ Material:
     - _SmoothnessSource: 0
     - _SmoothnessTextureChannel: 1
     - _SpecSource: 0
-    - _SpecularHighlights: 0
+    - _SpecularHighlights: 1
     - _SquashAmount: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1

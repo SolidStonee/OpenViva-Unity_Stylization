@@ -1053,7 +1053,7 @@ namespace Viva
             if (percent >= 1.0f)
             {
                 self.IncreaseDirt(-1.0f);
-                GameDirector.player.CompleteAchievement(Player.ObjectiveType.WASH_HAIR, new Achievement("WASH_HAIR"));
+                //GameDirector.player.CompleteAchievement(Player.ObjectiveType.WASH_HAIR, new Achievement("WASH_HAIR"));
                 bubbleMeterMR.material = self.active.settings.bubbleMeterLevel3;
                 TutorialManager.main.DisplayHint(
                     null,

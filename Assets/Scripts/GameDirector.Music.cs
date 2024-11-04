@@ -189,11 +189,6 @@ namespace Viva
             return Music.NONE;
         }
 
-        public void UpdateMusicVolume()
-        {
-            musicSourceB.volume = GameSettings.main.musicVolume;
-        }
-
         public void PlayGlobalSound(AudioClip clip)
         {
             globalSoundSource.PlayOneShot(clip);
@@ -207,7 +202,7 @@ namespace Viva
             //Fade music source from A to B
             musicSourceA.clip = music[(int)currentMusic];
             musicSourceA.time = musicSourceB.time;
-            musicSourceB.volume = GameSettings.main.musicVolume;
+            musicSourceB.volume= 1f;
             musicSourceA.Play();
 
             musicSourceB.clip = music[(int)newMusic];
@@ -218,13 +213,13 @@ namespace Viva
             while (timer > 0.0f)
             {
                 timer = Mathf.Max(0.0f, timer - Time.deltaTime);
-                musicSourceA.volume = (timer / fadeTime) * GameSettings.main.musicVolume;
-                musicSourceB.volume = (1.0f - timer / fadeTime) * GameSettings.main.musicVolume;
+                musicSourceA.volume = (timer / fadeTime) * 1f;
+                musicSourceB.volume = (1.0f - timer / fadeTime) * 1f;
                 yield return null;
             }
             musicSourceA.volume = 0.0f;
             musicSourceA.Stop();
-            musicSourceB.volume = GameSettings.main.musicVolume;
+            musicSourceB.volume = 1f;
 
             fadeMusicCoroutine = null;
             currentMusic = newMusic;

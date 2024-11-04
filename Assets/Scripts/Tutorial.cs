@@ -197,7 +197,7 @@ namespace Viva
             {
                 if (GameSettings.main.vrControls == Player.VRControlType.TRACKPAD)
                 {
-                    DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "WalkRun2"), true, PauseMenu.HintType.HINT_NO_IMAGE);
+                    DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "WalkRunVR"), true, PauseMenu.HintType.HINT_NO_IMAGE);
                     DisplayHUDMessage(LocalizationManager.GetLocalizedStringFromTable("Tutorial", "RunFaster"), true, PauseMenu.HintType.HINT);
                 }
                 else

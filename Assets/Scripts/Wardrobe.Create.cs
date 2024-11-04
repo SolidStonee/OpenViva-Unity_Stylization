@@ -37,6 +37,8 @@ namespace Viva
         private Coroutine activeCoroutine = null;
         private int clothingPresetPage = 0;
 
+        private Sprite dropFileSprite;
+
         private void InitializeCreateTab()
         {
             createCardScroller.FlipPage(0); //reload current page
@@ -240,13 +242,16 @@ namespace Viva
                 Debug.LogError(request.error);
                 yield break;
             }
-
-            //TODO: Need to destroy sprite when done using it!
-            dragFileImage.sprite = Sprite.Create(
+            
+            if(dropFileSprite != null)
+                Destroy(dropFileSprite);
+            
+            dropFileSprite = Sprite.Create(
                 request.result,
                 new Rect(0.0f, 0.0f, request.result.width, request.result.height),
                 Vector2.zero
             );
+            dragFileImage.sprite = dropFileSprite;
 
             Vector3 endPos = Vector3.zero;  //shrink end target pos
             if (selectedClothingButton == null)
@@ -355,6 +360,11 @@ namespace Viva
                 yield return GameDirector.instance.StartCoroutine(AnimationScale(dragFileVisualizer.transform as RectTransform, 2.0f, 0.0f, 0.15f));
             }
 
+            if (dropFileSprite != null)
+            {
+                Destroy(dropFileSprite);
+            }
+            
             dragFileVisualizer.SetActive(false);
             GameDirector.instance.ResumeUIInput();
             activeCoroutine = null; //end active coroutine
@@ -384,7 +394,7 @@ namespace Viva
             Companion companion = GameDirector.instance.FindClosestCharacter<Companion>(GameDirector.player.floorPos, 10.0f);
             if (companion == null)
             {
-                Debug.LogError("No Shinobu is nearby!");
+                Debug.LogError("No Companion is nearby!");
                 return;
             }
             dragFileVisualizer.SetActive(true);

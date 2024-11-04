@@ -98,6 +98,8 @@ namespace Viva
 
         public void UpdateLookAt()
         {
+            if (GameDirector.instance == null) return;
+            
             if (!lookMode)
             {
                 return;

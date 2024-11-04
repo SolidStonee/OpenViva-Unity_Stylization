@@ -269,6 +269,20 @@ namespace Viva.Util
     public static partial class Tools
     {
 
+        public static bool GetArg(string name)
+        {
+            var args = System.Environment.GetCommandLineArgs();
+            for (int i = 0; i < args.Length; i++)
+            {
+                Debug.Log($"Arg {i}: {args[i]}");
+                if (args[i] == name)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        
         public static float GetSide(Vector3 p, Transform reference)
         {
             return reference.InverseTransformPoint(p).z > 0 ? 1 : -1;

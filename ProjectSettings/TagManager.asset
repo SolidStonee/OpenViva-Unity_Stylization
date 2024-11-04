@@ -14,7 +14,7 @@ TagManager:
   - 
   - Water
   - UI
-  - OutofBounds
+  - 
   - Foliage
   - bodyPartItems
   - playerMovement
@@ -36,10 +36,10 @@ TagManager:
   - LIGHT_INTERIOR_2
   - LIGHT_INTERIOR_3
   - LIGHT_EXTRA_4
+  - Special
   - 
   - 
   - 
-  - HLOD
   m_SortingLayers:
   - name: Default
     uniqueID: 0

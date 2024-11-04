@@ -11,12 +11,15 @@ GameObject:
   - component: {fileID: 2642160316921968304}
   - component: {fileID: 2539308996725699552}
   - component: {fileID: 1844218084278249575}
-  m_Layer: 11
+  - component: {fileID: 35828841089155566}
+  - component: {fileID: 6757064953308867290}
+  - component: {fileID: 5934334136146110370}
+  m_Layer: 12
   m_Name: grandClock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2642160316921968304
 Transform:
@@ -84,6 +87,71 @@ LODGroup:
     renderers:
     - renderer: {fileID: 8065712942828870418}
   m_Enabled: 1
+--- !u!114 &35828841089155566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365029494612722851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1b46b59dca5a6a49bac76673927f0bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disablePersistance: 0
+  targetsSceneAsset: 1
+  assetName: grclock
+  uniqueID: 
+--- !u!114 &6757064953308867290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365029494612722851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f90974abe2d0d7408dfed68f439c210, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sourceItem: {fileID: 0}
+  collisionSoundsSoft: {fileID: 11400000, guid: 9bc5f34365f08d841966b1d859a6e21e,
+    type: 2}
+  collisionSoundsHard: {fileID: 11400000, guid: 6ecf84d65634b364abafd790f652a26b,
+    type: 2}
+  ignoreSoundsFrom: []
+  dragSoundLoop: {fileID: 8300000, guid: 437df6830a7604b43bfb5df050c74b63, type: 3}
+  rigidBody: {fileID: 5934334136146110370}
+  settings: {fileID: 11400000, guid: 5ed3fa87f3de4664b867f53e667ded9b, type: 2}
+  playSounds: 1
+--- !u!54 &5934334136146110370
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365029494612722851}
+  serializedVersion: 4
+  m_Mass: 5
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2569224849504435110
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,12 +164,12 @@ GameObject:
   - component: {fileID: 1920659271683856855}
   - component: {fileID: 8065712942828870418}
   - component: {fileID: 2882280344922757114}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4781517969662236982
 Transform:
@@ -202,12 +270,12 @@ GameObject:
   - component: {fileID: 8885121126308423406}
   - component: {fileID: 9134200872084693293}
   - component: {fileID: 5095832551664324443}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5250679600248810557
 Transform:
@@ -308,12 +376,12 @@ GameObject:
   - component: {fileID: 3276784849314570116}
   - component: {fileID: 6277551748213409440}
   - component: {fileID: 9018736891418126261}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2084021060657187391
 Transform:

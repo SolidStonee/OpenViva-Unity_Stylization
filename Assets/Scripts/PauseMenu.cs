@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -6,8 +7,6 @@ using UnityEngine.UI;
 
 namespace Viva
 {
-
-
     public partial class PauseMenu : UIMenu
     {
 
@@ -82,7 +81,7 @@ namespace Viva
 
         private void Start()
         {
-            FindAutomaticResolution();
+            //FindAutomaticResolution();
 
             if (tutorialCircle == null)
             {
@@ -126,17 +125,6 @@ namespace Viva
             SetMenuActive(Menu.NONE, false);
             lastMenu = Menu.NONE;
             StopCalibration();
-        }
-
-        private void UpdateMusicVolumeText()
-        {
-            musicVolumeText.text = "" + (int)(GameSettings.main.musicVolume * 100) + "%";
-        }
-
-        public void clickShiftMusicVolume(float amount)
-        {
-            GameSettings.main.AdjustMusicVolume(amount);
-            UpdateMusicVolumeText();
         }
 
         public void clickShiftDayNightCycleSpeedIndex(int indexAmount)
@@ -189,7 +177,7 @@ namespace Viva
 
 
 
-        private GameObject GetRightPageUIByMenu(Menu menu)
+        public GameObject GetRightPageUIByMenu(Menu menu)
         {
             if (menu == Menu.NONE)
             {
@@ -228,6 +216,48 @@ namespace Viva
                 }
             }
         }
+        
+        private void UpdateAudioUIText()
+        {
+            UpdateVolumeText("Master");
+            UpdateVolumeText("Music");
+            UpdateVolumeText("Voice");
+            UpdateVolumeText("Sfx");
+        }
+
+        private void UpdateVolumeText(string volumeType)
+        {
+            Text volumeText = null;
+            float currentVolume = 0f;
+
+            switch (volumeType.ToLower())
+            {
+                case "music":
+                    volumeText = GetRightPageUIByMenu(Menu.OPTIONS).transform.Find("Music Volume Container").GetChild(3)
+                        .GetComponent<Text>();
+                    currentVolume = GameSettings.main.musicVolume;
+                    break;
+                case "voice":
+                    volumeText = GetRightPageUIByMenu(Menu.OPTIONS).transform.Find("Voice Volume Container").GetChild(3)
+                        .GetComponent<Text>();
+                    currentVolume = GameSettings.main.voiceVolume;
+                    break;
+                case "sfx":
+                    volumeText = GetRightPageUIByMenu(Menu.OPTIONS).transform.Find("Sfx Volume Container").GetChild(3)
+                        .GetComponent<Text>();
+                    currentVolume = GameSettings.main.sfxVolume;
+                    break;
+                default:
+                    Debug.LogWarning($"Unknown volume type: {volumeType}");
+                    return;
+            }
+
+            if (volumeText != null)
+            {
+                volumeText.text = $"{(currentVolume * 100f):0}%";
+            }
+            
+        }
 
         public void SetPauseMenu(Menu menu)
         {
@@ -256,20 +286,14 @@ namespace Viva
                 case Menu.OPTIONS:
                     GameDirector.instance.PlayGlobalSound(nextSound);
                     SetMenuActive(menu, true);
-                    UpdateMusicVolumeText();
+                    UpdateAudioUIText();
                     UpdateMouseSensitivityText();
                     clickShiftDayNightCycleSpeedIndex(0);                   
                     break;
                 case Menu.GRAPHICS:
                     GameDirector.instance.PlayGlobalSound(nextSound);
                     SetMenuActive(menu, true);
-                    UpdateToggleQualityText();
-                    UpdateAntiAliasingText();
-                    UpdateShadowLevelText();
-                    UpdateResolutionText();
-                    UpdateVsyncText();
-                    UpdateFpsLimitText();
-                    UpdateLodDistanceText();
+                    UpdateGraphicsUIText();
                     break;                               
                 case Menu.CALIBRATE_HANDS:
                 case Menu.MANUAL:

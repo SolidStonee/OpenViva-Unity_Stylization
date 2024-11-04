@@ -25,57 +25,68 @@ namespace Viva
         public List<Resolution> resolutions = new List<Resolution>();
         private int selectedResolution;
 
-        public void FindAutomaticResolution()
+        private void UpdateGraphicsUIText()
         {
-            bool foundRes = false;
-            for(int i = 0; i < resolutions.Count; i++)
-            {
-                if(Screen.width == resolutions[i].horizontal && Screen.height == resolutions[i].vertical)
-                {
-                    foundRes = true;
-                    selectedResolution = i;
-                    UpdateResolutionText();
-                }
-            }
-            if (!foundRes)
-            {
-                Resolution resolution = new Resolution();
-                resolution.horizontal = Screen.width;
-                resolution.vertical = Screen.height;
-
-                resolutions.Add(resolution);
-                selectedResolution = resolutions.Count - 1;
-                UpdateResolutionText();
-            }
-            ApplyResolution();
+            UpdateToggleQualityText();
+            UpdateAntiAliasingText();
+            UpdateShadowLevelText();
+            //UpdateResolutionText();
+            UpdateVsyncText();
+            UpdateFpsLimitText();
+            UpdateLodDistanceText();
         }
 
-        public void ApplyResolution()
-        {
-            Screen.SetResolution(resolutions[selectedResolution].horizontal, resolutions[selectedResolution].vertical, GameSettings.main.fullScreen);
-        }
-
-        public void shiftResLeft()
-        {
-            selectedResolution--;
-            if(selectedResolution < 0)
-            {
-                selectedResolution = 0;
-            }
-            UpdateResolutionText();
-            ApplyResolution();
-        }
-
-        public void shiftResRight()
-        {
-            selectedResolution++;
-            if (selectedResolution > resolutions.Count - 1)
-            {
-                selectedResolution = resolutions.Count - 1;
-            }
-            UpdateResolutionText();
-            ApplyResolution();
-        }
+        // public void FindAutomaticResolution()
+        // {
+        //     bool foundRes = false;
+        //     for(int i = 0; i < resolutions.Count; i++)
+        //     {
+        //         if(Screen.width == resolutions[i].horizontal && Screen.height == resolutions[i].vertical)
+        //         {
+        //             foundRes = true;
+        //             selectedResolution = i;
+        //             UpdateResolutionText();
+        //         }
+        //     }
+        //     if (!foundRes)
+        //     {
+        //         Resolution resolution = new Resolution();
+        //         resolution.horizontal = Screen.width;
+        //         resolution.vertical = Screen.height;
+        //
+        //         resolutions.Add(resolution);
+        //         selectedResolution = resolutions.Count - 1;
+        //         UpdateResolutionText();
+        //     }
+        //     ApplyResolution();
+        // }
+        //
+        // public void ApplyResolution()
+        // {
+        //     //Screen.SetResolution(resolutions[selectedResolution].horizontal, resolutions[selectedResolution].vertical, GameSettings.main.fullScreen);
+        // }
+        //
+        // public void shiftResLeft()
+        // {
+        //     selectedResolution--;
+        //     if(selectedResolution < 0)
+        //     {
+        //         selectedResolution = 0;
+        //     }
+        //     UpdateResolutionText();
+        //     ApplyResolution();
+        // }
+        //
+        // public void shiftResRight()
+        // {
+        //     selectedResolution++;
+        //     if (selectedResolution > resolutions.Count - 1)
+        //     {
+        //         selectedResolution = resolutions.Count - 1;
+        //     }
+        //     UpdateResolutionText();
+        //     ApplyResolution();
+        // }
 
         public void clickShiftFpsLimit(int amount)
         {
@@ -110,8 +121,8 @@ namespace Viva
         public void clickToggleScreenMode()
         {
             GameSettings.main.ToggleFullScreen();
-            ApplyResolution();
-
+            //ApplyResolution();
+            Screen.fullScreen = GameSettings.main.fullScreen;
             UpdateScreenModeText();
         }
 
@@ -143,82 +154,92 @@ namespace Viva
             Text text = FpsLimitContainer.transform.GetChild(3).GetComponent(typeof(Text)) as Text;
             text.text = "" + GameSettings.main.fpsLimit;          
         }
+        
+        private void UpdateSettingText(string settingPath, int settingValue, Dictionary<int, string> settingLabels)
+        {
+            Text text = GetRightPageUIByMenu(Menu.GRAPHICS).transform.Find(settingPath).GetChild(0).GetComponent<Text>();
+    
+            if (settingLabels.TryGetValue(settingValue, out var label))
+            {
+                text.text = label;
+            }
+            else
+            {
+                text.text = "Unknown"; 
+                //handle invalid setting values
+                Debug.LogError("[ERROR] Invalid value for setting: " + settingPath);
+            }
+        }
 
         private void UpdateAntiAliasingText()
         {
-            Text text = GetRightPageUIByMenu(Menu.GRAPHICS).transform.Find("Toggle Anti Aliasing").GetChild(0).GetComponent(typeof(Text)) as Text;
-            switch (GameSettings.main.antiAliasing)
+            var antiAliasingLabels = new Dictionary<int, string>
             {
-                case 0:
-                    text.text = "None";
-                    break;
-                case 2:
-                    text.text = "2x";
-                    break;
-                case 4:
-                    text.text = "4x";
-                    break;
-                case 8:
-                    text.text = "8x";
-                    break;
-                default:
-                    text.text = "Bad value";
-                    Debug.LogError("[ERROR] Bad value on anti aliasing, Either delete or modify settings.cfg to a correct value");
-                    break;
-            }
+                { 1, "None" },
+                { 2, "2x" },
+                { 4, "4x" },
+                { 8, "8x" }
+            };
+
+            UpdateSettingText("Toggle Anti Aliasing", GameSettings.main.antiAliasing, antiAliasingLabels);
         }
 
         private void UpdateShadowLevelText()
         {
-            Text text = GetRightPageUIByMenu(Menu.GRAPHICS).transform.Find("Toggle Shadows").GetChild(0).GetComponent(typeof(Text)) as Text;
-            switch (GameSettings.main.shadowLevel)
+            var shadowLabels = new Dictionary<int, string>
             {
-                default:
-                    text.text = "Disabled";
-                    break;
-                case 1:
-                    text.text = "Low";
-                    break;
-                case 2:
-                    text.text = "Medium";
-                    break;
-                case 3:
-                    text.text = "High";
-                    break;
-                case 4:
-                    text.text = "Very High";
-                    break;
-                case 5:
-                    text.text = "Ultra";
-                    break;
-            }
-        }
-        private void UpdateToggleQualityText()
-        {
-            Text text = GetRightPageUIByMenu(Menu.GRAPHICS).transform.Find("Toggle Quality").GetChild(0).GetComponent(typeof(Text)) as Text;
-            string[] names = QualitySettings.names;
-            text.text = names[QualitySettings.GetQualityLevel()];
+                { 0, "Disabled" },
+                { 1, "Low" },
+                { 2, "Medium" },
+                { 3, "High" },
+                { 4, "Very High" },
+                { 5, "Ultra" }
+            };
+
+            UpdateSettingText("Toggle Shadows", GameSettings.main.shadowLevel, shadowLabels);
         }
 
-        public void UpdateResolutionText()
+        private void UpdateToggleQualityText()
         {
-            resolutionText.text = resolutions[selectedResolution].horizontal.ToString() + " x " + resolutions[selectedResolution].vertical.ToString();
+            var qualityLevels = QualitySettings.names;
+            var qualityLabels = new Dictionary<int, string>();
+
+            for (int i = 0; i < qualityLevels.Length; i++)
+            {
+                qualityLabels.Add(i, qualityLevels[i]);
+            }
+
+            UpdateSettingText("Toggle Quality", QualitySettings.GetQualityLevel(), qualityLabels);
         }
+
+
+        // public void UpdateResolutionText()
+        // {
+        //     resolutionText.text = resolutions[selectedResolution].horizontal.ToString() + " x " + resolutions[selectedResolution].vertical.ToString();
+        // }
+        
         private void UpdateScreenModeText()
         {
-            Text buttonText = GetRightPageUIByMenu(Menu.GRAPHICS).transform.Find("FullScreen").GetChild(0).GetComponent(typeof(Text)) as Text;
-            buttonText.text = GameSettings.main.fullScreen ? "FullScreen" : "Windowed";
+            UpdateSettingText("FullScreen", GameSettings.main.fullScreen ? 1 : 0, new Dictionary<int, string>
+            {
+                { 0, "Windowed" },
+                { 1, "FullScreen" }
+            });
         }
 
         private void UpdateVsyncText()
         {
-            Text buttonText = GetRightPageUIByMenu(Menu.GRAPHICS).transform.Find("Vsync").GetChild(0).GetComponent(typeof(Text)) as Text;
-            buttonText.text = GameSettings.main.vSync ? "Enabled" : "Disabled";
+            UpdateSettingText("Vsync", GameSettings.main.vSync ? 1 : 0, new Dictionary<int, string>
+            {
+                { 0, "Disabled" },
+                { 1, "Enabled" }
+            });
         }
+
 
         private void UpdateLodDistanceText()
         {
-            lodDistanceText.text = (GameSettings.main.lodDistance * 100f).ToString("00") + "%";
+            lodDistanceText.text = $"{(GameSettings.main.lodDistance * 100f):00}%";
         }
 
     }

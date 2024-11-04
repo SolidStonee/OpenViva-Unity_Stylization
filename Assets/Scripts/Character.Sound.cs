@@ -64,7 +64,7 @@ namespace Viva
                 var companion = this as Companion;
                 if (companion.rightFootRigidBody.transform == null || companion.rightFootSurfaceCollider == null && companion.leftFootSurfaceCollider) return;
                 positionToPlay =
-                    rightFoot ? companion.rightFootRigidBody.transform.localPosition : companion.rightFootRigidBody.transform.localPosition;
+                    rightFoot ? companion.rightFootRigidBody.transform.position : companion.rightFootRigidBody.transform.position;
                 playTransform = rightFoot ? companion.rightFootRigidBody.transform : companion.rightFootRigidBody.transform;
                 //footstep regions take priority
                 if (footstepInfo.IsAnyFootstepRegionActive())

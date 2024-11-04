@@ -98,14 +98,11 @@ MonoBehaviour:
   footstepInfo: {fileID: 4335324946688298714}
   m_currentAnim: 0
   animator: {fileID: 1221288143101194586}
-  happiness: 1
-  Tired: 0
   rootAnimationOffsets:
   - {fileID: 11400000, guid: a3364c4f06b82dd499ceaba6239d0423, type: 2}
   - {fileID: 11400000, guid: 827447ede6afa2a44b9f88e59b4c190c, type: 2}
   - {fileID: 11400000, guid: 335791a14cf022a48acec0a5162e9234, type: 2}
   - {fileID: 11400000, guid: a600f65aa11fd8a3f834f5e2f22682e8, type: 2}
-  m_characterSelectionTarget: {fileID: 2060431801450243014}
   m_puppetMaster: {fileID: 3095090551409627947}
   m_anchor: {fileID: 1221288143101194587}
   m_spine1: {fileID: 8606866514365742748}
@@ -1114,7 +1111,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0.781118, z: -0.053635478}
+  m_ConnectedAnchor: {x: 0, y: 1.562236, z: -0.107270956}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 2
@@ -7494,7 +7491,8 @@ AudioSource:
   m_GameObject: {fileID: 6944980756416680034}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8136021282583029108, guid: 14c1df6d22dec094398e85956c01a307,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -8919,7 +8917,6 @@ GameObject:
   - component: {fileID: 6819908655397296343}
   - component: {fileID: 7574456022356645477}
   - component: {fileID: 8378493723993885209}
-  - component: {fileID: 2060431801450243014}
   m_Layer: 0
   m_Name: characterSelection
   m_TagString: Untagged
@@ -8992,20 +8989,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2060431801450243014
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8367428490045112664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff1a27982cf68034d88fbceea9dceffe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 8059109563342906387}
-  meshRenderer: {fileID: 8378493723993885209}
 --- !u!1 &8412168363387807764
 GameObject:
   m_ObjectHideFlags: 0

@@ -281,10 +281,10 @@ namespace Viva
                     float sum = boneWeight.weight0 + boneWeight.weight1 + boneWeight.weight2 + boneWeight.weight3;
                     if (sum > 0.0f)
                     {   //prevent divison by zero
-                        boneWeight.weight0 = boneWeight.weight0 / sum;
-                        boneWeight.weight1 = boneWeight.weight1 / sum;
-                        boneWeight.weight2 = boneWeight.weight2 / sum;
-                        boneWeight.weight3 = boneWeight.weight3 / sum;
+                        boneWeight.weight0 /= sum;
+                        boneWeight.weight1 /= sum;
+                        boneWeight.weight2 /= sum;
+                        boneWeight.weight3 /= sum;
                     }
                     boneWeightsTable[i] = boneWeight;
                 }

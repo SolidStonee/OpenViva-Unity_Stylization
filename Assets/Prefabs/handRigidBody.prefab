@@ -204,6 +204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_owner: {fileID: 0}
   m_collisionPart: 3
+  callTriggerStay: 1
 --- !u!1 &3716190535743747267
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,6 +344,7 @@ MonoBehaviour:
   disablePersistance: 0
   targetsSceneAsset: 0
   assetName: 
+  uniqueID: 
   m_settings: {fileID: 11400000, guid: 66f083424cb9182449dc8ac162f5c70a, type: 2}
   m_rigidBody: {fileID: 2110651809327042018}
   m_owners:
@@ -402,7 +404,8 @@ AudioSource:
   m_GameObject: {fileID: 4593641065835188907}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 3747770533621907420, guid: 14c1df6d22dec094398e85956c01a307,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1

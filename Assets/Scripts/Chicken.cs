@@ -58,6 +58,7 @@ namespace Viva
             {
                 return;
             }
+            SetAnimation(idleID, 0f);
             //change LOD children
             for (int i = 0; i < 2; i++)
             {
@@ -71,7 +72,7 @@ namespace Viva
             //will no longer run away
             avoidTransforms.Clear();
             untamedItemCollisionExpansion.SetActive(false);
-            SetAnimation(idleID, 0.4f);
+            
         }
 
         public void OnPickedUp()
@@ -230,7 +231,7 @@ namespace Viva
             }
             if (standingPlane != null)
             {
-                rigidBody.useGravity = false;
+                //rigidBody.useGravity = false;
                 FixedUpdatePhysicsMovement(rigidBody);
                 if (speed <= 0.001f)
                 {
@@ -258,7 +259,7 @@ namespace Viva
             {
 
                 rigidBody.velocity = transform.forward * speed;
-                if (!IsCurrentAnimation(locomotionID) && !IsNextAnimation(locomotionID))
+                if (!IsCurrentAnimation(locomotionID) && !IsNextAnimation(locomotionID) && !IsNextAnimation(idleID))
                 {
                     SetAnimation(locomotionID, 0.2f);
                 }

@@ -261,7 +261,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Temporal Antialiasing
+  m_Text: x
 --- !u!1 &392893165999090767
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,9 +705,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6875727050392151967}
-        m_TargetAssemblyTypeName: viva.PauseMenu, Assembly-CSharp
-        m_MethodName: clickShiftMusicVolume
+      - m_Target: {fileID: 9164276089769730181}
+        m_TargetAssemblyTypeName: Viva.VolumeAdjuster, Assembly-CSharp
+        m_MethodName: clickShiftVolume
         m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2126,9 +2126,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6875727050392151967}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: clickShiftMusicVolume
+      - m_Target: {fileID: 4656273442622267594}
+        m_TargetAssemblyTypeName: Viva.VolumeAdjuster, Assembly-CSharp
+        m_MethodName: clickShiftVolume
         m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3355,9 +3355,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6875727050392151967}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: clickShiftMusicVolume
+      - m_Target: {fileID: 9164276089769730181}
+        m_TargetAssemblyTypeName: Viva.VolumeAdjuster, Assembly-CSharp
+        m_MethodName: clickShiftVolume
         m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4466,13 +4466,14 @@ GameObject:
   m_Component:
   - component: {fileID: 36615107282149495}
   - component: {fileID: 5145923501441013431}
+  - component: {fileID: 4656273442622267594}
   m_Layer: 5
   m_Name: Voice Volume Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &36615107282149495
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4504,6 +4505,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2275679446400884684}
   m_CullTransparentMesh: 0
+--- !u!114 &4656273442622267594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2275679446400884684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9599ff2616f72944091544f14e5f9294, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeType: 3
+  volumeText: {fileID: 9142334575547505393}
 --- !u!1 &2296470274782870737
 GameObject:
   m_ObjectHideFlags: 0
@@ -5865,7 +5880,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125, y: -240.34999}
+  m_AnchoredPosition: {x: 125, y: -348.1}
   m_SizeDelta: {x: 160, y: 36}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &2904871268102279410
@@ -7976,7 +7991,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125, y: -192.84999}
+  m_AnchoredPosition: {x: 125, y: -300.6}
   m_SizeDelta: {x: 250, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6305329638941232754
@@ -8149,7 +8164,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3904932670629410317}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.0200005, y: 1.0200005, z: 1.0200005}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8159,7 +8174,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 34, y: -177.0952}
+  m_AnchoredPosition: {x: 34, y: -115.1}
   m_SizeDelta: {x: 160, y: 36}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &2409904904080992000
@@ -11222,7 +11237,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5398501157506370751}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.000562693}
+  m_LocalPosition: {x: 0, y: 0, z: 0.0005703764}
   m_LocalScale: {x: 1.0200005, y: 1.0200005, z: 1.0200005}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11232,7 +11247,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 33.99398, y: -241.0952}
+  m_AnchoredPosition: {x: 33.99398, y: -179.1}
   m_SizeDelta: {x: 160, y: 36}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &6161073948639129638
@@ -15327,6 +15342,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6284364139274088531}
   - component: {fileID: 6283482330342407701}
+  - component: {fileID: 2376892373540313687}
   m_Layer: 5
   m_Name: Music Volume Container
   m_TagString: Untagged
@@ -15354,7 +15370,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125, y: -116.49999}
+  m_AnchoredPosition: {x: 125, y: -88.85}
   m_SizeDelta: {x: 250, y: 57.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6283482330342407701
@@ -15365,6 +15381,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6065969391608650223}
   m_CullTransparentMesh: 0
+--- !u!114 &2376892373540313687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6065969391608650223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9599ff2616f72944091544f14e5f9294, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeType: 1
+  volumeText: {fileID: 6874225807331369177}
 --- !u!1 &6066122527397977587
 GameObject:
   m_ObjectHideFlags: 0
@@ -15628,7 +15658,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125, y: -286.34998}
+  m_AnchoredPosition: {x: 125, y: -394.1}
   m_SizeDelta: {x: 160, y: 36}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &6285933847282410355
@@ -17134,7 +17164,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6315680435688123544}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.000007683411}
   m_LocalScale: {x: 1.0200005, y: 1.0200005, z: 1.0200005}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17144,7 +17174,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 33.99398, y: -305.2997}
+  m_AnchoredPosition: {x: 33.99398, y: -243.30452}
   m_SizeDelta: {x: 160, y: 36}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &7827410902218050142
@@ -17356,10 +17386,10 @@ RectTransform:
   - {fileID: 7165505303906962454}
   - {fileID: 6751409008938245705}
   - {fileID: 4998156348796048985}
+  - {fileID: 2310517974103206149}
   - {fileID: 3352110897670925591}
   - {fileID: 4925875560710955459}
   - {fileID: 4987204331046437138}
-  - {fileID: 2310517974103206149}
   - {fileID: 7570550858726130352}
   m_Father: {fileID: 7748064795459362327}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -17489,9 +17519,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6875727050392151967}
-        m_TargetAssemblyTypeName: viva.PauseMenu, Assembly-CSharp
-        m_MethodName: clickShiftMusicVolume
+      - m_Target: {fileID: 4656273442622267594}
+        m_TargetAssemblyTypeName: Viva.VolumeAdjuster, Assembly-CSharp
+        m_MethodName: clickShiftVolume
         m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -21018,9 +21048,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6875727050392151967}
-        m_TargetAssemblyTypeName: viva.PauseMenu, Assembly-CSharp
-        m_MethodName: clickShiftMusicVolume
+      - m_Target: {fileID: 2376892373540313687}
+        m_TargetAssemblyTypeName: Viva.VolumeAdjuster, Assembly-CSharp
+        m_MethodName: clickShiftVolume
         m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -21219,7 +21249,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125, y: -27.649994}
+  m_AnchoredPosition: {x: 125, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &6765818616863300649
@@ -21699,9 +21729,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6875727050392151967}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: clickShiftMusicVolume
+      - m_Target: {fileID: 2376892373540313687}
+        m_TargetAssemblyTypeName: Viva.VolumeAdjuster, Assembly-CSharp
+        m_MethodName: clickShiftVolume
         m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -24297,7 +24327,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7165505303906962454
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24552,13 +24582,14 @@ GameObject:
   m_Component:
   - component: {fileID: 5045083390950478411}
   - component: {fileID: 6634247118023424362}
+  - component: {fileID: 9164276089769730181}
   m_Layer: 5
   m_Name: Sfx Volume Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5045083390950478411
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24590,6 +24621,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7476289319144327069}
   m_CullTransparentMesh: 0
+--- !u!114 &9164276089769730181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7476289319144327069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9599ff2616f72944091544f14e5f9294, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeType: 2
+  volumeText: {fileID: 4455536883443065618}
 --- !u!1 &7498756412263652893
 GameObject:
   m_ObjectHideFlags: 0
@@ -26405,7 +26450,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8201108657431365186}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.013399404}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.0200005, y: 1.0200005, z: 1.0200005}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -26415,7 +26460,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 229.98154, y: -305.29974}
+  m_AnchoredPosition: {x: 138, y: -317}
   m_SizeDelta: {x: 160, y: 36}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &2195103289940108949

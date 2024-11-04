@@ -17,6 +17,8 @@ namespace OccaSoftware.Altos.Runtime
         private AtmosphereBlendingPass atmospherePass;
         private VolumetricCloudsRenderPass cloudRenderPass;
         private CloudShadowsRenderPass shadowRenderPass;
+        
+        [SerializeField] private LayerMask targetCameraLayer;
 
         internal Material cloudRenderMaterial = null;
 
@@ -63,6 +65,7 @@ namespace OccaSoftware.Altos.Runtime
 
         public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
         {
+            
             Shader.SetGlobalFloat("_AltosAtmosphericFogIsEnabled", 0f);
             Shader.SetGlobalFloat("_AltosIsEnabled", 0f);
             Shader.SetGlobalFloat("_AltosCloudsIsEnabled", 0f);
@@ -71,53 +74,60 @@ namespace OccaSoftware.Altos.Runtime
             {
                 return;
             }
-            
+
             skyDirector = AltosSkyDirector.Instance;
-            
+
             if (skyDirector == null)
                 return;
-            
+
             int altosState = 0;
             int fogState = 0;
-            if (PassValidator.IsValidSkyPass(renderingData.cameraData.camera, skyDirector))
+            
+            Camera currentCamera = renderingData.cameraData.camera;
+            
+            if (targetCameraLayer == (targetCameraLayer | (1 << currentCamera.gameObject.layer)))
             {
-                skyRenderPass.Setup(skyDirector);
-                renderer.EnqueuePass(skyRenderPass);
-            
-                altosState++;
-                fogState++;
-            
-                // if (PassValidator.IsValidAtmospherePass(renderingData.cameraData.camera, skyDirector))
-                // {
-                //     atmospherePass.Setup(skyDirector);
-                //     renderer.EnqueuePass(atmospherePass);
-                //     fogState++;
-                //     altosState++;
-                // }
-            }
-            if (PassValidator.IsValidCloudPass(renderingData.cameraData.camera, skyDirector))
-            {
-                if (cloudRenderMaterial == null)
-                    cloudRenderMaterial = CoreUtils.CreateEngineMaterial(skyDirector.data.shaders.renderClouds);
-            
-                SetDefaultCloudSettings();
-                cloudRenderPass.Setup(skyDirector, cloudRenderMaterial);
-                renderer.EnqueuePass(cloudRenderPass);
-                Shader.SetGlobalFloat("_AltosCloudsIsEnabled", 1f);
-                altosState++;
-            
-                if (skyDirector.cloudDefinition.castShadowsEnabled)
+                if (PassValidator.IsValidSkyPass(renderingData.cameraData.camera, skyDirector))
                 {
-                    shadowRenderPass.Setup(skyDirector, cloudRenderMaterial);
-                    renderer.EnqueuePass(shadowRenderPass);
+                    skyRenderPass.Setup(skyDirector);
+                    renderer.EnqueuePass(skyRenderPass);
+
+                    altosState++;
+                    fogState++;
+
+                    // if (PassValidator.IsValidAtmospherePass(renderingData.cameraData.camera, skyDirector))
+                    // {
+                    //     atmospherePass.Setup(skyDirector);
+                    //     renderer.EnqueuePass(atmospherePass);
+                    //     fogState++;
+                    //     altosState++;
+                    // }
+                }
+
+                if (PassValidator.IsValidCloudPass(renderingData.cameraData.camera, skyDirector))
+                {
+                    if (cloudRenderMaterial == null)
+                        cloudRenderMaterial = CoreUtils.CreateEngineMaterial(skyDirector.data.shaders.renderClouds);
+
+                    SetDefaultCloudSettings();
+                    cloudRenderPass.Setup(skyDirector, cloudRenderMaterial);
+                    renderer.EnqueuePass(cloudRenderPass);
+                    Shader.SetGlobalFloat("_AltosCloudsIsEnabled", 1f);
+                    altosState++;
+
+                    if (skyDirector.cloudDefinition.castShadowsEnabled)
+                    {
+                        shadowRenderPass.Setup(skyDirector, cloudRenderMaterial);
+                        renderer.EnqueuePass(shadowRenderPass);
+                    }
                 }
             }
-
             //Shader.SetGlobalFloat("_AltosAtmosphericFogIsEnabled",1);
             //Shader.SetGlobalFloat("_AltosIsEnabled", 1);
             
             Shader.SetGlobalFloat("_AltosAtmosphericFogIsEnabled", fogState == 2 ? 1 : 0);
             Shader.SetGlobalFloat("_AltosIsEnabled", altosState > 0 ? 1 : 0);
+            
         }
 
         public override void SetupRenderPasses(ScriptableRenderer renderer, in RenderingData renderingData)

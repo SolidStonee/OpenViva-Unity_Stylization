@@ -125,6 +125,16 @@ namespace Viva
             System.Array.Copy(floatBytes, 0, data, index, 4);
             index += 4;
         }
+        
+        public void WriteSigned4ByteInt(int value)
+        {
+            Allocate(4); // Allocate enough space for 4 bytes
+
+            byte[] intBytes = System.BitConverter.GetBytes(value);
+            System.Array.Copy(intBytes, 0, data, index, 4);
+            index += 4;
+        }
+
 
         public void WriteByteArray(byte[] array)
         {
@@ -169,6 +179,7 @@ namespace Viva
         {
             byte[] final = new byte[index];
             System.Array.Copy(data, final, index);
+            Debug.Log("ByteStreamWriter: Final serialized data length is " + final.Length + " bytes");
             return final;
         }
     }

@@ -12,7 +12,7 @@ namespace Viva
 
         public void PlaySmackSound()
         {
-            SoundManager.main.RequestHandle(transform.localPosition, transform).PlayOneShot(smackFX.GetRandomAudioClip());
+            SoundManager.main.RequestHandle(transform.position, transform).PlayOneShot(smackFX.GetRandomAudioClip());
         }
     }
 

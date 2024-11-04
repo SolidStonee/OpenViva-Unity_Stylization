@@ -36,13 +36,6 @@ namespace Viva
             NORMAL = 3
         }
 
-        [SerializeField] private CharacterSelectionTarget m_characterSelectionTarget;
-
-        public CharacterSelectionTarget characterSelectionTarget
-        {
-            get { return m_characterSelectionTarget; }
-        }
-
         [SerializeField] private PuppetMaster m_puppetMaster;
 
         public PuppetMaster puppetMaster
@@ -304,7 +297,7 @@ namespace Viva
 
         public override void OnCharacterSplashed(Vector3 sourcePos)
         {
-            passive.environment.AttemptReactToSubstanceSpill(SubstanceSpill.Substance.WATER, sourcePos);
+            //passive.environment.AttemptReactToSubstanceSpill(SubstanceSpill.Substance.WATER, sourcePos);
         }
 
         public void SetPreviewMode(bool enable)

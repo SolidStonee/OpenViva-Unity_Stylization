@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using OccaSoftware.Altos.Runtime;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.XR.Management;
 using Viva.console;
 using Viva.Util;
@@ -63,6 +65,10 @@ namespace Viva
         public bool physicsFrame { get; private set; } = false;
         public static InputManager input { get; private set; }
 
+        [SerializeField]
+        private AudioMixer m_audioMixer;
+        public AudioMixer audioMixer { get { return m_audioMixer; } }
+
         public List<GameObject> spawnablePrefabs;
 
         public void AddOnFinishLoadingCallback(OnVivaFileCallback callback)
@@ -102,22 +108,29 @@ namespace Viva
             }
             GameSettings.main.Copy(savedSettings);
 
+            StartCoroutine(ApplyAudioSettingsAfterDelay());
+            
             if (m_player)
             {
                 characters.Add(m_player);
             }
             SetEnableCursor(false);
         }
+        
+        IEnumerator ApplyAudioSettingsAfterDelay() {
+            yield return new WaitForEndOfFrame(); // Or WaitForSeconds(0.1f)
+            GameSettings.main.SetAllAudioMixers();
+        }
 
         public void OnDestroy()
         {
-            // if (XRGeneralSettings.Instance.Manager.isInitializationComplete)
-            // {
-            //     Debug.LogError("#VR Disabled " + XRGeneralSettings.Instance.Manager.isInitializationComplete);
-            //     XRGeneralSettings.Instance.Manager.StopSubsystems();
-            //     Camera.main.ResetAspect();
-            //     XRGeneralSettings.Instance.Manager.DeinitializeLoader();
-            // }
+            if (XRGeneralSettings.Instance.Manager.isInitializationComplete)
+            {
+                Debug.LogError("#VR Disabled " + XRGeneralSettings.Instance.Manager.isInitializationComplete);
+                XRGeneralSettings.Instance.Manager.StopSubsystems();
+                Camera.main.ResetAspect();
+                XRGeneralSettings.Instance.Manager.DeinitializeLoader();
+            }
             Tools.SaveJson(GameSettings.main, true, System.IO.Path.GetFullPath(System.IO.Directory.GetParent(Application.dataPath) + "/settings.cfg"));
         }
 

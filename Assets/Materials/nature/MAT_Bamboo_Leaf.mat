@@ -92,6 +92,7 @@ Material:
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
     - _CastShadows: 1
+    - _ColorBoost: 0
     - _Cull: 0
     - _Cutoff: 0.243
     - _DetailNormalMapScale: 1
@@ -107,6 +108,7 @@ Material:
     - _QueueControl: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _Saturation: 1.34
     - _Smoothness: 0.3
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1

@@ -1,9 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
+using System.IO.Compression;
+using CompressionLevel = System.IO.Compression.CompressionLevel;
 
 
 namespace Viva
@@ -347,7 +351,7 @@ namespace Viva
         public byte[] modelData = null;
         // public readonly ModelBuildSettings mis;
         public List<DynamicBoneInfo> dynamicBoneInfos = new List<DynamicBoneInfo>();
-        private byte VIVA_MODEL_CARD_VERSION = 2;
+        private byte VIVA_MODEL_CARD_VERSION = 3;
 
         public VivaModel(string _sourceCardFilename, string _name)
         {
@@ -607,7 +611,109 @@ namespace Viva
                 mesh.AddBlendShapeFrame("pupilShrink", 100.0f, new Vector3[mbs.vertexCount], null, null);
             }
         }
+        
+        private byte[] PackBooleans(List<bool> bools)
+        {
+            int numBytes = (bools.Count + 7) / 8;  //calculate how many bytes are needed
+            byte[] result = new byte[numBytes];
 
+            for (int i = 0; i < bools.Count; i++)
+            {
+                if (bools[i])
+                {
+                    result[i / 8] |= (byte)(1 << (i % 8));  //set the corresponding bit in the byte
+                }
+            }
+
+            return result;
+        }
+
+        private List<bool> UnpackBooleans(byte packedByte, int boolCount)
+        {
+            List<bool> bools = new List<bool>(boolCount);
+
+            for (int i = 0; i < boolCount; i++)
+            {
+                bools.Add((packedByte & (1 << i)) != 0);
+            }
+
+            return bools;
+        }
+        
+        // private byte[] CompressDataGZip(byte[] input)
+        // {
+        //     if (input == null || input.Length == 0)
+        //     {
+        //         Debug.LogError("Input data is null or empty, unable to compress.");
+        //         return null;
+        //     }
+        //
+        //     try
+        //     {
+        //         using (MemoryStream output = new MemoryStream())
+        //         {
+        //             using (GZipStream gzip = new GZipStream(output, CompressionLevel.Optimal, leaveOpen: true))
+        //             {
+        //                 gzip.Write(input, 0, input.Length);
+        //                 gzip.Flush(); // Ensure all data is written to the output stream
+        //             }
+        //             // No need to reset output.Position, just convert to array directly
+        //             Debug.Log($"Compressed Data Length with GZip: {output.Length}");
+        //             return output.ToArray();
+        //         }
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         Debug.LogError($"Unexpected error during compression: {ex.Message}");
+        //         return null;
+        //     }
+        // }
+
+        // private byte[] DecompressDataGZip(byte[] compressedData)
+        // {
+        //     if (compressedData == null || compressedData.Length == 0)
+        //     {
+        //         Debug.LogError("Compressed data is null or empty, unable to decompress.");
+        //         return null;
+        //     }
+        //
+        //     Debug.Log($"Compressed Data Length for Decompression (GZip): {compressedData.Length}");
+        //
+        //     try
+        //     {
+        //         using (MemoryStream input = new MemoryStream(compressedData))
+        //         {
+        //             using (GZipStream gzip = new GZipStream(input, CompressionMode.Decompress))
+        //             {
+        //                 using (MemoryStream output = new MemoryStream())
+        //                 {
+        //                     byte[] buffer = new byte[4096]; // Use a buffer to handle larger data in chunks
+        //                     int bytesRead;
+        //
+        //                     while ((bytesRead = gzip.Read(buffer, 0, buffer.Length)) > 0)
+        //                     {
+        //                         output.Write(buffer, 0, bytesRead);
+        //                     }
+        //
+        //                     byte[] decompressedData = output.ToArray();
+        //                     Debug.Log($"Decompressed Data Length (GZip): {decompressedData.Length}");
+        //                     return decompressedData;
+        //                 }
+        //             }
+        //         }
+        //     }
+        //     catch (InvalidDataException ex)
+        //     {
+        //         Debug.LogError($"Decompression failed: {ex.Message}. The data might be corrupted or incomplete.");
+        //         return null;
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         Debug.LogError($"Unexpected error during decompression: {ex.Message}");
+        //         return null;
+        //     }
+        // }
+        
         public byte[] SerializeToCardData()
         {
             var bsw = new ByteStreamWriter(50000, 50000);
@@ -636,18 +742,29 @@ namespace Viva
             bsw.WriteUTF8String(name);
             bsw.WriteByteArray(modelData);
             bsw.WriteByte((byte)dynamicBoneInfos.Count);
+            
             foreach (DynamicBoneInfo info in dynamicBoneInfos)
             {
                 bsw.WriteUTF8String(info.rootBone);
                 bsw.WriteUnsignedNormal1ByteFloat(info.damping);
                 bsw.WriteUnsignedNormal1ByteFloat(info.elasticity);
                 bsw.WriteUnsignedNormal1ByteFloat(info.stiffness);
-                bsw.WriteByte(System.Convert.ToByte(info.disableEndLength));
-                bsw.WriteByte(System.Convert.ToByte(info.useGravity));
-                bsw.WriteByte(System.Convert.ToByte(info.canRelax));
-                bsw.WriteByte(System.Convert.ToByte(info.headCollision));
-                bsw.WriteByte(System.Convert.ToByte(info.collisionBack));
+                List<bool> dynamicBoneBooleans = new List<bool>
+                {
+                    info.disableEndLength,
+                    info.useGravity,
+                    info.canRelax,
+                    info.headCollision,
+                    info.collisionBack
+                };
+                byte[] packedBooleans = PackBooleans(dynamicBoneBooleans);
+                foreach (byte b in packedBooleans)
+                {
+                    bsw.WriteByte(b);
+                }
             }
+            
+            
             return bsw.ToArray();
         }
 
@@ -689,7 +806,25 @@ namespace Viva
             headCollisionWorldSphere.z = bsr.ReadFloat();
             headCollisionWorldSphere.w = bsr.ReadFloat();
             name = bsr.ReadUTF8String(bsr.ReadUnsigned1ByteInt());
-            modelData = bsr.ReadBytes(bsr.ReadSigned4ByteInt());
+            //TODO: Get compression working correctly
+            // if (version > 2) // Version 3 or above: data is compressed
+            // {
+            //     // Read compressed model data
+            //     int compressedDataLength = bsr.ReadSigned4ByteInt();
+            //     byte[] compressedModelData = bsr.ReadBytes(compressedDataLength);
+            //     
+            //     byte[] decompressedModelData = DecompressDataGZip(compressedModelData);
+            //
+            //     // Assign decompressed model data
+            //     modelData = decompressedModelData;
+            //     
+            //     Debug.Log($"Compressed length: {compressedModelData.Length}");
+            // }
+            // else
+            // {
+            //     // Versions 1 and 2: data is uncompressed
+                modelData = bsr.ReadBytes(bsr.ReadSigned4ByteInt());
+            //}
             int dynamicBoneInfoCount = bsr.ReadUnsigned1ByteInt();
             dynamicBoneInfos = new List<DynamicBoneInfo>(dynamicBoneInfoCount);
             for (int i = 0; i < dynamicBoneInfoCount; i++)
@@ -698,11 +833,42 @@ namespace Viva
                 info.damping = bsr.ReadUnsigned1ByteNormalFloat();
                 info.elasticity = bsr.ReadUnsigned1ByteNormalFloat();
                 info.stiffness = bsr.ReadUnsigned1ByteNormalFloat();
-                info.disableEndLength = System.Convert.ToBoolean(bsr.ReadUnsigned1ByteInt());
-                info.useGravity = System.Convert.ToBoolean(bsr.ReadUnsigned1ByteInt());
-                info.canRelax = System.Convert.ToBoolean(bsr.ReadUnsigned1ByteInt());
-                info.headCollision = System.Convert.ToBoolean(bsr.ReadUnsigned1ByteInt());
-                info.collisionBack = System.Convert.ToBoolean(bsr.ReadUnsigned1ByteInt());
+                if (version > 2) // Assuming version 2 or later uses packed booleans
+                {
+                    try
+                    {
+                        byte packedBooleans = bsr.ReadUnsigned1ByteInt();
+
+// There are 5 boolean fields: disableEndLength, useGravity, canRelax, headCollision, collisionBack
+                        int totalBooleans = 5;
+                        List<bool> unpackedBooleans = UnpackBooleans(packedBooleans, totalBooleans);
+
+// Assign the unpacked boolean values to your object properties
+                        info.disableEndLength = unpackedBooleans[0];
+                        info.useGravity = unpackedBooleans[1];
+                        info.canRelax = unpackedBooleans[2];
+                        info.headCollision = unpackedBooleans[3];
+                        info.collisionBack = unpackedBooleans[4];
+                    }
+                    catch
+                    {
+                        // Fall back to old system if there is an issue
+                        info.disableEndLength = System.Convert.ToBoolean(bsr.ReadUnsigned1ByteInt());
+                        info.useGravity = System.Convert.ToBoolean(bsr.ReadUnsigned1ByteInt());
+                        info.canRelax = System.Convert.ToBoolean(bsr.ReadUnsigned1ByteInt());
+                        info.headCollision = System.Convert.ToBoolean(bsr.ReadUnsigned1ByteInt());
+                        info.collisionBack = System.Convert.ToBoolean(bsr.ReadUnsigned1ByteInt());
+                    }
+                }
+                else
+                {
+                    // Use old system (each boolean as a separate byte)
+                    info.disableEndLength = System.Convert.ToBoolean(bsr.ReadUnsigned1ByteInt());
+                    info.useGravity = System.Convert.ToBoolean(bsr.ReadUnsigned1ByteInt());
+                    info.canRelax = System.Convert.ToBoolean(bsr.ReadUnsigned1ByteInt());
+                    info.headCollision = System.Convert.ToBoolean(bsr.ReadUnsigned1ByteInt());
+                    info.collisionBack = System.Convert.ToBoolean(bsr.ReadUnsigned1ByteInt());
+                }
                 dynamicBoneInfos.Add(info);
             }
         }

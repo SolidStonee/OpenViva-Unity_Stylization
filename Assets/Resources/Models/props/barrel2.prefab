@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4169403785507688645}
   - component: {fileID: 4895029015830318916}
   - component: {fileID: 1352345692344768110}
+  - component: {fileID: 4891480124196398070}
   - component: {fileID: 3765857838742460344}
   - component: {fileID: 4163583296281468585}
   m_Layer: 12
@@ -115,6 +116,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4891480124196398070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1569284248245574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1b46b59dca5a6a49bac76673927f0bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disablePersistance: 0
+  targetsSceneAsset: 1
+  assetName: barrel2
+  uniqueID: 
 --- !u!114 &3765857838742460344
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,6 +12,9 @@ using ShadowResolution = UnityEngine.Rendering.Universal.ShadowResolution;
 
 namespace Viva
 {
+
+    public delegate void VolumeCallback(float volume);
+    
     //TODO: Cleanup all this cause its kinda messy
     [System.Serializable]
     public class GameSettings
@@ -19,7 +22,10 @@ namespace Viva
         public static GameSettings main { get; private set; } = new GameSettings();
 
         public float mouseSensitivity = 240.0f;
+        public float masterVolume = 1f;
         public float musicVolume = 0.5f;
+        public float sfxVolume = 1f;
+        public float voiceVolume = 0.5f;
         public int dayNightCycleSpeedIndex = 2;
         public bool disableGrabToggle = true;
         public bool pressToTurn = false;
@@ -51,19 +57,26 @@ namespace Viva
 
         public void Apply()
         {
-            QualitySettings.SetQualityLevel(qualityLevel);
-            QualitySettings.antiAliasing = antiAliasing;
+            QualitySettings.SetQualityLevel(qualityLevel, false);
+            // QualitySettings.antiAliasing = antiAliasing;
             QualitySettings.vSyncCount = vSync ? 1 : 0;     
             QualitySettings.lodBias = lodDistance;
             Application.targetFrameRate = vSync ? -1 : fpsLimit;
+            Screen.fullScreen = fullScreen;
             GameDirector.player.pauseMenu.ToggleFpsLimitContainer(!vSync);
-            ApplyShadowSettings();
+            
+            
+            ApplyURPSpecificSettings();
         }
+        
         public void Copy(GameSettings copy)
         {
             if (copy == null) return;
             mouseSensitivity = copy.mouseSensitivity;
+            masterVolume = copy.masterVolume;
             musicVolume = copy.musicVolume;
+            sfxVolume = copy.sfxVolume;
+            voiceVolume = copy.voiceVolume;
             dayNightCycleSpeedIndex = copy.dayNightCycleSpeedIndex;
             disableGrabToggle = copy.disableGrabToggle;
             pressToTurn = copy.pressToTurn;
@@ -82,8 +95,25 @@ namespace Viva
             toggleTooltips = copy.toggleTooltips;
             toggleClouds = copy.toggleClouds;
         }
+        
+        public void ApplyVolumeSetting(float volume, string audioMixerValue, VolumeCallback setVolumeAction = null)
+        {
+            var valueToSet = Mathf.Log10(volume) * 21.0f; 
+            Debug.Log(valueToSet);
+            valueToSet = Mathf.Clamp(valueToSet, -80f, 20);
+            setVolumeAction?.Invoke(volume);
+            GameDirector.instance.audioMixer.SetFloat(audioMixerValue, valueToSet);
+        }
 
-        public void ApplyShadowSettings()
+        public void SetAllAudioMixers()
+        {
+            ApplyVolumeSetting(masterVolume, "MasterVolume");
+            ApplyVolumeSetting(musicVolume, "MusicVolume");
+            ApplyVolumeSetting(voiceVolume, "VoiceVolume");
+            ApplyVolumeSetting(sfxVolume, "SfxVolume");
+        }
+
+        public void ApplyURPSpecificSettings()
         {
             var urpAsset = GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset;
             if (urpAsset == null)
@@ -92,6 +122,8 @@ namespace Viva
                 return;
             }
 
+            urpAsset.msaaSampleCount = antiAliasing;
+            
             switch (shadowLevel)
             {
                 default:
@@ -117,12 +149,12 @@ namespace Viva
                     break;
                 case 4:
                     urpAsset.shadowDistance = 150f;
-                    urpAsset.shadowCascadeCount = 4;
                     UnityGraphicsBullshit.MainLightShadowResolution = ShadowResolution._2048;
                     UnityGraphicsBullshit.AdditionalLightShadowResolution = ShadowResolution._2048;
                     break;
                 case 5:
                     urpAsset.shadowDistance = 200f;
+                    urpAsset.shadowCascadeCount = 4;
                     UnityGraphicsBullshit.MainLightShadowResolution = ShadowResolution._4096;
                     UnityGraphicsBullshit.AdditionalLightShadowResolution = ShadowResolution._4096;
                     break;
@@ -136,15 +168,6 @@ namespace Viva
         public void SetMouseSensitivity(float amount)
         {
             mouseSensitivity = Mathf.Clamp(amount, 10.0f, 250.0f);
-        }
-        public void AdjustMusicVolume(float direction)
-        {
-            SetMusicVolume(musicVolume + direction);
-            GameDirector.instance.UpdateMusicVolume();
-        }
-        public void SetMusicVolume(float percent)
-        {
-            musicVolume = Mathf.Clamp01(percent);
         }
         public void AdjustFpsLimit(int direction)
         {
@@ -211,7 +234,7 @@ namespace Viva
         {
             switch (antiAliasing)
             {
-                case 0:
+                case 1:
                     antiAliasing = 2;
                     break;
                 case 2:
@@ -221,7 +244,7 @@ namespace Viva
                     antiAliasing = 8;
                     break;
                 default:
-                    antiAliasing = 0;
+                    antiAliasing = 1;
                     break;
             }
             Apply();

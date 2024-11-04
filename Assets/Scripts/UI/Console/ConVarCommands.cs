@@ -81,5 +81,13 @@ namespace Viva.console
                  }
              }
         }
+        
+        [ConVar("testarea", "Teleport to test area")]
+        public static void TestArea()
+        {
+            
+            GameDirector.player.transform.position = new Vector3(-559, 143, 1181);
+            CommandResult.Success("Teleported to Test Area");
+        }
     }
 }

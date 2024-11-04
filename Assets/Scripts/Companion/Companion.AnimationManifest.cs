@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -81,12 +82,6 @@ namespace Viva
 
                 AnimationInfo.Flag mirroredFlags = info.flag;
 
-                //mirror the DISABLE_HOLDIK_RIGHT flag to DISABLE_HOLDIK_LEFT
-                if (info.flag == AnimationInfo.Flag.DISABLE_HOLDIK_RIGHT)
-                {
-                    mirroredFlags = AnimationInfo.Flag.DISABLE_HOLDIK_LEFT;
-                }
-         
                 animationInfos.Add(GetMirroredLeftEnum(animation),
                     new AnimationInfo(transitionHandle,
                         info.torsoStateName.Replace("_right", "_left"),
@@ -97,23 +92,24 @@ namespace Viva
                         GetMirroredBodyState(info.newBodyState),
                         info.transitionTime, info.animLogicInfo,
                         GetMirroredAnimationEvents(info.animationEvents),
-                        mirroredFlags
+                        GetMirroredLeftEnum(mirroredFlags)
                     )
                 );
             }
         }
 
-        private static Animation GetMirroredLeftEnum(Animation animation)
+        //generic getter
+        private static T GetMirroredLeftEnum<T>(T enumValue) where T : Enum
         {
-            Animation nextEnum = (Animation)((int)animation + 1);
+            T nextEnum = (T)(object)((int)(object)enumValue + 1);
             if (!nextEnum.ToString().EndsWith("_LEFT"))
             {
-                // Debug.LogError("BAD ORDER. NEXT ENUM NOT LEFT: "+animation);
-                return animation;
+                //Debug.LogError("BAD ORDER. NEXT ENUM NOT LEFT: " + enumValue);
+                return enumValue;
             }
             return nextEnum;
         }
-
+        
         private static BodyState GetMirroredBodyState(BodyState bodyState)
         {
             int mirroredBodyState;
@@ -1064,7 +1060,7 @@ namespace Viva
                 0.35f, new Companion.AnimLogicInfo(0, 1.0f, 0.5f, 0, 0.4f),
                 new CompanionAnimationEvent[]{
                 new CompanionAnimationEvent( 0.10f, (int)Companion.AnimationEventName.SPEAK, new float[]{ (float)Companion.VoiceLine.MISC_IDLE, 1.0f } ),
-                new CompanionAnimationEvent( 0.65f, (int)Companion.AnimationEventName.WEAR_HAT_RIGHT_HAND, null ),
+                new CompanionAnimationEvent( 0.6f, (int)Companion.AnimationEventName.WEAR_HAT_RIGHT_HAND, null ),
                 },
                 AnimationInfo.Flag.DISABLE_HOLDIK_RIGHT
             ), true);

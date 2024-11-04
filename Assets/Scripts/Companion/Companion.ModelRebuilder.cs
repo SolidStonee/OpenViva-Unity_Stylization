@@ -126,16 +126,16 @@ namespace Viva
 
         public void ApplyFingerNailColor(Color color)
         {
-            foreach (var bodySMR in bodySMRs)
+            foreach (Material mat in toonMaterials.objects)
             {
-                bodySMR.material.SetColor(fingerNailID, color);
+                mat.SetColor(fingerNailID, color);
             }
         }
         public void ApplyToeNailColor(Color color)
         {
-            foreach (var bodySMR in bodySMRs)
+            foreach (Material mat in toonMaterials.objects)
             {
-                bodySMR.material.SetColor(toeNailID, color);
+                mat.SetColor(toeNailID, color);
             }
         }
 

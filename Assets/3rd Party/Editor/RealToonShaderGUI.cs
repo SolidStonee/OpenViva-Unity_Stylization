@@ -155,7 +155,6 @@ public class RealToonShaderGUI : ShaderGUI
     MaterialProperty _SmoothObjectNormal;
     MaterialProperty _VertexColorRedControlSmoothObjectNormal;
     MaterialProperty _XYZPosition;
-    MaterialProperty _XYZHardness;
     MaterialProperty _ShowNormal;
 
     MaterialProperty _ShadowColorTexture;
@@ -1789,9 +1788,6 @@ public class RealToonShaderGUI : ShaderGUI
 
                         materialEditor.ShaderProperty(_SmoothObjectNormal, new GUIContent(_SmoothObjectNormal.displayName, TOTIPS[71]));
                         materialEditor.ShaderProperty(_VertexColorRedControlSmoothObjectNormal, new GUIContent(_VertexColorRedControlSmoothObjectNormal.displayName, TOTIPS[72]));
-
-                        GUILayout.Space(10);
-                        materialEditor.ShaderProperty(_XYZHardness,  new GUIContent(_XYZHardness.displayName, TOTIPS[74]));
 
                         GUILayout.Space(10);
                         materialEditor.ShaderProperty(_ShowNormal, new GUIContent(_ShowNormal.displayName, TOTIPS[75]));

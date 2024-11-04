@@ -338,6 +338,7 @@ MonoBehaviour:
   disablePersistance: 1
   targetsSceneAsset: 0
   assetName: 
+  uniqueID: 
   m_settings: {fileID: 11400000, guid: 63ce66de48350d412b395b5d50310e9b, type: 2}
   m_rigidBody: {fileID: 4328578285425347197}
   m_owners: []
@@ -379,7 +380,8 @@ AudioSource:
   m_GameObject: {fileID: 8700274305153541405}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 3747770533621907420, guid: 14c1df6d22dec094398e85956c01a307,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1

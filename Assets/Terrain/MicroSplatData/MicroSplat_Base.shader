@@ -11,7 +11,7 @@
 ////////////////////////////////////////
 
 
-Shader "Hidden/Terrain 0 0_Base137723045"
+Shader "Hidden/Terrain 0 0_Base-144379887"
 {
    Properties
    {
@@ -128,18 +128,21 @@ Shader "Hidden/Terrain 0 0_Base137723045"
             
       #define _MICROSPLAT 1
       #define _MICROTERRAIN 1
+      #define _PERTEXMICROSHADOWS 1
       #define _HYBRIDHEIGHTBLEND 1
-      #define _PERTEXOUTLINECOLOR 1
       #define _USEGRADMIP 1
       #define _MAX8TEXTURES 1
       #define _PERTEXUVSCALEOFFSET 1
+      #define _PERTEXHEIGHTOFFSET 1
+      #define _PERTEXHEIGHTCONTRAST 1
+      #define _PERTEXSATURATION 1
       #define _PERTEXAOSTR 1
       #define _PERTEXNORMSTR 1
       #define _PERTEXSMOOTHSTR 1
       #define _CONTROLNOISEUV 1
       #define _BRANCHSAMPLES 1
       #define _TERRAINBLENDING 1
-      #define _TBNOISE 1
+      #define _TBNOISEFBM 1
       #define _TBOBJECTNORMALBLEND 1
       #define _MSRENDERLOOP_UNITYURP2022 1
       #define _MICROSPLATBASEMAP 1
@@ -4303,18 +4306,21 @@ float3 GetTessFactors ()
             
       #define _MICROSPLAT 1
       #define _MICROTERRAIN 1
+      #define _PERTEXMICROSHADOWS 1
       #define _HYBRIDHEIGHTBLEND 1
-      #define _PERTEXOUTLINECOLOR 1
       #define _USEGRADMIP 1
       #define _MAX8TEXTURES 1
       #define _PERTEXUVSCALEOFFSET 1
+      #define _PERTEXHEIGHTOFFSET 1
+      #define _PERTEXHEIGHTCONTRAST 1
+      #define _PERTEXSATURATION 1
       #define _PERTEXAOSTR 1
       #define _PERTEXNORMSTR 1
       #define _PERTEXSMOOTHSTR 1
       #define _CONTROLNOISEUV 1
       #define _BRANCHSAMPLES 1
       #define _TERRAINBLENDING 1
-      #define _TBNOISE 1
+      #define _TBNOISEFBM 1
       #define _TBOBJECTNORMALBLEND 1
       #define _MSRENDERLOOP_UNITYURP2022 1
       #define _MICROSPLATBASEMAP 1
@@ -8415,18 +8421,21 @@ float3 GetTessFactors ()
             
       #define _MICROSPLAT 1
       #define _MICROTERRAIN 1
+      #define _PERTEXMICROSHADOWS 1
       #define _HYBRIDHEIGHTBLEND 1
-      #define _PERTEXOUTLINECOLOR 1
       #define _USEGRADMIP 1
       #define _MAX8TEXTURES 1
       #define _PERTEXUVSCALEOFFSET 1
+      #define _PERTEXHEIGHTOFFSET 1
+      #define _PERTEXHEIGHTCONTRAST 1
+      #define _PERTEXSATURATION 1
       #define _PERTEXAOSTR 1
       #define _PERTEXNORMSTR 1
       #define _PERTEXSMOOTHSTR 1
       #define _CONTROLNOISEUV 1
       #define _BRANCHSAMPLES 1
       #define _TERRAINBLENDING 1
-      #define _TBNOISE 1
+      #define _TBNOISEFBM 1
       #define _TBOBJECTNORMALBLEND 1
       #define _MSRENDERLOOP_UNITYURP2022 1
       #define _MICROSPLATBASEMAP 1
@@ -12442,18 +12451,21 @@ float3 GetTessFactors ()
             
       #define _MICROSPLAT 1
       #define _MICROTERRAIN 1
+      #define _PERTEXMICROSHADOWS 1
       #define _HYBRIDHEIGHTBLEND 1
-      #define _PERTEXOUTLINECOLOR 1
       #define _USEGRADMIP 1
       #define _MAX8TEXTURES 1
       #define _PERTEXUVSCALEOFFSET 1
+      #define _PERTEXHEIGHTOFFSET 1
+      #define _PERTEXHEIGHTCONTRAST 1
+      #define _PERTEXSATURATION 1
       #define _PERTEXAOSTR 1
       #define _PERTEXNORMSTR 1
       #define _PERTEXSMOOTHSTR 1
       #define _CONTROLNOISEUV 1
       #define _BRANCHSAMPLES 1
       #define _TERRAINBLENDING 1
-      #define _TBNOISE 1
+      #define _TBNOISEFBM 1
       #define _TBOBJECTNORMALBLEND 1
       #define _MSRENDERLOOP_UNITYURP2022 1
       #define _MICROSPLATBASEMAP 1
@@ -16465,18 +16477,21 @@ float3 GetTessFactors ()
             
       #define _MICROSPLAT 1
       #define _MICROTERRAIN 1
+      #define _PERTEXMICROSHADOWS 1
       #define _HYBRIDHEIGHTBLEND 1
-      #define _PERTEXOUTLINECOLOR 1
       #define _USEGRADMIP 1
       #define _MAX8TEXTURES 1
       #define _PERTEXUVSCALEOFFSET 1
+      #define _PERTEXHEIGHTOFFSET 1
+      #define _PERTEXHEIGHTCONTRAST 1
+      #define _PERTEXSATURATION 1
       #define _PERTEXAOSTR 1
       #define _PERTEXNORMSTR 1
       #define _PERTEXSMOOTHSTR 1
       #define _CONTROLNOISEUV 1
       #define _BRANCHSAMPLES 1
       #define _TERRAINBLENDING 1
-      #define _TBNOISE 1
+      #define _TBNOISEFBM 1
       #define _TBOBJECTNORMALBLEND 1
       #define _MSRENDERLOOP_UNITYURP2022 1
       #define _MICROSPLATBASEMAP 1
@@ -20492,18 +20507,21 @@ float3 GetTessFactors ()
             
       #define _MICROSPLAT 1
       #define _MICROTERRAIN 1
+      #define _PERTEXMICROSHADOWS 1
       #define _HYBRIDHEIGHTBLEND 1
-      #define _PERTEXOUTLINECOLOR 1
       #define _USEGRADMIP 1
       #define _MAX8TEXTURES 1
       #define _PERTEXUVSCALEOFFSET 1
+      #define _PERTEXHEIGHTOFFSET 1
+      #define _PERTEXHEIGHTCONTRAST 1
+      #define _PERTEXSATURATION 1
       #define _PERTEXAOSTR 1
       #define _PERTEXNORMSTR 1
       #define _PERTEXSMOOTHSTR 1
       #define _CONTROLNOISEUV 1
       #define _BRANCHSAMPLES 1
       #define _TERRAINBLENDING 1
-      #define _TBNOISE 1
+      #define _TBNOISEFBM 1
       #define _TBOBJECTNORMALBLEND 1
       #define _MSRENDERLOOP_UNITYURP2022 1
       #define _MICROSPLATBASEMAP 1

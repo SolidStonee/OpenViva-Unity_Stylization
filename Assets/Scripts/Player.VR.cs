@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Management;
+using Viva.Util;
 
 
 namespace Viva
@@ -48,7 +49,7 @@ namespace Viva
         private void SetEnableVRControls(bool enable)
         {
             if (enable)
-            {                
+            {
                 if (XRGeneralSettings.Instance.Manager.activeLoader == null)
                 {
                     Debug.Log("#VR Enabled " + (XRGeneralSettings.Instance.Manager.activeLoader == null));

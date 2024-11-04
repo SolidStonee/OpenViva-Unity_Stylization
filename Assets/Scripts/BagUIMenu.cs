@@ -84,7 +84,7 @@ namespace Viva
                     //initialize render target
                     if (renderTexture == null)
                     {
-                        renderTexture = new RenderTexture(256, 256, 16, RenderTextureFormat.ARGB32);
+                        renderTexture = new RenderTexture(256, 256, 0, RenderTextureFormat.ARGB32);
                     }
                     category.RenderIcon(renderTexture);
                     yield return null;
@@ -93,7 +93,7 @@ namespace Viva
                 Image image = categoryRoot.GetComponent<Image>();
                 image.sprite = Sprite.Create(
                     category.icon,
-                    new Rect(0, 0, 256, 256),
+                    new Rect(0, 0, category.icon.width, category.icon.height),
                     new Vector2(0.5f, 0.5f),
                     1.0f, 0, SpriteMeshType.FullRect,
                     new Vector4(1, 1, 1, 1), false

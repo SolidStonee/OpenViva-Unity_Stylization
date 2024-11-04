@@ -69,7 +69,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: c3529c3fe97354f40bc55129b921a172, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -129,7 +129,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: 8a76dea7ba891eeaa90cc5dff74d6db8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9953bd413446c42dc853af3616602a52, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -206,7 +206,7 @@ Material:
     - _DirectionalLightIntensity: 0
     - _Dirt: 0
     - _DoubleSidedOutline: 1
-    - _DstBlend: 10
+    - _DstBlend: 0
     - _DynamicNoisyOutline: 0
     - _EnvironmentalLightingIntensity: 1
     - _FarDistanceMaxWidth: 10
@@ -220,7 +220,7 @@ Material:
     - _GlossTextureFollowObjectRotation: 0
     - _GlossTextureRotate: 0
     - _GlossTextureSoftness: 0
-    - _Glossiness: 0.675
+    - _Glossiness: 0.418
     - _GlossyReflections: 1
     - _Glow_Edge_Width: 1
     - _HighlightColorPower: 1
@@ -240,7 +240,7 @@ Material:
     - _Metallic: 0
     - _MinFadDistance: 0
     - _MixMainTexToOutline: 0
-    - _Mode: 3
+    - _Mode: 0
     - _N_F_CA: 0
     - _N_F_CLD: 0
     - _N_F_CO: 1
@@ -277,8 +277,8 @@ Material:
     - _OcclusionStrength: 1
     - _Opacity: 1
     - _Oper: 0
-    - _OutSizeMax: 0.0005
-    - _OutSizeMin: 0.000069
+    - _OutSizeMax: 0.001
+    - _OutSizeMin: 0.001
     - _OutlineExtrudeMethod: 0
     - _OutlineWidth: 0.5
     - _OutlineWidthAffectedByViewDistance: 0
@@ -347,9 +347,9 @@ Material:
     - _VertexColorBlueAffectOutlineWitdh: 0
     - _VertexColorGreenControlSelfShadowThreshold: 0
     - _VertexColorRedControlSmoothObjectNormal: 0
-    - _ZWrite: 0
+    - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0, g: 0.9150943, b: 0.2131147, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _CustomLightDirection: {r: 0, g: 0, b: 10, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FingerNailColor: {r: 1, g: 0.7647059, b: 0.7411765, a: 0}
@@ -357,7 +357,7 @@ Material:
     - _Glow_Color: {r: 1, g: 1, b: 1, a: 1}
     - _HighlightColor: {r: 1, g: 1, b: 1, a: 1}
     - _MainColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 0}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineOffset: {r: 0, g: 0, b: 0, a: 1}
     - _OverallShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _PTCol: {r: 0, g: 0, b: 0, a: 1}
@@ -367,7 +367,7 @@ Material:
     - _SelfLitColor: {r: 1, g: 1, b: 1, a: 1}
     - _SelfShadowRealTimeShadowColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShadowTColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SkinColor: {r: 1, g: 0.86, b: 0.82, a: 0}
+    - _SkinColor: {r: 1, g: 0.7728237, b: 0.7650111, a: 1}
     - _SpecColor: {r: 0.6415094, g: 0.6263795, b: 0.6263795, a: 1}
     - _ToeNailColor: {r: 1, g: 0.62352943, b: 0.5882353, a: 0}
     - _ToonProximityAmbience: {r: 1, g: 1, b: 1, a: 1}

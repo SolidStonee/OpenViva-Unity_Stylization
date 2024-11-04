@@ -158,7 +158,7 @@ namespace Viva
             }
             m_grainCount = Mathf.Min(m_grainCount + 1.0f, 3.0f);
             UpdateGrainBlendShapes();
-            SoundManager.main.RequestHandle(transform.localPosition, transform).PlayOneShot(grainPrepareClip);
+            SoundManager.main.RequestHandle(Vector3.zero, transform).PlayOneShot(grainPrepareClip);
             OnUpdateStatusBar();
             TutorialManager.main.DisplayObjectHint(this, "hint_mortarAndPestle");
         }

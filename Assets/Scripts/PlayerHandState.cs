@@ -88,7 +88,7 @@ namespace Viva
             }
             vivaControlsBinded = true;
 
-            Debug.Log("initializing " + rightSide);
+            //Debug.Log("initializing " + rightSide);
             
             if( rightSide ) {
                 vivaControls.VRRightHand.Position.performed += ctx => trackedPosition = ctx.ReadValue<Vector3>();
