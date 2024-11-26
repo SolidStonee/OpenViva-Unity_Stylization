@@ -26,9 +26,11 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - N_F_EAL_ON
+  - N_F_GLO_ON
   - N_F_O_ON
   - N_F_RDC_ON
   - N_F_RELGI_ON
+  - N_F_RL_ON
   - N_F_SS_ON
   - N_F_TRANSAFFSHA_ON
   m_InvalidKeywords:
@@ -210,15 +212,15 @@ Material:
     - _FarDistanceMaxWidth: 10
     - _GIFlatShade: 0
     - _GIShadeThreshold: 0
-    - _GlossColorPower: 10
-    - _GlossIntensity: 1
+    - _GlossColorPower: 1
+    - _GlossIntensity: 0.127
     - _GlossMapScale: 1
-    - _GlossSoftness: 0
+    - _GlossSoftness: 0.15
     - _GlossTextureFollowLight: 0
     - _GlossTextureFollowObjectRotation: 0
     - _GlossTextureRotate: 0
     - _GlossTextureSoftness: 0
-    - _Glossiness: 0.6
+    - _Glossiness: 0.538
     - _GlossyReflections: 1
     - _Glow_Edge_Width: 1
     - _HighlightColorPower: 1
@@ -249,7 +251,7 @@ Material:
     - _N_F_EAL: 1
     - _N_F_ESSAO: 0
     - _N_F_FR: 0
-    - _N_F_GLO: 0
+    - _N_F_GLO: 1
     - _N_F_GLOT: 0
     - _N_F_HDLS: 0
     - _N_F_HPSS: 0
@@ -263,7 +265,7 @@ Material:
     - _N_F_PT: 0
     - _N_F_R: 0
     - _N_F_RDC: 1
-    - _N_F_RL: 0
+    - _N_F_RL: 1
     - _N_F_SCT: 0
     - _N_F_SL: 0
     - _N_F_SON: 0
@@ -300,10 +302,10 @@ Material:
     - _ReflectionRoughtness: 0
     - _RimBias: 0
     - _RimBias2: 0.5
-    - _RimLigInt: 1
-    - _RimLightColorPower: 10
+    - _RimLigInt: 0.307
+    - _RimLightColorPower: 1
     - _RimLightInLight: 1
-    - _RimLightSoftness: 1
+    - _RimLightSoftness: 0.228
     - _RimLightUnfill: 1.5
     - _RimMult: 1
     - _SPECIN: 1

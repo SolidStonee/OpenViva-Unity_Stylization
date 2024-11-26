@@ -198,7 +198,8 @@ public class RealToonShaderGUI : ShaderGUI
     MaterialProperty _RefMetallic;
     MaterialProperty _MaskReflection;
     MaterialProperty _FReflection;
-    
+
+    MaterialProperty _RimLightInt;
     MaterialProperty _RimLightUnfill;
     MaterialProperty _RimLightColor;
     MaterialProperty _RimLightColorPower;
@@ -1078,6 +1079,7 @@ public class RealToonShaderGUI : ShaderGUI
         _MaskReflection = ShaderGUI.FindProperty("_MaskReflection", properties);
         _FReflection = ShaderGUI.FindProperty("_FReflection", properties);
            
+        _RimLightInt = ShaderGUI.FindProperty("_RimLigInt", properties);
         _RimLightUnfill = ShaderGUI.FindProperty("_RimLightUnfill", properties);
         _RimLightColor = ShaderGUI.FindProperty("_RimLightColor", properties);
         _RimLightColorPower = ShaderGUI.FindProperty("_RimLightColorPower", properties);
@@ -2050,6 +2052,7 @@ public class RealToonShaderGUI : ShaderGUI
 
                     GUILayout.Space(10);
 
+                    materialEditor.ShaderProperty(_RimLightInt, new GUIContent(_RimLightInt.displayName));
                     materialEditor.ShaderProperty(_RimLightUnfill, new GUIContent(_RimLightUnfill.displayName, TOTIPS[106]));
                     materialEditor.ShaderProperty(_RimLightSoftness, new GUIContent(_RimLightSoftness.displayName, TOTIPS[107]));
 

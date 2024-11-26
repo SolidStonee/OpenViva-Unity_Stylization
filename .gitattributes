@@ -50,3 +50,5 @@
 *.tiff filter=lfs diff=lfs merge=lfs -text
 Assets/3rd[[:space:]]Party/* filter=lfs diff=lfs merge=lfs -text
 Assets/3rd[[:space:]]Party/Chicken/* filter=lfs diff=lfs merge=lfs -text
+
+* text=auto

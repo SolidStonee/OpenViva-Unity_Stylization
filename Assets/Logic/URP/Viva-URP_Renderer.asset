@@ -126,7 +126,8 @@ MonoBehaviour:
   - {fileID: -3789186993131621832}
   - {fileID: 8140670815720994578}
   - {fileID: -6920937774642977300}
-  m_RendererFeatureMap: 62a95a7d5987dbf2fefddb19e9d38c99a738ea53ba60c3d0566ce2e5788af2c438f2db76811a6acb127770ccf978f970eca5d23dc3e3f39f
+  - {fileID: 1458269439893852966}
+  m_RendererFeatureMap: 62a95a7d5987dbf2fefddb19e9d38c99a738ea53ba60c3d0566ce2e5788af2c438f2db76811a6acb127770ccf978f970eca5d23dc3e3f39f2653ae4f54d03c14
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -169,6 +170,36 @@ MonoBehaviour:
   m_CopyDepthMode: 0
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 1
+--- !u!114 &1458269439893852966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ce450ebe29ad184f9d48a297753ae97, type: 3}
+  m_Name: DeNorSob Outline
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    OutlineWidth: 0.89
+    DepthThreshold: 1456.02
+    NormalThreshold: 0.69
+    NormalMin: 3.09
+    NormalMax: 3.61
+    SobelOutline: 1
+    SobelOutlineThreshold: 13.59
+    WhiteThreshold: 0.53
+    BlackThreshold: 0
+    OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    ColorIntensity: 1
+    MixFullScreenColor: 0
+    ShowOutlineOnly: 0
+    MixDephNormalAndSobelOutline: 0
+    WhenToInsert: 450
+    ShowInSceneView: 1
 --- !u!114 &8140670815720994578
 MonoBehaviour:
   m_ObjectHideFlags: 0

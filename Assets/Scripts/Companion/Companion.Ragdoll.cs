@@ -54,6 +54,13 @@ namespace Viva
         public Muscle rightArmMuscle { get { return puppetMaster.muscles[7]; } }
         public Muscle rightForearmMuscle { get { return puppetMaster.muscles[8]; } }
         public Muscle rightHandMuscle { get { return puppetMaster.muscles[9]; } }
+        public Muscle leftUpperLegMuscle { get { return puppetMaster.muscles[10]; } }
+        public Muscle leftLegMuscle { get { return puppetMaster.muscles[11]; } }
+        public Muscle leftFootMuscle { get { return puppetMaster.muscles[12]; } }
+        public Muscle rightUpperLegMuscle { get { return puppetMaster.muscles[13]; } }
+        public Muscle rightLegMuscle { get { return puppetMaster.muscles[14]; } }
+        public Muscle rightFootMuscle { get { return puppetMaster.muscles[15]; } }
+        
         private int standUpFrameWait = 0;
         public OnRagdollCallback onRagdollModeBegin = null;
         public float? groundHeight { get; private set; } = null;

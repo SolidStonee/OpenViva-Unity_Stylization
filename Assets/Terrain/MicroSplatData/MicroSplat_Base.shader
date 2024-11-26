@@ -11,7 +11,7 @@
 ////////////////////////////////////////
 
 
-Shader "Hidden/Terrain 0 0_Base-144379887"
+Shader "Hidden/Terrain 0 0_Base-1574176444"
 {
    Properties
    {
@@ -136,6 +136,8 @@ Shader "Hidden/Terrain 0 0_Base-144379887"
       #define _PERTEXHEIGHTOFFSET 1
       #define _PERTEXHEIGHTCONTRAST 1
       #define _PERTEXSATURATION 1
+      #define _PERTEXTINT 1
+      #define _PERTEXCOLORINTENSITY 1
       #define _PERTEXAOSTR 1
       #define _PERTEXNORMSTR 1
       #define _PERTEXSMOOTHSTR 1
@@ -4314,6 +4316,8 @@ float3 GetTessFactors ()
       #define _PERTEXHEIGHTOFFSET 1
       #define _PERTEXHEIGHTCONTRAST 1
       #define _PERTEXSATURATION 1
+      #define _PERTEXTINT 1
+      #define _PERTEXCOLORINTENSITY 1
       #define _PERTEXAOSTR 1
       #define _PERTEXNORMSTR 1
       #define _PERTEXSMOOTHSTR 1
@@ -8429,6 +8433,8 @@ float3 GetTessFactors ()
       #define _PERTEXHEIGHTOFFSET 1
       #define _PERTEXHEIGHTCONTRAST 1
       #define _PERTEXSATURATION 1
+      #define _PERTEXTINT 1
+      #define _PERTEXCOLORINTENSITY 1
       #define _PERTEXAOSTR 1
       #define _PERTEXNORMSTR 1
       #define _PERTEXSMOOTHSTR 1
@@ -12459,6 +12465,8 @@ float3 GetTessFactors ()
       #define _PERTEXHEIGHTOFFSET 1
       #define _PERTEXHEIGHTCONTRAST 1
       #define _PERTEXSATURATION 1
+      #define _PERTEXTINT 1
+      #define _PERTEXCOLORINTENSITY 1
       #define _PERTEXAOSTR 1
       #define _PERTEXNORMSTR 1
       #define _PERTEXSMOOTHSTR 1
@@ -16485,6 +16493,8 @@ float3 GetTessFactors ()
       #define _PERTEXHEIGHTOFFSET 1
       #define _PERTEXHEIGHTCONTRAST 1
       #define _PERTEXSATURATION 1
+      #define _PERTEXTINT 1
+      #define _PERTEXCOLORINTENSITY 1
       #define _PERTEXAOSTR 1
       #define _PERTEXNORMSTR 1
       #define _PERTEXSMOOTHSTR 1
@@ -20515,6 +20525,8 @@ float3 GetTessFactors ()
       #define _PERTEXHEIGHTOFFSET 1
       #define _PERTEXHEIGHTCONTRAST 1
       #define _PERTEXSATURATION 1
+      #define _PERTEXTINT 1
+      #define _PERTEXCOLORINTENSITY 1
       #define _PERTEXAOSTR 1
       #define _PERTEXNORMSTR 1
       #define _PERTEXSMOOTHSTR 1

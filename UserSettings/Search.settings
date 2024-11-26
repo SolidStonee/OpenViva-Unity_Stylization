@@ -43,7 +43,7 @@ scopes = {
 	"last_search.C8308F20" = "b608e30e-184b-46fc-b47e-e139e70b3a9a"
 	"OpenInspectorPreview.C8308F20" = "0"
 	"currentGroup.C8308F20" = "scene"
-	"last_search.FD7A1EDD" = "ref=\"Assets/Models/water_reed.fbx\""
+	"last_search.FD7A1EDD" = "ref=\"Assets/Materials/Models/props/waterInCup.mat\""
 	"OpenInspectorPreview.FD7A1EDD" = "0"
 	"currentGroup.FD7A1EDD" = "all"
 }

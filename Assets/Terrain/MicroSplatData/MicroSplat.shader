@@ -136,6 +136,8 @@ Shader "Terrain 0 0"
       #define _PERTEXHEIGHTOFFSET 1
       #define _PERTEXHEIGHTCONTRAST 1
       #define _PERTEXSATURATION 1
+      #define _PERTEXTINT 1
+      #define _PERTEXCOLORINTENSITY 1
       #define _PERTEXAOSTR 1
       #define _PERTEXNORMSTR 1
       #define _PERTEXSMOOTHSTR 1
@@ -4313,6 +4315,8 @@ float3 GetTessFactors ()
       #define _PERTEXHEIGHTOFFSET 1
       #define _PERTEXHEIGHTCONTRAST 1
       #define _PERTEXSATURATION 1
+      #define _PERTEXTINT 1
+      #define _PERTEXCOLORINTENSITY 1
       #define _PERTEXAOSTR 1
       #define _PERTEXNORMSTR 1
       #define _PERTEXSMOOTHSTR 1
@@ -8427,6 +8431,8 @@ float3 GetTessFactors ()
       #define _PERTEXHEIGHTOFFSET 1
       #define _PERTEXHEIGHTCONTRAST 1
       #define _PERTEXSATURATION 1
+      #define _PERTEXTINT 1
+      #define _PERTEXCOLORINTENSITY 1
       #define _PERTEXAOSTR 1
       #define _PERTEXNORMSTR 1
       #define _PERTEXSMOOTHSTR 1
@@ -12456,6 +12462,8 @@ float3 GetTessFactors ()
       #define _PERTEXHEIGHTOFFSET 1
       #define _PERTEXHEIGHTCONTRAST 1
       #define _PERTEXSATURATION 1
+      #define _PERTEXTINT 1
+      #define _PERTEXCOLORINTENSITY 1
       #define _PERTEXAOSTR 1
       #define _PERTEXNORMSTR 1
       #define _PERTEXSMOOTHSTR 1
@@ -16481,6 +16489,8 @@ float3 GetTessFactors ()
       #define _PERTEXHEIGHTOFFSET 1
       #define _PERTEXHEIGHTCONTRAST 1
       #define _PERTEXSATURATION 1
+      #define _PERTEXTINT 1
+      #define _PERTEXCOLORINTENSITY 1
       #define _PERTEXAOSTR 1
       #define _PERTEXNORMSTR 1
       #define _PERTEXSMOOTHSTR 1
@@ -20510,6 +20520,8 @@ float3 GetTessFactors ()
       #define _PERTEXHEIGHTOFFSET 1
       #define _PERTEXHEIGHTCONTRAST 1
       #define _PERTEXSATURATION 1
+      #define _PERTEXTINT 1
+      #define _PERTEXCOLORINTENSITY 1
       #define _PERTEXAOSTR 1
       #define _PERTEXNORMSTR 1
       #define _PERTEXSMOOTHSTR 1
@@ -24554,7 +24566,7 @@ float3 GetTessFactors ()
 
         UsePass "Hidden/Nature/Terrain/Utilities/PICKING"
    }
-   Dependency "BaseMapShader" =  "Hidden/Terrain 0 0_Base-144379887"
-   Fallback "Hidden/Terrain 0 0_Base-144379887"
+   Dependency "BaseMapShader" =  "Hidden/Terrain 0 0_Base-1574176444"
+   Fallback "Hidden/Terrain 0 0_Base-1574176444"
    CustomEditor "MicroSplatShaderGUI"
 }

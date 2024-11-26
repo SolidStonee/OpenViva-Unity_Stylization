@@ -142,6 +142,8 @@ ZWrite Off
       #define _PERTEXHEIGHTOFFSET 1
       #define _PERTEXHEIGHTCONTRAST 1
       #define _PERTEXSATURATION 1
+      #define _PERTEXTINT 1
+      #define _PERTEXCOLORINTENSITY 1
       #define _PERTEXAOSTR 1
       #define _PERTEXNORMSTR 1
       #define _PERTEXSMOOTHSTR 1
@@ -4467,6 +4469,8 @@ float3 GetTessFactors ()
       #define _PERTEXHEIGHTOFFSET 1
       #define _PERTEXHEIGHTCONTRAST 1
       #define _PERTEXSATURATION 1
+      #define _PERTEXTINT 1
+      #define _PERTEXCOLORINTENSITY 1
       #define _PERTEXAOSTR 1
       #define _PERTEXNORMSTR 1
       #define _PERTEXSMOOTHSTR 1
@@ -8662,6 +8666,8 @@ float3 GetTessFactors ()
       #define _PERTEXHEIGHTOFFSET 1
       #define _PERTEXHEIGHTCONTRAST 1
       #define _PERTEXSATURATION 1
+      #define _PERTEXTINT 1
+      #define _PERTEXCOLORINTENSITY 1
       #define _PERTEXAOSTR 1
       #define _PERTEXNORMSTR 1
       #define _PERTEXSMOOTHSTR 1

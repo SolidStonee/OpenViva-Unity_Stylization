@@ -86,24 +86,21 @@ namespace Viva
                 {
 
                     Vector3 targetFaceYawDir = Vector3.Cross((GameDirector.player.transform.position - self.floorPos).normalized, Vector3.up);
-                    self.autonomy.Interrupt(new AutonomyFaceDirection(self.autonomy, "face direction", delegate (TaskTarget target)
-                    {
-                        target.SetTargetPosition(self.floorPos - targetFaceYawDir * matchWalkSide * matchWalkEase.value);
-                    }, 2.0f));
+                    self.SetFacingRootTarget(self.floorPos - targetFaceYawDir * matchWalkSide * matchWalkEase.value, 2.0f);
                     //self.SetRootFacingTarget( self.floorPos-targetFaceYawDir*matchWalkSide*matchWalkEase.value, 260.0f, 20.0f, 45.0f );
                 }
 
                 //pull Shinobu towards the GameDirector.player's side ortho angle
-                //if( matchWalkEase.value != 0.0f ){
-                //currentOrthoDirDeg = Mathf.MoveTowardsAngle( currentOrthoDirDeg, UpdateTargetMatchWalkOrthoDeg(), 120.0f*Time.deltaTime );
+                if( matchWalkEase.value != 0.0f ){
+                currentOrthoDirDeg = Mathf.MoveTowardsAngle( currentOrthoDirDeg, UpdateTargetMatchWalkOrthoDeg(), 120.0f*Time.deltaTime );
 
-                //Vector3 orthoDir = new Vector3( Mathf.Cos( currentOrthoDirDeg*Mathf.Deg2Rad ), 0.0f, Mathf.Sin( currentOrthoDirDeg*Mathf.Deg2Rad ) );
-                //Vector3 matchWalkTargetPos = hhInfo.sourcePullBody.transform.position;
-                //matchWalkTargetPos.y = GameDirector.player.floorPos.y;
-                //matchWalkTargetPos -= orthoDir*0.5f;
-                //Vector3 targetVel = ( matchWalkTargetPos-self.floorPos )+GameDirector.player.rigidBody.velocity;
-                //self.rigidBody.velocity = Vector3.LerpUnclamped( self.rigidBody.velocity, targetVel, matchWalkEase.value*0.4f );
-                //}
+                Vector3 orthoDir = new Vector3( Mathf.Cos( currentOrthoDirDeg*Mathf.Deg2Rad ), 0.0f, Mathf.Sin( currentOrthoDirDeg*Mathf.Deg2Rad ) );
+                Vector3 matchWalkTargetPos = sourceHandState.transform.position;
+                matchWalkTargetPos.y = GameDirector.player.floorPos.y;
+                matchWalkTargetPos -= orthoDir*0.5f;
+                Vector3 targetVel = ( matchWalkTargetPos-self.floorPos )+GameDirector.player.rigidBody.velocity;
+                self.spine1RigidBody.velocity = Vector3.LerpUnclamped( self.spine1RigidBody.velocity, targetVel, matchWalkEase.value*0.4f );
+                }
             }
             CheckHandHoldIntegrity(targetHandState, sourceHandState);
         }
@@ -194,6 +191,16 @@ namespace Viva
             matchWalkEase.Update(Time.deltaTime);
         }
 
+        private void SetLegWeights(float weight)
+        {
+            self.leftUpperLegMuscle.props.pinWeight = weight;
+            self.leftLegMuscle.props.pinWeight = weight;
+            self.leftFootMuscle.props.pinWeight = weight;
+            self.rightUpperLegMuscle.props.pinWeight = weight;
+            self.rightLegMuscle.props.pinWeight = weight;
+            self.rightFootMuscle.props.pinWeight = weight;
+        }
+
         private void LateUpdatePostIKNonMatchWalkHandold(CompanionHandState targetHandState, HandState sourceHandState)
         {
             float speed = self.animator.GetFloat(WorldUtil.speedID);
@@ -213,10 +220,11 @@ namespace Viva
                         targetFaceYawPos -= Vector3.Cross(Vector3.up, self.rightHandState.selfItem.transform.position - self.leftHandState.selfItem.transform.position);
                         if (self.bodyState == BodyState.STAND)
                         {
-                            self.autonomy.Interrupt(new AutonomyFaceDirection(self.autonomy, "face direction", delegate (TaskTarget target)
-                            {
-                                target.SetTargetPosition(targetFaceYawPos);
-                            }, 4.0f));
+                            // self.autonomy.Interrupt(new AutonomyFaceDirection(self.autonomy, "face direction", delegate (TaskTarget target)
+                            // {
+                            //     target.SetTargetPosition(targetFaceYawPos);
+                            // }, 4.0f));
+                            self.SetFacingRootTarget(targetFaceYawPos, 4.0f);
                             // self.SetRootFacingTarget( targetFaceYawPos, 260.0f, 40.0f, 25.0f );
                         }
                         if (Time.time % 1.0f > 0.8f)
@@ -231,10 +239,7 @@ namespace Viva
                     {
                         if (self.bodyState == BodyState.STAND)
                         {
-                            self.autonomy.Interrupt(new AutonomyFaceDirection(self.autonomy, "face direction", delegate (TaskTarget target)
-                            {
-                                target.SetTargetPosition(sourceHandState.selfItem.rigidBody.position);
-                            }, 4.0f));
+                            self.SetFacingRootTarget(sourceHandState.selfItem.rigidBody.position, 4.0f);
                         }
                         // self.SetRootFacingTarget( sourceHandState.selfItem.rigidBody.position, 260.0f, 40.0f, 25.0f );
                         if (Time.time % 1.0f > 0.8f)
@@ -326,6 +331,8 @@ namespace Viva
                 self.SetTargetAnimation(Companion.Animation.STAND_HANDHOLD_HAPPY_EMBARRASSED_LEFT);
                 leftLimbGrabs++;
             }
+
+            SetLegWeights(1f);
             slowHandholdTimer = 0.0f;
 
             self.locomotion.StopMoveTo();
@@ -350,7 +357,7 @@ namespace Viva
 
             if (rightLimbGrabs == 0 && leftLimbGrabs == 0)
             {
-
+                SetLegWeights(0f);
                 slowHandholdTimer = 0.0f;
                 matchWalkEase.reset(0.0f);
                 if (self.hasBalance)

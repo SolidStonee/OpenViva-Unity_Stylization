@@ -111,7 +111,7 @@ namespace RootMotion.Dynamics
             [Range(0f, 1f)]
             [SerializeField]
             private float m_pinWeight = 1f;
-            public float pinWeight { get{ return m_pinWeight; } private set{ m_pinWeight = value; } }
+            public float pinWeight { get{ return m_pinWeight; } set{ m_pinWeight = value; } }
 
             [Tooltip("The muscle strength (multiplier).")]
             /// <summary>
@@ -120,7 +120,7 @@ namespace RootMotion.Dynamics
             [Range(0f, 1f)]
             [SerializeField]
             private float m_muscleWeight = 1f;
-            public float muscleWeight { get{ return m_muscleWeight; } private set{ m_muscleWeight = value; } }
+            public float muscleWeight { get{ return m_muscleWeight; } set{ m_muscleWeight = value; } }
 
             [Tooltip("Multiplier of the positionDamper of the ConfigurableJoints' Slerp Drive.")]
             /// <summary>

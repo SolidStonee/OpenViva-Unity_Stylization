@@ -79,11 +79,11 @@ namespace Viva
                 SetEnableCursor(true);
                 m_controlsAllowed = ControlsAllowed.NONE;
                 
-                if (lastMenu.KeyboardModeBringsHandDown())
-                {
-                    sourcePlayer.rightPlayerHandState.animSys.SetTargetAndIdleOverrideAnimation(Player.Animation.KEYBOARD_HANDS_DOWN);
-                    sourcePlayer.leftPlayerHandState.animSys.SetTargetAndIdleOverrideAnimation(Player.Animation.KEYBOARD_HANDS_DOWN);
-                }
+                // if (lastMenu.KeyboardModeBringsHandDown())
+                // {
+                //     sourcePlayer.rightPlayerHandState.animSys.SetTargetAndIdleOverrideAnimation(Player.Animation.KEYBOARD_HANDS_DOWN);
+                //     sourcePlayer.leftPlayerHandState.animSys.SetTargetAndIdleOverrideAnimation(Player.Animation.KEYBOARD_HANDS_DOWN);
+                // }
 
                 raycastLaserMF.gameObject.SetActive(false);
             }

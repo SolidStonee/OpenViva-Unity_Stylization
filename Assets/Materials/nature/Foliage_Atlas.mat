@@ -268,7 +268,7 @@ Material:
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _TerrainPosition: {r: 0, g: 0, b: 0, a: 0}
     - _TerrainSize: {r: 0, g: 0, b: 0, a: 0}
-    - _Tint: {r: 0.78370345, g: 1, b: 0.6084906, a: 1}
+    - _Tint: {r: 0.71789104, g: 0.83137256, b: 0.5058824, a: 1}
     - _TranslucencyColor: {r: 0.73, g: 0.85, b: 0.40999997, a: 1}
     - _TreeInstanceColor: {r: 1, g: 1, b: 1, a: 1}
     - _TreeInstanceScale: {r: 1, g: 1, b: 1, a: 1}

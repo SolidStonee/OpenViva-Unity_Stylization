@@ -83,10 +83,10 @@
 				//clip height
 				fixed inside = step(0.,i.localVertex.y)*step( i.localVertex.y, _MaxHeight );
 				//clip radius
-				inside *= step( i.localVertex.x*i.localVertex.x+i.localVertex.z*i.localVertex.z, i.maxRadius );
-				if( inside < 0.5 ){
-					discard;
-				}
+				// inside *= step( i.localVertex.x*i.localVertex.x+i.localVertex.z*i.localVertex.z, i.maxRadius );
+				// if( inside < 0.5 ){
+				// 	discard;
+				// }
 				return col;
 			}
 			ENDCG
